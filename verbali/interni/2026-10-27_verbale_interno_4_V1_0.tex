@@ -1,0 +1,300 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Formattazione titoli sezioni
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice cliccabile con puntini/trattini
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+% Intestazioni e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Verbale Interno del 27/10/2026}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+% Colorazione alternata per le tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{42mm}
+{\fontsize{24}{28}\selectfont\bfseries Verbale Interno\par}
+\vspace{4mm}
+{\Large\color{bfblue} Riunione del 27/10/2026\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Aldo Toffoli \\
+\textbf{Scriba / Redattore} & Aldo Toffoli \\
+\textbf{Moderatore} & Filippo Rampazzo \\
+\textbf{Verificatore} &  \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 1.0 \\
+\textbf{Tipo} & Verbale Interno \\
+\textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Sintesi e decisioni operative emerse durante la riunione interna del team del giorno 27/10/2026, riguardante la gestione e l'invio dei verbali esterni alle aziende proponenti, la revisione del documento di Valutazione dei Capitolati e il confronto per la scelta definitiva del capitolato.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle versioni ----------
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=0.80\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.65\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Descrizione}} \\
+1.0 & 27/10/2026 & Aldo Toffoli & Creazione e redazione iniziale del documento \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Informazioni generali ----------
+\hypertarget{informazioni-generali}{%
+\section{Informazioni generali}}
+
+\hypertarget{durata-e-luogo}{%
+\subsection{Durata e luogo}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data:} 2026-10-27
+\item \textbf{Inizio:} 15:00
+\item \textbf{Fine:} 19:15
+\item \textbf{Luogo / Modalità:} Virtuale, tramite Discord
+\end{itemize}
+
+\hypertarget{partecipanti}{%
+\subsection{Partecipanti}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}p{2.2cm}>{\centering\arraybackslash}p{2.2cm}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nome e Cognome}} & \textcolor{white}{\textbf{Ruolo Progetto}} & \textcolor{white}{\textbf{Presente}} & \textcolor{white}{\textbf{Assente}} \\
+Marco Beltrame & Partecipante & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & Verificatore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & Moderatore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & Partecipante & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Scriba / Redattore& $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & Responsabile & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Partecipante & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+
+
+% ---------- Ordine del giorno ----------
+\hypertarget{ordine-del-giorno}{%
+\section{Ordine del giorno}}
+
+\begin{enumerate}
+\tightlist
+\item Gestione delle firme grafiche su Overleaf e stato di invio dei verbali esterni (Vimar, Ergon, Uranion)
+\item Completamento e revisione del documento di \emph{Valutazione dei Capitolati}
+\item Analisi delle correzioni ricevute da Vimar sul verbale esterno
+\item Discussione sulla scelta del capitolato primario (confronto tra C1 Vimar, C3 Fossdot/Uranion e C7 Ergon) e pianificazione dei preventivi
+\item Varie ed eventuali
+\end{enumerate}
+
+% ---------- Discussione e decisioni ----------
+\hypertarget{discussione-e-decisioni}{%
+\section{Discussione e decisioni}}
+
+\hypertarget{argomento-1}{%
+\subsection{Gestione firme nei verbali e invio verbali esterni}}
+
+\textbf{Discussione:} \\
+Il gruppo ha verificato lo stato di avanzamento e revisione dei verbali precedenti (tra cui il verbale interno del 23/10/2026) e dei verbali esterni relativi ai colloqui sostenuti con le aziende proponenti. Si è discusso delle modalità di apposizione delle firme nei template \LaTeX{} su Overleaf (utilizzando l'account condiviso \emph{Bending Forks}), concordando sull'inserimento delle firme dei membri in formato immagine (\texttt{.png}) per una resa più curata. Contestualmente, è stato fatto il punto sull'invio via email dei verbali esterni già verificati a Vimar, Ergon e Uranion.
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-4-01]} Adottare l'inserimento delle firme grafiche in formato \texttt{.png} all'interno dei verbali su Overleaf e procedere all'invio immediato alle aziende proponenti (Vimar, Ergon e Uranion) dei verbali esterni verificati.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Garantire uniformità stilistica e maggiore professionalità nella documentazione ufficiale del gruppo, accelerando al contempo l'iter di validazione e firma da parte dei referenti aziendali in vista della consegna.
+
+\textbf{Responsabile attuazione:} Aldo Toffoli, Filippo Rampazzo \\
+\textbf{Scadenza:} 2026-10-27
+
+\hypertarget{argomento-2}{%
+\subsection{Completamento della Valutazione dei Capitolati}}
+
+\textbf{Discussione:} \\
+Il team ha lavorato congiuntamente alla stesura e alla revisione del documento di \emph{Valutazione dei Capitolati}. È stato riletto il testo relativo a Vimar, valutando di ampliarne l'introduzione, ed è stata redatta collettivamente la conclusione dell'analisi per il capitolato C3 (\emph{Fossdot} di Uranion). È stato inoltre fatto il punto sulle sezioni rimanenti (tra cui il capitolato C2 in carico a Luca Stangherlin, C6/RareCard e la revisione finale del C8) per ultimare il trasferimento completo dei testi in \LaTeX{}.
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-4-02]} Approvare la conclusione redatta in seduta per il capitolato C3 (\emph{Fossdot}), C1 (VIMAR) e C5(RareCare), infine completare la stesura e la revisione delle sezioni mancanti del documento di \emph{Valutazione dei Capitolati} entro la mattinata successiva.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Concludere la stesura analitica di tutti i capitolati per disporre di un documento completo e coerente prima della redazione della lettera di presentazione e dei preventivi.
+
+\textbf{Responsabile attuazione:} Aldo Toffoli, Luca Stangherlin, Lorenzo Milanese \\
+\textbf{Scadenza:} 2026-10-28
+
+\hypertarget{argomento-3}{%
+\subsection{Analisi del feedback di Vimar sul verbale esterno}}
+
+\textbf{Discussione:} \\
+Nel corso della riunione è pervenuta la risposta via email del referente di Vimar (Mariano Sciacco) contenente il verbale esterno revisionato con diverse annotazioni. Le modifiche richieste riguardano l'inserimento nell'ordine del giorno dell'agenda stabilita via email, precisazioni terminologiche sugli strumenti CLI (\emph{Claude Code via CLI} e \emph{OpenAI Codex CLI}), chiarimenti sul controllo puntuale dei dispositivi tramite API, sulla containerizzazione tramite Docker in locale per il collaudo, sul supporto per la configurazione su AWS/server dedicato, oltre a correzioni formali di punteggiatura e alla rimozione del campo firma aziendale nella prima pagina.
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-4-03]} Recepire integralmente tutte le correzioni e le osservazioni indicate dal referente di Vimar nel verbale esterno, sottoporre il documento aggiornato a nuova verifica interna e rinviarlo all'azienda per la firma definitiva.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Allineare fedelmente il verbale esterno alle indicazioni dell'azienda proponente per ottenere la validazione formale e la firma del documento.
+
+\textbf{Responsabile attuazione:} Lorenzo Milanese, Luca Stangherlin, Filippo Rampazzo \\
+\textbf{Scadenza:} 2026-10-28
+
+\hypertarget{argomento-4}{%
+\subsection{Confronto per la scelta del capitolato e pianificazione preventivi}}
+
+\textbf{Discussione:} \\
+Il gruppo ha affrontato un'ampia discussione per stabilire la prima scelta tra il capitolato C1 (Vimar) e il capitolato C3 (\emph{Fossdot} di Uranion), mantenendo il capitolato C7 (\emph{Smart Dashboard} di Ergon) come terza opzione. A favore di C1 (Vimar) sono stati evidenziati il perimetro tecnico più circoscritto (sviluppo di un server MCP e integrazione con API KNX senza complessità hardware/firmware), la presenza di linee guida strutturate e una maggiore compatibilità con le tempistiche e con il carico della sessione invernale di esami. A favore di C3 (\emph{Fossdot}) sono stati sottolineati il forte interesse tecnico e formativo del progetto open source (che include anche sviluppo firmware in Rust), la maggiore libertà progettuale e l'approccio collaborativo mostrato da Uranion. È stato inoltre chiarito che in fase di candidatura andrà presentato il preventivo per un solo capitolato. Essendo emersa una situazione di parità nel sondaggio interno, il team ha deciso di attendere il voto di tutti i membri e il riscontro di Uranion sul verbale esterno prima di ufficializzare la scelta nella riunione dell'indomani.
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-4-04]} Avviare una votazione interna su Telegram tra tutti i sette membri del gruppo e deliberare in via definitiva il capitolato scelto nella riunione del 28/10/2026 alle ore 15:00, procedendo contestualmente alla stesura del relativo preventivo e della lettera di presentazione.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Consentire a tutti i componenti di ponderare il rapporto tra complessità tecnica, vincoli temporali dovuti alla sessione d'esami e modalità di interazione con le aziende proponenti, giungendo a una decisione condivisa a maggioranza.
+
+\textbf{Responsabile attuazione:} Tutti i componenti del gruppo \\
+\textbf{Scadenza:} 2026-10-28
+
+\hypertarget{varie-ed-eventuali}{%
+\subsection{Varie ed eventuali}}
+È stato ricordato di prestare particolare attenzione alla corretta configurazione della repository GitHub e del sistema di tracciamento delle issue prima della consegna ufficiale della documentazione ai docenti.
+
+% ---------- Azioni da intraprendere (TODO) ----------
+\hypertarget{azioni-da-intraprendere}{%
+\section{Azioni da intraprendere (TODO)}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=1.70\hsize\raggedright\arraybackslash}X>{\hsize=0.85\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\centering\arraybackslash}X>{\hsize=0.60\hsize\centering\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Responsabile}} & \textcolor{white}{\textbf{Scadenza}} & \textcolor{white}{\textbf{Priorità}} \\
+VI-4-01 & Correzione del verbale esterno Vimar secondo le note di Mariano Sciacco & Lorenzo Milanese & 2026-10-28 & Alta \\ \arrayrulecolor{bfline}\hline
+VI-4-02 & Verifica del verbale esterno Vimar corretto e rinvio via email all'azienda & Luca Stangherlin, Filippo Rampazzo & 2026-10-28 & Alta \\ \arrayrulecolor{bfline}\hline
+VI-4-03 & Completamento sezione C2 e revisione finale del documento \emph{Valutazione dei Capitolati} (incluso C8) & Luca Stangherlin, Lorenzo Milanese, Aldo Toffoli & 2026-10-28 & Alta \\ \arrayrulecolor{bfline}\hline
+VI-4-04 & Espressione del voto sul sondaggio Telegram per la scelta definitiva tra C1 (Vimar) e C3 (Fossdot) & Tutti i membri & 2026-10-28 & Alta \\ \arrayrulecolor{bfline}\hline
+VI-4-05 & Redazione del preventivo e della lettera di presentazione per la candidatura & Tutti i membri & 2026-10-28 & Media \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Tracciamento decisioni per Changelog ----------
+\hypertarget{tracciamento-decisioni}{%
+\section{Tracciamento decisioni per Changelog}}
+
+Collegamento esplicito tra le decisioni assunte nella riunione e le modifiche da apportare alla documentazione di progetto:
+
+\begin{itemize}
+\tightlist
+\item \textbf{Decisione VI-4-01} $\rightarrow$ Aggiornamento template dei verbali su Overleaf con inserimento delle firme grafiche in formato \texttt{.png} e invio dei verbali esterni di Ergon e Uranion.
+\item \textbf{Decisione VI-4-02} $\rightarrow$ Aggiornamento documento \emph{Valutazione dei Capitolati}, inserimento conclusioni capitolato C3 (\emph{Fossdot}), stesura C2 e revisione C8.
+\item \textbf{Decisione VI-4-03} $\rightarrow$ Revisione e aggiornamento del \emph{Verbale Esterno Vimar} in recepimento delle correzioni richieste dal referente aziendale.
+\item \textbf{Decisione VI-4-04} $\rightarrow$ Predisposizione della \emph{Lettera di Presentazione} e del \emph{Preventivo} relativi al capitolato selezionato per la candidatura entro il 30/10/2026.
+\end{itemize}
+
+% ---------- Prossima riunione ----------
+\hypertarget{prossima-riunione}{%
+\section{Pianificazione prossima riunione}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data proposta:} 2026-10-28
+\item \textbf{Ora prevista:} 15:00
+\item \textbf{Luogo / Canale:} Canale Discord
+\item \textbf{OdG preliminare:} Esito del sondaggio interno e scelta definitiva del capitolato, revisione finale della \emph{Valutazione dei Capitolati}, stesura del preventivo e redazione della lettera di presentazione.
+\end{itemize}
+
+\vspace{35pt}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\textbf{Firma Scriba:}\\[18pt]
+\rule{55mm}{0.5pt}\\[2pt]
+\small Luca Stangherlin
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\begin{flushright}
+\textbf{Firma Moderatore:}\\[18pt]
+\rule{55mm}{0.5pt}\\[2pt]
+\small Filippo Rampazzo
+\end{flushright}
+\end{minipage}
+
+\end{document}

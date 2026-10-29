@@ -1,0 +1,303 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Formattazione titoli sezioni
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice cliccabile con puntini/trattini
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+% Intestazioni e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Verbale Interno N. 3}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+% Colorazione alternata per le tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{42mm}
+{\fontsize{24}{28}\selectfont\bfseries Verbale Interno N. 3\par}
+\vspace{4mm}
+{\Large\color{bfblue} Riunione del 23/10/2026\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Filippo Rampazzo \\
+\textbf{Scriba / Redattore} & Aldo Toffoli \\
+\textbf{Moderatore} & Filippo Rampazzo \\
+\textbf{Verificatore} & - \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 1.0.0 \\
+\textbf{Tipo} & Verbale Interno \\
+\textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Sintesi e decisioni operative emerse durante la riunione interna del team del giorno 23/10/2026, riguardante la definizione dell'iter per la candidatura, la suddivisione della stesura dei verbali, le modalità collaborative e la preparazione della presentazione. Condivisone e confronto post incontri con le aziende. \end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle versioni ----------
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.00\hsize\raggedright\arraybackslash}X>{\hsize=1.70\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Verificatore}} & \textcolor{white}{\textbf{Descrizione}} \\
+1.0.0 & 23/10/2026 & Aldo Toffoli & - & Redazione iniziale del verbale interno \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Informazioni generali ----------
+\hypertarget{informazioni-generali}{%
+\section{Informazioni generali}}
+
+\hypertarget{durata-e-luogo}{%
+\subsection{Durata e luogo}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data:} 2026-10-23
+\item \textbf{Inizio:} 16:30
+\item \textbf{Fine:} 18:00
+\item \textbf{Luogo / Modalità:} Modalità remota, canale vocale Discord
+\end{itemize}
+
+\hypertarget{partecipanti}{%
+\subsection{Partecipanti}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=1.2\hsize\raggedright\arraybackslash}X>{\hsize=1.0\hsize\centering\arraybackslash}X>{\hsize=1.0\hsize\centering\arraybackslash}X>{\hsize=0.8\hsize\centering\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nome e Cognome}} & \textcolor{white}{\textbf{Ruolo Progetto}} & \textcolor{white}{\textbf{Ruolo Riunione}} & \textcolor{white}{\textbf{Presenza}} \\
+Marco Beltrame & Analista & Partecipante & $\blacksquare$ Presente \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & Verificatore & Partecipante & $\blacksquare$ Presente \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & Responsabile & Moderatore & $\blacksquare$ Presente \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & Analista & Partecipante & $\blacksquare$ Presente \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Amministratore & Partecipante & $\blacksquare$ Presente \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & Progettista & Partecipante & $\blacksquare$ Presente \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Programmatore & Scriba & $\blacksquare$ Presente \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\textbf{Assenti giustificati:}
+\begin{itemize}
+\tightlist
+\item Nessuno
+\end{itemize}
+
+% ---------- Ordine del giorno ----------
+\hypertarget{ordine-del-giorno}{%
+\section{Ordine del giorno}}
+
+\begin{enumerate}
+\tightlist
+\item Chiarimento e identificazione dei documenti necessari per la consegna della candidatura del 30 ottobre.
+\item Creazione della repository GitHub e gestione operativa della collaborazione tra Overleaf e GitHub.
+\item Ripartizione dei compiti per la redazione dei verbali interni ed esterni pregressi.
+\item Organizzazione per la stesura del \emph{Diario di Bordo} e individuazione dello speaker per la presentazione di lunedì.
+/item Problematiche riguardo la durata e la gestione degli incontri interni del team.
+\item Definizione iniziale del \emph{Way of Working} e pianificazione dei prossimi incontri.
+\end{enumerate}
+
+% ---------- Discussione e decisioni ----------
+\hypertarget{discussione-e-decisioni}{%
+\section{Discussione e decisioni}}
+
+\hypertarget{argomento-1}{%
+\subsection{Documenti richiesti per la candidatura del 30 ottobre}}
+
+\textbf{Discussione:} \\
+Il team ha analizzato il regolamento didattico per stabilire con precisione l'iter da seguire per la candidatura. È emerso che i documenti formali da consegnare per la candidatura sono tre: la valutazione comparativa di tutti i capitolati d'appalto (comprensiva dell'analisi di fattibilità con pregi, difetti e sintesi per ciascuna proposta), la lettera di candidatura ufficiale indirizzata con la scelta primaria del capitolato, e la dichiarazione degli impegni (preventivo economico, ripartizione oraria e data di consegna prevista).
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-03-01]} Il team redigerà i tre documenti ufficiali per la candidatura: Valutazione dei Capitolati, Lettera di Candidatura e Dichiarazione degli Impegni.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+La documentazione prodotta rispetta i requisiti di gara del bando e ricalca le best practice.
+
+\textbf{Responsabile attuazione:} Lorenzo Milanese \\
+\textbf{Scadenza:} 2026-10-28
+
+\hypertarget{argomento-2}{%
+\subsection{Ambiente di lavoro collaborativo (\LaTeX, Overleaf e GitHub)}}
+
+\textbf{Discussione:} \\
+È stata riscontrata una limitazione sull'account gratuito di Overleaf, che consente la modifica contemporanea a un numero ristretto di utenti. Il gruppo ha concordato che le bozze e i template verranno predisposti su Overleaf tramite l'account condiviso di gruppo o lavorando in locale, mentre il repository GitHub ufficiale rimarrà la sorgente autoritativa (Single Source of Truth) dove versionare tutti i sorgenti \LaTeX\ e tracciare le attività tramite issue.
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-03-02]} Adozione di GitHub per il tracciamento e il versionamento finale di tutti i sorgenti \LaTeX, gestendo i permessi di scrittura e associando le modifiche ad apposite issue di avanzamento. Overleaf resta strumento di redazione preliminare.
+\end{itemize}
+
+
+\textbf{Responsabile attuazione:} Filippo Rampazzo \\
+\textbf{Scadenza:} 2026-10-25
+
+\hypertarget{argomento-3}{%
+\subsection{Assegnazione redazione e revisione dei verbali}}
+
+\textbf{Discussione:} \\
+Il gruppo ha stabilito di regolarizzare i verbali degli incontri finora sostenuti, distinguendo tra incontri interni e incontri esterni con i proponenti. Per i verbali esterni, Lorenzo curerà il verbale relativo all'incontro con Ergon, mentre Nicholas redigerà quello relativo a Vimar. Per i verbali interni, Matteo e Aldo si occuperanno della stesura dei primi verbali (costituzione gruppo e contatti con aziende), oltre al presente verbale della riunione odierna.
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-03-03]} Ripartizione delle stesure dei verbali: Lorenzo (Verbale Esterno Ergon), Nicholas (Verbale Esterno Vimar), Aldo e Matteo (Verbali Interni pregressi e odierno). Tutti i documenti dovranno essere pronti per la verifica incrociata prima di lunedì.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Parallelizzare la stesura dei documenti per completare l'intero archivio documentale in tempo utile per la revisione collegiale.
+
+\textbf{Responsabile attuazione:} Aldo Toffoli, Nicholas Salmaso \\
+\textbf{Scadenza:} 2026-10-26
+
+\hypertarget{argomento-4}{%
+\subsection{Preparazione presentazione e slide per lunedì}}
+
+\textbf{Discussione:} \\
+In vista della presentazione in aula prevista per lunedì alle 08:30, Matteo ha completato la bozza della presentazione basata su 3 slide sintetiche (attività svolte, difficoltà incontrate e prossimi passi). È stato confermato che il tempo a disposizione per gruppo è di circa 4--5 minuti. Come speaker principale è stato designato Filippo (con eventuale supporto di Aldo o Lorenzo).
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-03-04]} Approvazione della struttura sintetica della presentazione (3 slide); Filippo Rampazzo è designato come relatore per il gruppo Bending Forks.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+La durata limitata dell'intervento richiede un'esposizione diretta, asciutta e concentrata sui punti chiave.
+
+\textbf{Responsabile attuazione:} Matteo Wu, Filippo Rampazzo \\
+\textbf{Scadenza:} 2026-10-25
+
+\hypertarget{varie-ed-eventuali}{%
+\subsection{Varie ed eventuali}}
+È stata discussa la formalizzazione delle metodologie di lavoro (\emph{Way of Working}): si intende adottare un approccio Agile/Scrum con riunione di coordinamento e pianificazione settimanale il lunedì, lavoro autonomo infrasettimanale e sessione di revisione/chiusura il venerdì per consolidare il diario di bordo.
+
+% ---------- Azioni da intraprendere (TODO) ----------
+\hypertarget{azioni-da-intraprendere}{%
+\section{Azioni da intraprendere (TODO)}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=1.70\hsize\raggedright\arraybackslash}X>{\hsize=0.85\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\centering\arraybackslash}X>{\hsize=0.60\hsize\centering\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Responsabile}} & \textcolor{white}{\textbf{Scadenza}} & \textcolor{white}{\textbf{Priorità}} \\
+VI-03-01 & Redazione bozza verbale esterno incontro Vimar & Nicholas Salmaso & 2026-10-25 & Alta \\ \arrayrulecolor{bfline}\hline
+VI-03-02 & Redazione bozza verbale esterno incontro Ergon & Lorenzo Milanese & 2026-10-25 & Alta \\ \arrayrulecolor{bfline}\hline
+VI-03-03 & Stesura e consolidamento verbali interni 1 e 2 & Aldo Toffoli & 2026-10-25 & Alta \\ \arrayrulecolor{bfline}\hline
+VI-03-04 & Finalizzazione slide presentazione di lunedì & Matteo Wu & 2026-10-25 & Alta \\ \arrayrulecolor{bfline}\hline
+VI-03-05 & Apertura issue su GitHub e caricamento sorgenti \LaTeX & Marco Beltrame & 2026-10-26 & Media \\ \arrayrulecolor{bfline}\hline
+VI-03-06 & Definizione bozza Way of Working per Norme di Progetto & Gruppo Bending Forks & 2026-10-26 & Media \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Tracciamento decisioni per Changelog ----------
+\hypertarget{tracciamento-decisioni}{%
+\section{Tracciamento decisioni per Changelog}}
+
+Collegamento esplicito tra le decisioni assunte nella riunione e le modifiche da apportare alla documentazione di progetto:
+
+\begin{itemize}
+\tightlist
+\item \textbf{Decisione VI-03-01} $\rightarrow$ Creazione struttura documenti di candidatura: \emph{Valutazione dei Capitolati}, \emph{Lettera di Candidatura}, \emph{Dichiarazione degli Impegni}.
+\item \textbf{Decisione VI-03-02} $\rightarrow$ Aggiornamento \emph{NdP} (Norme di Progetto), Sezione: \emph{Infrastruttura di sviluppo, gestione repository e workflow di compilazione \LaTeX}.
+\item \textbf{Decisione VI-03-03} $\rightarrow$ Archiviazione verbali interni VI-01, VI-02, VI-03 e verbali esterni VE-01, VE-02.
+\end{itemize}
+
+% ---------- Prossima riunione ----------
+\hypertarget{prossima-riunione}{%
+\section{Pianificazione prossima riunione}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data proposta:} 2026-10-25 (Domenica pomeriggio) / 2026-10-26 (Lunedì mattina)
+\item \textbf{Ora prevista:} 15:00 (Domenica) / 08:30 (Lunedì)
+\item \textbf{Luogo / Canale:} Canale Discord (Domenica) / Presenza in aula (Lunedì)
+\item \textbf{OdG preliminare:} Verifica finale delle slide della presentazione, controllo e approvazione dei verbali redatti, pianificazione dei tre documenti di candidatura.
+\end{itemize}
+
+\vspace{35pt}
+\noindent
+\begin{minipage}[t]{0.45 \textwidth}
+\textbf{Firma Scriba:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_mat.jpg}}}\rule{55mm}{0.5pt}\\[2pt]
+\small Matteo Wu
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\begin{flushright}
+\textbf{Firma Moderatore:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_fil.jpeg}}}\rule{55mm}{0.5pt}\\[2pt]
+\small Filippo Rampazzo
+\end{flushright}
+\end{minipage}
+
+\end{document}
