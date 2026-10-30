@@ -1,0 +1,281 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% Numero del verbale: da impostare una sola volta (usato in intestazione, copertina e ID)
+\newcommand{\vnum}{5}
+
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Formattazione titoli sezioni
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice cliccabile con puntini/trattini
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+% Intestazioni e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Verbale Interno N. \vnum}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+% Colorazione alternata per le tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{42mm}
+{\fontsize{24}{28}\selectfont\bfseries Verbale Interno N. \vnum\par}
+\vspace{4mm}
+{\Large\color{bfblue} Riunione del 28/10/2026\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Aldo Toffoli \\
+\textbf{Scriba / Redattore} & Luca Stangherlin \\
+\textbf{Moderatore} & Aldo Toffoli \\
+\textbf{Verificatore} & Filippo Rampazzo \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 1.0 \\
+\textbf{Tipo} & Verbale Interno \\
+\textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Sintesi e decisioni operative emerse durante la riunione interna del team del giorno 28/10/2026, riguardante la pianificazione delle attività e l'avanzamento del progetto.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle versioni ----------
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.70\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Descrizione}} \\
+1.0 & 28/10/2026 & Luca Stangherlin & Creazione e redazione iniziale del documento \\ \arrayrulecolor{bfline}\hline
+1.0 & 30/10/2026 & Filippo Rampazzo & Verifica e approvazione \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Informazioni generali ----------
+\hypertarget{informazioni-generali}{%
+\section{Informazioni generali}}
+
+\hypertarget{durata-e-luogo}{%
+\subsection{Durata e luogo}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data:} 2026-10-28
+\item \textbf{Inizio:} 15:15
+\item \textbf{Fine:} 16:30
+\item \textbf{Luogo / Modalità:} in remoto, tramite Discord
+\end{itemize}
+
+\hypertarget{partecipanti}{%
+\subsection{Partecipanti}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}p{2.2cm}>{\centering\arraybackslash}p{2.2cm}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nome e Cognome}} & \textcolor{white}{\textbf{Ruolo Progetto}} & \textcolor{white}{\textbf{Presente}} & \textcolor{white}{\textbf{Assente}} \\
+Marco Beltrame & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & Verificatore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & Responsabile & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Membro & $\square$ & $\blacksquare$ \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Ordine del giorno ----------
+\hypertarget{ordine-del-giorno}{%
+\section{Ordine del giorno}}
+
+\begin{enumerate}
+\tightlist
+\item Revisione e completamento del documento \emph{Valutazione dei capitolati}
+\item Piano di massima, rischi principali e mitigazioni
+\item Candidatura: lettera di presentazione e preventivo
+\item Sito web del gruppo
+\end{enumerate}
+
+% ---------- Discussione e decisioni ----------
+
+\newpage
+\hypertarget{discussione-e-decisioni}{%
+\section{Discussione e decisioni}}
+
+\hypertarget{argomento-1}{%
+\subsection{Revisione del documento Valutazione dei capitolati}}
+
+\textbf{Discussione:} \\
+Il gruppo ha rivisto il documento di valutazione dei capitolati. Sono stati collettivamente asseganti dei  voti (da 1 a 5, con media dei pareri) su: interesse tecnico, complessità, chiarezza dei requisiti, qualità del rapporto con la proponente, fattibilità tecnica e allineamento delle competenze. 
+Il documento è stato infine revisionato dai componenti del team. 
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$]  I voti della tabella di confronto sono assegnati collettivamente, su una scala da 1 a 5, coerentemente con i giudizi espressi nella \textit{Valutazione dei Capitolati}.
+
+\item[$\checkmark$]  Si mantiene la lunghezza attuale del documento (circa dieci pagine per dieci capitolati).
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Coerenza interna tra tabella, descrizioni e conclusioni.
+
+\textbf{Responsabili attuazione:} Aldo Toffoli (redazione); Marco Beltrame (revisione) \\
+\textbf{Scadenza:} 2026-10-28
+
+
+\hypertarget{argomento-4}{%
+\subsection{Candidatura: lettera di presentazione e preventivo}}
+
+\textbf{Discussione:} \\
+ La lettera di presentazione e il preventivo sono stati stilati in sotto-gruppi; la revisione di entrambi viene svolta collettivamente da tutti partecipanti alla riunione con il seguente esito: la lettera viene approvata in attesa del preventivo; il preventivo è curato da Luca Stangherlin e Nicholas Salmaso che abbozzano un modello con paramentri e sezioni da definire con il resto del team. 
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$]  Lettera di presentazione e preventivo sono completati entro il 29/10/2026. La lettera è datata al giorno del caricamento sul repository.
+\item[$\checkmark$]  Il preventivo verrà completato dal gruppo il 29/10, partendo dallo scheletro su Drive e definendo collettivamente le ore per ruolo.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Controllare la conformità rispetto ai canoni di ogni componente del team dei docuementi per la candidatura. 
+
+\textbf{Responsabili attuazione:} Lorenzo Milanese e Filippo Rampazzo (lettera); Luca Stangherlin e Nicholas Salmaso (preventivo) \\
+\textbf{Scadenza:} 2026-10-29
+
+\hypertarget{argomento-5}{%
+\subsection{Sito web del gruppo}}
+
+\textbf{Discussione:} \\
+Viene definita l'esigenza di realizzare un sito web per la consultazione dei documenti in maniera più rapida e intuitiva. La priorità è stabilita media.
+
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$]  Il sito è realizzato con GitHub Pages e ha priorità minore di lettera e preventivo.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+ La priorità media evita di sottrarre tempo agli elementi obbligatori della candidatura.
+
+\textbf{Responsabili attuazione:} Lorenzo Milanese; Filippo Rampazzo \\
+\textbf{Scadenza:} 2026-10-30
+
+\hypertarget{varie-ed-eventuali}{%
+\subsection{Varie ed eventuali}}
+\begin{itemize}
+\tightlist
+\item \textbf{Versionamento:} Lorenzo Milanese aggiorna il verbale esterno in base alle rilevazioni di Vimar. La verifica è affidata a Luca Stangherlin.
+\end{itemize}
+
+% ---------- Azioni da intraprendere (TODO) ----------
+\hypertarget{azioni-da-intraprendere}{
+\section{Azioni da intraprendere (TODO)}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=2.0\hsize\raggedright\arraybackslash}X >{\hsize=1.0\hsize\raggedright\arraybackslash}X >{\hsize=0.5\hsize\centering\arraybackslash}X >{\hsize=0.5\hsize\centering\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Responsabile}} & \textcolor{white}{\textbf{Scadenza}} & \textcolor{white}{\textbf{Priorità}} \\
+Completare il preventivo (ripartizione delle ore per ruolo) e la dichiarazione di impegni con tutto il gruppo & Luca Stangherlin, Nicholas Salmaso & 2026-10-29 & Alta \\ \arrayrulecolor{bfline}\hline
+Completare la lettera di presentazione (costo, data finale, contatti), farla firmare e caricarla sul repository & Lorenzo Milanese, Filippo Rampazzo & 2026-10-29 & Alta \\ \arrayrulecolor{bfline}\hline
+Correggere il documento di revisione dei capitolati secondo le indicazioni del gruppo & Aldo Toffoli, Marco Beltrame & 2026-10-29 & Alta \\ \arrayrulecolor{bfline}\hline
+Redigere il verbale della riunione del 28/10/2026 & Luca Stangherlin & 2026-10-29 & Media \\ \arrayrulecolor{bfline}\hline
+Verificare il documento v1.1 con le correzioni sui commenti di Vimar & Luca Stangherlin & 2026-10-29 & Media \\ \arrayrulecolor{bfline}\hline
+Realizzare il sito su GitHub Pages in un repository dedicato & Lorenzo Milanese, Filippo Rampazzo & 2026-10-30 & Media\\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Prossima riunione ----------
+\hypertarget{prossima-riunione}{%
+\section{Pianificazione prossima riunione}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data proposta:} 2026-10-29
+\item \textbf{Ora prevista:} 15:00
+\item \textbf{Luogo / Canale:} Virtuale, canale Discord 
+\item \textbf{OdG preliminare:} Completamento del preventivo; finalizzazione e caricamento della lettera di presentazione; test e finiture del sito
+\end{itemize}
+
+\vspace{35pt}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\textbf{Firma Scriba:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_Luca.png}}}\rule{55mm}{0.5pt}\\[2pt]
+\small Luca Stangherlin
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\begin{flushright}
+\textbf{Firma Verificatore:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_fil.jpeg}}}
+\rule{55mm}{0.5pt}\\[2pt]
+\small Filippo Rampazzo
+\end{flushright}
+\end{minipage}
+
+\end{document}
