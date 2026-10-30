@@ -1,0 +1,224 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Formattazione titoli sezioni
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice cliccabile con puntini/trattini
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+% Intestazioni e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Verbale Interno N. 1}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+% Colorazione alternata per le tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{42mm}
+{\fontsize{24}{28}\selectfont\bfseries Verbale Interno N. 1\par}
+\vspace{4mm}
+{\Large\color{bfblue} Riunione del 2026-10-16\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Aldo Toffoli \\
+\textbf{Scriba} & Aldo Toffoli \\
+\textbf{Moderatore} & Filippo Rampazzo \\
+\textbf{Verificatore} & Filippo Rampazzo \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 1.1 \\
+\textbf{Tipo} & Verbale Interno \\
+\textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Sintesi e decisioni operative emerse durante la prima riunione interna del team del giorno 2026-10-16, riguardante la scelta del nome, la pianificazione delle attività, recapito del gruppo e abbozzo del "Way of Working".\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle versioni ----------
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.00\hsize\raggedright\arraybackslash}X>{\hsize=1.70\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Descrizione}} \\
+1.0 & 2026-10-16 & Aldo Toffoli  & Prima stesura del verbale \\ 
+1.1 & 2026-10-26 & Filippo Rampazzo  & Verifica e approvazione del documento \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Informazioni generali ----------
+\hypertarget{informazioni-generali}{%
+\section{Informazioni generali}}
+
+\hypertarget{durata-e-luogo}{%
+\subsection{Durata e luogo}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data:} 2026-10-16
+\item \textbf{Inizio:} 14:30
+\item \textbf{Fine:} 17:00
+\item \textbf{Luogo / Modalità:} Modalità remota, tramite Discord
+\end{itemize}
+
+\hypertarget{partecipanti}{%
+\subsection{Partecipanti}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}p{2.2cm}>{\centering\arraybackslash}p{2.2cm}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nome e Cognome}} & \textcolor{white}{\textbf{Ruolo Progetto}} & \textcolor{white}{\textbf{Presente}} & \textcolor{white}{\textbf{Assente}} \\
+Marco Beltrame & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & Verificatore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & Responsabile & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+
+% ---------- Ordine del giorno ----------
+\hypertarget{ordine-del-giorno}{%
+\section{Ordine del giorno}}
+
+\begin{enumerate}
+\tightlist
+\item Nome del gruppo, recapito del team, requisiti base 
+\item Way of Working
+\item Discussione e confronto sui capitolati
+\end{enumerate}
+
+% ---------- Discussione e decisioni ----------
+\hypertarget{discussione-e-decisioni}{%
+\section{Discussione e decisioni}}
+
+\hypertarget{argomento-1}{%
+\subsection{Nome del gruppo, recapito del team, requisiti base }}
+
+\textbf{Discussione:} \\
+{Scelta del nome del team, emerogno i nomi "Bending Forks", "Orbit" e "Qt Pies", la questione è stata sottoposta a votazione.
+Successivamente sono state istituite l'email e il logo del gruppo(generato tramite intelligenza artificiale), si è poi presa visione di tutti i requisiti necessari per il progetto facendo riferimento al file "Regolamento del progetto didattico" sul Moodle del corso. }
+
+\textbf{Decisione presa: }
+\begin{itemize}
+\tightlist
+\item \textbf{"Bending Forks"}{ vince la votazione.}
+\end{itemize}
+
+\textbf{Motivazione:} \\
+{ Maggioranza. }
+
+
+\hypertarget{argomento-2}{%
+\subsection{Way of Working}}
+
+\textbf{Discussione:} \\
+{È stato concordato l'utilizzo di Overleaf per la stesura della documentazione e dei verbali, di Google Drive per la condivisione di file e template di supporto, della chat di gruppo per le comunicazioni rapide e di Google Calendar per la pianificazione e la gestione degli impegni comuni. Istituita la lista "TODO" per monitorare le attività da svolgere. Sono stati stilati i template per i verbali interni/esterni.}
+
+
+\hypertarget{varie-ed-eventuali}{%
+\subsection{Discussione e confronto sui capitolati}}
+\textbf{Discussione:} \\
+{Lettura collettiva dei capitolati presentati. Condivisione di pareri e preferenze. Emergono interessi per i capitolati C1-Vimar, C3-FossDot, C5-RareCare.}
+
+% ---------- Prossima riunione ----------
+\hypertarget{prossima-riunione}{%
+\section{Pianificazione prossima riunione}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data proposta:} 2026-10-19
+\item \textbf{Ora prevista:} 14:30
+\item \textbf{Luogo / Modalità:} Canale Discord 
+\item \textbf{OdG preliminare:} {Selezione dei capitolati da approfondire e scrivere mail organizzative con aziende scelte. }
+\end{itemize}
+
+\vspace{35pt}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\textbf{Firma Scriba:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_aldo.png}}}
+\rule{55mm}{0.5pt}\\[2pt]
+\small Aldo Toffoli
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\begin{flushright}
+\textbf{Firma Verificatore:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_filippo.jpeg}}}
+\rule{55mm}{0.5pt}\\[2pt]
+\small Filippo Rampazzo 
+\end{flushright}
+\end{minipage}
+
+\end{document}
