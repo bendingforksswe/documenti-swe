@@ -1,0 +1,273 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+% Macro di formattazione interna Bending Forks
+\newcommand{\ph}[1]{\textcolor{red}{[#1]}}
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}\raggedright}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}\raggedright}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\raggedright}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice: numeri con punto, trattini fino al numero di pagina
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Preventivo Costi e Impegni}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+\graphicspath{{../../InfoGruppo/}{../InfoGruppo/}{InfoGruppo/}{Assets/}}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{32mm}
+{\fontsize{24}{28}\selectfont\bfseries Preventivo Costi e Assunzione Impegni\par}
+\vspace{4mm}
+{\large\color{bfblue}\textbf{Capitolato C3: Fossdot -- Smart Speaker Open Source}\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Aldo Toffoli \\
+\textbf{Redattori} & Team Bending Forks \\
+\textbf{Verificatore} & Team Bending Forks \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 1.4 \\
+\textbf{Tipo} & Documento Esterno \\
+\textbf{Destinatari} & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+ & \emph{Uranion EMEA LTD} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Dichiarazione formale di impegno temporale ed economico del gruppo Bending Forks per la realizzazione del capitolato C3 (Fossdot), comprensiva di ripartizione oraria per ruolo, stima per fasi, analisi della disponibilità e assunzione di responsabilità.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle Versioni ----------
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=0.70\hsize\raggedright\arraybackslash}X>{\hsize=1.10\hsize\raggedright\arraybackslash}X>{\hsize=1.60\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Descrizione}} \\
+1.0 & 2026-10-28 & Nicholas Salmaso/ Luca Stangherlin & 
+Definizione degli elementi del documento e definizione della struttura dello stesso\\ \arrayrulecolor{bfline}\hline
+1.1 & 2026-10-29 & Aldo Toffoli & Prima stesura dichiarazione impegni \\ \arrayrulecolor{bfline}\hline
+1.2 & 2026-10-29 & Nicholas Salmaso/ Luca Stangherlin & Prima stesura preventivo costi, piano orario e dichiarazione impegni \\ \arrayrulecolor{bfline}\hline
+1.3 & 2026-10-29 & Aldo Toffoli & Inserimento tabelle e conclusione scrittura paragrafi mancanti \\ \arrayrulecolor{bfline}\hline
+1.4 & 2026-10-29 & Team Bending Forks & Verifica finale e firme \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Contenuto Principale ----------
+
+\hypertarget{introduzione}{%
+\section{Introduzione}}
+
+\hypertarget{capitolato-selezionato}{%
+\subsection{Capitolato selezionato}}
+Il gruppo \textbf{Bending Forks}, costituito da 7 componenti, formalizza attraverso il presente documento la propria candidatura e l'assunzione d'impegno formale per la realizzazione del progetto didattico relativo al capitolato d'appalto \textbf{C3 -- Fossdot: Smart speaker open source, estensibile e rispettoso della privacy}, commissionato dall'azienda \textbf{Uranion EMEA LTD}.
+
+\hypertarget{periodo-progetto-stimato}{%
+\subsection{Periodo progetto stimato}}
+L'orizzonte temporale stimato per il completamento del ciclo di sviluppo è quantificato in \textbf{20 settimane di lavoro effettivo}, con avvio delle attività fissato al \textbf{4 novembre 2026} e conclusione vincolante con rilascio del Minimum Viable Product (MVP) entro e non oltre il \textbf{26 marzo 2027}. La pianificazione temporale assorbe in modo controllato un margine di una settimana di rallentamento in concomitanza con la sessione ordinaria d'esami invernali.
+
+\hypertarget{ripartizione-ruoli-preventivata}{%
+\section{Ripartizione Ruoli Preventivata}}
+
+\hypertarget{distribuzione-ore-per-ruolo}{%
+\subsection{Distribuzione ore per ruolo}}
+In conformità con i vincoli normativi che stabiliscono un monte ore individuale compreso tra 80 e 95 ore produttive per persona ed una soglia minima di ammissibilità contrattuale pari a € 12.000,00 per formazioni da 7 componenti, il gruppo concorda all'unanimità un impegno pro capite di \textbf{93 ore produttive}. Il monte ore complessivo ammonta a \textbf{651 ore lavorative} ($7 \times 93$).
+
+\begin{table}[htbp]
+\centering
+\small
+{\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{2.3cm}>{\centering\arraybackslash}p{2.0cm}>{\centering\arraybackslash}p{2.2cm}>{\raggedleft\arraybackslash}p{2.1cm}}
+\rowcolor{bfblue}
+\textcolor{white}{\textbf{Ruolo}} & \textcolor{white}{\textbf{Ore indiv. (med.)}} & \textcolor{white}{\textbf{Ore totali}} & \textcolor{white}{\textbf{Costo orario (€/h)}} & \textcolor{white}{\textbf{Costo totale (€)}} \\
+Responsabile    & 9  & 63  & 30 & 1.890,00 \\ \arrayrulecolor{bfline}\hline
+Amministratore  & 8  & 56  & 20 & 1.120,00 \\ \arrayrulecolor{bfline}\hline
+Analista        & 12 & 84  & 25 & 2.100,00 \\ \arrayrulecolor{bfline}\hline
+Progettista     & 20 & 140 & 25 & 3.500,00 \\ \arrayrulecolor{bfline}\hline
+Programmatore   & 22 & 154 & 15 & 2.310,00 \\ \arrayrulecolor{bfline}\hline
+Verificatore    & 22 & 154 & 15 & 2.310,00 \\ \arrayrulecolor{bfline}\hline
+\textbf{Totale} & \textbf{93} & \textbf{651} & -- & \textbf{13.230,00} \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\caption{Ripartizione preventiva del monte ore e dei costi per ruolo}
+\label{tab:ruoli}}
+\end{table}
+
+\hypertarget{rotazione-ruoli-pianificata}{%
+\subsection{Rotazione ruoli pianificata}}
+Allo scopo di assicurare una formazione ingegneristica trasversale, ciascun componente assumerà a rotazione tutti e sei i ruoli previsti dal modello di processo. La transizione tra ruoli avverrà in corrispondenza delle scadenze di fase o di sprint, prevedendo una procedura documentata di \textit{handover} operativo.
+
+\hypertarget{copertura-di-tutti-i-ruoli-per-tutti-i-membri}{%
+\subsection{Copertura di tutti i ruoli per tutti i membri}}
+Tutti i componenti copriranno le mansioni di progetto con quote orarie proporzionate. A garanzia dell'obiettività dei controlli di qualità, vige la rigida regola di indipendenza della verifica: nessun membro del team può svolgere il ruolo di Verificatore su codice o documentazione redatti da lui stesso durante il medesimo sprint.
+
+
+\hypertarget{preventivo-economico}{%
+\section{Preventivo Economico}}
+
+\hypertarget{costo-totale-preventivato}{%
+\subsection{Costo totale preventivato}}
+Il costo complessivo stimato per la realizzazione dell'intero appalto è pari a \textbf{13 230 €}. Tale preventivo soddisfa il vincolo di bilancio minimo ammissibil (12000 € ) e si costituisce quale \textbf{limite massimo invalicabile} a carico della committenza.
+
+\hypertarget{distribuzione-oraria-fasi-ruoli}{%
+\subsection{Distribuzione oraria per ruolo nelle singole fasi}}
+Al fine di garantire il presidio puntuale di ogni fase di sviluppo e verificare la sostenibilità del piano di lavoro, il monte ore complessivo di ciascun ruolo è stato ripartito tra le quattro macro-fasi del progetto, tenendo conto dell'evoluzione dei requisiti e della natura delle attività prevalenti:
+\begin{itemize}
+\tightlist
+\item \textbf{1 Analisi dei Requisiti:}
+focalizzata sulle attività dell'\textit{Analista} (45 ore) per la definizione dei casi d'uso e del capitolato, supportato dal \textit{Verificatore} (31 ore) per il controllo di completezza, dall'\textit{Amministratore} (26 ore) per la predisposizione iniziale degli ambienti di documentazione e dal \textit{Responsabile} (13 ore) per la pianificazione e i contatti con Uranion.
+\item \textbf{2 Proof of Concept:} l'impegno si sposta verso la sperimentazione tecnica con \textit{Programmatore} (60 ore) e \textit{Progettista} (35 ore) impegnati nella validazione dell'acquisizione audio e del bridging verso l'LLM, con il continuo affiancamento di \textit{Verificatore} (25 ore), \textit{Analista} (20 ore), \textit{Responsabile} (10 ore) e \textit{Amministratore} (10 ore).
+\item \textbf{3 Verifica e Consolidamento:} prevalenza del ruolo di \textit{Progettista} (40 ore) e di \textit{Verificatore} (52 ore) per definire e validare l'architettura a plugin del server, con il supporto di \textit{Analista} (19 ore), \textit{Programmatore} (15 ore), \textit{Responsabile} (10 ore) e \textit{Amministratore} (10 ore).
+\item \textbf{4 Sviluppo MVP e Collaudo:} massima concentrazione operativa su codifica e collaudo finale, guidata dal \textit{Programmatore} (79 ore), dal \textit{Progettista} (65 ore), dal \textit{Verificatore} (46 ore) e dal \textit{Responsabile} (30 ore) per la gestione della consegna e delle relazioni contrattuali, con il supporto di sistema dell'\textit{Amministratore} (10 ore).
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\small
+\noindent\begin{tabularx}{\linewidth}{
+  >{\raggedright\arraybackslash}X
+  *{6}{>{\centering\arraybackslash}p{0.85cm}}
+  >{\centering\arraybackslash}p{1.45cm}
+  >{\centering\arraybackslash}p{1.75cm}
+}
+\rowcolor{bfblue}
+\textcolor{white}{\textbf{Fase}} & 
+\textcolor{white}{\textbf{Re}} & 
+\textcolor{white}{\textbf{Am}} & 
+\textcolor{white}{\textbf{An}} & 
+\textcolor{white}{\textbf{Pj}} & 
+\textcolor{white}{\textbf{Pr}} & 
+\textcolor{white}{\textbf{Ve}} & 
+\textcolor{white}{\textbf{Tot.~Ore}} & 
+\textcolor{white}{\textbf{Costo (€)}} \\
+1. Analisi dei Requisiti         & 13 & 26 & 45 &  0 &  0 & 31 & \textbf{115} & 2.500,00 \\ \arrayrulecolor{bfline}\hline
+2. Proof of Concept (PoC)        & 10 & 10 & 20 & 35 & 60 & 25 & \textbf{160} & 3.150,00 \\ \arrayrulecolor{bfline}\hline
+3. Verifica e Consolidamento& 10 & 10 & 19 & 40 & 15 & 52 & \textbf{146} & 2.980,00 \\ \arrayrulecolor{bfline}\hline
+4. Sviluppo MVP e Collaudo       & 30 & 10 &  0 & 65 & 79 & 46 & \textbf{230} & 4.600,00 \\ \arrayrulecolor{bfline}\hline
+\textbf{Totale per Ruolo}        & \textbf{63} & \textbf{56} & \textbf{84} & \textbf{140} & \textbf{154} & \textbf{154} & \textbf{651} & \textbf{13.230,00} \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\caption{Matrice di allocazione oraria e valorizzazione economica per ruolo e fase}
+\label{tab:matrice_fasi_ruoli}
+\end{table}
+
+\textbf{Legenda ruoli:} \textbf{Re:} Responsabile (30 €/h), \textbf{Am:} Amministratore (20 €/h), \textbf{An:} Analista (25 €/h), \textbf{Pj:} Progettista (25 €/h), \textbf{Pr:} Programmatore (15 €/h), \textbf{Ve:} Verificatore (15 €/h).
+
+
+\hypertarget{analisi-disponibilita}{%
+\section{Analisi Disponibilità}}
+
+\hypertarget{impegni-accademici-membri}{%
+\subsection{Impegni accademici membri}}
+Nel corso delle 20 settimane di progetto il gruppo ha rilevato la concomitanza con la sessione d'esami invernale (prima e seconda settimana di febbraio 2027) e le consegne intermedie del corso di \textit{Tecnologie Web}. Il calendario generale prevede una riduzione programmata dell'intensità lavorativa durante tali finestre, assorbita uniformemente mediante anticipo delle attività di progetto.
+
+\hypertarget{altri-impegni-rilevanti}{%
+\subsection{Altri impegni rilevanti}}
+Eventuali impegni personali, lavorativi o extracurricolari sono stati censiti e distribuiti in modo armonico nel piano di lavoro individuale, garantendo il rispetto del monte ore previsto di 93 ore a persona senza generare sovraccarichi.
+
+
+\hypertarget{calendario-condiviso-disponibilita}{%
+\subsection{Calendario condiviso disponibilità}}
+Per preservare la visibilità sullo stato operativo, il gruppo adotta un \textbf{Google Calendar condiviso}, costantemente sincronizzato con gli slot orari destinati agli incontri di avanzamento, alle riunioni con Uranion e alle sessioni di verifica.
+
+\hypertarget{periodi-critici-identificati}{%
+\subsection{Periodi critici identificati}}
+\begin{itemize}
+\tightlist
+\item \textbf{Festività natalizie:} fisiologico rallentamento operativo, gestito tramite assegnazione di task asincroni di studio e documentazione;
+\item \textbf{Sessione d'esami invernale:} attenuazione del carico schedulata con una settimana di margine temporale;
+
+\end{itemize}
+
+
+\hypertarget{assunzione-impegno-formale}{%
+\section{Assunzione Impegno Formale}}
+
+\hypertarget{dichiarazione-ore-garantite-per-membro}{%
+\subsection{Dichiarazione ore garantite per membro}}
+I componenti del gruppo Bending Forks dichiarano collegialmente l'impegno a erogare \textbf{93 ore produttive individuali}, per un totale contrattuale certificato pari a \textbf{651 ore lavorative}.
+
+\hypertarget{scadenza-ultima-consegna-prevista}{%
+\subsection{Scadenza ultima consegna prevista}}
+Il gruppo si impegna formalmente a rilasciare il Minimum Viable Product (MVP) conforme a capitolato e corredato della suite di collaudo e documentazione tecnica entro il \textbf{26 marzo 2027}.
+
+\hypertarget{firme-responsabili}{%
+\subsection{Firme responsabili}}
+Per formale e vincolante accettazione del preventivo, del monte ore e delle scadenze contrattuali:
+
+\vspace{1.5em}
+\noindent
+\begin{flushright}
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_ald.png}}}
+    \rule{0.8\linewidth}{0.4pt}\\
+    {\footnotesize Firma del Responsabile di Progetto}\\[1mm]
+    {\footnotesize (\textit{a nome di tutti i componenti})}
+  \end{minipage}
+\end{flushright}
+
+\end{document}

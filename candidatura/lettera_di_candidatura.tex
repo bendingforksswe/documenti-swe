@@ -1,0 +1,183 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=20mm,bottom=22mm,left=22mm,right=22mm,headheight=26pt,headsep=12pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{lastpage}
+\usepackage[hidelinks]{hyperref}
+\usepackage{etoolbox}
+
+\newcommand{\capitolatoCodice}{C3}
+\newcommand{\capitolatoTitolo}{FossDot}
+\newcommand{\aziendaProponente}{Uranion EMEA Ltd}
+\newcommand{\costoPreventivo}{13.230,00}
+\newcommand{\dataConsegna}{26 marzo 2027}
+\newcommand{\dataLettera}{28 ottobre 2026}
+\newcommand{\urlRepo}{https://github.com/BendingForksSWE/documenti-swe}
+\newcommand{\urlSito}{https://bendingforksswe.github.io}
+
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4.5pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.3}
+
+\newcommand{\tightlist}{\setlength{\itemsep}{2pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2.5pt,parsep=0pt}
+\setlist[itemize]{leftmargin=1.4em,label=\textbullet}
+
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\AtBeginEnvironment{tabularx}{\bftable}
+\graphicspath{{../InfoGruppo/}{InfoGruppo/}{../../InfoGruppo/}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Lettera di Candidatura}
+\fancyfoot[L]{\footnotesize\sffamily\color{gray} Ingegneria del Software --- A.A. 2026/2027}
+\fancyfoot[R]{\small Pagina \thepage\ di \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.8pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\fancypagestyle{firstpage}{
+  \fancyhf{}
+  \fancyfoot[L]{\footnotesize\sffamily\color{gray} Ingegneria del Software --- A.A. 2026/2027}
+  \fancyfoot[R]{\small Pagina \thepage\ di \pageref{LastPage}}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+}
+
+% -------------------------------------------------------------
+% Inizio Documento
+% -------------------------------------------------------------
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{minipage}[t]{0.52\textwidth}
+  \vspace{0pt}
+  \includegraphics[width=54mm]{Assets/logo-bending-forks-trasparente.png}\\[2mm]
+  {\small\textbf{Gruppo:}} {\small Bending Forks}\\
+  {\small\textbf{Email:}} {\small\href{mailto:bending.forks.swe@gmail.com}{bending.forks.swe@gmail.com}}\\
+
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.44\textwidth}
+  \vspace{0pt}
+  {\small\textbf{Alla cortese attenzione di:}}\\
+  {\small\textbf{Prof. Tullio Vardanega}}\\
+  {\small\textbf{Prof. Riccardo Cardin}}\\[2mm]
+  {\footnotesize Università degli Studi di Padova}\\
+  {\footnotesize Dipartimento di Matematica ``Tullio Levi-Civita''}\\
+  {\footnotesize Via Trieste, 63 --- 35121 Padova}
+\end{minipage}
+
+\vspace{12mm}
+\noindent
+\textbf{Data:} \dataLettera \hfill \textbf{Luogo:} Padova\\
+\textbf{Oggetto:} Candidatura ufficiale per il capitolato \capitolatoCodice{}: \capitolatoTitolo
+
+\vspace{1mm}
+{\color{bfblue}\hrule height 0.9pt}
+\vspace{2.5mm}
+
+Egregio Professor Vardanega, \newline
+Egregio Professor Cardin,
+
+\vspace{1mm}
+con la presente, il gruppo \textbf{Bending Forks} desidera comunicarVi formalmente la propria intenzione di candidarsi al capitolato d'appalto:
+\begin{center}
+  \textbf{\capitolatoCodice{}: \capitolatoTitolo} \\
+  \textit{proposto dall'azienda \textbf{\aziendaProponente{}}}
+\end{center}
+
+Il nostro gruppo è costituito da 7 studenti, i cui dati identificativi sono riportati nella tabella sottostante:
+
+\vspace{1.5mm}
+\begin{center}
+\begin{tabularx}{0.96\linewidth}{>{\bfseries\raggedright\arraybackslash}X >{\centering\arraybackslash}p{28mm} >{\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nominativo}} & \textcolor{white}{\textbf{Matricola}} & \textcolor{white}{\textbf{Email Istituzionale}} \\
+Marco Beltrame & 2111021 & marco.beltrame.5@studenti.unipd.it \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & 2117110 & lorenzo.milanese.1@studenti.unipd.it \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & 2101097 & filippo.rampazzo.4@studenti.unipd.it \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & 2080038 & nicholas.salmaso@studenti.unipd.it \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & 2137996 & luca.stangherlin.1@studenti.unipd.it \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & 2113202 & aldo.toffoli@studenti.unipd.it \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & 2075514 & matteo.wu@studenti.unipd.it \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\vspace{2mm}
+\noindent
+\textbf{Sintesi economica e stima temporale di consegna}\\
+In conformità con quanto analizzato e pianificato nel documento \emph{Dichiarazione degli Impegni}, il gruppo \textbf{Bending Forks} ha stimato un costo complessivo per la realizzazione dell'opera pari a:
+\begin{center}
+  \textbf{Euro \costoPreventivo{}} \quad (\textit{tredicimiladuecentotrenta/00})
+\end{center}
+fissando la data presunta per la consegna finale del prodotto collaudato al \textbf{\dataConsegna}.
+
+\newpage
+
+% -------------------------------------------------------------
+% Seconda Pagina
+% -------------------------------------------------------------
+\noindent
+\textbf{Documentazione a corredo della candidatura}\\
+A supporto della candidatura e a dimostrazione dell'analisi svolta, il gruppo rende disponibili i seguenti documenti:
+\begin{itemize}\tightlist
+  \item \textbf{Valutazione dei Capitolati:} analisi comparativa delle proposte con motivazioni di scelta ed esclusione;
+  \item \textbf{Dichiarazione degli Impegni:} preventivo economico dettagliato e pianificazione temporale dei ruoli;
+  \item \textbf{Verbali delle riunioni esterne:} tracciamento degli incontri intercorsi con l'azienda proponente;
+  \item \textbf{Verbali delle riunioni interne:} resoconto delle attività decisionali e organizzative del gruppo.
+\end{itemize}
+
+Tutti i documenti e le versioni storiche sono consultabili in formato elettronico sul sito ufficiale del gruppo all'indirizzo \url{\urlSito} e compilabili a partire dai sorgenti presenti nel repository GitHub \url{\urlRepo}.
+
+\vspace{2mm}
+\noindent
+\textbf{Motivazioni della scelta}\\
+A conclusione della discussione, il gruppo ha designato come scelta preferenziale del capitolato \textbf{C3: FossDot (Uranion)}, indicando \textbf{C1: AURA (VIMAR)} come immediata seconda preferenza.
+
+Le motivazioni cardine per la scelta di \textbf{FossDot} risiedono in:
+\begin{itemize}\tightlist
+  \item \textbf{Ampiezza formativa:} Il progetto attraversa l\textquotesingle{}intero ciclo ingegneristico (dall\textquotesingle{}elettronica e dal codice a basso livello in Rust fino al backend, alle pipeline AI e all\textquotesingle{}interfaccia web), permettendo a ciascun componente di mettere a frutto le proprie inclinazioni.
+  \item \textbf{Natura Open Source e Titolarità:} Il lavoro svolto apparterrà interamente al gruppo ed è orientato alla sovranità del dato, valore di forte utilità pratica ed etica.
+  \item \textbf{Supporto aziendale tangibile:} Come approfondito nel verbale della riunione esterna, l\textquotesingle{}azienda ha dimostrato pragmatismo, garantendo fornitura dell\textquotesingle{}hardware, supporto diretto di architetti software e workshop in presenza.
+  \item \textbf{Pianificazione incrementale:} La distinzione rigorosa tra un \emph{MVP} solido e le successive evoluzioni funzionali offre elevate garanzie di riuscita nei tempi didattici.
+\end{itemize}
+\vspace{2mm}
+\noindent
+\textbf{Dichiarazione di impegno}\\
+I componenti del gruppo \textbf{Bending Forks} si impegnano formalmente a:
+\begin{itemize}\tightlist
+  \item rispettare le scadenze temporali preventivate e il costo totale dichiarato nella \emph{Dichiarazione degli Impegni};
+  \item realizzare il prodotto software garantendo la piena rispondenza ai requisiti concordati e agli standard qualitativi prefissati;
+  \item redigere e manutenere la documentazione a corredo del progetto secondo le norme stabilite e le direttive docenti;
+  \item garantire l'alternanza costante e trasparente dei ruoli didattici tra tutti i membri del gruppo, nel pieno rispetto dei regolamenti d'esame.
+\end{itemize}
+
+\vspace{3mm}
+Fiduciosi in un positivo accoglimento della nostra candidatura e rimanendo a Vostra completa disposizione per qualsiasi necessità di chiarimento o approfondimento.
+
+\vspace{35pt}
+\noindent
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\raggedleft
+\textbf{Firma Responsabile:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_ald.png}}}\rule{55mm}{0.5pt}\\[2pt]
+\small Aldo Toffoli
+\end{minipage}
+\end{document}

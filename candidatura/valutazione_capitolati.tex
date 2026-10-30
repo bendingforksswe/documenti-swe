@@ -1,0 +1,452 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+% Macro di formattazione interna Bending Forks
+\newcommand{\ph}[1]{\textcolor{red}{[#1]}}
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}\raggedright}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}\raggedright}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\raggedright}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice: numeri con punto, trattini fino al numero di pagina
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Valutazione Capitolati}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+\graphicspath{{../../InfoGruppo/}{../InfoGruppo/}{InfoGruppo/}}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+% Se presente il file logo nel repository Overleaf, lo include regolarmente
+\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{38mm}
+{\fontsize{24}{28}\selectfont\bfseries Valutazione Capitolati\par}
+\vspace{4mm}
+
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Aldo Toffoli\\
+\textbf{Redattori} & Gruppo Bending Forks\\
+\textbf{Verificatore} & Marco Beltrame \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 1.1 \\
+\textbf{Tipo} & Documento Esterno \\
+\textbf{Destinatari} & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Sintesi comparativa e analisi dettagliata per il committente relativa alla valutazione dei dieci capitolati d'appalto proposti per il progetto didattico del corso di ingegneria del software, con motivazione della scelta finale.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle Versioni ----------
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=0.70\hsize\raggedright\arraybackslash}X>{\hsize=1.10\hsize\raggedright\arraybackslash}X>{\hsize=1.60\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Descrizione}} \\
+1.0 & 2026-10-28 & Aldo Toffoli & Redazione iniziale e formalizzazione della valutazione comparativa \\ \arrayrulecolor{bfline}\hline
+1.1 & 2026-10-28 & Marco Beltrame & Verifica del documento e correzione di errori di compilazione e refusi \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+
+% ---------- Contenuto Principale ----------
+
+\hypertarget{introduzione}{%
+\section{Introduzione}}
+
+\hypertarget{scopo-del-documento}{%
+\subsection{Scopo del documento}}
+Il presente documento espone l\textquotesingle{}analisi critica e la valutazione comparativa dei capitolati d\textquotesingle{}appalto presentati dalle aziende proponenti. Lo scopo è formalizzare e motivare in maniera trasparente e strutturata il processo decisionale condotto dal gruppo di lavoro \emph{Bending Forks} per l\textquotesingle{}individuazione e la selezione del capitolato ottimale per l\textquotesingle{}attività di progetto didattico.
+
+\hypertarget{criteri-di-valutazione}{%
+\subsection{Criteri di valutazione}}
+Per garantire un metro di giudizio omogeneo, ciascuna proposta è stata analizzata secondo i seguenti criteri, quantificati su una scala da 1 (critico/scarso) a 5 (eccellente):
+\begin{itemize}
+\tightlist
+\item \textbf{Interesse tecnico (1--5):} Rilevanza, modernità ed attrattività delle tematiche tecnologiche trattate (AI/LLM, Cloud, IoT, Firmware, FinOps).
+\item \textbf{Complessità (1--5):} Ampiezza e profondità delle sfide ingegneristiche previste (valore alto = elevato impegno/rischio).
+\item \textbf{Chiarezza dei requisiti (1--5):} Precisione della proposta, delimitazione del perimetro e trasparenza nell\textquotesingle{}incontro con la proponente.
+\item \textbf{Qualità del rapporto con la proponente (1--5):} Disponibilità dimostrata, canali di supporto e frequenza di allineamento offerti.
+\item \textbf{Fattibilità tecnica (1--5):} Concretezza dell\textquotesingle{}architettura e realizzabilità dell\textquotesingle{}MVP entro le scadenze didattiche.
+\item \textbf{Allineamento competenze (1--5):} Sovrapposizione tra il bagaglio pregresso dei membri del team e le tecnologie richieste.
+\end{itemize}
+
+\hypertarget{confronto-capitolati}{%
+\section{Confronto Capitolati}}
+
+La tabella seguente riassume i punteggi assegnati dal gruppo a ciascun capitolato d\textquotesingle{}appalto sulla base dei criteri stabiliti.
+
+\begin{center}
+\small
+\begin{tabularx}{\linewidth}{>{\hsize=0.45\hsize\raggedright\arraybackslash}X>{\hsize=1.45\hsize\raggedright\arraybackslash}X>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{1.1cm}}
+\rowcolor{bfblue}
+\textcolor{white}{\textbf{Cod.}} & \textcolor{white}{\textbf{Nome (Azienda)}} & \textcolor{white}{\textbf{Int.}} & \textcolor{white}{\textbf{Comp.}} & \textcolor{white}{\textbf{Chiar.}} & \textcolor{white}{\textbf{Prop.}} & \textcolor{white}{\textbf{Fatt.}} & \textcolor{white}{\textbf{Allin.}} \\
+C0 & AIRA (Sanmarco Inf.) & 3 & 3 & 4 & ND & 4 & 3 \\ \arrayrulecolor{bfline}\hline
+C1 & AURA (VIMAR) & 5 & 4 & 5 & 4 & 4 & 3 \\ \arrayrulecolor{bfline}\hline
+C2 & Concierge (Eggon) & 2 & 3 & 4 & ND & 3 & 3 \\ \arrayrulecolor{bfline}\hline
+C3 & FossDot (Uranion) & 5 & 5 & 4 & 5 & 3 & 4 \\ \arrayrulecolor{bfline}\hline
+C4 & Gestione veicoli post-vendita (M31 S.r.l.) & 2 & 3 & 4 & ND & 4 & 3 \\ \arrayrulecolor{bfline}\hline
+C5 & RareCare (Miriade) & 4 & 4 & 4 & ND & 3 & 3 \\ \arrayrulecolor{bfline}\hline
+C6 & FinOps Cache (Var Group) & 2 & 4 & 4 & ND & 3 & 2 \\ \arrayrulecolor{bfline}\hline
+C7 & SmartDashboard (Ergon) & 3 & 3 & 4 & 3 & 4 & 3 \\ \arrayrulecolor{bfline}\hline
+C8 & Sonar (Halue) & 3 & 4 & 3 & ND & 3 & 3 \\ \arrayrulecolor{bfline}\hline
+C9 & SpecCheck (Zucchetti) & 2 & 5 & 1 & ND & 1 & 2 \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+\textbf{ND:} non definibile, perché il gruppo non ha avuto un incontro con la proponente.
+
+\hypertarget{analisi-dettagliata-per-capitolato}{%
+\section{Analisi Dettagliata per Capitolato}}
+
+\hypertarget{capitolato-c0}{%
+\subsection{Capitolato C0: AIRA (Sanmarco Informatica)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} AIRA richiede lo sviluppo di un sistema che osservi costantemente diversi canali di comunicazione aziendali sia interni che esterni. I canali possono essere sia testuali (messaggi diretti, email) che multimediali (messaggi vocali, immagini, PDF/doc/spreadsheet). Il sistema da sviluppare deve quindi strutturare automaticamente le informazioni di interesse in ingresso e renderle accessibili tramite interfaccia web amministrativa. Dalla presentazione è emerso particolare interesse nello strutturare “eventi” provenienti da canali di comunicazione B2B, anche se un sistema del genere può essere utilizzato anche per comunicazioni interne all’azienda.
+La proponente consiglia di utilizzare le seguenti tecnologie:
+Angular per l’interfaccia amministrativa, Spring Boot (framework Java) per il backend, PostgreSQL/MariaDB/SQLite come DBMS, LangChain4j come LLM per l’interpretazione dei testi, EasyOCR/Whisper/Google Speech per la lettura di immagini e documenti e la trascrizione di tracce audio.
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} Questo progetto offre la possibilità di apprendere l’uso di tecnologie di evidente interesse per il mondo lavorativo attuale, con particolare riferimento a LangChain4j che costituirebbe per ogni membro del gruppo la prima interazione con librerie di LLM. Anche le altre tecnologie proposte sono ampiamente utilizzate: Angular per il web e Java e i tre DBMS proposti per il backend.
+  \item \emph{Contro:} Il gruppo nota che un sistema del genere per essere utile richiede interazioni con API di diversi servizi esterni: provider di posta elettronica, WhatsApp, Teams, sistemi aziendali preesistenti; questo, insieme all’apprendimento di nuove tecnologie come le librerie di speech recognition e OCR, costituisce per il gruppo una difficoltà alta, poiché nessuno ha esperienze pregresse.
+Infine nessun membro del gruppo ha manifestato particolare interesse per il dominio applicativo di questo capitolato.
+
+  \end{itemize}
+\item \textbf{Conclusione:} Sebbene valutato discretamente, il gruppo ha deciso di non includere C0 tra le proprie preferenze prioritizzando altri progetti.
+\end{itemize}
+
+\hypertarget{capitolato-c1}{%
+\subsection{Capitolato C1: AURA (VIMAR)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} Il progetto richiede l'integrazione dei servizi Vimar all’interno delle chat tra l’utente e il suo LLM di riferimento. In particolare viene richiesta la possibilità da parte dell’utilizzatore di gestire le componenti domotiche della sua abitazione attraverso l’uso dell’intelligenza artificiale implementando nella chat del LLM desiderato un collegamento ad un server MCP, impiegato per fornire una comunicazione tra il modello AI e le API KNX che espongono i servizi di Vimar.
+Tecnologie richieste:
+Docker con docker compose per infrastruttura cloud, KNX IoT 3rd-party API per l’interfaccia coi sistemi domotici, OAuth2 per l’autenticazione, MCP per l’integrazione con i modelli LLM (SDK in Python/TypeScript/Java), MySQL, PostgreSQL o Redis come DBMS (se necessario).
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} Il gruppo ha da subito accolto con molto entusiasmo questo progetto. La presenza di un capitolato esteso e comprensivo ha ridotto al minimo le difficoltà di comprensione di ciò che è richiesto, e gli eventuali dubbi sono stati chiariti nell’incontro con la proponente.
+In secondo luogo, i membri del team hanno già familiarità non solo con alcune delle tecnologie proposte (Docker, MySQL e PostgreSQL), ma anche con l’ecosistema VIMAR (in quanto utenti), il che permetterebbe di concentrare più tempo sull’apprendimento dello standard MCP e sulle API KNX, fulcro del progetto.
+Terzo punto a favore di questo progetto è, appunto, l’opportunità di apprendere lo standard MCP, molto attuale vista la tendenza del mercato di concentrarsi sempre di più sull’intelligenza artificiale e sulla sua interazione con sistemi preesistenti.
+\item \emph{Contro:} In primo luogo non si è riusciti a comprendere dal documento come realizzare la connessione tra una chat di un LLM (quale ChatGPT, Claude o Gemini) e i server di Vimar per la gestione dei dispositivi domotici. Inoltre una mancata conoscenza del protocollo MCP potrebbe portare a problemi non preventivati. Quest’ultimo contro è tuttavia comune nella maggior parte dei capitolati. 
+\end{itemize}
+\item \textbf{Conclusione:} L’architettura da realizzare ha suscitato molto interesse nel gruppo e il progetto si dimostra essere accattivante e allo stesso tempo accessibile nelle risorse e nei tempi a disposizione creando una combinazione che l’ha fatto risaltare rispetto ad altri capitolati.
+\end{itemize}
+
+\hypertarget{capitolato-c2}{%
+\subsection{Capitolato C2: NEXUM Concierge (Eggon)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} Il capitolato ha come oggetto un’implementazione aggiuntiva nel progetto NEXUM.
+Quest'ultimo è una piattaforma che mette in comunicazione azienda, personale e studi dei consulenti del lavoro.
+In particolare la richiesta del capitolato verte circa l’elaborazione di NEXUM Concierge, un assistente conversazionale che tramite il linguaggio naturale permette ai dipendenti di compiere diverse attività e procedure direttamente da quest’ultimo sfruttando la conoscenza aziendale. L’assistente sarà quindi in grado di fare o indicare ciò richiesto dal lavoratore. Un MVP deve permettere NEXUM Concierge di funzionare nell’area ferie e permessi.
+Tecnologie indicate a capitolato:
+Strumenti LLM e di gestione di una base di dati e API. 
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} La richiesta di implementazione di diverse tecnologie è sicuramente un'arma a doppio taglio, che nonostante ciò merita la sua nomina nei pro in quanto rende il progetto accattivante.
+L’implementazione di un modello LLM che assolva ad un numero differente di compiti e in grado di eseguire diverse azioni è un punto interessante che permette di confrontarsi in diversi ambiti sia nella configurazione del modello linguistico sia all'effettiva attuazione dei sistemi con cui andrà ad interagire.
+
+  \item \emph{Contro:} Se ben valutata nei pro una struttura che richieda un LLM in grado di interagire tramite il linguaggio naturale con una base di dati, riuscendo a comprendere in maniera significativa, non ambigua ed esauriente le richieste sembra una sfida di difficoltà eccessiva secondo l’opinione del team.
+
+  \end{itemize}
+\item \textbf{Conclusione:} Il progetto presenta limiti per quanto riguarda le risorse a disposizione. NEXUM Concierge è un capitolato interessante ma complesso e non è stato ritenuto ideale dal team. 
+
+\end{itemize}
+
+\hypertarget{capitolato-c3}{%
+\subsection{Capitolato C3: FossDot (Uranion)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} Il capitolato propone la creazione di uno smart speaker in grado di rispondere alle domande fatte tramite un LLM collegato ad esso.
+Particolare attenzione viene posta sul lato della privacy. Si propone la progettazione di un dispositivo che tramite un server di appoggio possa eseguire la conversione del segnale audio in testo e viceversa, così da annullare lo streaming di contenuti audio verso l’esterno. 
+La proposta è quindi divisibile in 4 fasi distinte. 1. Progettazione e costruzione di un dispositivo fisico dotato di hardware capace di ricevere e riprodurre audio oltre che dare un feedback visivo durante l’utilizzo. 2. Scrittura del Firmware, preferibilmente in Rust, responsabile dello streaming audio verso il server ponte, della pulizia del segnale audio e dell’attivazione del dispositivo una volta catturata la wakeword. 3. Configurazione di un server ponte che converta l’audio in testo (STT) per poi spedire a un LLM la richiesta. È richiesto che l'LLM sia configurabile e sostituibile. Una volta elaborata la risposta, sotto forma di testo, ritorna al server dove viene convertita in audio (TTS), ed infine riprodotta dallo speaker.  
+Infine dotare il dispositivo di una web app per la gestione di uno o più dispositivi.
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} Il progetto è il più completo e vario tra quelli proposti. Copre hardware, firmware, backend, intelligenza artificiale e interfaccia web, quindi ogni membro del gruppo può confrontarsi con ambiti diversi e il lavoro si divide in modo naturale tra le componenti. Alcuni membri del gruppo hanno già esperienza con l’hardware e con l’elaborazione dell’audio e questo facilita l’avvio delle parti più vicine al dispositivo. Le tecnologie coinvolte, come Rust, i modelli linguistici eseguiti in locale e il protocollo MCP, sono molto attuali e hanno un grande valore formativo. Il progetto è interamente open source e resta di proprietà del gruppo, che potrà pubblicarlo e mostrarlo liberamente nel proprio curriculum.
+Il tema della privacy e della sovranità del dato gli dà un’utilità reale e una forte motivazione.
+La fornitura dell’hardware e la completa autogestione di questo è un altro dei punti di forza:
+lascia al gruppo la libertà di scegliere e motivare le tecnologie e garantisce un supporto continuo tramite sessioni tecniche con gli esperti dell’azienda, incontri periodici e un possibile workshop in presenza. Infine, la divisione tra MVP e consegna completa permette di pianificare il lavoro in modo incrementale: si parte da un flusso funzionante e si aggiungono funzionalità in base al tempo disponibile.
+
+  \item \emph{Contro:} Dall'altra parte, come aspetti negativi il gruppo individua soprattutto la complessità e la mole di lavoro complessiva. Il progetto è indubbiamente impegnativo perché tocca ambiti molto diversi tra loro contemporaneamente: dalla parte hardware e firmware alla pipeline con l'IA, fino al server e all'interfaccia web. Essendo un lavoro così ampio, la difficoltà principale starà proprio nel riuscire a gestire bene i tempi e a non oltrepassare il tempo utile alla consegna del prodotto finale. 
+  \end{itemize}
+\item \textbf{Conclusione:} Fossdot è il capitolato che è piaciuto di più a tutto il gruppo, perché mette insieme hardware, software e AI in un prodotto concreto. La natura open source, le tecnologie da utilizzare e la disponibilità dimostrata dal team di Uranion durante il colloquio hanno convinto e interessato il gruppo. L'idea di realizzare un dispositivo fisico, unendo le basi del gruppo sulla programmazione a basso livello con il mondo dei modelli di intelligenza artificiale, rende il progetto davvero completo e appassionante. Il gruppo è consapevole della complessità e della mole di lavoro richiesta, ma è convinto che, con una buona organizzazione e concentrandosi su un MVP solido e funzionante, sia una sfida che vale la pena affrontare.
+\end{itemize}
+
+\hypertarget{capitolato-c4}{%
+\subsection{Capitolato C4: Gestione veicoli post-vendita (M31 S.r.l.)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} Il capitolato propone la realizzazione di una piattaforma software distribuita per la gestione del ciclo di vita dei veicoli e dei servizi post-vendita, commissionata da M31 S.r.l. Il sistema mira a superare la frammentazione dei dati nel settore automotive fornendo una gestione logicamente centralizzata che collega tre livelli operativi:
+Central Management Layer (Casa Automobilistica): gestione del catalogo modelli e veicoli, della rete di concessionarie e avvio delle campagne di richiamo.
+Operations Layer (Concessionarie e Centri di Assistenza): gestione delle vendite, anagrafica proprietari, pianificazione degli appuntamenti, esecuzione delle manutenzioni e gestione operativa dei richiami.
+Customer \& Vehicle Services Layer (Proprietari finali): consultazione delle informazioni e dello storico del veicolo, inoltro di richieste di manutenzione e ricezione delle notifiche (inclusi gli avvisi di richiamo).
+Il sistema registra il veicolo associandolo al modello, lo collega al proprietario dopo la vendita, ne gestisce le richieste e gli appuntamenti di manutenzione, individua le unità coinvolte nei richiami tecnici e invia le relative notifiche all'utente.
+Tecnologie indicate a capitolato: Go, Nest.js, NodeJS e TypeScript, NATS, PostgreSQL, MongoDB e Redis, Angular con TypeScript, Kubernetes.
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} Tra i punti a favore c'è sicuramente PostgreSQL: conoscendo già bene i database relazionali, non partiremmo da zero sulla gestione dei dati. Inoltre, arrivando da C e C++, il passaggio a Go ci risulterebbe abbastanza naturale, visto che ritroviamo molti dei concetti e dei tipi a cui siamo già abituati. 
+
+  \item \emph{Contro:} Dall'altra parte, anche se abbiamo già basi di HTML e CSS, Angular resta comunque un framework complesso che richiede tempo per prenderci la mano. C'è poi la parte infrastrutturale: gestire microservizi, NATS e Kubernetes comporta un bel carico di lavoro solo per impostare e configurare l'ambiente di sviluppo. Infine, con così tante tecnologie e database proposti a capitolato, rischiamo di disperdere energie se non concordiamo fin dall'inizio con l'azienda uno stack più compatto.
+
+  \end{itemize}
+\item \textbf{Conclusione:} Anche se il progetto ha requisiti chiari, un'architettura solida e una tecnologia già familiare al gruppo come PostgreSQL, il gruppo ha deciso di non sceglierlo. Il motivo principale è di interesse: trattandosi per lo più di un gestionale per tracciare il post-vendita, è risultato meno stimolante rispetto ad altre proposte che hanno incuriosito maggiormente il gruppo.
+
+\end{itemize}
+
+\hypertarget{capitolato-c5}{%
+\subsection{Capitolato C5: RareCare Navigator (Miriade)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} Il capitolato RareCare Navigator che è stato proposto dall’azienda Miriade S.r.l., ha come obiettivo quello di progettare e sviluppare una piattaforma digitale dotata di assistente virtuale basato su LLM per permettere la gestione e la continuità assistenziale nelle malattie rare e complesse, come primo focus sulla Sindrome di Sanfilippo. 
+Il sistema permetterà il coordinamento tra i vari soggetti all’interno della rete di cura (famiglie, medici specialisti, terapisti…) offrendo una UI accessibile, un fascicolo digitale sicuro e strumenti di supporto decisionale.
+Le funzionalità richieste dal capitolato sono le seguenti:
+L’utilizzo di un assistente conversazionale basato su modelli LLM e architettura RAG per orientare gli utenti tra protocolli clinici e pratiche burocratiche su fonti verificate;
+La generazione automatica di checklist dinamiche e timeline di cura per ogni fase clinica;
+L’uso di una dashboard collaborativa per favorire il coordinamento tra medico, scuola e terapisti;
+La presenza di un archivio cifrato per conservare e condividere documenti in conformità alla normativa sulla privacy.
+La proponente consiglia le seguenti tecnologie, senza obbligo:
+App Flutter/ React Native come base di codice per Web, CloudFront + WAF per la distribuzione della versione web, Amazon Cognito per la gestione degli utenti, Amazon Verified Permissions per la creazione di policy, API Gateway come WebSocket per lo streaming delle risposte in chat,
+AWS Lambda per eseguire la logica di ciascun contesto di dominio,
+Step Functions per orchestrare i processi a più passi (e.g. pipeline di ingestione di documenti), Event Bridge (bus + Scheduler) per propagare eventi di dominio e pianificare le notifiche, Amazon Bedrock come accesso gestito a LLM, Bedrock Knowledge Bases come pipeline RAG gestita, Bedrock Guardrails per filtri su input e output, Amazon Transcribe per convertire voce in testo, Aurora Serverless v2 come base di dati, Vector Store come indice vettoriale per la ricerca semantica nel RAG, Amazon S3 per l’archiviazione documentale e corpus delle fonti ufficiali, SNS / End User Messaging + SES per le notifiche push, Amazon Location Service come servizio di posizione, SageMaker per l'addestramento e servizio di modelli ML.
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} Il tema del progetto ha un forte valore etico e sociale, poter partecipare a un progetto a supporto di famiglie fragili in collaborazione con l’associazione Sanfilippo Fighters porta una grande soddisfazione personale oltre che formativa.
+L’azienda offre un supporto completo e ben strutturato:
+una mentorship tecnica su argomenti come cloud serverless e integrazione AI, supporto UX/UI per contesti clinici, formazione iniziale sul dominio medico e normativo.
+Oltre questo offre a disposizione anche sale riunioni per eventuali incontri di persona per chiarire dubbi progettuali.
+L’impostazione architetturale a plugin e l’approccio domain-driven risultano molto moderni e in linea con le tecnologie utilizzate nell’attuale mondo lavorativo.
+
+  \item \emph{Contro:} La gestione di dati sanitari sensibili appartenenti ai minori impone regolamenti molto rigidi aumentando la responsabilità e di conseguenza la complessità durante l’implementazione.
+L’ecosistema cloud AWS e il modello permessi granulari non sono familiari al gruppo e richiederebbero di dedicare loro una parte del tempo di sviluppo.
+
+  \end{itemize}
+\item \textbf{Conclusione:} Il gruppo è interessato a questo progetto di grande valore sociale ma l’elevato numero di tecnologie richieste suscita la necessità di aver bisogno di un tempo di progettazione molto ampio e quindi il rischio di non riuscire a completarlo entro tempistiche accettabili e quindi si è preferito orientarsi su altri capitolati che sono più affini al percorso di studio del gruppo.
+\end{itemize}
+
+\hypertarget{capitolato-c6}{%
+\subsection{Capitolato C6: Caching semantico e FinOps (Var Group)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} Il capitolato, proposto da Var Group S.p.A., chiede di estendere LiteLLM, un proxy open source già usato in produzione dall’azienda come punto di accesso unico ai modelli linguistici di più provider. LiteLLM ha due limiti. La sua cache riconosce solo le richieste identiche, quindi le domande equivalenti si pagano più volte, e non offre una visione d’insieme dei costi.
+L’obiettivo è sviluppare due componenti. Il primo è una cache semantica, che tramite embedding riconosce le richieste con lo stesso significato e riusa la risposta già salvata. Il secondo è una dashboard FinOps, che mostra i consumi per team, progetto e utente, misura il risparmio della cache, gestisce budget e avvisi e prevede la spesa mensile.
+Viene consigliato l’utilizzo delle seguenti tecnologie:
+Python con LiteLLM (vincolante), FastAPI o Flask, Docker Compose, OpenAI text-embedding-3-small o sentence-transformers, Redis per la cache, Qdrant o pgvector per la ricerca vettoriale, PostgreSQL per le metriche, React con Chart.js, oppure Streamlit.
+
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} Il progetto affronta un problema reale, i costi dei modelli linguistici in azienda, e avrebbe un uso concreto, perché Var Group usa già LiteLLM. Lo stack è moderno e richiesto dal mercato, e il perimetro è ben delimitato, con prodotti attesi e obiettivo di copertura dei test espliciti. L’azienda offre inoltre un supporto strutturato, con design thinking, formazione e incontri periodici.
+  \item \emph{Contro:} Il valore del prodotto dipende dalla qualità della cache. Non è banale capire quando una risposta salvata si può davvero riutilizzare, e anche i test diventano più complessi. Bisogna inoltre studiare a fondo LiteLLM, che evolve rapidamente. Infine, per prevedere la spesa servono dati storici che il gruppo non ha a disposizione, di conseguenza risulterebbe difficile validare la qualità del software prodotto.
+
+  \end{itemize}
+\item \textbf{Conclusione:} Pur riconoscendo l’utilità del prodotto, il gruppo ha mostrato un interesse limitato per questo capitolato. La maggior parte dei membri non ha esperienza con le tecnologie richieste, come LiteLLM, gli embedding e i database vettoriali, e una parte consistente del tempo a disposizione sarebbe quindi destinata al loro apprendimento. Per queste ragioni, unite al minore interesse per il dominio applicativo, il gruppo ha deciso di non candidarsi per il capitolato. 
+
+\end{itemize}
+
+\hypertarget{capitolato-c7}{%
+\subsection{Capitolato C7: Smart Dashboard (Ergon)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} La SmartDashboard, proposta dall'azienda Ergon Informatica S.r.l., richiede lo sviluppo di una piattaforma di Business Intelligence (BI) per l'analisi dei dati aziendali provenienti da un gestionale (ERP).
+L'obiettivo è creare una web application in cui gli utenti possano comporre dashboard personalizzate tramite interfaccia drag\&drop, inserendo widget come grafici, KPI, tabelle pivot e mappe. Alla piattaforma deve essere affiancato un assistente basato su LLM per permettere la generazione di visualizzazioni tramite linguaggio naturale e per ottenere spiegazioni automatiche su anomalie o andamenti dei dati.
+Viene consigliato l'utilizzo delle seguenti tecnologie:
+ DuckDB come motore analitico principale (o alternative come ClickHouse o MonetDB), con PostgreSQL, MySQL o MariaDB per la persistenza dei dati grezzi e delle configurazioni utente, Python tramite librerie come Polars o Pandas per estrarre e trasformare i dati dal gestionale (tramite ODBC o JSON), Framework web reattivi come React, Angular o Vue.js, con librerie per il layout a griglia e per i grafici (ad esempio Apache ECharts, Chart.js, AG Grid), API commerciali di modelli LLM come GPT (OpenAI) o Claude (Anthropic), API REST per far dialogare frontend e backend.
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} I punti di forza di questo progetto sono molteplici: l’architettura è chiara e ben strutturata e la sua suddivisione a tre livelli (Raw Data Store, Data Warehouse, Web App) facilita la suddivisione dei compiti fra i vari membri del gruppo. La possibilità di sperimentare su dataset reali su larga scala forniti dall’azienda permette di acquisire conoscenze pratiche sulla tecnologia DuckDB. Il supporto e gli allineamenti periodici quindicinali garantiti dall’azienda saranno essenziali per monitorare l'avanzamento e non andare fuori strada rispetto all’obiettivo principale del progetto. Infine, l’assistente basato su LLM ha scopi ben precisi e non richiede l'onere di un addestramento partendo da zero, bensì sfrutta API commerciali già consolidate.  
+  \item \emph{Contro:} Tra i punti a sfavore, il progetto prevede una pipeline end-to-end molto ampia che copre l'intero percorso del dato: dall'ETL (Extract, Transform, Load) al data warehousing, fino al backend con API e a una dashboard drag\&drop personalizzabile sul frontend. Questo elevato numero di tecnologie diverse comporta il rischio di disperdere tempo ed energie nello sviluppo. Inoltre, la difficoltà nell’allineare le richieste in linguaggio naturale a query analitiche sensate, in modo da produrre risposte numericamente coerenti con il dataset, introdurrà probabilmente complessità e incertezze durante i test.  
+  \end{itemize}
+\item \textbf{Conclusione:} Nonostante i diversi aspetti positivi e la solidità dell'architettura proposta, l’idea di costruire una piattaforma di Business Intelligence per l'analisi dei dati aziendali provenienti da un gestionale, per quanto integri anche LLM, è risultata meno stimolante per i membri del gruppo rispetto ai temi affrontati nelle prime scelte.
+
+\end{itemize}
+
+\hypertarget{capitolato-c8}{%
+\subsection{Capitolato C8: Sonar (Halue)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} Sonar è un'applicazione web che si collega a uno store Shopify e crea una documentazione contenente le varie installazioni, dipendenze e configurazioni, segnalando problemi e parti obsolete con motivazione esplicita per ogni segnalazione, il tutto consultabile via interfaccia web ed esportabile in formato portabile.
+
+Le tecnologie richieste del progetto sono:
+Framework e hosting tramite Next.js su Vercel, Orchestrazione tramite Vercel Workflows, Pianificazione tramite Vercel Cron Jobs, Supabase con Row Level Security come base di dati, Autenticazione tramite Supabase Auth,
+TypeScript come linguaggio, Shopify Admin GraphQL API come sorgente dati,
+Git/GitHub per il versionamento.
+
+Le restanti parti del progetto hanno tecnologie suggerite, che possono essere cambiate in caso di alternativa motivata per iscritto.
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} La proponente rende disponibili varie forme di aiuto, come un incontro online ogni due settimane, una casella di posta per domande e chiarimenti e il loro punto di vista operativo sulla documentazione.
+
+  \item \emph{Contro:} Il gruppo si ritrova incerto sul come iniziare autonomamente alcune parti del progetto, come la costruzione dell’ambiente di lavoro, e il rispetto dei limiti di tempo, nonostante la possibilità di risoluzione senza penalizzazione in caso di limite quasi raggiunto.
+
+  \end{itemize}
+\item \textbf{Conclusione:} Il gruppo ha deciso di non scegliere questo capitolato in quanto la complessità medio-alta e la poca conoscenza delle numerose tecnologie richieste possono far aumentare la durata prevista del progetto.
+
+\end{itemize}
+
+\hypertarget{capitolato-c9}{%
+\subsection{Capitolato C9: SpecCheck (Zucchetti)}}
+\begin{itemize}
+\tightlist
+\item \textbf{Descrizione e tecnologie richieste:} SpecCheck è un progetto che propone lo sviluppo di un pacchetto di skill, tool e plug-in per OpenCode con l’obiettivo di verificare la conformità del codice generato da LLM. 
+Si propone quindi un insieme di skill, comandi ed estensioni a verifica della tracciabilità end-to-end attraverso tre livelli di astrazione di un progetto software. I tre livelli sono 1. La casistica di utilizzo 2. Analisi e specifiche dei requisiti 3. Implementazione del codice sorgente 
+Il prodotto finale deve poter individuare specifiche dei requisiti, leggere file che rappresentano i diagrammi dei casi d’uso ed eventuale documentazione aggiuntiva. Deve inoltre essere in grado di confrontare le informazioni ottenute dai casi d’uso e le specifiche dei requisiti.
+Infine si verifica che il programma venga implementato correttamente. La correttezza viene valutata considerando il comportamento del programma rispetto al comportamento richiesto dalle specifiche dei requisiti. 
+Una dashboard riporta lo stato della realizzazione confrontato alle previsioni nate dalle specifiche dei requisiti.
+Come modello di scrittura dei diagrammi, da cui nascono i casi d’uso, Zucchetti propone l’uso di tecnologie come “Mermaid” e XMI. 
+
+\item \textbf{Valutazione Pro e Contro:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Pro:} Il progetto si presenta molto ambizioso e attuale, è molto valido come esperienza lavorativa per i componenti del gruppo. 
+La proposta lascia molta flessibilità riguardo i dati di prova.
+
+  \item \emph{Contro:} Il progetto stesso ammette che “il progetto è molto esplorativo” e che le capacità di comprensione del codice da parte dei modelli linguistici “potrebbero non essere definite in modo certo”. Trovare una architettura affidabile potrebbe richiedere molti test di prompt engineering.
+Creare un algoritmo che verifichi se una porzione di codice soddisfa i requisiti espressi in linguaggio naturale si presenta come una sfida critica e tutt’altro che banale.
+Il team non ha né dimestichezza con le tecnologie richieste né familiarità con i campi tecnici dove si sviluppa il progetto.
+Preoccupa la quantità di materiale su cui documentarsi.
+Al contempo la flessibilità suggerita dal capitolato costituisce una complicazione riguardo la scelta dei dati su cui basare i propri test.
+
+  \end{itemize}
+\item \textbf{Conclusione:} Il progetto si presenta fuori misura per le competenze e l’interesse del team. Per questo motivo è stato escluso dalle possibili candidature.
+\end{itemize}
+
+\hypertarget{capitolato-selezionato}{%
+\section{Capitolato Selezionato}}
+
+
+\hypertarget{motivazioni-della-scelta}{%
+\subsection{Motivazioni della scelta}} 
+A conclusione della discussione, il gruppo ha designato come scelta preferenziale del capitolato \textbf{C3: FossDot (Uranion)}, indicando \textbf{C1: AURA (VIMAR)} come immediata seconda preferenza.
+
+Le motivazioni cardine per la scelta di \textbf{FossDot} risiedono in:
+\begin{enumerate}
+\tightlist
+\item \textbf{Ampiezza formativa:} Il progetto attraversa l\textquotesingle{}intero ciclo ingegneristico (dall\textquotesingle{}elettronica e dal codice a basso livello in Rust fino al backend, alle pipeline AI e all\textquotesingle{}interfaccia web), permettendo a ciascun componente di mettere a frutto le proprie inclinazioni.
+\item \textbf{Natura Open Source e Titolarità:} Il lavoro svolto apparterrà interamente al gruppo ed è orientato alla sovranità del dato, valore di forte utilità pratica ed etica.
+\item \textbf{Supporto aziendale tangibile:} Come approfondito nel verbale della riunione esterna, l\textquotesingle{}azienda ha dimostrato pragmatismo, garantendo fornitura dell\textquotesingle{}hardware, supporto diretto di esperti del software e workshop in presenza.
+\item \textbf{Pianificazione incrementale:} La distinzione rigorosa tra un \emph{MVP} solido e le successive evoluzioni funzionali offre elevate garanzie di riuscita nei tempi didattici.
+\end{enumerate}
+
+\hypertarget{piano-di-massima}{%
+\subsection{Piano di massima}}
+Lo sviluppo del sistema FossDot verrà articolato su tre macro-iterazioni:
+\begin{itemize}
+\tightlist
+\item \textbf{Analisi dei Requisiti:} Individuare le funzioni del prodotto concentrandosi su cosa dovrà fare il prodotto finale. Questa fase prevede che venga stabilito insieme al proponente una serie di funzionalità che l'MVP potrà eseguire, ad esempio, l'intercettazione della wakeword in locale, lo streaming di audio verso il "Server ponte". L’analisi dei requisiti si baserà sul capitolato e su ulteriori incontri di approfondimento con Uranion, e porterà alla definizione dei casi d’uso e dei requisiti, classificati per tipo e per priorità. 
+\item \textbf{Proof of Concept:} Definizione dell'architettura del sistema e scelta delle tecnologie per ciascuna componente (hardware, firmware, "server ponte" ed interfaccia web). In questa fase verrà scelto l'hardware e verrà realizzato un primo prototipo che dimostri il ciclo di interazione principale: riconoscimento wake word, invio della domanda al server ponte e finale risposta vocale. Il prototipo servirà a verificare che le tecnologie scelte funzionino prima di procedere con lo sviluppo dell'MVP.
+\item \textbf{Verifica e Consolidamento}: Questa fase servirà a validare il lavoro svolto insieme al proponente. Il PoC verrà presentato a Uranion e il confronto con l'azienda permetterà di raccogliere osservazioni sul funzionamento del prototipo e sulle scelte tecnologiche adottate. Sulla base di questi riscontri e dei test eseguiti sul dispositivo, il gruppo correggerà i difetti emersi e rivedrà requisiti e architettura, in modo da affrontare lo sviluppo dell'MVP su basi solide.
+\item \textbf{MVP:} A partire dal PoC, verranno raffinati il firmware, il server ponte e l'interfaccia web per la registrazione, configurazione del dispositivo dando particolare importanza all'on-boarding dell'utente. In questa fase il funzionamento del sistema verrà consolidato e verificato tramite test automatici e manuali sul dispositivo fisico. L'obiettivo è ottenere un prodotto vicino a quello finale, che permetta di essere mantenuto ed aggiornato in modo efficiente.
+\end{itemize}
+
+\hypertarget{rischi-principali-e-mitigazioni}{%
+\subsection{Rischi principali e mitigazioni}}
+\begin{itemize}
+\tightlist
+\item \textbf{Complessità dello stack multilivello:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Mitigazione:} Aderenza stringente alle specifiche dell\textquotesingle{}MVP chiarite durante il colloquio con Uranion, evitando feature accessorie (es. eliminazione avanzata dell\textquotesingle{}eco su HW) finché il flusso base non è collaudato.
+  \end{itemize}
+\item \textbf{Curva di apprendimento del linguaggio Rust per embedded:}
+  \begin{itemize}
+  \tightlist
+  \item \emph{Mitigazione:} Affidamento iniziale della parte firmware ai componenti con maggiore esperienza in C/C++ e fruizione delle sessioni tecniche di supporto offerte dalla proponente.
+  \end{itemize}
+\end{itemize}
+
+\vspace{8mm}
+\begin{flushright}
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_ald.png}}}
+    \rule{0.8\linewidth}{0.4pt}\\
+    {\footnotesize Firma del Responsabile di Progetto}\\[1mm]
+    {\footnotesize (\textit{a nome di tutti i componenti})}
+  \end{minipage}
+\end{flushright}
+
+
+\end{document}
