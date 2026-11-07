@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
 \usepackage{graphicx}
+\graphicspath{{../../assets/}{../../Assets/}{assets/}{Assets/}}
 \usepackage[table]{xcolor}
 \usepackage{tabularx,array}
 \usepackage{titlesec}
@@ -69,7 +70,7 @@
 \begin{titlepage}
 \centering
 \vspace*{4mm}
-\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
 \underline{bending.forks.swe@gmail.com}
 
 \vspace{42mm}
@@ -111,9 +112,19 @@
 \section{Registro delle versioni}}
 
 \begin{center}
-\begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.70\hsize\raggedright\arraybackslash}X>{\hsize=0.8\hsize\raggedright\arraybackslash}X}
-\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Verificatore}} & \textcolor{white}{\textbf{Descrizione}} \\
-1.0 & 06/11/2026 & Filippo Rampazzo & [Nome e cognome] & Creazione e redazione iniziale del documento \\ \arrayrulecolor{bfline}\hline
+\begin{tabularx}{\linewidth}{
+  >{\hsize=0.55\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.75\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=2.00\hsize\raggedright\arraybackslash}X
+}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & 
+\textcolor{white}{\textbf{Data}} & 
+\textcolor{white}{\textbf{Autore}} & 
+\textcolor{white}{\textbf{Verificatore}} & 
+\textcolor{white}{\textbf{Descrizione}} \\
+1.0 & 06/11/2026 & Filippo Rampazzo & Matteo Wu & Creazione e redazione iniziale del documento \\ \arrayrulecolor{bfline}\hline
 \end{tabularx}
 \end{center}
 
@@ -179,8 +190,8 @@ Il gruppo si accorda su venerdì 13 novembre 2026 come data che soddisfa le sudd
 \textbf{Decisioni prese:}
 \begin{itemize}
 \tightlist
-\item[$\checkmark$]  Il gruppo ha inviato una email alla proponente comunicando l'aggiudicazione dell'appalto e richiedendo una riunione per venerdì 13 novembre 2026;
-\item[$\checkmark$]  Il gruppo fissa la riunione con la proponente come scadenza per l'abbozzo dell'Analisi dei Requisiti.
+\item[$\checkmark$] Il gruppo ha inviato una email alla proponente comunicando l'aggiudicazione dell'appalto e richiedendo una riunione per venerdì 13 novembre 2026;
+\item[$\checkmark$] Il gruppo fissa la riunione con la proponente come scadenza per l'abbozzo dell'Analisi dei Requisiti.
 \end{itemize}
 
 \textbf{Motivazione:} \\
@@ -207,7 +218,7 @@ Il gruppo concorda sulla divisione in sotto-gruppi, uno per documento, così com
 \textbf{Decisione presa:}
 \begin{itemize}
 \tightlist
-\item[$\checkmark$]  Suddivisione in sotto-gruppi paralleli per la redazione dei documenti;
+\item[$\checkmark$] Suddivisione in sotto-gruppi paralleli per la redazione dei documenti;
 \end{itemize}
 
 \textbf{Motivazione:} \\
@@ -286,15 +297,14 @@ Redigere il Glossario & Salmaso, Wu & 2026-11-16 & Media \\ \arrayrulecolor{bfli
 \noindent
 \begin{minipage}[t]{0.45\textwidth}
 \textbf{Firma Scriba:}\\[18pt]
-\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{Assets/firma_filippo.jpeg}}}\rule{55mm}{0.5pt}\\[2pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_filippo.jpeg}}}\rule{55mm}{0.5pt}\\[2pt]
 \small Filippo Rampazzo
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
 \begin{flushright}
 \textbf{Firma Verificatore:}\\[18pt]
-% Inserire qui firma verificatore
-\rule{55mm}{0.5pt}\\[2pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_matteo.jpg}}}\rule{55mm}{0.5pt}\\[2pt]
 \small Matteo Wu
 \end{flushright}
 \end{minipage}
