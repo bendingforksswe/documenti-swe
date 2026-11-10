@@ -1,0 +1,771 @@
+%! titolo: Norme di progetto
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+% I percorsi scritti con \path possono andare a capo anche dopo _ - e .
+\def\UrlBreaks{\do\/\do\_\do\-\do\.}
+
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+% Macro di formattazione interna Bending Forks
+\newcommand{\ph}[1]{\textcolor{red}{[#1]}}
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+% Termine presente nel Glossario: corsivo con G a pedice
+\newcommand{\gl}[1]{\emph{#1}\textsubscript{\scriptsize G}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}\raggedright}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}\raggedright}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\raggedright}{\thesubsubsection.}{0.3em}{}
+\titleformat{\paragraph}[hang]{\normalsize\bfseries\itshape\raggedright}{\theparagraph.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+\titlespacing*{\paragraph}{0pt}{8pt}{2pt}
+
+% Indice: numeri con punto, trattini fino al numero di pagina
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Norme di progetto}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+\graphicspath{{../}{../assets/}{../../InfoGruppo/}}
+
+% Intestazione bianca su sfondo blu per le tabelle
+\newcommand{\thc}[1]{\textcolor{white}{\textbf{#1}}}
+\newcommand{\rl}{\arrayrulecolor{bfline}\hline}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{32mm}
+{\fontsize{24}{28}\selectfont\bfseries Norme di progetto\par}
+\vspace{4mm}
+{\large\color{bfblue}\textbf{Capitolato C3: Fossdot -- Smart Speaker Open Source}\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Nicholas Salmaso \\
+\textbf{Redattori} & Marco Beltrame \\
+ & Lorenzo Milanese \\
+\textbf{Verificatore} & \ph{da assegnare} \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 0.1.0 \\
+\textbf{Tipo} & Documento Interno \\
+\textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Raccolta delle norme, delle convenzioni e degli strumenti che regolano il modo di lavorare (\emph{way of working}) del gruppo Bending Forks per tutta la durata del progetto didattico.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle versioni ----------
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{
+  >{\hsize=0.55\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.75\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=2.00\hsize\raggedright\arraybackslash}X
+}
+\rowcolor{bfblue}\thc{Versione} & \thc{Data} & \thc{Autore} & \thc{Verificatore} & \thc{Descrizione} \\
+0.1.0 & 2026-11-10 & Lorenzo Milanese, Marco Beltrame & \ph{da assegnare} & Prima stesura del documento in vista della RTB \\ \rl
+\end{tabularx}
+\end{center}
+
+% =====================================================================
+\section{Introduzione}
+
+\subsection{Scopo del documento}
+Questo documento descrive il \gl{way of working} del gruppo Bending Forks: le regole, le convenzioni e gli strumenti che ogni componente segue durante il progetto. Lo scopo è che tutti lavorino nello stesso modo, così che documenti e codice siano coerenti tra loro e che ogni decisione sia tracciabile.
+
+Le norme sono vincolanti per tutti i componenti del gruppo. Chi trova una norma poco chiara, sbagliata o superata lo segnala al Responsabile, che ne propone la modifica (vedi \hyperref[sec:miglioramento]{Processo di miglioramento}).
+
+\subsection{Natura incrementale}
+Le Norme di progetto sono un documento \textbf{incrementale}: crescono insieme al progetto. La versione attuale copre le attività necessarie a raggiungere la \gl{Requirements and Technology Baseline} (RTB): analisi dei requisiti, \gl{Proof of Concept} (PoC), documentazione, verifica e gestione del progetto. Le norme sulla progettazione di dettaglio, sulla codifica del prodotto finale e sui test dell'\gl{MVP} verranno completate in vista della \gl{Product Baseline} (PB). Le parti ancora da decidere sono segnalate in \ph{rosso tra parentesi quadre}.
+
+\subsection{Scopo del prodotto}
+Il gruppo realizza il capitolato \textbf{C3 -- Fossdot}, proposto da \textbf{Uranion EMEA LTD}: uno \gl{smart speaker} \gl{open source}, estensibile e rispettoso della \emph{privacy}. \ph{Breve descrizione del prodotto da allineare con l'Analisi dei requisiti dopo la riunione con la proponente del 13 novembre 2026.}
+
+\subsection{Struttura del documento}
+Il documento segue la classificazione dei processi dello standard \textbf{ISO/IEC 12207:1995}, adattata al progetto (\gl{tailoring}):
+\begin{itemize}
+\tightlist
+\item \textbf{Processi primari}: fornitura e sviluppo;
+\item \textbf{Processi di supporto}: documentazione, gestione della configurazione, accertamento della qualità, verifica, validazione;
+\item \textbf{Processi organizzativi}: gestione, infrastruttura, miglioramento, formazione.
+\end{itemize}
+Ogni processo è descritto indicando scopo, strumenti, attività e norme da rispettare. L'ultima sezione definisce le \textbf{metriche di qualità} usate per misurare processi e prodotti.
+
+\subsection{Glossario}
+Per evitare ambiguità, i termini tecnici o specifici del dominio sono raccolti nel documento \textbf{Glossario}. Nei documenti, la prima occorrenza di un termine presente nel Glossario è scritta in corsivo con una G a pedice, così: \gl{parola}. In \LaTeX\ si usa il comando \texttt{\textbackslash gl\{parola\}}.
+
+\subsection{Riferimenti}
+\subsubsection{Riferimenti normativi}
+\begin{itemize}
+\tightlist
+\item Capitolato d'appalto C3 -- Fossdot: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C3-Fossdot.pdf};
+\item Regolamento del progetto didattico: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Dispense/PD1.pdf}.
+\end{itemize}
+\subsubsection{Riferimenti informativi}
+\begin{itemize}
+\tightlist
+\item Standard ISO/IEC 12207:1995: \url{https://www.math.unipd.it/~tullio/IS-1/2009/Approfondimenti/ISO_12207-1995.pdf};
+\item Conventional Commits: \url{https://www.conventionalcommits.org/it/v1.0.0/};
+\item Glossario v\ph{x.y.z};
+\item Verbale interno del 4 novembre 2026 (assegnazione della redazione di questo documento e regole di rotazione dei ruoli). \ph{Da Verificare}
+\end{itemize}
+
+% =====================================================================
+\section{Processi primari}\label{sec:primari}
+
+\subsection{Fornitura}
+Il processo di fornitura regola il rapporto tra il gruppo (fornitore) e la proponente Uranion EMEA LTD e i committenti Prof. Tullio Vardanega e Prof. Riccardo Cardin: dalla candidatura alla consegna del prodotto, passando per la pianificazione e il controllo dell'avanzamento.
+
+\subsubsection{Attività}
+\begin{itemize}
+\tightlist
+\item \textbf{Candidatura}: analisi dei capitolati, scelta e presentazione della candidatura (conclusa con l'aggiudicazione del capitolato C3);
+\item \textbf{Pianificazione}: definizione di attività, tempi, costi e rischi nel Piano di progetto;
+\item \textbf{Esecuzione e controllo}: realizzazione del prodotto e monitoraggio continuo di avanzamento e qualità;
+\item \textbf{Revisione con la proponente}: incontri periodici con Uranion per chiarire i requisiti e mostrare l'avanzamento;
+\item \textbf{Consegna}: consegna del prodotto e della documentazione alle revisioni RTB e PB.
+\end{itemize}
+
+\subsubsection{Rapporti con la proponente}
+\begin{itemize}
+\tightlist
+\item I contatti con Uranion sono tenuti dal \textbf{Responsabile} tramite l'indirizzo email del gruppo \texttt{bending.forks.swe@gmail.com};
+\item Gli incontri si svolgono su \textbf{Google Meet}, salvo diverso accordo;
+\item Ogni incontro con la proponente produce un \textbf{verbale esterno} (§\ref{sec:verbali}), che viene inviato alla proponente per la firma;
+\item \ph{Cadenza degli incontri con la proponente da concordare il 13 novembre 2026.}
+\end{itemize}
+
+\subsubsection{Revisioni di avanzamento}\label{sec:revisioni}
+Il progetto prevede due revisioni di avanzamento con i committenti, a cui il gruppo si candida con la Lettera di presentazione:
+\begin{itemize}
+\tightlist
+\item \textbf{RTB} (\emph{Requirements and Technology Baseline}): il gruppo dimostra di aver compreso i requisiti del capitolato e di aver scelto tecnologie adeguate, verificate con un \textbf{\emph{Proof of Concept}} (§\ref{sec:poc});
+\item \textbf{PB} (\emph{Product Baseline}): il gruppo presenta l'architettura del prodotto e l'\textbf{MVP} (\emph{Minimum Viable Product}), cioè la versione del prodotto che soddisfa i requisiti obbligatori.
+\end{itemize}
+Prima di ogni revisione il Responsabile controlla che tutti i documenti previsti siano in stato \textbf{Approvato} (§\ref{sec:ciclovita}), che non contengano segnaposto e che siano pubblicati sul sito del gruppo.
+
+\subsubsection{Documentazione fornita}
+Il gruppo consegna ai committenti e alla proponente i seguenti documenti:
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=1.05\hsize\raggedright\arraybackslash}X>{\hsize=0.65\hsize\raggedright\arraybackslash}X>{\hsize=0.5\hsize\raggedright\arraybackslash}X>{\hsize=0.6\hsize\raggedright\arraybackslash}X>{\hsize=1.2\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Documento} & \thc{Redattore} & \thc{Uso} & \thc{Revisione} & \thc{Contenuto} \\
+Lettera di candidatura & Responsabile & Esterno & Candidatura & Candidatura del gruppo al capitolato \\ \rl
+Valutazione dei capitolati & Analista & Esterno & Candidatura & Analisi di ogni capitolato e motivazione della scelta \\ \rl
+Preventivo costi e assunzione impegni & Responsabile & Esterno & Candidatura & Ore e costi per ruolo e per componente \\ \rl
+Lettera di presentazione & Responsabile & Esterno & RTB, PB & Candidatura alla revisione \\ \rl
+Analisi dei requisiti & Analista & Esterno & RTB, PB & Casi d'uso e requisiti del prodotto \\ \rl
+Piano di progetto & Responsabile & Esterno & RTB, PB & Rischi, pianificazione, preventivi e consuntivi per periodo \\ \rl
+Piano di qualifica & Amministratore & Esterno & RTB, PB & Obiettivi di qualità, valori delle metriche, test e loro esiti \\ \rl
+Norme di progetto & Amministratore & Interno & RTB, PB & Questo documento \\ \rl
+Glossario & Amministratore & Esterno & RTB, PB & Definizione dei termini usati nei documenti \\ \rl
+Verbali interni & Responsabile & Interno & RTB, PB & Resoconto delle riunioni interne \\ \rl
+Verbali esterni & Responsabile & Esterno & RTB, PB & Resoconto delle riunioni con soggetti esterni \\ \rl
+Specifica tecnica & Progettista & Esterno & PB & Architettura e progettazione del prodotto \\ \rl
+Manuale utente & Progettista & Esterno & PB & Istruzioni d'uso del prodotto \\ \rl
+\end{tabularx}
+\end{center}
+Oltre ai documenti, il gruppo consegna il \textbf{PoC} alla RTB e l'\textbf{MVP} alla PB. I documenti consegnati alla RTB vengono aggiornati e riconsegnati alla PB.
+
+\ph{Confermare la tabella, i ruoli redattori e l'elenco delle consegne con il regolamento del progetto didattico dell'A.A. 2026/27.}
+
+\subsection{Sviluppo}
+Il processo di sviluppo comprende le attività che portano dal capitolato al prodotto: analisi dei requisiti, progettazione, codifica, integrazione e test.
+
+In vista della RTB le attività principali sono l'\textbf{analisi dei requisiti} e la realizzazione del \textbf{\emph{Proof of Concept}}. La progettazione di dettaglio e la codifica dell'MVP sono attività della PB: le relative norme verranno completate prima del loro inizio.
+
+\subsubsection{Analisi dei requisiti}
+L'analisi dei requisiti individua cosa il prodotto deve fare, a partire dal capitolato e dagli incontri con la proponente. Il risultato è il documento \textbf{Analisi dei requisiti}.
+
+\paragraph{Casi d'uso}
+Ogni caso d'uso è identificato dal codice:
+\begin{center}\texttt{UC[Numero].[Sottocaso] -- [Titolo]}\end{center}
+dove \texttt{[Numero]} identifica il caso d'uso principale, \texttt{[Sottocaso]} (facoltativo, anche su più livelli) identifica un caso d'uso derivato e \texttt{[Titolo]} riassume l'azione.
+
+Ogni caso d'uso riporta: attori primari e secondari, precondizioni, postcondizioni, scenario principale, eventuali inclusioni ed estensioni, e il diagramma UML dei casi d'uso.
+
+\paragraph{Requisiti}
+Ogni requisito è identificato dal codice:
+\begin{center}\texttt{R[Tipo]-[Numero]-[Priorità]}\end{center}
+dove:
+\begin{itemize}
+\tightlist
+\item \texttt{[Tipo]}: \texttt{F} funzionale, \texttt{Q} di qualità, \texttt{V} di vincolo, \texttt{P} prestazionale;
+\item \texttt{[Numero]}: progressivo univoco all'interno del tipo;
+\item \texttt{[Priorità]}: \texttt{Obb} obbligatorio, \texttt{Des} desiderabile, \texttt{Opz} opzionale.
+\end{itemize}
+Ogni requisito indica la sua \textbf{fonte} (capitolato, caso d'uso, verbale) per garantire il tracciamento.
+\ph{Nomenclatura da allineare con il sotto-gruppo dell'Analisi dei requisiti.}
+
+\paragraph{Tracciamento}
+L'Analisi dei requisiti contiene le tabelle di tracciamento:
+\begin{itemize}
+\tightlist
+\item \textbf{Fonte → requisiti}: per ogni fonte (capitolato, caso d'uso, verbale) i requisiti che ne derivano;
+\item \textbf{Requisito → fonti}: per ogni requisito le fonti da cui deriva.
+\end{itemize}
+Ogni requisito deve avere almeno una fonte e ogni caso d'uso deve essere coperto da almeno un requisito. In vista della PB il tracciamento verrà esteso ai test (§\ref{sec:validazione}).
+
+\paragraph{Strumenti}
+\ph{Strumento per i diagrammi UML dei casi d'uso da scegliere (es.\ draw.io, StarUML, PlantUML).}
+
+\subsubsection{\emph{Proof of Concept}}\label{sec:poc}
+Il \textbf{\emph{Proof of Concept}} (PoC) è un prototipo, anche parziale e non definitivo, che dimostra che le tecnologie scelte sono adatte a soddisfare i requisiti principali del capitolato. Fa parte della consegna RTB.
+\begin{itemize}
+\tightlist
+\item Il PoC si sviluppa in una \emph{repository} dedicata dell'account del gruppo (§\ref{sec:repository});
+\item La \emph{repository} contiene un file \texttt{README.md} che spiega cosa dimostra il PoC, quali tecnologie usa e come avviarlo;
+\item Le tecnologie valutate e i motivi della scelta vengono riportati \ph{nell'Analisi dei requisiti / in un documento apposito / nel Piano di progetto: da decidere};
+\item Il codice del PoC segue, per quanto possibile, le norme di codifica (§\ref{sec:codifica}) e passa comunque dalla verifica tramite \emph{pull request}.
+\end{itemize}
+\ph{Obiettivi del PoC da definire dopo la riunione con la proponente del 13 novembre 2026.}
+
+\subsubsection{Progettazione}
+\ph{Da redigere prima dell'inizio della progettazione (PB): notazione dei diagrammi (UML), livelli di progettazione, \emph{design pattern}, convenzioni per la Specifica tecnica.}
+
+\subsubsection{Codifica}\label{sec:codifica}
+Norme valide fin dal PoC:
+\begin{itemize}
+\tightlist
+\item Nomi di variabili, funzioni, classi e file, e commenti nel codice, sono in \textbf{inglese};
+\item Ogni \emph{repository} di codice ha un \texttt{README.md} con lo scopo e le istruzioni di avvio;
+\item Non si caricano nella \emph{repository} file generati, dipendenze scaricate o dati sensibili (password, chiavi, \emph{token}): vanno esclusi con il file \texttt{.gitignore}.
+\end{itemize}
+\ph{Da completare dopo la scelta delle tecnologie: linguaggi, convenzioni di nomenclatura per ciascun linguaggio, formattatori e linter, struttura delle cartelle.}
+
+% =====================================================================
+\section{Processi di supporto}\label{sec:supporto}
+
+\subsection{Documentazione}
+Il processo di documentazione stabilisce come si scrivono, verificano, pubblicano e aggiornano i documenti del progetto.
+
+\subsubsection{Strumenti}
+\begin{itemize}
+\tightlist
+\item \textbf{\LaTeX}: linguaggio con cui sono scritti tutti i documenti;
+\item \textbf{GitHub}: \emph{repository} \texttt{bendingforksswe/documenti-swe}, che contiene i sorgenti \texttt{.tex} ed è la versione di riferimento dei documenti;
+\item \textbf{GitHub Pages}: sito \url{https://bendingforksswe.github.io/}, che compila e pubblica in automatico i documenti presenti nella \emph{repository}.
+\end{itemize}
+
+\subsubsection{Struttura comune dei documenti}
+Ogni documento parte dal \emph{template} del gruppo e contiene, in quest'ordine:
+\begin{enumerate}
+\tightlist
+\item \textbf{Copertina}: logo e email del gruppo, titolo, Responsabile, redattori, Verificatore, versione, tipo (interno o esterno), destinatari e un breve \emph{abstract};
+\item \textbf{Indice};
+\item \textbf{Registro delle versioni}: una riga per versione con versione, data, autore, verificatore e descrizione della modifica, dalla più recente alla più vecchia;
+\item \textbf{Contenuto}.
+\end{enumerate}
+L'intestazione di pagina riporta il nome del gruppo a sinistra e il titolo del documento a destra; il piè di pagina riporta il numero di pagina.
+
+\subsubsection{Verbali}\label{sec:verbali}
+I verbali documentano le riunioni e le decisioni prese. Si distinguono in:
+\begin{itemize}
+\tightlist
+\item \textbf{Verbali interni}: riunioni tra i soli componenti del gruppo;
+\item \textbf{Verbali esterni}: riunioni con la proponente o con altri soggetti esterni. Devono essere firmati da un referente esterno.
+\end{itemize}
+I verbali si scrivono a partire dal \emph{template} in \texttt{template/} e contengono:
+\begin{itemize}
+\tightlist
+\item \textbf{Informazioni generali}: data, ora di inizio e fine, luogo o piattaforma, tabella dei partecipanti con ruolo e presenza;
+\item \textbf{Ordine del giorno}: elenco numerato dei punti da trattare;
+\item \textbf{Discussione e decisioni}: per ogni punto, la discussione, le decisioni prese (con codice identificativo), la motivazione, gli incaricati e la scadenza;
+\item \textbf{Azioni da intraprendere}: tabella con descrizione, incaricato, scadenza e priorità;
+\item \textbf{Pianificazione della prossima riunione};
+\item \textbf{Firme}: dello scriba e del verificatore; nei verbali esterni anche del referente esterno.
+\end{itemize}
+Il verbale è redatto dallo scriba designato nella riunione e va completato entro \ph{n} giorni dalla riunione.
+
+\subsubsection{Diari di bordo}
+I diari di bordo sono le brevi presentazioni sull'avanzamento del progetto esposte durante le lezioni del Prof. Vardanega. Sono preparati dal Responsabile in carica e caricati in PDF nella cartella \texttt{diario-di-bordo/}. \ph{Struttura delle slide da definire.}
+
+\subsubsection{Nomi dei file e posizione nella \emph{repository}}
+La posizione e il nome del file determinano come il documento appare sul sito. Le regole sono:
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=1.4\hsize\raggedright\arraybackslash}X>{\hsize=0.6\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Percorso} & \thc{Contenuto} \\
+\path{<fase>/<nome_documento>.tex} & Documenti della fase (\texttt{candidatura}, \texttt{rtb}, \texttt{pb}) \\ \rl
+\path{<fase>/verbali/interni/AAAA-MM-GG_verbale_interno_<n>.tex} & Verbali interni \\ \rl
+\path{<fase>/verbali/esterni/AAAA-MM-GG_verbale-esterno-<azienda>.tex} & Verbali esterni \\ \rl
+\path{.../firmati/<stesso-nome>-firmato.pdf} & PDF firmato di un verbale \\ \rl
+\path{diario-di-bordo/AAAA-MM-GG-diario-di-bordo.pdf} & Diari di bordo \\ \rl
+\texttt{assets/} & Loghi, firme e immagini \\ \rl
+\texttt{template/} & \emph{Template} dei documenti \\ \rl
+\end{tabularx}
+\end{center}
+
+Regole generali:
+\begin{itemize}
+\tightlist
+\item I nomi dei file sono in minuscolo, senza spazi né accenti;
+\item Le date nei nomi dei file sono sempre nel formato \texttt{AAAA-MM-GG}, con mese e giorno a due cifre (es.\ \texttt{2026-11-02}, non \texttt{2026-11-2}), altrimenti il sito non riconosce la data;
+\item Il nome del file non contiene la versione: la versione si trova solo nella copertina e nel registro delle versioni.
+\end{itemize}
+
+\subsubsection{Versionamento dei documenti}
+Ogni documento ha una versione nel formato \texttt{X.Y.Z}:
+\begin{itemize}
+\tightlist
+\item \texttt{X} (\emph{major}): aumenta quando il documento viene \textbf{approvato} dal Verificatore per una revisione. Finché \texttt{X = 0} il documento è in bozza;
+\item \texttt{Y} (\emph{minor}): aumenta quando si aggiungono o modificano contenuti in modo sostanziale (es.\ una nuova sezione);
+\item \texttt{Z} (\emph{patch}): aumenta per correzioni di refusi, formattazione o piccole modifiche.
+\end{itemize}
+Quando un numero aumenta, quelli alla sua destra tornano a zero (es.\ da \texttt{0.2.3} si passa a \texttt{0.3.0}). Ogni nuova versione va registrata nel registro delle versioni.
+
+\ph{Da approvare in riunione: i documenti della candidatura usano il formato a due cifre (es.\ 1.4); valutare se adottare \texttt{X.Y.Z} per tutti i documenti RTB.}
+
+\subsubsection{Ciclo di vita di un documento}\label{sec:ciclovita}
+Un documento passa per i seguenti stati:
+\begin{enumerate}
+\tightlist
+\item \textbf{In redazione}: il redattore scrive o modifica il documento;
+\item \textbf{In verifica}: il redattore ha finito e un Verificatore controlla il documento;
+\item \textbf{Verificato}: il Verificatore ha approvato le modifiche, che entrano nel ramo principale della \emph{repository};
+\item \textbf{Approvato}: il Responsabile dichiara il documento pronto per una revisione ufficiale (aumento della versione \emph{major}).
+\end{enumerate}
+Ogni passaggio di stato corrisponde a una versione: una versione \texttt{0.Y.Z} indica un documento in lavorazione o verificato ma non ancora approvato; la prima versione \texttt{1.0.0} indica il documento approvato per la RTB, la prima \texttt{2.0.0} quello approvato per la PB.
+
+I documenti incrementali (Norme di progetto, Piano di progetto, Piano di qualifica, Glossario) possono avere sezioni ancora vuote: in questo caso si verificano e approvano solo le sezioni complete.
+
+\subsubsection{Norme tipografiche}\label{sec:tipografia}
+\begin{itemize}
+\tightlist
+\item \textbf{Date}: nel testo e nelle tabelle si usa il formato \texttt{AAAA-MM-GG} (ISO 8601); nel testo discorsivo è ammessa la forma estesa (es.\ ``4 novembre 2026'');
+\item \textbf{Orari}: formato 24 ore \texttt{HH:MM};
+\item \textbf{Titoli}: solo la prima lettera maiuscola, salvo nomi propri (es.\ ``Norme di progetto'', ``Analisi dei requisiti'');
+\item \textbf{Elenchi puntati}: ogni voce inizia con la maiuscola e termina con il punto e virgola, tranne l'ultima che termina con il punto;
+\item \textbf{Grassetto}: concetti chiave e termini definiti in un elenco;
+\item \textbf{Corsivo}: termini del Glossario, parole straniere ed enfasi. Non vanno in corsivo i nomi propri di strumenti e servizi (es.\ GitHub, Discord), le sigle (es.\ RTB, PoC) e le parole straniere ormai entrate nell'uso italiano (es.\ file, test, link, email, software);
+\item \textbf{Monospazio}: nomi di file, percorsi, comandi, codice;
+\item \textbf{Ruoli}: sempre con la maiuscola (Responsabile, Amministratore, Analista, Progettista, Programmatore, Verificatore);
+\item \textbf{Riferimenti}: ogni riferimento a un documento indica la versione;
+\item \textbf{Segnaposto}: le parti ancora da completare si scrivono con \texttt{\textbackslash ph\{...\}}, che le evidenzia in rosso. Un documento da consegnare non deve contenerne.
+\end{itemize}
+
+\subsection{Gestione della configurazione}
+La gestione della configurazione serve a tenere traccia di ogni versione di documenti e codice, di chi l'ha modificata e perché.
+
+\subsubsection{\emph{Repository}}\label{sec:repository}
+\begin{itemize}
+\tightlist
+\item \texttt{bendingforksswe/documenti-swe}: sorgenti di tutta la documentazione;
+\item \texttt{bendingforksswe/bendingforksswe.github.io}: sito del gruppo, che pubblica i documenti;
+\item \texttt{bendingforksswe/\ph{nome}}: codice del Proof of Concept, \ph{da creare all'inizio del PoC};
+\item La \emph{repository} dell'MVP verrà creata all'inizio della PB.
+\end{itemize}
+
+\subsubsection{\emph{Issue}}
+Ogni attività da svolgere viene aperta come \textbf{\emph{issue}} su GitHub nella \emph{repository} di riferimento. Ogni \emph{issue} indica:
+\begin{itemize}
+\tightlist
+\item Un titolo nel formato \texttt{[Documento] attività} (es.\ \texttt{[NdP] stesura processi di supporto});
+\item L'assegnatario, unico incaricato dell'attività;
+\item Il ruolo con cui si svolge l'attività \ph{tramite label o campo del Project};
+\item La scadenza e, se utile, una descrizione.
+\end{itemize}
+\ph{Sigle dei documenti: NdP, AdR, PdP, PdQ, Gloss, ST, MU, Verb. Da confermare.}
+
+\subsubsection{\emph{Branch} e \emph{pull request}}
+\ph{Proposta da approvare in riunione:}
+\begin{itemize}
+\tightlist
+\item Il ramo \texttt{main} contiene solo materiale verificato e non accetta \emph{push} diretti;
+\item Ogni attività si svolge su un ramo dedicato, chiamato \texttt{issue-<numero>-<breve-descrizione>};
+\item Terminata l'attività, il redattore apre una \textbf{\emph{pull request}} verso \texttt{main}, collegata all'\emph{issue}, e indica il Verificatore come revisore;
+\item Il Verificatore approva e unisce la \emph{pull request} (\emph{merge}); l'\emph{issue} si chiude e il ramo viene eliminato.
+\end{itemize}
+
+\subsubsection{Messaggi di \emph{commit}}
+I messaggi di \emph{commit} seguono lo standard \textbf{Conventional Commits}, con la descrizione in italiano. Il formato è:
+\begin{center}\texttt{<tipo>(<ambito>): <descrizione>}\end{center}
+
+\paragraph{Tipo}
+Indica la natura della modifica ed è scelto tra:
+\begin{itemize}
+\tightlist
+\item \texttt{docs}: aggiunta o modifica di contenuti di un documento;
+\item \texttt{fix}: correzione di un errore (refusi e errori di formattazione in un documento, \emph{bug} nel codice);
+\item \texttt{feat}: nuova funzionalità del codice (PoC, MVP, sito);
+\item \texttt{refactor}: modifica del codice che non ne cambia il comportamento;
+\item \texttt{test}: aggiunta o modifica di test;
+\item \texttt{chore}: manutenzione che non tocca contenuti né funzionalità (configurazioni, \emph{template}, struttura delle cartelle, file \texttt{.gitignore}).
+\end{itemize}
+
+\paragraph{Ambito}
+Indica cosa viene modificato. Per i documenti è la sigla del documento in minuscolo, la stessa usata nel titolo delle \emph{issue} (es.\ \texttt{ndp}, \texttt{adr}, \texttt{pdp}, \texttt{pdq}); per verbali e diari di bordo si usano \texttt{verbali} e \texttt{diario}. L'ambito può essere omesso solo se la modifica riguarda l'intera \emph{repository}. \ph{Ambiti per il codice da definire insieme alla struttura del PoC.}
+
+\paragraph{Descrizione}
+\begin{itemize}
+\tightlist
+\item È in italiano, alla terza persona del presente (es.\ \texttt{aggiunge}, \texttt{corregge}, \texttt{rimuove});
+\item Inizia con la lettera minuscola e non termina con il punto;
+\item È breve (al massimo 72 caratteri) e dice \textbf{cosa} cambia, non solo che qualcosa è cambiato: messaggi come \texttt{bug fix} o \texttt{modifiche} non sono ammessi.
+\end{itemize}
+Se serve spiegare il perché della modifica, si aggiunge un corpo dopo una riga vuota.
+
+\paragraph{Regole generali}
+\begin{itemize}
+\tightlist
+\item Ogni \emph{commit} contiene una sola modifica logica: modifiche indipendenti vanno in \emph{commit} separati;
+\item Il collegamento con l'\emph{issue} si fa nella \emph{pull request}, non nel messaggio di \emph{commit}.
+\end{itemize}
+
+Esempi:
+\begin{itemize}
+\tightlist
+\item \texttt{docs(ndp): aggiunge sezione sulla verifica};
+\item \texttt{fix(ndp): corregge refusi nel registro delle versioni};
+\item \texttt{docs(verbali): aggiunge verbale interno del 2026-11-04};
+\item \texttt{chore: aggiorna il file .gitignore}.
+\end{itemize}
+
+\subsection{Accertamento della qualità}\label{sec:qualita}
+L'accertamento della qualità garantisce che i processi seguiti e i prodotti realizzati rispettino gli obiettivi di qualità fissati dal gruppo.
+
+\subsubsection{Strumenti}
+\begin{itemize}
+\tightlist
+\item \textbf{Metriche di qualità}: definite in questo documento (§\ref{sec:metriche}), con codice, descrizione e formula;
+\item \textbf{Piano di qualifica}: fissa per ogni metrica il valore \textbf{accettabile} e quello \textbf{ottimale} e raccoglie i valori misurati;
+\item \textbf{Cruscotto di valutazione}: grafici e tabelle nel Piano di qualifica che mostrano l'andamento delle metriche nel tempo.
+\end{itemize}
+
+\subsubsection{Attività}
+\begin{enumerate}
+\tightlist
+\item A fine periodo l'Amministratore calcola le metriche di processo (§\ref{sec:metricheprocesso}) e di prodotto (§\ref{sec:metricheprodotto}) applicabili;
+\item I valori vengono riportati nel Piano di qualifica e confrontati con gli obiettivi;
+\item Le metriche fuori dal valore accettabile vengono discusse nella retrospettiva di fine periodo e generano azioni di miglioramento (§\ref{sec:miglioramento}).
+\end{enumerate}
+
+\subsection{Verifica}
+La verifica controlla che ogni prodotto (documento o codice) sia corretto e rispetti le norme: risponde alla domanda ``stiamo costruendo il prodotto nel modo giusto?''.
+
+\subsubsection{Regole generali}
+\begin{itemize}
+\tightlist
+\item Ogni prodotto è verificato da un componente \textbf{diverso dal redattore};
+\item Il Verificatore firma la verifica inserendo il proprio nome nel registro delle versioni;
+\item Nessun prodotto entra nel ramo principale senza essere stato verificato.
+\end{itemize}
+
+\subsubsection{Verifica dei documenti}
+Il Verificatore legge le parti modificate e controlla:
+\begin{itemize}
+\tightlist
+\item Ortografia, grammatica e chiarezza;
+\item Rispetto delle norme tipografiche (§\ref{sec:tipografia}) e della struttura del documento;
+\item Correttezza e completezza dei contenuti rispetto all'\emph{issue};
+\item Che i link e i riferimenti funzionino e indichino la versione;
+\item Che il documento compili senza errori e non contenga segnaposto se destinato alla consegna.
+\end{itemize}
+Se trova errori, li segnala al redattore (come commenti alla \emph{pull request}); il redattore corregge e la verifica si ripete.
+
+\subsubsection{Analisi statica}
+L'analisi statica verifica un prodotto \textbf{senza eseguirlo}. Si applica sia ai documenti sia al codice, con due metodi di lettura:
+\begin{itemize}
+\tightlist
+\item \gl{Walkthrough}: lettura completa e a largo spettro, senza sapere in anticipo quali errori cercare. È costosa, quindi si usa per i documenti nuovi o riscritti in gran parte;
+\item \gl{Inspection}: lettura mirata, guidata da una \textbf{\emph{checklist}} degli errori più frequenti. È più rapida e si usa per le modifiche successive.
+\end{itemize}
+Gli errori trovati più spesso durante i \emph{walkthrough} vengono aggiunti alla \emph{checklist} (§\ref{sec:checklist}), così che le verifiche successive possano usare l'\emph{inspection}.
+
+\paragraph{\emph{Checklist} dei documenti}\label{sec:checklist}
+Durante l'\emph{inspection} di un documento il Verificatore controlla almeno i punti seguenti. Quando segnala un errore nella \emph{pull request}, ne indica il codice (es.\ \texttt{LC-04}).
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.3\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Codice} & \thc{Controllo} \\
+LC-01 & Il documento compila senza errori \\ \rl
+LC-02 & La versione in copertina coincide con l'ultima riga del registro delle versioni, che descrive la modifica e indica autore e Verificatore \\ \rl
+LC-03 & Le date sono nel formato \texttt{AAAA-MM-GG}, o in forma estesa nel testo discorsivo (§\ref{sec:tipografia}) \\ \rl
+LC-04 & Le parole straniere sono in corsivo, salvo nomi propri, sigle e parole entrate nell'uso italiano \\ \rl
+LC-05 & Le voci degli elenchi iniziano con la maiuscola e terminano con il punto e virgola, tranne l'ultima che termina con il punto \\ \rl
+LC-06 & I titoli hanno la maiuscola solo sulla prima lettera, salvo nomi propri \\ \rl
+LC-07 & I ruoli sono scritti con la maiuscola \\ \rl
+LC-08 & La prima occorrenza dei termini del Glossario è segnata con \texttt{\textbackslash gl\{\}} \\ \rl
+LC-09 & Nomi di file, percorsi e codice sono in monospazio \\ \rl
+LC-10 & I link funzionano e i rimandi interni (§) puntano alla sezione giusta \\ \rl
+LC-11 & Non ci sono errori di ortografia né frasi poco chiare \\ \rl
+LC-12 & Se il documento è destinato alla consegna, non contiene segnaposto \\ \rl
+\end{tabularx}
+\end{center}
+La \emph{checklist} viene aggiornata dall'Amministratore quando nelle verifiche emergono errori ricorrenti non ancora presenti. \ph{\emph{Checklist} per il codice da aggiungere insieme alle norme di codifica.}
+
+Per il codice l'analisi statica comprende anche l'uso di strumenti automatici (\gl{linter}, analizzatori statici). \ph{Strumenti da scegliere insieme alle tecnologie.}
+
+\subsubsection{Analisi dinamica}
+L'analisi dinamica verifica il codice \textbf{eseguendolo}, tramite test. I test devono essere \textbf{ripetibili} (stesso risultato a parità di codice) e, dove possibile, \textbf{automatici}. Si distinguono:
+\begin{itemize}
+\tightlist
+\item \textbf{Test di unità}: verificano la più piccola parte di codice verificabile da sola (funzione, classe, modulo);
+\item \textbf{Test di integrazione}: verificano che più unità funzionino correttamente insieme;
+\item \textbf{Test di sistema}: verificano che il sistema completo soddisfi i requisiti dell'Analisi dei requisiti;
+\item \textbf{Test di regressione}: ripetono i test esistenti dopo una modifica, per controllare che non abbia rotto parti già funzionanti;
+\item \textbf{Test di accettazione}: verificano, insieme alla proponente, che il prodotto soddisfi i requisiti del capitolato.
+\end{itemize}
+
+\paragraph{Nomenclatura dei test}
+Ogni test è identificato dal codice:
+\begin{center}\texttt{T[Tipo]-[Numero]}\end{center}
+dove \texttt{[Tipo]} vale \texttt{U} (unità), \texttt{I} (integrazione), \texttt{S} (sistema) o \texttt{A} (accettazione) e \texttt{[Numero]} è un progressivo univoco all'interno del tipo. I test di regressione non hanno un codice proprio, perché consistono nella ripetizione di test già esistenti.
+
+\paragraph{Stato dei test}
+Ogni test si trova in uno dei seguenti stati: \textbf{NI} (non implementato), \textbf{I} (implementato, non ancora eseguito), \textbf{S} (superato), \textbf{NS} (non superato). \ph{Da concordare quando il progetto verrà avviato.}
+
+\ph{Framework di test e strumento per la copertura del codice da scegliere insieme alle tecnologie. Per il PoC sono sufficienti test di unità sulle parti principali.}
+
+\subsection{Validazione}\label{sec:validazione}
+La validazione controlla che il prodotto soddisfi le aspettative della proponente: risponde alla domanda ``stiamo costruendo il prodotto giusto?''.
+
+\begin{itemize}
+\tightlist
+\item \textbf{Fino alla RTB}: la validazione riguarda i requisiti. I casi d'uso e i requisiti dell'Analisi dei requisiti vengono presentati alla proponente negli incontri esterni, che ne conferma la correttezza; le conferme e le correzioni sono riportate nei verbali esterni;
+\item \textbf{Verso la PB}: ogni requisito viene collegato ai test di sistema che lo verificano. Un requisito è soddisfatto quando tutti i suoi test sono superati. I test di accettazione si svolgono con la proponente sull'MVP.
+\end{itemize}
+
+% =====================================================================
+\section{Processi organizzativi}\label{sec:organizzativi}
+
+\subsection{Gestione dei processi}
+
+\subsubsection{Ruoli}
+Ogni componente ricopre a rotazione tutti i ruoli previsti dal progetto. Il costo orario di ogni ruolo è quello indicato nel Preventivo costi e assunzione impegni.
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=1.55\hsize\raggedright\arraybackslash}X>{\hsize=0.5\hsize\raggedright\arraybackslash}X>{\hsize=0.4\hsize\centering\arraybackslash}X}
+\rowcolor{bfblue}\thc{Ruolo} & \thc{Compiti principali} & \thc{Presenza} & \thc{€/h} \\
+Responsabile & Coordina il gruppo, pianifica le attività e le assegna, gestisce tempi, costi e rischi, redige il Piano di progetto, rappresenta il gruppo verso l'esterno, approva i documenti & Tutto il progetto & 30 \\ \rl
+Amministratore & Gestisce l'ambiente di lavoro e gli strumenti, redige e mantiene le Norme di progetto e il Piano di qualifica, calcola le metriche & Tutto il progetto & 20 \\ \rl
+Analista & Studia il dominio e il capitolato, individua casi d'uso e requisiti, redige l'Analisi dei requisiti & Soprattutto fino alla RTB & 25 \\ \rl
+Progettista & Sceglie le tecnologie, definisce l'architettura del prodotto a partire dai requisiti, redige la Specifica tecnica & PoC, poi soprattutto PB & 25 \\ \rl
+Programmatore & Scrive il codice secondo la progettazione e i relativi test & PoC, poi soprattutto PB & 15 \\ \rl
+Verificatore & Verifica documenti e codice secondo queste norme & Tutto il progetto & 15 \\ \rl
+\end{tabularx}
+\end{center}
+
+\subsubsection{Rotazione dei ruoli}
+\begin{itemize}
+\tightlist
+\item Dal 16 novembre 2026 i ruoli ruotano ogni \textbf{due settimane} (verbale interno del 4 novembre 2026);
+\item L'assegnazione avviene nella riunione interna di inizio periodo, tenendo conto delle ore già svolte da ciascuno in ogni ruolo, così che a fine progetto la ripartizione rispetti il preventivo;
+\item Una persona può ricoprire più ruoli nello stesso periodo, ma non può verificare un prodotto di cui è redattore.
+\end{itemize}
+
+\subsubsection{Ciclo di vita delle attività}\label{sec:attivita}
+Il Responsabile suddivide il lavoro del periodo in attività piccole, assegnabili a una sola persona e completabili entro il periodo. Ogni attività è una \emph{issue} (§\ref{sec:repository}) e attraversa i seguenti stati \ph{sulla board del GitHub Project}:
+\begin{enumerate}
+\tightlist
+\item \textbf{\emph{Backlog}}: l'attività è stata individuata ma non ancora pianificata;
+\item \textbf{Pronta}: il Responsabile l'ha assegnata, con ruolo, ore previste e scadenza;
+\item \textbf{In corso}: l'assegnatario ci sta lavorando sul proprio ramo;
+\item \textbf{In verifica}: l'assegnatario ha aperto la \emph{pull request} e indicato il Verificatore;
+\item \textbf{Completata}: la \emph{pull request} è stata approvata e unita, e l'assegnatario ha registrato le ore effettive.
+\end{enumerate}
+
+\paragraph{\emph{Definition of Done}}
+Un'attività è \textbf{completata} solo quando:
+\begin{itemize}
+\tightlist
+\item Il prodotto è stato verificato e approvato da un Verificatore diverso dall'assegnatario;
+\item Le modifiche sono state unite nel ramo \texttt{main};
+\item L'\emph{issue} è chiusa e riporta le ore effettivamente svolte.
+\ph{Discussione con il gruppo per l'organizzazione di gestione delle ore.}
+\end{itemize}
+
+\subsubsection{Rendicontazione delle ore}
+Ogni componente registra le ore svolte, indicando ruolo e attività. Il Responsabile le riporta nel Piano di progetto a fine periodo, confrontandole con il preventivo. \ph{Strumento di rendicontazione da scegliere: GitHub Project, foglio Google condiviso o altro.}
+\subsubsection{Riunioni}
+\begin{itemize}
+\tightlist
+\item \textbf{Riunioni interne}: si svolgono su Discord, di norma all'inizio di ogni periodo, per fare il punto sul lavoro svolto, pianificare il periodo successivo e assegnare i ruoli. \ph{Cadenza fissa da definire};
+\item \textbf{Riunioni esterne}: con la proponente su Google Meet, o con i committenti;
+\item \textbf{Riunioni straordinarie}: convocate dal Responsabile in caso di necessità.
+\end{itemize}
+Ogni riunione nomina uno scriba, che redige il verbale.
+
+\subsubsection{Comunicazioni}
+\begin{itemize}
+\tightlist
+\item \textbf{Interne}: WhatsApp per le comunicazioni rapide e i sondaggi, Discord per le riunioni e il lavoro sincrono;
+\item \textbf{Esterne}: email dall'indirizzo \texttt{bending.forks.swe@gmail.com}, gestita dal Responsabile, e Google Meet per gli incontri con la proponente.
+\end{itemize}
+
+\subsection{Infrastruttura}
+Strumenti adottati dal gruppo:
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.6\hsize\raggedright\arraybackslash}X>{\hsize=1.4\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Strumento} & \thc{Utilizzo} \\
+GitHub & Versionamento di documenti e codice, \emph{issue}, \emph{pull request}, Actions \\ \rl
+GitHub Pages & Pubblicazione dei documenti sul sito del gruppo \\ \rl
+Discord & Riunioni interne e lavoro sincrono \\ \rl
+Gmail & Comunicazioni esterne \\ \rl
+Google Calendar & Calendario condiviso di riunioni e scadenze \\ \rl
+Google Drive & Condivisione di file di supporto \\ \rl
+Google Meet & Incontri con la proponente \\ \rl
+\end{tabularx}
+\end{center}
+L'Amministratore in carica è responsabile del funzionamento degli strumenti e risolve i problemi che emergono.
+
+\subsection{Miglioramento}\label{sec:miglioramento}
+Il gruppo migliora il proprio modo di lavorare con il ciclo \gl{PDCA} (\emph{Plan, Do, Check, Act}):
+\begin{enumerate}
+\tightlist
+\item A fine periodo, nella riunione interna, si fa una breve retrospettiva su cosa ha funzionato e cosa no;
+\item I problemi emersi diventano proposte di modifica alle norme;
+\item Le modifiche approvate vengono inserite in questo documento con una nuova versione;
+\item Nel periodo successivo si controlla, anche tramite le metriche del Piano di qualifica, se la modifica ha funzionato.
+\end{enumerate}
+
+\subsection{Formazione}
+Ogni componente studia in autonomia gli strumenti e le tecnologie adottate. Quando il gruppo adotta una tecnologia nuova, chi la conosce meglio la presenta agli altri in una breve sessione su Discord. Chi assume un ruolo per la prima volta si confronta con chi lo ha ricoperto in precedenza. Lo sviluppo del PoC è il momento principale di formazione sulle tecnologie scelte.
+
+Risorse per gli strumenti già in uso:
+\begin{itemize}
+\tightlist
+\item Git: \url{https://git-scm.com/docs};
+\item GitHub: \url{https://docs.github.com}.
+\end{itemize}
+\ph{Risorse di studio per le tecnologie del PoC, da aggiungere dopo la loro scelta.}
+
+% =====================================================================
+\section{Metriche di qualità}\label{sec:metriche} \ph{Da capire}
+Questa sezione stabilisce \textbf{cosa} si misura e \textbf{come} si calcola. Gli obiettivi (valore accettabile e valore ottimale) e i valori misurati in ogni periodo si trovano nel \textbf{Piano di qualifica}.
+
+Ogni metrica è identificata dal codice:
+\begin{center}\texttt{M[Categoria]-[Sigla]}\end{center}
+dove \texttt{[Categoria]} vale \texttt{PC} per le metriche di \textbf{processo} e \texttt{PD} per quelle di \textbf{prodotto}, e \texttt{[Sigla]} è l'abbreviazione del nome della metrica.
+
+\subsection{Metriche di processo}\label{sec:metricheprocesso}
+
+\subsubsection{Fornitura}
+Le metriche di fornitura seguono il metodo dell'\gl{Earned Value}. Si calcolano a fine periodo usando le ore previste ed effettive delle attività e il costo orario dei ruoli (§\ref{sec:organizzativi}).
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
+MPC-BAC & \emph{Budget at Completion} & Costo totale preventivato del progetto, fissato nel Preventivo costi e assunzione impegni \\ \rl
+MPC-PV & \emph{Planned Value} & Valore del lavoro pianificato fino alla data di misura: $PV = BAC \times \%\,\mathrm{lavoro\ pianificato}$ \\ \rl
+MPC-AC & \emph{Actual Cost} & Costo effettivamente sostenuto: somma delle ore effettive di ogni attività per il costo orario del ruolo \\ \rl
+MPC-EV & \emph{Earned Value} & Valore del lavoro effettivamente completato: $EV = BAC \times \%\,\mathrm{lavoro\ completato}$ \\ \rl
+MPC-CPI & \emph{Cost Performance Index} & Efficienza dei costi: $CPI = EV / AC$. Se $CPI < 1$ si spende più del previsto \\ \rl
+MPC-SPI & \emph{Schedule Performance Index} & Rispetto dei tempi: $SPI = EV / PV$. Se $SPI < 1$ si è in ritardo \\ \rl
+MPC-CV & \emph{Cost Variance} & Differenza tra valore prodotto e costo: $CV = EV - AC$ \\ \rl
+MPC-SV & \emph{Schedule Variance} & Differenza tra lavoro svolto e pianificato: $SV = EV - PV$ \\ \rl
+MPC-EAC & \emph{Estimate at Completion} & Stima del costo finale: $EAC = BAC / CPI$ \\ \rl
+MPC-ETC & \emph{Estimate to Complete} & Stima del costo per terminare il progetto: $ETC = EAC - AC$ \\ \rl
+MPC-RNP & Rischi non previsti & Numero di problemi verificatisi nel periodo che non erano presenti nell'analisi dei rischi del Piano di progetto \\ \rl
+\end{tabularx}
+\end{center}
+
+\subsubsection{Documentazione}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
+MPC-IG & Indice di Gulpease & Leggibilità di un testo in italiano, su una scala da 0 a 100 (più alto è più leggibile): $IG = 89 + \frac{300 \times \mathrm{frasi} - 10 \times \mathrm{lettere}}{\mathrm{parole}}$ \\ \rl
+MPC-CO & Correttezza ortografica & Numero di errori ortografici e grammaticali trovati in verifica in un documento \\ \rl
+\end{tabularx}
+\end{center}
+\ph{Strumento per il calcolo automatico dell'indice di Gulpease e per il controllo ortografico da scegliere.}
+
+\subsubsection{Verifica}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
+MPC-TS & Test superati & Percentuale di test superati sul totale dei test eseguiti: $\frac{\mathrm{test\ superati}}{\mathrm{test\ eseguiti}} \times 100$ \\ \rl
+MPC-CC & \emph{Code coverage} & Percentuale di righe di codice eseguite dai test: $\frac{\mathrm{righe\ eseguite}}{\mathrm{righe\ totali}} \times 100$ \\ \rl
+\end{tabularx}
+\end{center}
+
+\subsubsection{Gestione della qualità}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
+MPC-MS & Metriche soddisfatte & Percentuale di metriche con valore almeno accettabile: $\frac{\mathrm{metriche\ accettabili}}{\mathrm{metriche\ misurate}} \times 100$ \\ \rl
+\end{tabularx}
+\end{center}
+
+\subsection{Metriche di prodotto}\label{sec:metricheprodotto}
+Le metriche di prodotto si applicano al codice: alla RTB solo in parte, sul PoC; per intero sull'MVP.
+
+\subsubsection{Funzionalità}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
+MPD-ROS & Requisiti obbligatori soddisfatti & $\frac{\mathrm{requisiti\ obbligatori\ soddisfatti}}{\mathrm{requisiti\ obbligatori\ totali}} \times 100$ \\ \rl
+MPD-RDS & Requisiti desiderabili soddisfatti & $\frac{\mathrm{requisiti\ desiderabili\ soddisfatti}}{\mathrm{requisiti\ desiderabili\ totali}} \times 100$ \\ \rl
+MPD-RZS & Requisiti opzionali soddisfatti & $\frac{\mathrm{requisiti\ opzionali\ soddisfatti}}{\mathrm{requisiti\ opzionali\ totali}} \times 100$ \\ \rl
+\end{tabularx}
+\end{center}
+Un requisito è soddisfatto quando tutti i test di sistema collegati sono superati (§\ref{sec:validazione}).
+
+\ph{Metriche di manutenibilità, affidabilità, usabilità ed efficienza (es.\ complessità ciclomatica, branch coverage, tempo di risposta) da definire in vista della PB, in base alle tecnologie scelte e ai requisiti di qualità dell'Analisi dei requisiti.}
+
+\end{document}
