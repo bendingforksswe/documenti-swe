@@ -6,7 +6,7 @@
 \usepackage{amssymb}
 \usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
 \usepackage{graphicx}
-\graphicspath{{../../assets/}{../../Assets/}{../assets/}{../Assets/}{assets/}{Assets/}}
+\graphicspath{{../../../assets/}{../../assets/}{../../Assets/}{../assets/}{../Assets/}{assets/}{Assets/}}
 \usepackage[table]{xcolor}
 \usepackage{tabularx,array}
 \usepackage{titlesec}
@@ -15,6 +15,9 @@
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage[hidelinks]{hyperref}
+
+% Numero del verbale: da impostare una sola volta (usato in intestazione, copertina e ID)
+\newcommand{\vnum}{5}
 
 % Palette colori del gruppo Bending Forks
 \definecolor{bfblue}{HTML}{1B3F9E}
@@ -52,7 +55,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
-\fancyhead[R]{\footnotesize\sffamily Verbale Interno N. 2}
+\fancyhead[R]{\footnotesize\sffamily Verbale Interno N. \vnum}
 \fancyfoot[C]{\small Pagina \thepage}
 \renewcommand{\headrulewidth}{0.9pt}
 
@@ -71,15 +74,15 @@
 \underline{bending.forks.swe@gmail.com}
 
 \vspace{42mm}
-{\fontsize{24}{28}\selectfont\bfseries Verbale Interno N. 2\par}
+{\fontsize{24}{28}\selectfont\bfseries Verbale Interno N. \vnum\par}
 \vspace{4mm}
-{\Large\color{bfblue} Riunione del 2026-10-19\par}
+{\Large\color{bfblue} Riunione del 28/10/2026\par}
 
 \vfill
 \begin{tabular}[t]{r|l}
 \textbf{Responsabile} & Aldo Toffoli \\
-\textbf{Scriba} & Luca Stangherlin \\
-\textbf{Moderatore} & Filippo Rampazzo \\
+\textbf{Scriba / Redattore} & Luca Stangherlin \\
+\textbf{Moderatore} & Aldo Toffoli \\
 \textbf{Verificatore} & Filippo Rampazzo \\
 \end{tabular}
 \hspace{14mm}
@@ -93,7 +96,7 @@
 
 \vspace{12mm}
 {\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
-\begin{minipage}{150mm}\centering A seguito del primo incontro dove sono stati decisi tre capitolati da approfondire, in vista della candidatura, in questa riunione del 2026-10-19 si è discusso approfonditamente sulla fattibilità e sui dubbi legati a ognuno e in particolare sui quesiti da rivolgere alle aziende. \end{minipage}
+\begin{minipage}{150mm}\centering Sintesi e decisioni operative emerse durante la riunione interna del team del giorno 28/10/2026, riguardante la pianificazione delle attività e l'avanzamento del progetto.\end{minipage}
 \vspace*{6mm}
 \end{titlepage}
 
@@ -111,9 +114,8 @@
 \begin{center}
 \begin{tabularx}{\linewidth}{>{\hsize=0.60\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.70\hsize\raggedright\arraybackslash}X}
 \rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Descrizione}} \\
-1.0 & 2026/10/23 & Luca Stangherlin & Creazione e redazione iniziale del documento \\
-1.0 & 2026/10/30 & Filippo Rampazzo & Verifica e approvazione del documento \\
-\arrayrulecolor{bfline}\hline
+1.0 & 28/10/2026 & Luca Stangherlin & Creazione e redazione iniziale del documento \\ \arrayrulecolor{bfline}\hline
+1.0 & 30/10/2026 & Filippo Rampazzo & Verifica e approvazione \\ \arrayrulecolor{bfline}\hline
 \end{tabularx}
 \end{center}
 
@@ -126,8 +128,8 @@
 
 \begin{itemize}
 \tightlist
-\item \textbf{Data:} 2026-10-19
-\item \textbf{Inizio:} 14:30
+\item \textbf{Data:} 2026-10-28
+\item \textbf{Inizio:} 15:15
 \item \textbf{Fine:} 16:30
 \item \textbf{Luogo / Modalità:} in remoto, tramite Discord
 \end{itemize}
@@ -142,13 +144,11 @@ Marco Beltrame & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\
 Lorenzo Milanese & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
 Filippo Rampazzo & Verificatore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
 Nicholas Salmaso & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
-Luca Stangherlin & Scriba & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
 Aldo Toffoli & Responsabile & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
-Matteo Wu & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Membro & $\square$ & $\blacksquare$ \\ \arrayrulecolor{bfline}\hline
 \end{tabularx}
 \end{center}
-
-
 
 % ---------- Ordine del giorno ----------
 \hypertarget{ordine-del-giorno}{%
@@ -156,104 +156,97 @@ Matteo Wu & Membro & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
 
 \begin{enumerate}
 \tightlist
-\item {Discussione quesiti su capitolato 1}
-\item {Discussione quesiti su capitolato 3}
-\item {Discussione quesiti su capitolato 7}
-\item {Discussione sulla scelta del capitolato per cui candidarsi}
+\item Revisione e completamento del documento \emph{Valutazione dei capitolati}
+\item Piano di massima, rischi principali e mitigazioni
+\item Candidatura: lettera di presentazione e preventivo
+\item Sito web del gruppo
 \end{enumerate}
 
 % ---------- Discussione e decisioni ----------
+
 \newpage
 \hypertarget{discussione-e-decisioni}{%
 \section{Discussione e decisioni}}
 
 \hypertarget{argomento-1}{%
-\subsection{Discussione quesiti su capitolato 1}}
+\subsection{Revisione del documento Valutazione dei capitolati}}
 
 \textbf{Discussione:} \\
-{
-La discussione su VIMAR si è concentrata sull'integrazione dell'IA e sulla sicurezza domotica. Si è analizzato come l'utente possa collegare l'LLM al server MCP su Web, desktop e mobile, e quali componenti fornire per abilitare la comunicazione. L'utilizzo dell'autenticazione VIMAR, necessaria per verificare l'identità dell'utente, è stato un punto di discussione e il centro delle domande.
- }
+Il gruppo ha rivisto il documento di valutazione dei capitolati. Sono stati collettivamente asseganti dei  voti (da 1 a 5, con media dei pareri) su: interesse tecnico, complessità, chiarezza dei requisiti, qualità del rapporto con la proponente, fattibilità tecnica e allineamento delle competenze. 
+Il documento è stato infine revisionato dai componenti del team. 
 
 \textbf{Decisione presa:}
 \begin{itemize}
 \tightlist
-\item[$\checkmark$] \textbf {Viene presa la decisione di inoltrare a Vimar il form per un colloquio da remoto.}
+\item[$\checkmark$]  I voti della tabella di confronto sono assegnati collettivamente, su una scala da 1 a 5, coerentemente con i giudizi espressi nella \textit{Valutazione dei Capitolati}.
+
+\item[$\checkmark$]  Si mantiene la lunghezza attuale del documento (circa dieci pagine per dieci capitolati).
 \end{itemize}
 
 \textbf{Motivazione:} \\
-{Sono state scelte le domande che lasciavano reali lacune per una profonda analisi del progetto.}
+Coerenza interna tra tabella, descrizioni e conclusioni.
 
-\textbf{Responsabile attuazione:} Filippo Rampazzo \\
-\textbf{Scadenza:} 2026-10-19
+\textbf{Responsabili attuazione:} Aldo Toffoli (redazione); Marco Beltrame (revisione) \\
+\textbf{Scadenza:} 2026-10-28
 
-\hypertarget{argomento-2}{%
-\subsection{Discussione quesiti su capitolato 3}}
-
-\textbf{Discussione:} \\
-{
-Ci siamo confrontati sulla modalità delle sessioni di formazione e sugli aspetti hardware e audio, in particolare per chiarire la gestione di eco, beamforming e dispositivi multipli. Abbiamo inoltre trattato la scelta dell'infrastruttura AI, confrontando  crediti Cloud o VPS locale e definito come gestire l'estensione del sistema tramite skill. Si è discusso di una dashboard centralizzata per utenti e abitazioni.
-}
-
-\textbf{Decisione presa:}
-\begin{itemize}
-\tightlist
-\item[$\checkmark$] \textbf {Viene presa la decisione di inoltrare a Uranion una mail per un colloquio da remoto.}
-\end{itemize}
-
-\textbf{Motivazione:} \\
-{Sono state scelte le domande che lasciavano reali lacune per una profonda analisi del progetto.}
-
-\textbf{Responsabile attuazione:} Aldo Toffoli\\
-\textbf{Scadenza:} 2026-10-19
-
-\hypertarget{argomento-3}{%
-\subsection{Discussione quesiti su capitolato 7}}
-
-\textbf{Discussione:} \\
-{
-Le domande per l'incontro con Ergon hanno riguardato i temi sulla personalizzazione della Smart Dashboard, sul controllo di eventuali allucinazioni degli LLM, sull'uso di quest'ultimi in modalità gratuita piuttosto che a pagamento e infine sulle modalità e le periodicità dei confronti con l'azienda.
-}
-
-\textbf{Decisione presa:}
-\begin{itemize}
-\tightlist
-\item[$\checkmark$] \textbf {Viene presa la decisione di inoltrare a  una mail a Ergon per un colloquio da remoto.}
-\end{itemize}
-
-\textbf{Motivazione:} \\
-{Sono state scelte le domande che lasciavano reali lacune per una profonda analisi del progetto.}
-
-\textbf{Responsabile attuazione:} Filippo Rampazzo\\
-\textbf{Scadenza:} 2026-10-19
 
 \hypertarget{argomento-4}{%
-\subsection{Discussione sulla scelta del capitolato per cui candidarsi}}
+\subsection{Candidatura: lettera di presentazione e preventivo}}
 
-\textbf{Discussione:} {
-Si è svolto un dibattito su quale capitolato dei tre selezionati potesse riflettere la scelta migliore per il team. Vi è stata una divisione di quest'ultimo tra i sostenitori del capitolato 1 e i sostenitori del capitolato 3. Riconoscendo  i pro e i contro di entrambi si è arrivati ad una decisione. 
-}
+\textbf{Discussione:} \\
+ La lettera di presentazione e il preventivo sono stati stilati in sotto-gruppi; la revisione di entrambi viene svolta collettivamente da tutti partecipanti alla riunione con il seguente esito: la lettera viene approvata in attesa del preventivo; il preventivo è curato da Luca Stangherlin e Nicholas Salmaso che abbozzano un modello con paramentri e sezioni da definire con il resto del team. 
 
-\textbf{Decisione presa:} {Il team sceglie di portare avanti la canditatura per il capitolato 3}
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$]  Lettera di presentazione e preventivo sono completati entro il 29/10/2026. La lettera è datata al giorno del caricamento sul repository.
+\item[$\checkmark$]  Il preventivo verrà completato dal gruppo il 29/10, partendo dallo scheletro su Drive e definendo collettivamente le ore per ruolo.
+\end{itemize}
 
+\textbf{Motivazione:} \\
+Controllare la conformità rispetto ai canoni di ogni componente del team dei docuementi per la candidatura. 
 
-\textbf{Motivazione:} Le discussioni interne seguite da relative votazioni dei capitolati hanno portato alla scelta del capitolato 3.
+\textbf{Responsabili attuazione:} Lorenzo Milanese e Filippo Rampazzo (lettera); Luca Stangherlin e Nicholas Salmaso (preventivo) \\
+\textbf{Scadenza:} 2026-10-29
 
-\textbf{Responsabile attuazione:} Team Bending Forks\\
-\textbf{Scadenza:} /
+\hypertarget{argomento-5}{%
+\subsection{Sito web del gruppo}}
 
+\textbf{Discussione:} \\
+Viene definita l'esigenza di realizzare un sito web per la consultazione dei documenti in maniera più rapida e intuitiva. La priorità è stabilita media.
 
+\textbf{Decisione presa:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$]  Il sito è realizzato con GitHub Pages e ha priorità minore di lettera e preventivo.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+ La priorità media evita di sottrarre tempo agli elementi obbligatori della candidatura.
+
+\textbf{Responsabili attuazione:} Lorenzo Milanese; Filippo Rampazzo \\
+\textbf{Scadenza:} 2026-10-30
+
+\hypertarget{varie-ed-eventuali}{%
+\subsection{Varie ed eventuali}}
+\begin{itemize}
+\tightlist
+\item \textbf{Versionamento:} Lorenzo Milanese aggiorna il verbale esterno in base alle rilevazioni di Vimar. La verifica è affidata a Luca Stangherlin.
+\end{itemize}
 
 % ---------- Azioni da intraprendere (TODO) ----------
-\hypertarget{azioni-da-intraprendere}{%
+\hypertarget{azioni-da-intraprendere}{
 \section{Azioni da intraprendere (TODO)}}
 
 \begin{center}
-\begin{tabularx}{\linewidth}{>{\hsize=1.5\hsize\raggedright\arraybackslash}X>{\hsize=1.0\hsize\raggedright\arraybackslash}X>{\hsize=0.8\hsize\centering\arraybackslash}X>{\hsize=0.7\hsize\centering\arraybackslash}X}
+\begin{tabularx}{\linewidth}{>{\hsize=2.0\hsize\raggedright\arraybackslash}X >{\hsize=1.0\hsize\raggedright\arraybackslash}X >{\hsize=0.5\hsize\centering\arraybackslash}X >{\hsize=0.5\hsize\centering\arraybackslash}X}
 \rowcolor{bfblue}\textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Responsabile}} & \textcolor{white}{\textbf{Scadenza}} & \textcolor{white}{\textbf{Priorità}} \\
-Invio form a Vimar & Filippo Rampazzo & 2026-10-19 & Alta \\ \arrayrulecolor{bfline}\hline
-Invio mail a Uranion & Aldo Toffoli & 2026-10-19 & Alta \\ \arrayrulecolor{bfline}\hline
-Invio mail a Ergon & Filippo Rampazzo & 2026-10-19 & Alta \\ \arrayrulecolor{bfline}\hline
+Completare il preventivo (ripartizione delle ore per ruolo) e la dichiarazione di impegni con tutto il gruppo & Luca Stangherlin, Nicholas Salmaso & 2026-10-29 & Alta \\ \arrayrulecolor{bfline}\hline
+Completare la lettera di presentazione (costo, data finale, contatti), farla firmare e caricarla sul repository & Lorenzo Milanese, Filippo Rampazzo & 2026-10-29 & Alta \\ \arrayrulecolor{bfline}\hline
+Correggere il documento di revisione dei capitolati secondo le indicazioni del gruppo & Aldo Toffoli, Marco Beltrame & 2026-10-29 & Alta \\ \arrayrulecolor{bfline}\hline
+Redigere il verbale della riunione del 28/10/2026 & Luca Stangherlin & 2026-10-29 & Media \\ \arrayrulecolor{bfline}\hline
+Verificare il documento v1.1 con le correzioni sui commenti di Vimar & Luca Stangherlin & 2026-10-29 & Media \\ \arrayrulecolor{bfline}\hline
+Realizzare il sito su GitHub Pages in un repository dedicato & Lorenzo Milanese, Filippo Rampazzo & 2026-10-30 & Media\\ \arrayrulecolor{bfline}\hline
 \end{tabularx}
 \end{center}
 
@@ -263,31 +256,25 @@ Invio mail a Ergon & Filippo Rampazzo & 2026-10-19 & Alta \\ \arrayrulecolor{bfl
 
 \begin{itemize}
 \tightlist
-\item \textbf{Data proposta:} 2026-10-23
-\item \textbf{Ora prevista:} 16:30
-\item \textbf{Luogo / Canale:} Canale Discord
-\item \textbf{OdG preliminare:}
-    \begin{itemize}
-    \item[-] Comprensione documenti 30 ottobre
-    \item[-] Repository GitHub
-    \item[-] Definizione del way of working
-    \item[-] Organizzazione struttura diario di bordo
-    \end{itemize}
+\item \textbf{Data proposta:} 2026-10-29
+\item \textbf{Ora prevista:} 15:00
+\item \textbf{Luogo / Canale:} Virtuale, canale Discord 
+\item \textbf{OdG preliminare:} Completamento del preventivo; finalizzazione e caricamento della lettera di presentazione; test e finiture del sito
 \end{itemize}
-
 
 \vspace{35pt}
 \noindent
 \begin{minipage}[t]{0.45\textwidth}
 \textbf{Firma Scriba:}\\[18pt]
-\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_luca.png}}}\rule{55mm}{0.5pt}\\[2pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_Luca.png}}}\rule{55mm}{0.5pt}\\[2pt]
 \small Luca Stangherlin
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
 \begin{flushright}
 \textbf{Firma Verificatore:}\\[18pt]
-\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_filippo.jpeg}}}\rule{55mm}{0.5pt}\\[2pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_filippo.jpeg}}}
+\rule{55mm}{0.5pt}\\[2pt]
 \small Filippo Rampazzo
 \end{flushright}
 \end{minipage}
