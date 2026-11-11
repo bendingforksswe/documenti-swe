@@ -54,7 +54,7 @@ Tutte le regole sono nelle **[Norme di progetto](rtb/norme_di_progetto.tex)**.
 |---|:-:|---|
 | Marco Beltrame | 2111021 | marco.beltrame.5@studenti.unipd.it |
 | Lorenzo Milanese | 2117110 | lorenzo.milanese.1@studenti.unipd.it |
-| Filippo Rampazzo | 2101097 | filippo.rampazzo.3@studenti.unipd.it |
+| Filippo Rampazzo | 2101097 | filippo.rampazzo.4@studenti.unipd.it |
 | Nicholas Salmaso | 2080038 | nicholas.salmaso@studenti.unipd.it |
 | Luca Stangherlin | 2137996 | luca.stangherlin.1@studenti.unipd.it |
 | Aldo Toffoli | 2113202 | aldo.toffoli@studenti.unipd.it |
