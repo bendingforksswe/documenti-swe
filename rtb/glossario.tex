@@ -1,0 +1,232 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{amsmath}
+\usepackage{libertinus}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\graphicspath{{../assets/}{../Assets/}}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% Dati generali del documento
+\newcommand{\docname}{Glossario}
+\newcommand{\docversion}{0.1.0}
+\newcommand{\docdate}{10/11/2026}
+
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+% Formattazione titoli sezioni
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}}{}{0pt}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+
+% Sezioni per lettere del glossario senza numerazione (rimossa la linea duplicata)
+\newcommand{\glossarysection}[1]{%
+  \section{#1}%
+  \vspace{4pt}%
+}
+
+% Formattazione singolo termine del glossario
+\newcommand{\glossterm}[2]{%
+  \textbf{\large#1}\par%
+  \ifx&#2&%
+  \else%
+    #2\par%
+  \fi%
+  \vspace{8pt}%
+}
+
+% Indice con puntini/trattini
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{4pt}\large\bfseries}{}{}{\hspace{0.4em}\bfleader\contentspage}
+
+% Intestazioni e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily \normalsize Glossario}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+% Colorazione alternata per le tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{35mm}
+{\fontsize{26}{32}\selectfont\bfseries Glossario\par}
+\vspace{4mm}
+{\Large Versione 0.1.0\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Autore} & Nicholas Salmaso \\
+\textbf{Verificatore} & Matteo Wu \\
+\textbf{Uso} & Esterno \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Data} & 10/11/2026 \\
+\textbf{Tipo} & Documento Ufficiale \\
+\textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering
+Il presente documento raccoglie e formalizza la definizione dei termini tecnici, degli acronimi e del gergo di dominio adottati dal gruppo Bending Forks nello sviluppo del progetto FossDot. Lo scopo è prevenire ambiguità e favorire l'uniformità del vocabolario condiviso tra tutti gli stakeholder.
+\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Registro delle versioni ----------
+\section*{Registro delle versioni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{
+  >{\hsize=0.55\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.75\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.90\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=1.95\hsize\raggedright\arraybackslash}X
+}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & 
+\textcolor{white}{\textbf{Data}} & 
+\textcolor{white}{\textbf{Autore}} & 
+\textcolor{white}{\textbf{Verificatore}} & 
+\textcolor{white}{\textbf{Descrizione}} \\
+0.1.0 & 10/11/2026 & Nicholas Salmaso & Matteo Wu & Creazione e prima stesura con inserimento delle definizioni preliminari \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\newpage
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Introduzione ----------
+\section{Introduzione}
+
+Il presente documento definisce in modo chiaro e univoco i vocaboli specifici, gli acronimi e i concetti cardine impiegati nell'arco dell'intero ciclo di vita del progetto. L'adozione di un glossario garantisce coerenza terminologica sia nelle comunicazioni interne al team sia nella documentazione destinata ai committenti, ai proponenti e ai revisori.
+
+Come previsto dalle \emph{Norme di Progetto}, l'occorrenza nei documenti di un lemma presente nel Glossario viene segnalata marcando il termine con un pedice o apice distintivo, ad esempio: \emph{termine}\textsuperscript{G}.
+
+% ---------- Inizio glossario ----------
+
+\glossarysection{A}
+
+\glossterm{Agent}{Sistema progettato per eseguire in modo autonomo un'attività, coordinando flussi di lavoro (\emph{workflow}) tramite istruzioni predefinite e strumenti esterni.}
+
+\glossterm{Analisi dei Requisiti}{Attività che individua e formalizza i bisogni dell'utente traducendoli in requisiti e funzionalità che il prodotto software deve soddisfare.}
+
+\glossterm{API (Application Programming Interface)}{Insieme di specifiche e protocolli che consentono a due componenti software di comunicare e scambiare dati.}
+
+
+\glossarysection{B}
+
+\glossterm{Back-end}{La parte del sistema eseguita su server incaricata dell'elaborazione logica, dell'accesso ai dati e del coordinamento dei servizi.}
+
+
+\glossarysection{E}
+
+\glossterm{Embedded}{Sistema elettronico programmabile a microprocessore o microcontrollore progettato per svolgere compiti dedicati a risorse limitate.}
+
+\glossterm{Esecuzione in locale}{Elaborazione di modelli e dati eseguita interamente sull'hardware locale senza trasmettere informazioni a server remoti.}
+
+
+\glossarysection{H}
+
+\glossterm{HAL (Hardware Abstraction Layer)}{Strato software che espone interfacce uniformi alle applicazioni mascherando i dettagli fisici dell'hardware sottostante.}
+
+
+\glossarysection{L}
+
+\glossterm{LLM (Large Language Model)}{Modello neurale di intelligenza artificiale addestrato per comprendere, elaborare e generare testo in linguaggio naturale.}
+
+
+\glossarysection{M}
+
+\glossterm{MCP (Model Context Protocol)}{Standard \emph{open-source} impiegato per connettere applicazioni LLM a fonti dati o strumenti esterni (ad es. database o motori di ricerca).}
+
+\glossterm{MVP (Minimum Viable Product)}{Versione preliminare del prodotto dotata di funzionalità minime ma sufficienti per validare un'idea di prodotto nelle prime fasi di sviluppo e guidare le iterazioni successive.}
+
+
+\glossarysection{O}
+
+\glossterm{Open source}{Modello di distribuzione del software con codice sorgente pubblico liberamente ispezionabile, modificabile e riutilizzabile secondo i termini di una specifica licenza.}
+
+
+\glossarysection{P}
+
+\glossterm{Pipeline}{Catena di elaborazione sequenziale in cui l'output di uno stadio costituisce direttamente l'input di quello successivo.}
+
+\newpage
+\glossarysection{S}
+
+\glossterm{Self-hosted}{Modalità di installazione ed esercizio di un servizio su server o hardware controllato direttamente dall'utente o dall'organizzazione.}
+
+\glossterm{Servizi cloud}{Infrastrutture, piattaforme o software erogati e gestiti da provider terzi su rete remota via Internet.}
+
+\glossterm{Servizio di bridging}{Servizio di interconnessione che fa da tramite dallo smart speaker al provider AI configurato e ai servizi di integrazione, orchestrando la sequenza $\text{STT} \rightarrow \text{LLM} \rightarrow \text{TTS}$.}
+
+\glossterm{Skill}{Pacchetto modulare di istruzioni portabili e riutilizzabili che definiscono come un agent esegue compiti specifici.}
+
+\glossterm{Smart speaker}{Dispositivo hardware dotato di microfoni, altoparlante e connettività di rete per l'interazione vocale automatizzata con l'utente.}
+
+\glossterm{STT (Speech-To-Text)}{Tecnologia che converte automaticamente il linguaggio parlato in testo scritto.}
+
+
+\glossarysection{T}
+
+\glossterm{TTS (Text-To-Speech)}{Tecnologia che converte il testo scritto in voce sintetizzata.}
+
+
+\glossarysection{V}
+
+\glossterm{VAD (Voice Activity Detection)}{Insieme di algoritmi atti a rilevare la presenza o l'assenza di voce umana nel flusso audio, evitando l'invio e l'elaborazione di pacchetti durante le pause di silenzio.}
+
+\newpage
+\glossarysection{W}
+
+\glossterm{Wake Word}{Parola o locuzione chiave (ad es. ``Hey Siri'' o ``Alexa'') costantemente monitorata dal dispositivo per attivare l'elaborazione dei comandi vocali successivi.}
+
+
+\end{document}
