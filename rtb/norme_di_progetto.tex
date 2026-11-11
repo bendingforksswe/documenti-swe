@@ -65,7 +65,7 @@
 \newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
 \usepackage{etoolbox}
 \AtBeginEnvironment{tabularx}{\bftable}
-\graphicspath{{../}{../assets/}{../../InfoGruppo/}}
+\graphicspath{{../assets/}}
 
 % Intestazione bianca su sfondo blu per le tabelle
 \newcommand{\thc}[1]{\textcolor{white}{\textbf{#1}}}
@@ -77,7 +77,7 @@
 \begin{titlepage}
 \centering
 \vspace*{4mm}
-\includegraphics[width=105mm]{Assets/logo-bending-forks-trasparente.png}\\[4mm]
+\includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
 \underline{bending.forks.swe@gmail.com}
 
 \vspace{32mm}
@@ -88,7 +88,7 @@
 \vfill
 \begin{tabular}[t]{r|l}
 \textbf{Versione} & 0.1.0 \\
-\textbf{Tipo} & Documento Interno \\
+\textbf{Tipo} & Documento interno \\
 \textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
  & \emph{Prof. Tullio Vardanega} \\
  & \emph{Prof. Riccardo Cardin} \\
@@ -146,6 +146,8 @@ Il documento segue la classificazione dei processi dello standard \textbf{ISO/IE
 \item \textbf{Processi di supporto}: documentazione, gestione della configurazione, accertamento della qualità, verifica, validazione;
 \item \textbf{Processi organizzativi}: gestione, infrastruttura, miglioramento, formazione.
 \end{itemize}
+Il \gl{tailoring} esclude i processi primari di \textbf{acquisizione}, svolta dai committenti e dalla proponente, e di \textbf{operazione} e \textbf{manutenzione}, perché il gruppo non mette in esercizio né mantiene il prodotto dopo la consegna. Tra i processi di supporto, la \textbf{revisione congiunta} coincide con le revisioni di avanzamento (§\ref{sec:revisioni}) e con gli incontri con la proponente, l'\textbf{audit} con la verifica e con il controllo del Responsabile prima di ogni revisione, e la \textbf{risoluzione dei problemi} con le \emph{issue} (§\ref{sec:issue}) e le retrospettive (§\ref{sec:miglioramento}): per questo non sono descritti come processi a sé.
+
 Ogni processo è descritto indicando scopo, strumenti, attività e norme da rispettare. L'ultima sezione definisce le \textbf{metriche di qualità} usate per misurare processi e prodotti.
 
 \subsection{Glossario}
@@ -155,16 +157,17 @@ Per evitare ambiguità, i termini tecnici o specifici del dominio sono raccolti 
 \subsubsection{Riferimenti normativi}
 \begin{itemize}
 \tightlist
-\item Capitolato d'appalto C3 -- Fossdot: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C3-Fossdot.pdf};
-\item Regolamento del progetto didattico: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Dispense/PD1.pdf}.
+\item Capitolato d'appalto C3 -- Fossdot: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C3-Fossdot.pdf} (consultato il 2026-11-11);
+\item Regolamento del progetto didattico: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Dispense/PD1.pdf} (consultato il 2026-11-11);
+\item Preventivo costi e assunzione impegni v1.4.
 \end{itemize}
 \subsubsection{Riferimenti informativi}
 \begin{itemize}
 \tightlist
-\item Standard ISO/IEC 12207:1995: \url{https://www.math.unipd.it/~tullio/IS-1/2009/Approfondimenti/ISO_12207-1995.pdf};
-\item Conventional Commits: \url{https://www.conventionalcommits.org/it/v1.0.0/};
+\item Standard ISO/IEC 12207:1995: \url{https://www.math.unipd.it/~tullio/IS-1/2009/Approfondimenti/ISO_12207-1995.pdf} (consultato il 2026-11-11);
+\item Conventional Commits v1.0.0: \url{https://www.conventionalcommits.org/it/v1.0.0/};
 \item Glossario v\ph{x.y.z};
-\item Verbale interno del 4 novembre 2026 (assegnazione della redazione di questo documento e regole di rotazione dei ruoli). \ph{Da Verificare}
+\item Verbale interno del 4 novembre 2026 v1.0 (assegnazione della redazione di questo documento e regole di rotazione dei ruoli). \ph{Da Verificare}
 \end{itemize}
 
 % =====================================================================
@@ -216,8 +219,9 @@ Piano di progetto & Responsabile & Esterno & RTB, PB & Rischi, pianificazione, p
 Piano di qualifica & Amministratore & Esterno & RTB, PB & Obiettivi di qualità, valori delle metriche, test e loro esiti \\ \rl
 Norme di progetto & Amministratore & Interno & RTB, PB & Questo documento \\ \rl
 Glossario & Amministratore & Esterno & RTB, PB & Definizione dei termini usati nei documenti \\ \rl
-Verbali interni & Responsabile & Interno & RTB, PB & Resoconto delle riunioni interne \\ \rl
-Verbali esterni & Responsabile & Esterno & RTB, PB & Resoconto delle riunioni con soggetti esterni \\ \rl
+Verbali interni & Scriba della riunione & Interno & RTB, PB & Resoconto delle riunioni interne \\ \rl
+Verbali esterni & Scriba della riunione & Esterno & RTB, PB & Resoconto delle riunioni con soggetti esterni \\ \rl
+Diari di bordo & Responsabile & Esterno & Tutto il progetto & Avanzamento del progetto presentato a lezione (§\ref{sec:diari}) \\ \rl
 Specifica tecnica & Progettista & Esterno & PB & Architettura e progettazione del prodotto \\ \rl
 Manuale utente & Progettista & Esterno & PB & Istruzioni d'uso del prodotto \\ \rl
 \end{tabularx}
@@ -334,7 +338,7 @@ I verbali si scrivono a partire dal \emph{template} in \texttt{template/} e cont
 \end{itemize}
 Il verbale è redatto dallo scriba designato nella riunione e va completato entro \ph{n} giorni dalla riunione.
 
-\subsubsection{Diari di bordo}
+\subsubsection{Diari di bordo}\label{sec:diari}
 I diari di bordo sono le brevi presentazioni sull'avanzamento del progetto esposte durante le lezioni del Prof. Vardanega. Sono preparati dal Responsabile in carica e caricati in PDF nella cartella \texttt{diario-di-bordo/}. \ph{Struttura delle slide da definire.}
 
 \subsubsection{Nomi dei file e posizione nella \emph{repository}}
@@ -365,7 +369,7 @@ Regole generali:
 Ogni documento ha una versione nel formato \texttt{X.Y.Z}:
 \begin{itemize}
 \tightlist
-\item \texttt{X} (\emph{major}): aumenta quando il documento viene \textbf{approvato} dal Verificatore per una revisione. Finché \texttt{X = 0} il documento è in bozza;
+\item \texttt{X} (\emph{major}): aumenta quando il documento viene \textbf{approvato} dal Responsabile per una revisione (§\ref{sec:ciclovita}). Finché \texttt{X = 0} il documento è in bozza;
 \item \texttt{Y} (\emph{minor}): aumenta quando si aggiungono o modificano contenuti in modo sostanziale (es.\ una nuova sezione);
 \item \texttt{Z} (\emph{patch}): aumenta per correzioni di refusi, formattazione o piccole modifiche.
 \end{itemize}
@@ -382,9 +386,9 @@ Un documento passa per i seguenti stati:
 \item \textbf{Verificato}: il Verificatore ha approvato le modifiche, che entrano nel ramo principale della \emph{repository};
 \item \textbf{Approvato}: il Responsabile dichiara il documento pronto per una revisione ufficiale (aumento della versione \emph{major}).
 \end{enumerate}
-Ogni passaggio di stato corrisponde a una versione: una versione \texttt{0.Y.Z} indica un documento in lavorazione o verificato ma non ancora approvato; la prima versione \texttt{1.0.0} indica il documento approvato per la RTB, la prima \texttt{2.0.0} quello approvato per la PB.
+Non ogni passaggio di stato crea una versione nuova: la redazione produce una nuova versione secondo le regole del versionamento; la verifica no, perché il Verificatore inserisce il proprio nome nella riga della versione che ha verificato; l'approvazione del Responsabile crea una nuova versione \emph{major}. Una versione \texttt{0.Y.Z} indica quindi un documento in lavorazione o verificato ma non ancora approvato; la prima versione \texttt{1.0.0} indica il documento approvato per la RTB, la prima \texttt{2.0.0} quello approvato per la PB.
 
-I documenti incrementali (Norme di progetto, Piano di progetto, Piano di qualifica, Glossario) possono avere sezioni ancora vuote: in questo caso si verificano e approvano solo le sezioni complete.
+I documenti incrementali (Norme di progetto, Piano di progetto, Piano di qualifica, Analisi dei requisiti e Glossario) possono avere sezioni ancora vuote: in questo caso si verificano e approvano solo le sezioni complete.
 
 \subsubsection{Norme tipografiche}\label{sec:tipografia}
 \begin{itemize}
@@ -397,7 +401,7 @@ I documenti incrementali (Norme di progetto, Piano di progetto, Piano di qualifi
 \item \textbf{Corsivo}: termini del Glossario, parole straniere ed enfasi. Non vanno in corsivo i nomi propri di strumenti e servizi (es.\ GitHub, Discord), le sigle (es.\ RTB, PoC) e le parole straniere ormai entrate nell'uso italiano (es.\ file, test, link, email, software);
 \item \textbf{Monospazio}: nomi di file, percorsi, comandi, codice;
 \item \textbf{Ruoli}: sempre con la maiuscola (Responsabile, Amministratore, Analista, Progettista, Programmatore, Verificatore);
-\item \textbf{Riferimenti}: ogni riferimento a un documento indica la versione;
+\item \textbf{Riferimenti}: ogni documento citato compare nella sezione Riferimenti con la versione oppure, se è un documento esterno senza versione, con la data di ultima consultazione; nel testo basta il nome del documento;
 \item \textbf{Segnaposto}: le parti ancora da completare si scrivono con \texttt{\textbackslash ph\{...\}}, che le evidenzia in rosso. Un documento da consegnare non deve contenerne.
 \end{itemize}
 
@@ -409,11 +413,11 @@ La gestione della configurazione serve a tenere traccia di ogni versione di docu
 \tightlist
 \item \texttt{bendingforksswe/documenti-swe}: sorgenti di tutta la documentazione;
 \item \texttt{bendingforksswe/bendingforksswe.github.io}: sito del gruppo, che pubblica i documenti;
-\item \texttt{bendingforksswe/\ph{nome}}: codice del Proof of Concept, \ph{da creare all'inizio del PoC};
+\item \texttt{bendingforksswe/\ph{nome}}: codice del \emph{Proof of Concept}, \ph{da creare all'inizio del PoC};
 \item La \emph{repository} dell'MVP verrà creata all'inizio della PB.
 \end{itemize}
 
-\subsubsection{\emph{Issue}}
+\subsubsection{\emph{Issue}}\label{sec:issue}
 Ogni attività da svolgere viene aperta come \textbf{\emph{issue}} su GitHub nella \emph{repository} di riferimento. Ogni \emph{issue} indica:
 \begin{itemize}
 \tightlist
@@ -424,14 +428,24 @@ Ogni attività da svolgere viene aperta come \textbf{\emph{issue}} su GitHub nel
 \end{itemize}
 \ph{Sigle dei documenti: NdP, AdR, PdP, PdQ, Gloss, ST, MU, Verb. Da confermare.}
 
+\paragraph{\emph{Label} e \emph{milestone}}
+\ph{Proposta da approvare in riunione:}
+\begin{itemize}
+\tightlist
+\item Ogni \emph{issue} ha una \emph{label} per il ruolo (\texttt{responsabile}, \texttt{amministratore}, \texttt{analista}, \texttt{progettista}, \texttt{programmatore}, \texttt{verificatore}) e una per il tipo (\texttt{documentazione}, \texttt{codice}, \texttt{bug});
+\item Ogni periodo di due settimane è una \emph{milestone} con scadenza a fine periodo; le revisioni RTB e PB hanno una \emph{milestone} propria;
+\item Ogni \emph{issue} è assegnata alla \emph{milestone} del periodo in cui va completata.
+\end{itemize}
+
 \subsubsection{\emph{Branch} e \emph{pull request}}
 \ph{Proposta da approvare in riunione:}
 \begin{itemize}
 \tightlist
-\item Il ramo \texttt{main} contiene solo materiale verificato e non accetta \emph{push} diretti;
+\item Il ramo \texttt{main} contiene solo materiale verificato e non accetta \emph{push} diretti. È protetto su GitHub (\emph{branch protection}): ogni modifica passa da una \emph{pull request} con almeno un'approvazione;
 \item Ogni attività si svolge su un ramo dedicato, chiamato \texttt{issue-<numero>-<breve-descrizione>};
 \item Terminata l'attività, il redattore apre una \textbf{\emph{pull request}} verso \texttt{main}, collegata all'\emph{issue}, e indica il Verificatore come revisore;
-\item Il Verificatore approva e unisce la \emph{pull request} (\emph{merge}); l'\emph{issue} si chiude e il ramo viene eliminato.
+\item Il Verificatore approva e unisce la \emph{pull request} (\emph{merge}); l'\emph{issue} si chiude e il ramo viene eliminato;
+\item Ogni \emph{pull request} segue il \emph{template} \path{.github/pull_request_template.md}, che chiede l'\emph{issue} collegata (\texttt{Closes \#<numero>}), una descrizione delle modifiche, la conferma che la riga del registro delle versioni è aggiornata e i controlli della \emph{checklist} (§\ref{sec:checklist}).
 \end{itemize}
 
 \subsubsection{Messaggi di \emph{commit}}
@@ -515,7 +529,7 @@ Il Verificatore legge le parti modificate e controlla:
 \item Ortografia, grammatica e chiarezza;
 \item Rispetto delle norme tipografiche (§\ref{sec:tipografia}) e della struttura del documento;
 \item Correttezza e completezza dei contenuti rispetto all'\emph{issue};
-\item Che i link e i riferimenti funzionino e indichino la versione;
+\item Che i link e i rimandi funzionino e che i documenti citati siano nei Riferimenti con versione o data di consultazione;
 \item Che il documento compili senza errori e non contenga segnaposto se destinato alla consegna.
 \end{itemize}
 Se trova errori, li segnala al redattore (come commenti alla \emph{pull request}); il redattore corregge e la verifica si ripete.
@@ -612,7 +626,7 @@ Verificatore & Verifica documenti e codice secondo queste norme & Tutto il proge
 \end{itemize}
 
 \subsubsection{Ciclo di vita delle attività}\label{sec:attivita}
-Il Responsabile suddivide il lavoro del periodo in attività piccole, assegnabili a una sola persona e completabili entro il periodo. Ogni attività è una \emph{issue} (§\ref{sec:repository}) e attraversa i seguenti stati \ph{sulla board del GitHub Project}:
+Il Responsabile suddivide il lavoro del periodo in attività piccole, assegnabili a una sola persona e completabili entro il periodo. Ogni attività è una \emph{issue} (§\ref{sec:issue}) e attraversa i seguenti stati \ph{sulla \emph{board} del GitHub Project}:
 \begin{enumerate}
 \tightlist
 \item \textbf{\emph{Backlog}}: l'attività è stata individuata ma non ancora pianificata;
@@ -629,8 +643,8 @@ Un'attività è \textbf{completata} solo quando:
 \item Il prodotto è stato verificato e approvato da un Verificatore diverso dall'assegnatario;
 \item Le modifiche sono state unite nel ramo \texttt{main};
 \item L'\emph{issue} è chiusa e riporta le ore effettivamente svolte.
-\ph{Discussione con il gruppo per l'organizzazione di gestione delle ore.}
 \end{itemize}
+\ph{Discussione con il gruppo per l'organizzazione di gestione delle ore.}
 
 \subsubsection{Rendicontazione delle ore}
 Ogni componente registra le ore svolte, indicando ruolo e attività. Il Responsabile le riporta nel Piano di progetto a fine periodo, confrontandole con il preventivo. \ph{Strumento di rendicontazione da scegliere: GitHub Project, foglio Google condiviso o altro.}
@@ -656,9 +670,13 @@ Strumenti adottati dal gruppo:
 \begin{center}
 \begin{tabularx}{\linewidth}{>{\hsize=0.6\hsize\raggedright\arraybackslash}X>{\hsize=1.4\hsize\raggedright\arraybackslash}X}
 \rowcolor{bfblue}\thc{Strumento} & \thc{Utilizzo} \\
-GitHub & Versionamento di documenti e codice, \emph{issue}, \emph{pull request}, Actions \\ \rl
+GitHub & Versionamento di documenti e codice, \emph{issue}, \emph{pull request} \\ \rl
+GitHub Projects & Bacheca delle attività e dei loro stati (§\ref{sec:attivita}) \\ \rl
+GitHub Actions & Compilazione e pubblicazione automatica dei documenti sul sito \\ \rl
 GitHub Pages & Pubblicazione dei documenti sul sito del gruppo \\ \rl
+VS Code e Overleaf & Scrittura e compilazione dei documenti \LaTeX \\ \rl
 Discord & Riunioni interne e lavoro sincrono \\ \rl
+WhatsApp & Comunicazioni rapide e sondaggi \\ \rl
 Gmail & Comunicazioni esterne \\ \rl
 Google Calendar & Calendario condiviso di riunioni e scadenze \\ \rl
 Google Drive & Condivisione di file di supporto \\ \rl
