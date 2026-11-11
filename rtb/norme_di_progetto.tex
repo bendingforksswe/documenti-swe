@@ -148,7 +148,7 @@ Il documento segue la classificazione dei processi dello standard \textbf{ISO/IE
 \end{itemize}
 Il \gl{tailoring} esclude i processi primari di \textbf{acquisizione}, svolta dai committenti e dalla proponente, e di \textbf{operazione} e \textbf{manutenzione}, perché il gruppo non mette in esercizio né mantiene il prodotto dopo la consegna. Tra i processi di supporto, la \textbf{revisione congiunta} coincide con le revisioni di avanzamento (§\ref{sec:revisioni}) e con gli incontri con la proponente, l'\textbf{audit} con la verifica e con il controllo del Responsabile prima di ogni revisione, e la \textbf{risoluzione dei problemi} con le \emph{issue} (§\ref{sec:issue}) e le retrospettive (§\ref{sec:miglioramento}): per questo non sono descritti come processi a sé.
 
-Ogni processo è descritto indicando scopo, strumenti, attività e norme da rispettare. L'ultima sezione definisce le \textbf{metriche di qualità} usate per misurare processi e prodotti.
+Ogni processo è descritto indicando scopo, strumenti, attività e norme da rispettare.
 
 \subsection{Glossario}
 Per evitare ambiguità, i termini tecnici o specifici del dominio sono raccolti nel documento \textbf{Glossario}. Nei documenti, la prima occorrenza di un termine presente nel Glossario è scritta in corsivo con una G a pedice, così: \gl{parola}. In \LaTeX\ si usa il comando \texttt{\textbackslash gl\{parola\}}.
@@ -498,15 +498,14 @@ L'accertamento della qualità garantisce che i processi seguiti e i prodotti rea
 \subsubsection{Strumenti}
 \begin{itemize}
 \tightlist
-\item \textbf{Metriche di qualità}: definite in questo documento (§\ref{sec:metriche}), con codice, descrizione e formula;
-\item \textbf{Piano di qualifica}: fissa per ogni metrica il valore \textbf{accettabile} e quello \textbf{ottimale} e raccoglie i valori misurati;
+\item \textbf{Piano di qualifica}: definisce le metriche di qualità, fissa per ognuna il valore \textbf{accettabile} e quello \textbf{ottimale} e raccoglie i valori misurati;
 \item \textbf{Cruscotto di valutazione}: grafici e tabelle nel Piano di qualifica che mostrano l'andamento delle metriche nel tempo.
 \end{itemize}
 
 \subsubsection{Attività}
 \begin{enumerate}
 \tightlist
-\item A fine periodo l'Amministratore calcola le metriche di processo (§\ref{sec:metricheprocesso}) e di prodotto (§\ref{sec:metricheprodotto}) applicabili;
+\item A fine periodo l'Amministratore calcola le metriche di processo e di prodotto applicabili;
 \item I valori vengono riportati nel Piano di qualifica e confrontati con gli obiettivi;
 \item Le metriche fuori dal valore accettabile vengono discusse nella retrospettiva di fine periodo e generano azioni di miglioramento (§\ref{sec:miglioramento}).
 \end{enumerate}
@@ -705,78 +704,5 @@ Risorse per gli strumenti già in uso:
 \item GitHub: \url{https://docs.github.com}.
 \end{itemize}
 \ph{Risorse di studio per le tecnologie del PoC, da aggiungere dopo la loro scelta.}
-
-% =====================================================================
-\section{Metriche di qualità}\label{sec:metriche} \ph{Da capire}
-Questa sezione stabilisce \textbf{cosa} si misura e \textbf{come} si calcola. Gli obiettivi (valore accettabile e valore ottimale) e i valori misurati in ogni periodo si trovano nel \textbf{Piano di qualifica}.
-
-Ogni metrica è identificata dal codice:
-\begin{center}\texttt{M[Categoria]-[Sigla]}\end{center}
-dove \texttt{[Categoria]} vale \texttt{PC} per le metriche di \textbf{processo} e \texttt{PD} per quelle di \textbf{prodotto}, e \texttt{[Sigla]} è l'abbreviazione del nome della metrica.
-
-\subsection{Metriche di processo}\label{sec:metricheprocesso}
-
-\subsubsection{Fornitura}
-Le metriche di fornitura seguono il metodo dell'\gl{Earned Value}. Si calcolano a fine periodo usando le ore previste ed effettive delle attività e il costo orario dei ruoli (§\ref{sec:organizzativi}).
-
-\begin{center}
-\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
-\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
-MPC-BAC & \emph{Budget at Completion} & Costo totale preventivato del progetto, fissato nel Preventivo costi e assunzione impegni \\ \rl
-MPC-PV & \emph{Planned Value} & Valore del lavoro pianificato fino alla data di misura: $PV = BAC \times \%\,\mathrm{lavoro\ pianificato}$ \\ \rl
-MPC-AC & \emph{Actual Cost} & Costo effettivamente sostenuto: somma delle ore effettive di ogni attività per il costo orario del ruolo \\ \rl
-MPC-EV & \emph{Earned Value} & Valore del lavoro effettivamente completato: $EV = BAC \times \%\,\mathrm{lavoro\ completato}$ \\ \rl
-MPC-CPI & \emph{Cost Performance Index} & Efficienza dei costi: $CPI = EV / AC$. Se $CPI < 1$ si spende più del previsto \\ \rl
-MPC-SPI & \emph{Schedule Performance Index} & Rispetto dei tempi: $SPI = EV / PV$. Se $SPI < 1$ si è in ritardo \\ \rl
-MPC-CV & \emph{Cost Variance} & Differenza tra valore prodotto e costo: $CV = EV - AC$ \\ \rl
-MPC-SV & \emph{Schedule Variance} & Differenza tra lavoro svolto e pianificato: $SV = EV - PV$ \\ \rl
-MPC-EAC & \emph{Estimate at Completion} & Stima del costo finale: $EAC = BAC / CPI$ \\ \rl
-MPC-ETC & \emph{Estimate to Complete} & Stima del costo per terminare il progetto: $ETC = EAC - AC$ \\ \rl
-MPC-RNP & Rischi non previsti & Numero di problemi verificatisi nel periodo che non erano presenti nell'analisi dei rischi del Piano di progetto \\ \rl
-\end{tabularx}
-\end{center}
-
-\subsubsection{Documentazione}
-\begin{center}
-\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
-\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
-MPC-IG & Indice di Gulpease & Leggibilità di un testo in italiano, su una scala da 0 a 100 (più alto è più leggibile): $IG = 89 + \frac{300 \times \mathrm{frasi} - 10 \times \mathrm{lettere}}{\mathrm{parole}}$ \\ \rl
-MPC-CO & Correttezza ortografica & Numero di errori ortografici e grammaticali trovati in verifica in un documento \\ \rl
-\end{tabularx}
-\end{center}
-\ph{Strumento per il calcolo automatico dell'indice di Gulpease e per il controllo ortografico da scegliere.}
-
-\subsubsection{Verifica}
-\begin{center}
-\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
-\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
-MPC-TS & Test superati & Percentuale di test superati sul totale dei test eseguiti: $\frac{\mathrm{test\ superati}}{\mathrm{test\ eseguiti}} \times 100$ \\ \rl
-MPC-CC & \emph{Code coverage} & Percentuale di righe di codice eseguite dai test: $\frac{\mathrm{righe\ eseguite}}{\mathrm{righe\ totali}} \times 100$ \\ \rl
-\end{tabularx}
-\end{center}
-
-\subsubsection{Gestione della qualità}
-\begin{center}
-\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
-\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
-MPC-MS & Metriche soddisfatte & Percentuale di metriche con valore almeno accettabile: $\frac{\mathrm{metriche\ accettabili}}{\mathrm{metriche\ misurate}} \times 100$ \\ \rl
-\end{tabularx}
-\end{center}
-
-\subsection{Metriche di prodotto}\label{sec:metricheprodotto}
-Le metriche di prodotto si applicano al codice: alla RTB solo in parte, sul PoC; per intero sull'MVP.
-
-\subsubsection{Funzionalità}
-\begin{center}
-\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.75\hsize\raggedright\arraybackslash}X>{\hsize=1.7\hsize\raggedright\arraybackslash}X}
-\rowcolor{bfblue}\thc{Codice} & \thc{Nome} & \thc{Descrizione e formula} \\
-MPD-ROS & Requisiti obbligatori soddisfatti & $\frac{\mathrm{requisiti\ obbligatori\ soddisfatti}}{\mathrm{requisiti\ obbligatori\ totali}} \times 100$ \\ \rl
-MPD-RDS & Requisiti desiderabili soddisfatti & $\frac{\mathrm{requisiti\ desiderabili\ soddisfatti}}{\mathrm{requisiti\ desiderabili\ totali}} \times 100$ \\ \rl
-MPD-RZS & Requisiti opzionali soddisfatti & $\frac{\mathrm{requisiti\ opzionali\ soddisfatti}}{\mathrm{requisiti\ opzionali\ totali}} \times 100$ \\ \rl
-\end{tabularx}
-\end{center}
-Un requisito è soddisfatto quando tutti i test di sistema collegati sono superati (§\ref{sec:validazione}).
-
-\ph{Metriche di manutenibilità, affidabilità, usabilità ed efficienza (es.\ complessità ciclomatica, branch coverage, tempo di risposta) da definire in vista della PB, in base alle tecnologie scelte e ai requisiti di qualità dell'Analisi dei requisiti.}
 
 \end{document}
