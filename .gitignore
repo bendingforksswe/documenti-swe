@@ -1,0 +1,40 @@
+# File generati dalla compilazione LaTeX
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.xdv
+*.dvi
+*.glo
+*.gls
+*.glg
+*.ist
+*.idx
+*.ilg
+*.ind
+.texbuild/
+
+# File di sistema ed editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+
+# PDF: il sito li compila dai .tex, quindi si versionano solo i PDF
+# che non hanno un sorgente .tex (diari di bordo e verbali firmati)
+*.pdf
+!diario-di-bordo/*.pdf
+!**/firmati/*.pdf
