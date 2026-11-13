@@ -1,0 +1,309 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\graphicspath{{../../assets/}{../../Assets/}{assets/}{Assets/}}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% Numero del verbale: da impostare una sola volta (usato in intestazione, copertina e ID)
+\newcommand{\vnum}{8}
+
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Formattazione titoli sezioni
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice cliccabile con puntini/trattini
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+% Intestazioni e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Verbale Interno N. \vnum}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+% Colorazione alternata per le tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{42mm}
+{\fontsize{24}{28}\selectfont\bfseries Verbale Interno N. \vnum\par}
+\vspace{4mm}
+{\Large\color{bfblue} Riunione del 13 novembre 2026\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Nicholas Salmaso \\
+\textbf{Segretario} & Filippo Rampazzo \\
+\textbf{Moderatore} & Filippo Rampazzo \\
+\textbf{Verificatore} & Matteo Wu \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 1.0 \\
+\textbf{Tipo} & Verbale Interno \\
+\textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Sintesi e decisioni operative emerse durante la riunione interna del team del giorno 13 novembre 2026, riguardante la pianificazione delle attività e l'avanzamento del progetto.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle versioni ----------
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{
+  >{\hsize=0.55\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.75\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=2.00\hsize\raggedright\arraybackslash}X
+}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & 
+\textcolor{white}{\textbf{Data}} & 
+\textcolor{white}{\textbf{Autore}} & 
+\textcolor{white}{\textbf{Verificatore}} & 
+\textcolor{white}{\textbf{Descrizione}} \\
+1.0 & 2026-11-13 & Filippo Rampazzo & Matteo Wu & Creazione e redazione iniziale del documento \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Informazioni generali ----------
+\hypertarget{informazioni-generali}{%
+\section{Informazioni generali}}
+
+\hypertarget{durata-e-luogo}{%
+\subsection{Durata e luogo}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data:} 13 novembre 2026
+\item \textbf{Inizio:} 15:10
+\item \textbf{Fine:} 16:40
+\item \textbf{Luogo / modalità:} in remoto, tramite Discord
+\end{itemize}
+
+\hypertarget{partecipanti}{%
+\subsection{Partecipanti}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}p{2.2cm}>{\centering\arraybackslash}p{2.2cm}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nome e Cognome}} & \textcolor{white}{\textbf{Ruolo Progetto}} & \textcolor{white}{\textbf{Presente}} & \textcolor{white}{\textbf{Assente}} \\
+Marco Beltrame & Amministratore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & Amministratore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & Analista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & Responsabile & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Analista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & Analista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Verificatore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Ordine del giorno ----------
+\hypertarget{ordine-del-giorno}{%
+\section{Ordine del giorno}}
+
+\begin{enumerate}
+\tightlist
+\item \hyperlink{odg-1}{Riepilogo interno della riunione con la proponente};
+\item \hyperlink{odg-2}{Rotazione dei ruoli di progetto};
+\item \hyperlink{odg-3}{Aggiornamenti sul Glossario};
+\item \hyperlink{odg-4}{Preparazione del Diario di Bordo del 16 novembre 2026};
+\item \hyperlink{varie-ed-eventuali}{Varie ed eventuali}.
+\end{enumerate}
+\newpage
+
+% ---------- Discussione e decisioni ----------
+\hypertarget{discussione-e-decisioni}{%
+\section{Discussione e decisioni}}
+
+\hypertarget{odg-1}{%
+\subsection{Riepilogo interno della riunione con la proponente}}
+\textbf{Discussione:} \\
+Su consiglio della proponente il gruppo stima delle date in cui prevede di potersi candidare alle due revisioni di avanzamento del progetto. Si preventiva di candidarsi alla revisione RTB entro la fine di gennaio / inizio di febbraio, mentre si preventiva di candidarsi alla revisione PB nella seconda metà di marzo. \\
+Il gruppo incarica Beltrame e Toffoli di redigere la \textit{Bill of materials} da presentare alla proponente, contenente le componenti hardware richieste per lo sviluppo del progetto. La redazione del documento è da svolgersi il prima possibile in quanto la consegna dei materiali potrebbe richiedere diversi giorni; la scadenza è quindi fissata a venerdì 20 novembre, data in cui è prevista la prossima riunione con la proponente.
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-8-01]} Redazione della \textit{Bill of materials};
+\end{itemize}
+
+\textbf{Responsabili attuazione:} Beltrame, Toffoli \\
+\textbf{Scadenza:} 2026-11-20
+
+\hypertarget{odg-2}{%
+\subsection{Rotazione dei ruoli di progetto}}
+\textbf{Discussione:} \\
+Il gruppo anticipa il rinnovo dei ruoli a questa riunione ma mantiene la scadenza dei ruoli fissata per il 16 novembre alle 23:59. In conformità alla durata bisettimanale dei ruoli, il termine per questa rotazione è fissato per lunedì 30 novembre alle ore 23:59. È stata approvata all'unanimità la seguente suddivisione dei ruoli:
+
+\hypertarget{tab-4.2.1}{
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nome e Cognome}} & \textcolor{white}{\textbf{Ruolo Progetto}}\\
+Marco Beltrame & Progettista \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & Amministratore \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & Responsabile \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & Verificatore \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Analista \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & Progettista \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Analista \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\textbf{Tabella 4.2.1 - Suddivisione dei ruoli dal 17 al 30 novembre 2026}
+\end{center}
+}
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-8-02]} Suddivisione dei ruoli come indicato alla \hyperlink{tab-4.2.1}{Tabella 4.2.1};
+\end{itemize}
+
+\textbf{Scadenza:} 2026-11-30
+
+\hypertarget{odg-3}{%
+\subsection{Aggiornamenti sul Glossario}}
+\textbf{Discussione:} \\
+Salmaso e Wu mostrano al gruppo i progressi sul Glossario; propongono d'ora in avanti di scrivere il Glossario in JSON e convertirlo in Latex con uno script automatizzato. In seguito ad alcuni chiarimenti sui pro e contro della scelta, il gruppo approva la proposta all'unanimità.
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-8-03]} Il Glossario sarà redatto in formato JSON e poi compilato in Latex e in seguito in PDF con uno script automatizzato.
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Semplificare la redazione del documento senza preoccuparsi del corretto ordinamento dei termini.
+
+\hypertarget{odg-4}{%
+\subsection{Preparazione del Diario di Bordo del 16 novembre 2026}}
+\textbf{Discussione:} \\
+Toffoli prepara la presentazione per il Diario di Bordo del 16 novembre 2026; Salmaso resta incaricato di esporla in aula in quanto Responsabile. Toffoli propone di modificare il template delle presentazioni, ma la proposta non ha seguito.
+In seguito alla discussione sulle difficoltà incontrate, il gruppo dichiara la presentazione pronta.
+
+\hypertarget{varie-ed-eventuali}{%
+\subsection{Varie ed eventuali}}
+\textbf{Discussione:} \\
+Rampazzo propone i seguenti aggiornamenti alle Norme di Progetto: rinominare ufficialmente lo "Scriba" dei verbali in "Segretario", stabilire che i verbali vanno redatti entro tre giorni lavorativi dalla riunione, e assegnare al Responsabile il compito di risolvere conflitti interni al gruppo. \\
+Milanese si assume l'incarico di impostare il documento condiviso su cui rendicontare le ore di lavoro e il template dei verbali. \\
+Beltrame si assume l'incarico di redigere il verbale esterno della riunione con la proponente.
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-8-04]} Lo scriba è ufficialmente rinominato in "Segretario";
+\item[$\checkmark$] \textbf{[VI-8-05]} La scadenza per la redazione dei verbali è fissata a tre giorni lavorativi dalla data della riunione;
+\item[$\checkmark$] \textbf{[VI-8-06]} Al Responsabile è affidato il compito di risolvere i conflitti interni al gruppo;
+\end{itemize}
+
+\textbf{Motivazione:} \\
+Formalizzare consuetudini emerse durante i lavori del gruppo.
+
+\textbf{Responsabili attuazione:} Amministratori \\
+\textbf{Scadenza:} 2026-11-16
+
+\newpage
+
+% ---------- Azioni da intraprendere (TODO) ----------
+\hypertarget{azioni-da-intraprendere}{
+\section{Azioni da intraprendere (TODO)}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=2.0\hsize\raggedright\arraybackslash}X >{\hsize=1.0\hsize\raggedright\arraybackslash}X >{\hsize=0.5\hsize\centering\arraybackslash}X >{\hsize=0.5\hsize\centering\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Responsabile}} & \textcolor{white}{\textbf{Scadenza}} & \textcolor{white}{\textbf{Priorità}} \\
+Redigere la \textit{Bill of materials} & Beltrame, Toffoli & 2026-11-20 & Alta \\ \arrayrulecolor{bfline}\hline
+Redigere il verbale esterno del 2026-11-13 & Beltrame & 2026-11-18 & Media \\ \arrayrulecolor{bfline}\hline
+Organizzare la prossima riunione con la proponente & Salmaso & 2026-11-16 & Alta \\ \arrayrulecolor{bfline}\hline
+Aggiornare le Norme di Progetto & Beltrame, Milanese & 2026-11-16 & Media \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- Prossima riunione ----------
+\hypertarget{prossima-riunione}{%
+\section{Pianificazione prossima riunione}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data proposta:} 16 novembre 2026
+\item \textbf{Ora prevista:} 15:00
+\item \textbf{Luogo / modalità:} in remoto, tramite Discord 
+\item \textbf{OdG preliminare:} revisione dell'avanzamento del progetto e programmazione dei lavori
+\end{itemize}
+
+\vspace{35pt}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\textbf{Firma Segretario:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_filippo.jpeg}}}\rule{55mm}{0.5pt}\\[2pt]
+\small Filippo Rampazzo
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\begin{flushright}
+\textbf{Firma Verificatore:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_matteo.jpg}}}\rule{55mm}{0.5pt}\\[2pt]
+\small Matteo Wu
+\end{flushright}
+\end{minipage}
+
+\end{document}
