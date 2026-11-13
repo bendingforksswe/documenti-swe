@@ -192,7 +192,7 @@ Il processo di fornitura regola il rapporto tra il gruppo (fornitore) e la propo
 \item I contatti con Uranion sono tenuti dal \textbf{Responsabile} tramite l'indirizzo email del gruppo \texttt{bending.forks.swe@gmail.com};
 \item Gli incontri si svolgono su \textbf{Google Meet}, salvo diverso accordo;
 \item Ogni incontro con la proponente produce un \textbf{verbale esterno} (§\ref{sec:verbali}), che viene inviato alla proponente per la firma;
-\item \ph{Cadenza degli incontri con la proponente da concordare il 13 novembre 2026.}
+\item Gli incontri con la proponente hanno cadenza \textbf{settimanale} nella fase iniziale del progetto e poi \textbf{bisettimanale}.
 \end{itemize}
 
 \subsubsection{Revisioni di avanzamento}\label{sec:revisioni}
@@ -219,8 +219,8 @@ Piano di progetto & Responsabile & Esterno & RTB, PB & Rischi, pianificazione, p
 Piano di qualifica & Amministratore & Esterno & RTB, PB & Obiettivi di qualità, valori delle metriche, test e loro esiti \\ \rl
 Norme di progetto & Amministratore & Interno & RTB, PB & Questo documento \\ \rl
 Glossario & Amministratore & Esterno & RTB, PB & Definizione dei termini usati nei documenti \\ \rl
-Verbali interni & Scriba della riunione & Interno & RTB, PB & Resoconto delle riunioni interne \\ \rl
-Verbali esterni & Scriba della riunione & Esterno & RTB, PB & Resoconto delle riunioni con soggetti esterni \\ \rl
+Verbali interni & Segretario della riunione & Interno & RTB, PB & Resoconto delle riunioni interne \\ \rl
+Verbali esterni & Segretario della riunione & Esterno & RTB, PB & Resoconto delle riunioni con soggetti esterni \\ \rl
 Diari di bordo & Responsabile & Esterno & Tutto il progetto & Avanzamento del progetto presentato a lezione (§\ref{sec:diari}) \\ \rl
 Specifica tecnica & Progettista & Esterno & PB & Architettura e progettazione del prodotto \\ \rl
 Manuale utente & Progettista & Esterno & PB & Istruzioni d'uso del prodotto \\ \rl
@@ -334,12 +334,12 @@ I verbali si scrivono a partire dal \emph{template} in \texttt{template/} e cont
 \item \textbf{Discussione e decisioni}: per ogni punto, la discussione, le decisioni prese (con codice identificativo), la motivazione, gli incaricati e la scadenza;
 \item \textbf{Azioni da intraprendere}: tabella con descrizione, incaricato, scadenza e priorità;
 \item \textbf{Pianificazione della prossima riunione};
-\item \textbf{Firme}: dello scriba e del verificatore; nei verbali esterni anche del referente esterno.
+\item \textbf{Firme}: del segretario e del verificatore; nei verbali esterni anche del referente esterno.
 \end{itemize}
-Il verbale è redatto dallo scriba designato nella riunione e va completato entro \ph{n} giorni dalla riunione.
+Il verbale è redatto dal segretario designato nella riunione e va completato entro i 3 giorni lavorativi successivi alla riunione.
 
 \subsubsection{Diari di bordo}\label{sec:diari}
-I diari di bordo sono le brevi presentazioni sull'avanzamento del progetto esposte durante le lezioni del Prof. Vardanega. Sono preparati dal Responsabile in carica e caricati in PDF nella cartella \texttt{diario-di-bordo/}. \ph{Struttura delle slide da definire.}
+I diari di bordo sono le brevi presentazioni sull'avanzamento del progetto esposte durante le lezioni del Prof. Vardanega. Sono preparati dal Responsabile in carica e caricati in PDF nella cartella \texttt{diario-di-bordo/}. 
 
 \subsubsection{Nomi dei file e posizione nella \emph{repository}}
 La posizione e il nome del file determinano come il documento appare sul sito. Le regole sono:
@@ -375,7 +375,6 @@ Ogni documento ha una versione nel formato \texttt{X.Y.Z}:
 \end{itemize}
 Quando un numero aumenta, quelli alla sua destra tornano a zero (es.\ da \texttt{0.2.3} si passa a \texttt{0.3.0}). Ogni nuova versione va registrata nel registro delle versioni.
 
-\ph{Da approvare in riunione: i documenti della candidatura usano il formato a due cifre (es.\ 1.4); valutare se adottare \texttt{X.Y.Z} per tutti i documenti RTB.}
 
 \subsubsection{Ciclo di vita di un documento}\label{sec:ciclovita}
 Un documento passa per i seguenti stati:
@@ -479,7 +478,6 @@ Se serve spiegare il perché della modifica, si aggiunge un corpo dopo una riga 
 \paragraph{Regole generali}
 \begin{itemize}
 \tightlist
-\item Ogni \emph{commit} contiene una sola modifica logica: modifiche indipendenti vanno in \emph{commit} separati;
 \item Il collegamento con l'\emph{issue} si fa nella \emph{pull request}, non nel messaggio di \emph{commit}.
 \end{itemize}
 
@@ -607,7 +605,7 @@ Ogni componente ricopre a rotazione tutti i ruoli previsti dal progetto. Il cost
 \begin{center}
 \begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=1.55\hsize\raggedright\arraybackslash}X>{\hsize=0.5\hsize\raggedright\arraybackslash}X>{\hsize=0.4\hsize\centering\arraybackslash}X}
 \rowcolor{bfblue}\thc{Ruolo} & \thc{Compiti principali} & \thc{Presenza} & \thc{€/h} \\
-Responsabile & Coordina il gruppo, pianifica le attività e le assegna, gestisce tempi, costi e rischi, redige il Piano di progetto, rappresenta il gruppo verso l'esterno, approva i documenti & Tutto il progetto & 30 \\ \rl
+Responsabile & Coordina il gruppo, pianifica le attività e le assegna, gestisce tempi, costi e rischi, redige il Piano di progetto, rappresenta il gruppo verso l'esterno, risolve i disguidi all'interno del gruppo, approva i documenti & Tutto il progetto & 30 \\ \rl
 Amministratore & Gestisce l'ambiente di lavoro e gli strumenti, redige e mantiene le Norme di progetto e il Piano di qualifica, calcola le metriche & Tutto il progetto & 20 \\ \rl
 Analista & Studia il dominio e il capitolato, individua casi d'uso e requisiti, redige l'Analisi dei requisiti & Soprattutto fino alla RTB & 25 \\ \rl
 Progettista & Sceglie le tecnologie, definisce l'architettura del prodotto a partire dai requisiti, redige la Specifica tecnica & PoC, poi soprattutto PB & 25 \\ \rl
@@ -654,7 +652,7 @@ Ogni componente registra le ore svolte, indicando ruolo e attività. Il Responsa
 \item \textbf{Riunioni esterne}: con la proponente su Google Meet, o con i committenti;
 \item \textbf{Riunioni straordinarie}: convocate dal Responsabile in caso di necessità.
 \end{itemize}
-Ogni riunione nomina uno scriba, che redige il verbale.
+Ogni riunione nomina un segretario, che redige il verbale.
 
 \subsubsection{Comunicazioni}
 \begin{itemize}
