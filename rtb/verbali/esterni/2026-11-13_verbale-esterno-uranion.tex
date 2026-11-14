@@ -1,0 +1,294 @@
+%! con: Uranion
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+% Segnaposto ancora da compilare (in rosso)
+\newcommand{\ph}[1]{\textcolor{red}{[#1]}}
+% Termine presente nel Glossario: corsivo con G a pedice
+\newcommand{\gl}[1]{\emph{#1}\textsubscript{\scriptsize G}}
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}\raggedright}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}\raggedright}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\raggedright}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice: numeri con punto, trattini fino al numero di pagina
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Riunione con Uranion}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+\graphicspath{{../../../assets/}{../../assets/}{assets/}}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{48mm}
+{\fontsize{27}{32}\selectfont\bfseries Riunione con Uranion\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Nicholas Salmaso\\
+\textbf{Segretario} & Marco Beltrame\\
+\textbf{Verificatore} & Matteo Wu\\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 0.1.0 \\
+\textbf{Tipo} & Verbale esterno \\
+\textbf{Destinatari} & \emph{Uranion EMEA LTD} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Resoconto della prima riunione esterna dopo l'aggiudicazione del capitolato C3 \emph{Fossdot}, tra il gruppo Bending Forks e l'azienda Uranion, del 13 novembre 2026.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Contenuto ----------
+\section{Registro delle versioni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.65\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.90\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Verificatore}} & \textcolor{white}{\textbf{Descrizione}} \\
+0.1.0 & 2026-11-13 & Marco Beltrame & -- & Prima stesura del documento \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\section{Informazioni generali}
+
+\subsection{Durata e luogo}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data:} 2026-11-13
+\item \textbf{Inizio:} 14:30
+\item \textbf{Fine:} 15:25
+\item \textbf{Modalità:} virtuale, tramite Google Meet
+\end{itemize}
+
+Il seguente documento contiene il resoconto della riunione esterna del gruppo \emph{Bending Forks} con l'azienda \emph{Uranion}. È il primo incontro dopo l'aggiudicazione del capitolato C3 \emph{Fossdot}: il gruppo ha presentato le prime analisi sull'\emph{hardware} e sulle tecnologie, e ha posto le domande sorte durante l'avvio dell'\gl{Analisi dei requisiti}.
+
+\subsection{Partecipanti}
+
+\subsubsection{Interni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4cm}>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{2cm}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nome e Cognome}} & \textcolor{white}{\textbf{Ruolo}} & \textcolor{white}{\textbf{Presente}} & \textcolor{white}{\textbf{Assente}} \\
+Marco Beltrame & Amministratore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & Amministratore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & Analista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & Responsabile & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Analista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & Analista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Verificatore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\subsubsection{Esterni}
+
+\begin{itemize}
+\tightlist
+\item Andrea Dorigo, tutor del progetto (\emph{Uranion})
+\item Niccolò Campana, rappresentante (\emph{Uranion})
+\end{itemize}
+
+\break
+\section{Contenuto della riunione}
+
+\subsection{Ordine del giorno}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item Domande del gruppo sull'\emph{hardware} e sull'architettura del sistema
+\item Domande dell'azienda sull'organizzazione del gruppo e sulle scadenze del progetto
+\item Persistenza dei dati dell'utente e risorse per i servizi \emph{AI}
+\item Attività richieste dall'azienda per la prossima riunione
+\item Varie ed eventuali
+\end{enumerate}
+
+\subsection{Domande del gruppo}
+
+\subsubsection{\texorpdfstring{Documentazione dell'\emph{hardware}}{Documentazione dell'hardware}}
+
+\textbf{Domanda:} Abbiamo guardato tutti i \emph{bundle} che ci avete indicato, con le varie opzioni di microprocessore in coppia con gli \emph{array} di microfoni e lo \emph{speaker}. Ci potete dare voi direttamente una documentazione di questi componenti? Io ho trovato del materiale in \emph{internet}, in particolare per \emph{Raspberry Pi}, ma non per tutti i microprocessori. Per capire quali sono le opzioni più valide, volevamo sapere se avete una documentazione su cui possiamo basarci.
+
+L'azienda non dispone di una documentazione propria, perché si tratta di prodotti di terze parti. La presenza di una documentazione completa, aggiornata e facilmente reperibile è essa stessa un criterio di scelta: il fatto di averla trovata per \emph{Raspberry Pi} è già un indicatore. Per l'\emph{ESP32} di \emph{Espressif} (in particolare la versione \emph{S3}, tra le più diffuse), un microprocessore molto economico, esistono librerie aggiornate e molta documentazione su \emph{firmware} e applicazioni; anche \emph{Arduino} ne propone una versione, più costosa ma con un supporto forse più accessibile. Per il \emph{nRF5340} vale lo stesso criterio.
+
+L'azienda ha sottolineato che la \emph{Bill of Materials} va definita tra le prime cose, perché ordinare e ricevere i componenti richiede tempo e senza il dispositivo in mano lo sviluppo diventa complesso. Una volta verificata la compatibilità tra microprocessore, microfoni e \emph{LED}, il gruppo può già proporre l'elenco dei componenti. In caso di dubbio si possono chiedere conferme all'azienda e, se il costo è contenuto, si possono acquistare due alternative da confrontare.
+
+\subsubsection{Numero di microfoni}
+
+\textbf{Domanda:} Ho visto diverse opzioni con due o quattro microfoni e, capendone un po' di audio, mi sono chiesto se due microfoni fossero un'opzione valida. Ragionando sul processo audio, pensavo che, facendo \emph{beamforming}, avere soltanto due microfoni anziché quattro non sia un vincolo. Con due microfoni il \emph{beamforming} non si può realizzare a 360 gradi, perché per una posizione della sorgente audio c'è la posizione speculare rispetto all'asse formato dai due microfoni.
+
+L'azienda ha ritenuto il ragionamento valido e ha confermato che per questo progetto due microfoni sono sufficienti. Quattro microfoni aiutano soprattutto nella riduzione del rumore e nell'evitare che il dispositivo registri la propria voce, ma consumano di più; la direzione della sorgente, invece, non è rilevante per il prodotto.
+
+\subsubsection{Connessione tra dispositivo e server}
+
+\textbf{Domanda:} Per la connessione tra il \emph{server} e il dispositivo \emph{Fossdot} avevamo pensato a una connessione \emph{WebSocket}, in modo da averla bidirezionale e sempre attiva, e abbiamo visto che nel capitolato consigliate lo sviluppo della connessione con \emph{Axum} e \emph{Tokio}. Potremmo ottenere dei vantaggi utilizzando \emph{Tokio} anche lato \emph{client}?
+
+L'azienda ha proposto \emph{Axum} e \emph{Tokio} perché li usa e ne conosce la stabilità, e ha confermato la scelta di una connessione sempre attiva, necessaria soprattutto per la comunicazione in tempo reale tra due dispositivi. Sull'uso di \emph{Tokio} lato \emph{client}, ha chiesto se il gruppo intenda scrivere l'applicativo del dispositivo in \emph{Rust} e su quale \emph{hardware}: \emph{Rust} può girare anche su \emph{ESP32}, \emph{Arduino} e altre macchine molto piccole, ma con alcune considerazioni da fare, mentre di solito su questi dispositivi si usano \emph{C} e \emph{C++}. Il gruppo dovrà informarsi e motivare la scelta.
+
+\subsubsection{Formato dei dati sul socket}
+
+\textbf{Domanda:} Visto che stiamo parlando di \emph{Axum}, il formato del \emph{payload} sui \emph{socket} \emph{Axum} dei \emph{client} è uno \emph{stream} binario puro, ad esempio \emph{raw PCM} a 16 kHz e 16 bit, oppure si tratta di \emph{JSON}?
+
+L'azienda ha confermato che lo \emph{stream} binario puro è corretto, ma ha consigliato di valutare pro e contro delle due soluzioni: da una parte si guadagna in leggibilità e compatibilità, dall'altra in efficienza e rapidità. Vale lo stesso per tutte le scelte tecniche: il gruppo presenta la propria proposta in un documento motivato e l'azienda dà la propria opinione. Sui dispositivi più piccoli si lavora a basso livello e con poca memoria; se motivato, è lecito scegliere un \emph{Raspberry Pi} per avere più margine (ad esempio per fare la riduzione del rumore sul \emph{client}), oppure un \emph{ESP32} per contenere il costo del dispositivo.
+
+\subsubsection{Interruzione della risposta da parte dell'utente}
+
+\textbf{Domanda:} Ragionando invece sull'interruzione del flusso da parte dell'utente: immagino la scena in cui per qualche motivo il processo audio ha capito male o ha sbagliato a rispondere a una domanda, e l'utente si sovrappone e manda una nuova richiesta mentre il dispositivo sta ancora rispondendo. Questo caso d'uso come dovremmo gestirlo?
+
+L'azienda ha ricordato che negli assistenti in commercio la parola ``stop'' ferma subito la riproduzione; con un \gl{LLM} dietro, invece, qualsiasi altra frase richiede il giro completo dispositivo, \emph{LLM} e risposta, e quindi alcuni secondi. Il gruppo ha proposto di gestire la parola ``stop'' direttamente nel \emph{firmware}, interrompendo il segnale audio verso l'altoparlante, e di sostituire la richiesta in corso all'\emph{LLM} quando l'utente pronuncia di nuovo la \gl{wake word} seguita da una nuova richiesta. L'azienda ha approvato la soluzione, invitando il gruppo a provarla e a migliorarla con la pratica. Ha suggerito anche di valutare se tenere attivo il microfono per un certo tempo dopo l'inizio di una conversazione, così da non dover ripetere ogni volta la \emph{wake word}, facendo attenzione a non registrare la voce del dispositivo stesso.
+
+\subsubsection{\texorpdfstring{\emph{Silero VAD} e \emph{openWakeWord}}{Silero VAD e openWakeWord}}
+
+\textbf{Domanda:} Sempre lato \emph{firmware}, avete proposto \emph{Silero VAD} e \emph{openWakeWord} come riferimento per la pulizia dell'audio e l'attivazione della \gl{pipeline}. Mi chiedevo se ho capito bene la differenza tra \emph{Silero VAD} e \emph{openWakeWord}, e se consigliate di implementarle insieme, cioè contemporaneamente, come un doppio cancello prima di avviare tutto il processo audio.
+
+Le due librerie sono state usate da un altro membro dell'azienda: per non dare una risposta approssimativa, l'azienda si informerà e risponderà al gruppo in seguito.
+
+\subsubsection{Strumenti per il tracciamento del lavoro}
+
+\textbf{Domanda:} Avete dei consigli su una \emph{dashboard} per mantenere il tracciamento di quello che stiamo facendo, di quello che è in corso e di chi ci sta lavorando? Al momento stiamo utilizzando \emph{GitHub} e \emph{GitHub Pages}.
+
+L'azienda usa internamente uno strumento di \emph{project management} sviluppato da lei stessa, pensato per essere interrogato tramite \gl{MCP} dagli assistenti basati su \emph{LLM}, e valuterà se dare al gruppo l'accesso, anche per ricevere dei \emph{feedback}. Tra gli strumenti esterni consiglia \emph{ClickUp}, che ha usato a lungo e che nel piano gratuito ammette utenti illimitati (con limiti sul numero di progetti e di \emph{dashboard}); in passato altri gruppi hanno usato anche \emph{Notion}.
+
+\subsubsection{Persistenza dei dati dell'utente}
+
+\textbf{Domanda:} Una domanda che avevo fatto anche al gruppo ieri, ma su cui non abbiamo trovato una risposta: dobbiamo pensare alla persistenza dei dati, nel senso di fare in modo che l'\emph{LLM} abbia una sorta di profilazione dell'utente?
+
+L'azienda esclude che la profilazione vada affidata al \emph{provider} dell'\emph{LLM}; è invece una valida opzione fornire contesto al modello tramite un file (ad esempio in \emph{Markdown}) con le informazioni dell'utente. Riconoscere quale utente sta parlando è più complesso e potrebbe mettere in difficoltà un dispositivo come l'\emph{ESP32}; è più semplice associare il contesto al ruolo del dispositivo. Una \gl{skill} interessante sarebbe proprio l'aggiornamento del contesto: ad esempio l'utente può dire di essere un ingegnere del \emph{software} e chiedere risposte in linguaggio tecnico, oppure il contrario. L'aggiunta di nuove \emph{skill} va comunque progettata, perché questi strumenti sono utili solo se possono fare abbastanza cose (ricerca su \emph{Wikipedia} o sul \emph{web}, meteo, comunicazione con un altro dispositivo \emph{Fossdot}, riproduzione di musica). Quando si salvano dati dell'utente vanno considerati gli aspetti di \emph{privacy}, anche se per un prodotto \gl{open source} e \gl{self-hosted} il problema è ridotto: il gruppo deve fare una piccola indagine sulla permanenza del dato.
+
+\subsubsection{\texorpdfstring{Crediti per i servizi \emph{AI}}{Crediti per i servizi AI}}
+
+\textbf{Domanda:} Visto che prima è uscito il tema dell'intelligenza artificiale, eventualmente sarebbero disponibili dei crediti da parte vostra, per le chiavi \gl{API} che ci servono per lo strumento oppure per un piano con più potenza?
+
+Gli abbonamenti non si possono usare per le chiamate \emph{API} di un prodotto: servono solo all'uso personale. Per lo sviluppo del prodotto l'azienda metterà a disposizione i crediti \emph{API} necessari; per iniziare i test esistono anche dei \emph{free tier} con utilizzi modesti (ad esempio \emph{OpenRouter}). Il gruppo deve però scegliere con attenzione il modello in base alle esigenze, perché con i modelli più potenti i crediti si esauriscono in poche richieste: in sviluppo e test si usano modelli meno costosi, mentre nelle presentazioni o in produzione, dove i crediti li paga il cliente, si possono usare anche quelli più potenti. Il modello usato deve quindi essere configurabile.
+
+\subsection{Domande dell'azienda al gruppo}
+
+\subsubsection{Scadenze del progetto}
+
+L'azienda ha chiesto quali siano le scadenze intermedie. Il gruppo ha spiegato che la prima \emph{milestone} è la \gl{RTB} (\emph{Requirements and Technology Baseline}), in cui vanno fissati requisiti e tecnologie e va presentato un \gl{Proof of Concept}; la seconda è la \gl{PB} (\emph{Product Baseline}), con un \gl{MVP} funzionante; il prodotto completo viene dopo e il suo completamento lo stabilisce l'azienda proponente. Non ci sono date fisse: è il gruppo a candidarsi alle revisioni con i docenti. Il gruppo ha ricordato inoltre che il progetto dura circa 20 settimane, di fatto 18 per la pausa natalizia; l'azienda ha assicurato che durante le feste resterà raggiungibile via \emph{email} e messaggi. L'azienda ha consigliato di fare subito delle ipotesi sulle date delle tre \emph{milestone}, tenendo conto che senza \emph{hardware} è difficile stabilire quando sarà pronto il \emph{Proof of Concept} e che sotto Natale i tempi di spedizione si allungano. Nell'attesa dei componenti può essere utile usare simulatori o creare un ambiente di test.
+
+\subsubsection{Ruoli nel gruppo}
+
+L'azienda ha chiesto chi sia il referente del gruppo. Il gruppo ha spiegato che i ruoli ruotano circa ogni due settimane, come richiesto dal corso: in questo periodo il Responsabile è Nicholas Salmaso, gli Amministratori sono Marco Beltrame e Lorenzo Milanese (\gl{way of working} e Norme di progetto), gli Analisti sono Filippo Rampazzo, Luca Stangherlin e Aldo Toffoli, e il Verificatore è Matteo Wu.
+
+\subsubsection{Scelta del capitolato}
+
+L'azienda ha chiesto cosa abbia portato il gruppo a scegliere il progetto. Il gruppo ha risposto che \emph{Fossdot} è uno dei capitolati più completi, perché tocca molti ambiti diversi da quelli studiati finora e richiede competenze varie, e più stimolante di altri, giudicati troppo astratti o esplorativi; anche la natura \emph{open source} del progetto è stata un fattore positivo. L'azienda ha ricordato che l'idea nasce proprio dal fatto che i dispositivi oggi in commercio sono tutti proprietari, e che il prodotto deve essere \emph{open source} e indipendente dal modello usato.
+
+\subsubsection{Strumenti per la documentazione}
+
+L'azienda ha chiesto con quale strumento il gruppo scriva i documenti. Il gruppo usa \LaTeX{}. L'azienda ha segnalato \emph{Typst} come alternativa più leggibile e con meno \emph{overhead}, senza però chiedere di cambiare, dato che \LaTeX{} è molto diffuso.
+
+\subsubsection{Modalità di presentazione del prodotto}
+
+\textbf{Domanda dell'azienda:} Questo progetto verrà presentato da voi al professore in modo singolo, c'è una presentazione di gruppo davanti agli altri gruppi, oppure un video? Qual è la modalità di consegna di questo lavoro?
+
+Il gruppo ha risposto che le revisioni avvengono a sportello, con i docenti. L'azienda si aspetta che, nell'ultima fase, il gruppo le presenti il prodotto come se lei non lo conoscesse, come davanti a degli investitori, preferibilmente in presenza; sarà anche una prova per la presentazione ai docenti, in cui ogni componente dovrà esporre una parte, e l'azienda potrà dare consigli sulle domande che vengono di solito poste. Non è prevista una gara ufficiale tra i gruppi.
+
+\subsection{Attività richieste per la prossima riunione}
+
+Entro la prossima riunione l'azienda desidera ricevere, con motivazioni brevi ma ragionate:
+\begin{itemize}
+\tightlist
+\item un piano con l'intervallo di date previsto per \emph{RTB}, \emph{PB} e consegna finale;
+\item un primo documento sulle tecnologie scelte e su come interagiscono tra loro;
+\item una prima proposta di \emph{Bill of Materials}, cioè i componenti da acquistare.
+\end{itemize}
+I documenti possono essere inviati anche prima della riunione, così che l'azienda possa già revisionarli. L'azienda ha chiesto inoltre di non aspettare a segnalare eventuali punti bloccanti.
+
+\subsection{Varie ed eventuali}
+
+L'azienda propone, almeno nella fase iniziale, incontri settimanali invece che ogni due settimane, data la complessità del progetto e la questione dell'\emph{hardware}. La prossima riunione è fissata indicativamente per venerdì 20/11/2026 e sarà confermata via \emph{email}. L'azienda invierà inoltre il collegamento al sito in cui pubblica i propri contenuti, non incluso nell'ultima \emph{email}. Il tutor ha raccontato di aver svolto lo stesso progetto didattico circa dieci anni fa con il Prof. Vardanega, e l'azienda ha apprezzato il nome del gruppo.
+
+\section{Decisioni e azioni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.511\hsize\raggedright\arraybackslash}X>{\hsize=1.675\hsize\raggedright\arraybackslash}X>{\hsize=0.814\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Assegnatario}} \\
+VE-4-01 & Preparare un piano con l'intervallo di date previsto per \emph{RTB}, \emph{PB} e consegna finale & Nicholas Salmaso \\ \arrayrulecolor{bfline}\hline
+VE-4-02 & Redigere un primo documento sulle tecnologie scelte e su come interagiscono, valutando anche \emph{Rust} sul dispositivo e il formato dei dati sul \emph{socket} & Analisti \\ \arrayrulecolor{bfline}\hline
+VE-4-03 & Redigere una prima proposta motivata di \emph{Bill of Materials}, verificando documentazione e tempi di spedizione dei componenti & Analisti \\ \arrayrulecolor{bfline}\hline
+VE-4-04 & Inviare un'\emph{email} all'azienda per confermare la prossima riunione, indicativamente venerdì 20/11/2026 & Nicholas Salmaso \\ \arrayrulecolor{bfline}\hline
+VE-4-05 & Inviare il presente verbale all'azienda via \emph{email} per la firma & Marco Beltrame \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\break
+\section{Conclusioni}
+
+L'incontro ha segnato l'avvio della collaborazione con \emph{Uranion} sul capitolato \emph{Fossdot}. Il confronto ha permesso di chiarire diversi aspetti tecnici del progetto, dall'\emph{hardware} all'architettura del sistema, e di definire le attività da svolgere nelle prossime settimane.
+
+La priorità per le prossime settimane è la scelta dell'\emph{hardware}: la \emph{Bill of Materials}, insieme al piano delle \emph{milestone} e al documento sulle tecnologie, va inviata all'azienda prima possibile, perché i tempi di consegna dei componenti condizionano l'intero progetto.
+
+I componenti del gruppo \emph{Bending Forks} ringraziano \emph{Uranion} per la disponibilità e per i consigli ricevuti.
+
+\vspace{30pt}
+\begin{flushright}
+\textbf{Firma dell'azienda}\\[22pt]
+\rule{60mm}{0.5pt}
+\end{flushright}
+
+\end{document}
