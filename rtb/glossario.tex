@@ -6,7 +6,7 @@
 \usepackage{libertinus}
 \usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
 \usepackage{graphicx}
-\graphicspath{{../assets/}{../Assets/}}
+\graphicspath{{../../assets/}{../../Assets/}{assets/}{Assets/}}
 \usepackage[table]{xcolor}
 \usepackage{tabularx,array}
 \usepackage{titlesec}
@@ -20,6 +20,8 @@
 \newcommand{\docname}{Glossario}
 \newcommand{\docversion}{0.1.0}
 \newcommand{\docdate}{10/11/2026}
+
+\newcommand{\ph}[1]{\textcolor{red}{[#1]}}
 
 % Palette colori del gruppo Bending Forks
 \definecolor{bfblue}{HTML}{1B3F9E}
@@ -85,21 +87,15 @@
 \includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
 \underline{bending.forks.swe@gmail.com}
 
-\vspace{35mm}
-{\fontsize{26}{32}\selectfont\bfseries Glossario\par}
+\vspace{32mm}
+{\fontsize{24}{28}\selectfont\bfseries Glossario\par}
 \vspace{4mm}
-{\Large Versione 0.1.0\par}
+{\large\color{bfblue}\textbf{Capitolato C3: Fossdot -- Smart Speaker Open Source}\par}
 
 \vfill
 \begin{tabular}[t]{r|l}
-\textbf{Autore} & Nicholas Salmaso \\
-\textbf{Verificatore} & Matteo Wu \\
-\textbf{Uso} & Esterno \\
-\end{tabular}
-\hspace{14mm}
-\begin{tabular}[t]{r|l}
-\textbf{Data} & 10/11/2026 \\
-\textbf{Tipo} & Documento Ufficiale \\
+\textbf{Versione} & 0.2.0 \\
+\textbf{Tipo} & Documento esterno \\
 \textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
  & \emph{Prof. Tullio Vardanega} \\
  & \emph{Prof. Riccardo Cardin} \\
@@ -113,8 +109,16 @@ Il presente documento raccoglie e formalizza la definizione dei termini tecnici,
 \vspace*{6mm}
 \end{titlepage}
 
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+
 % ---------- Registro delle versioni ----------
-\section*{Registro delle versioni}
+\section{Registro delle versioni}
 
 \begin{center}
 \begin{tabularx}{\linewidth}{
@@ -129,17 +133,11 @@ Il presente documento raccoglie e formalizza la definizione dei termini tecnici,
 \textcolor{white}{\textbf{Autore}} & 
 \textcolor{white}{\textbf{Verificatore}} & 
 \textcolor{white}{\textbf{Descrizione}} \\
+0.2.0 & 14/11/2026 & Nicholas Salmaso & Matteo Wu &  Sistemata struttura del documento e aggiunte nuove definizioni \\ \arrayrulecolor{bfline}\hline
 0.1.0 & 10/11/2026 & Nicholas Salmaso & Matteo Wu & Creazione e prima stesura con inserimento delle definizioni preliminari \\ \arrayrulecolor{bfline}\hline
 \end{tabularx}
 \end{center}
 
-\newpage
-
-% ---------- Indice ----------
-\vspace*{2mm}
-{\fontsize{22}{26}\selectfont\bfseries Indice\par}
-\vspace{6mm}
-\makeatletter\@starttoc{toc}\makeatother
 \newpage
 
 % ---------- Introduzione ----------
@@ -147,7 +145,7 @@ Il presente documento raccoglie e formalizza la definizione dei termini tecnici,
 
 Il presente documento definisce in modo chiaro e univoco i vocaboli specifici, gli acronimi e i concetti cardine impiegati nell'arco dell'intero ciclo di vita del progetto. L'adozione di un glossario garantisce coerenza terminologica sia nelle comunicazioni interne al team sia nella documentazione destinata ai committenti, ai proponenti e ai revisori.
 
-Come previsto dalle \emph{Norme di Progetto}, l'occorrenza nei documenti di un lemma presente nel Glossario viene segnalata marcando il termine con un pedice o apice distintivo, ad esempio: \emph{termine}\textsuperscript{G}.
+Come previsto dalle \emph{Norme di Progetto}, la prima occorrenza di un termine presente nel Glossario è scritta in corsivo con una G a pedice, ad esempio: \emph{termine}\textsuperscript{G}.
 
 % ---------- Inizio glossario ----------
 
@@ -155,7 +153,7 @@ Come previsto dalle \emph{Norme di Progetto}, l'occorrenza nei documenti di un l
 
 \glossterm{Agent}{Sistema progettato per eseguire in modo autonomo un'attività, coordinando flussi di lavoro (\emph{workflow}) tramite istruzioni predefinite e strumenti esterni.}
 
-\glossterm{Analisi dei Requisiti}{Attività che individua e formalizza i bisogni dell'utente traducendoli in requisiti e funzionalità che il prodotto software deve soddisfare.}
+\glossterm{Analisi dei requisiti}{Attività che individua e formalizza i bisogni dell'utente traducendoli in requisiti e funzionalità che il prodotto software deve soddisfare.}
 
 \glossterm{API (Application Programming Interface)}{Insieme di specifiche e protocolli che consentono a due componenti software di comunicare e scambiare dati.}
 
@@ -177,7 +175,14 @@ Come previsto dalle \emph{Norme di Progetto}, l'occorrenza nei documenti di un l
 \glossterm{HAL (Hardware Abstraction Layer)}{Strato software che espone interfacce uniformi alle applicazioni mascherando i dettagli fisici dell'hardware sottostante.}
 
 
+\glossarysection{I}
+
+\glossterm{Inspection}{Nell'analisi statica, si intende come una lettura mirata del codice, guidata da una \emph{checklist} dei tipici errori, per scoprire i difetti del codice.}
+
+
 \glossarysection{L}
+
+\glossterm{Linter}{Software che analizza il codice sorgente in ricerda di errori di programmazione, errori stilistici, bug e costrutti sospetti.}
 
 \glossterm{LLM (Large Language Model)}{Modello neurale di intelligenza artificiale addestrato per comprendere, elaborare e generare testo in linguaggio naturale.}
 
@@ -196,9 +201,20 @@ Come previsto dalle \emph{Norme di Progetto}, l'occorrenza nei documenti di un l
 
 \glossarysection{P}
 
+\glossterm{PDCA (Plan Do Act Check)}{Noto anche come ciclo di Deming, è un metodo di gestione iterativo in quattro fasi utilizzato in ambito aziendale per il controllo e il miglioramento continuo dei processi e dei prodotti.}
+
+\glossterm{PB (Product Baseline)}{Fase del progetto didattico, in cui si valuta la maturità della baseline architetturale del prodotto software e la sua realizzazione, includendo il design definitivo contenuto nel documento Specifica Tecnica. Sarà presente anche un avanzamento sostanziale del prodotto, che sarà valutato dal proponente come MVP, basandosi sulla sua qualità e adeguatezza.}
+
 \glossterm{Pipeline}{Catena di elaborazione sequenziale in cui l'output di uno stadio costituisce direttamente l'input di quello successivo.}
 
-\newpage
+\glossterm{POC (Proof of Concept)}{Realizzazione di un prodotto per determinare la fattibilità o confermare la validità di alcuni principi o concetti fondamentali. Deve essere coerente con gli obiettivi del capitolato.}
+
+
+\glossarysection{R}
+
+\glossterm{RTB (Requirements and Technology Baseline)}{Fase del progetto didattico, in cui vengono fissati i requisisti da soddisfare, concordati con la proponente, e motivate le tecnologie, framework e librerie selezionate per la realizzazione del prodotto. Il tutto verrà dimostrato da un Proof of Concept.}
+
+
 \glossarysection{S}
 
 \glossterm{Self-hosted}{Modalità di installazione ed esercizio di un servizio su server o hardware controllato direttamente dall'utente o dall'organizzazione.}
@@ -206,6 +222,8 @@ Come previsto dalle \emph{Norme di Progetto}, l'occorrenza nei documenti di un l
 \glossterm{Servizi cloud}{Infrastrutture, piattaforme o software erogati e gestiti da provider terzi su rete remota via Internet.}
 
 \glossterm{Servizio di bridging}{Servizio di interconnessione che fa da tramite dallo smart speaker al provider AI configurato e ai servizi di integrazione, orchestrando la sequenza $\text{STT} \rightarrow \text{LLM} \rightarrow \text{TTS}$.}
+
+\newpage
 
 \glossterm{Skill}{Pacchetto modulare di istruzioni portabili e riutilizzabili che definiscono come un agent esegue compiti specifici.}
 
@@ -216,6 +234,8 @@ Come previsto dalle \emph{Norme di Progetto}, l'occorrenza nei documenti di un l
 
 \glossarysection{T}
 
+\glossterm{Tailoring}{L'atto di modificare o sistemare un qualcosa per adattarlo ad uno scopo particolare.}
+
 \glossterm{TTS (Text-To-Speech)}{Tecnologia che converte il testo scritto in voce sintetizzata.}
 
 
@@ -223,10 +243,13 @@ Come previsto dalle \emph{Norme di Progetto}, l'occorrenza nei documenti di un l
 
 \glossterm{VAD (Voice Activity Detection)}{Insieme di algoritmi atti a rilevare la presenza o l'assenza di voce umana nel flusso audio, evitando l'invio e l'elaborazione di pacchetti durante le pause di silenzio.}
 
-\newpage
+
 \glossarysection{W}
 
-\glossterm{Wake Word}{Parola o locuzione chiave (ad es. ``Hey Siri'' o ``Alexa'') costantemente monitorata dal dispositivo per attivare l'elaborazione dei comandi vocali successivi.}
+\glossterm{Wake word}{Parola o locuzione chiave (ad es. ``Hey Siri'' o ``Alexa'') costantemente monitorata dal dispositivo per attivare l'elaborazione dei comandi vocali successivi.}
 
+\glossterm{Walkthrough}{Nell'analisi statica, si intende come una lettura completa e a largo spettro, dove si scelgono alcuni casi di test e si simula l'esecuzione del codice a mano (si attraversa "walkthrough" il codice).}
+
+\glossterm{Way of working}{Rappresenta l'insieme di pratiche, regole e convenzioni adottate dal gruppo per completare gli obiettivi del progetto in modo professionale.}
 
 \end{document}
