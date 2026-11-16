@@ -1,0 +1,6 @@
+Buongiorno [destinatario],
+
+[testo della mail]
+
+Cordiali saluti,
+Team Bending Forks
