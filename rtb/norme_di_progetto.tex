@@ -445,7 +445,7 @@ Le sigle dei documenti da usare nel titolo sono: \texttt{NdP} (Norme di progetto
 \item Il ramo \texttt{main} contiene solo materiale verificato e non accetta \emph{push} diretti. È protetto su GitHub (\emph{branch protection}): ogni modifica passa da una \emph{pull request} con almeno un'approvazione;
 \item Ogni attività si svolge su un ramo dedicato, chiamato \texttt{issue-<numero>-<breve-descrizione>};
 \item Terminata l'attività, il redattore apre una \textbf{\emph{pull request}} verso \texttt{main}, collegata all'\emph{issue}, e indica il Verificatore come revisore;
-\item Il titolo della \emph{pull request} ha lo stesso formato di quello dell'\emph{issue}, \texttt{[Sigla] attività} (es.\ \texttt{[Gls] aggiornamento glossario a v0.2});
+\item Il titolo della \emph{pull request} segue lo stesso formato dei messaggi di \emph{commit}, \texttt{<tipo>(<ambito>): <descrizione>} (es.\ \texttt{docs(gls): aggiornato glossario a v0.2});
 \item Il Verificatore approva e unisce la \emph{pull request} (\emph{merge}); l'\emph{issue} si chiude e il ramo viene eliminato;
 \item Ogni \emph{pull request} segue il \emph{template} \path{.github/pull_request_template.md}, che chiede l'\emph{issue} collegata (\texttt{Closes \#<numero>}), una descrizione delle modifiche, la conferma che la riga del registro delle versioni è aggiornata e i controlli della \emph{checklist} (§\ref{sec:checklist}).
 \end{itemize}
@@ -467,7 +467,7 @@ Indica la natura della modifica ed è scelto tra:
 \end{itemize}
 
 \paragraph{Ambito}
-Indica cosa viene modificato. Per i documenti e i verbali è la sigla in minuscolo, la stessa usata nel titolo delle \emph{issue} e delle \emph{pull request} (es.\ \texttt{ndp}, \texttt{adr}, \texttt{gls}, \texttt{vi}, \texttt{ve}); per i diari di bordo si usa \texttt{diario}. L'ambito può essere omesso solo se la modifica riguarda l'intera \emph{repository}. \ph{Ambiti per il codice da definire insieme alla struttura del PoC.}
+Indica cosa viene modificato. Per i documenti e i verbali è la sigla usata nel titolo delle \emph{issue}, scritta in minuscolo (es.\ \texttt{ndp}, \texttt{adr}, \texttt{gls}, \texttt{vi}, \texttt{ve}); per i diari di bordo si usa \texttt{diario}. L'ambito può essere omesso solo se la modifica riguarda l'intera \emph{repository}. \ph{Ambiti per il codice da definire insieme alla struttura del PoC.}
 
 \paragraph{Descrizione}
 \begin{itemize}
