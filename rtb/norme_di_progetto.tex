@@ -338,6 +338,8 @@ I verbali si scrivono a partire dal \emph{template} in \texttt{template/} e cont
 \end{itemize}
 Il verbale è redatto dal segretario designato nella riunione e va completato entro i 3 giorni lavorativi successivi alla riunione.
 
+Ogni decisione ha un codice nel formato \texttt{VI-<n>-<nn>} per i verbali interni e \texttt{VE-<n>-<nn>} per quelli esterni, dove \texttt{<n>} è il numero progressivo del verbale e \texttt{<nn>} il numero progressivo della decisione al suo interno (es.\ \texttt{VI-7-03}, \texttt{VE-4-01}).
+
 \subsubsection{Diari di bordo}\label{sec:diari}
 I diari di bordo sono le brevi presentazioni sull'avanzamento del progetto esposte durante le lezioni del Prof. Vardanega. Sono preparati dal Responsabile in carica e caricati in PDF nella cartella \texttt{diario-di-bordo/}. 
 
@@ -425,7 +427,7 @@ Ogni attività da svolgere viene aperta come \textbf{\emph{issue}} su GitHub nel
 \item Il ruolo con cui si svolge l'attività \ph{tramite label o campo del Project};
 \item La scadenza e, se utile, una descrizione.
 \end{itemize}
-\ph{Sigle dei documenti: NdP, AdR, PdP, PdQ, Gloss, ST, MU, Verb. Da confermare.}
+Le sigle dei documenti da usare nel titolo sono: \texttt{NdP} (Norme di progetto), \texttt{AdR} (Analisi dei requisiti), \texttt{PdP} (Piano di progetto), \texttt{PdQ} (Piano di qualifica), \texttt{Gls} (Glossario), \texttt{ST} (Specifica tecnica), \texttt{MU} (Manuale utente), \texttt{VI} (verbali interni) e \texttt{VE} (verbali esterni).
 
 \paragraph{\emph{Label} e \emph{milestone}}
 \ph{Proposta da approvare in riunione:}
@@ -443,6 +445,7 @@ Ogni attività da svolgere viene aperta come \textbf{\emph{issue}} su GitHub nel
 \item Il ramo \texttt{main} contiene solo materiale verificato e non accetta \emph{push} diretti. È protetto su GitHub (\emph{branch protection}): ogni modifica passa da una \emph{pull request} con almeno un'approvazione;
 \item Ogni attività si svolge su un ramo dedicato, chiamato \texttt{issue-<numero>-<breve-descrizione>};
 \item Terminata l'attività, il redattore apre una \textbf{\emph{pull request}} verso \texttt{main}, collegata all'\emph{issue}, e indica il Verificatore come revisore;
+\item Il titolo della \emph{pull request} segue lo stesso formato dei messaggi di \emph{commit}, \texttt{<tipo>(<ambito>): <descrizione>} (es.\ \texttt{docs(gls): aggiornato glossario a v0.2});
 \item Il Verificatore approva e unisce la \emph{pull request} (\emph{merge}); l'\emph{issue} si chiude e il ramo viene eliminato;
 \item Ogni \emph{pull request} segue il \emph{template} \path{.github/pull_request_template.md}, che chiede l'\emph{issue} collegata (\texttt{Closes \#<numero>}), una descrizione delle modifiche, la conferma che la riga del registro delle versioni è aggiornata e i controlli della \emph{checklist} (§\ref{sec:checklist}).
 \end{itemize}
@@ -464,7 +467,7 @@ Indica la natura della modifica ed è scelto tra:
 \end{itemize}
 
 \paragraph{Ambito}
-Indica cosa viene modificato. Per i documenti è la sigla del documento in minuscolo, la stessa usata nel titolo delle \emph{issue} (es.\ \texttt{ndp}, \texttt{adr}, \texttt{pdp}, \texttt{pdq}); per verbali e diari di bordo si usano \texttt{verbali} e \texttt{diario}. L'ambito può essere omesso solo se la modifica riguarda l'intera \emph{repository}. \ph{Ambiti per il codice da definire insieme alla struttura del PoC.}
+Indica cosa viene modificato. Per i documenti e i verbali è la sigla usata nel titolo delle \emph{issue}, scritta in minuscolo (es.\ \texttt{ndp}, \texttt{adr}, \texttt{gls}, \texttt{vi}, \texttt{ve}); per i diari di bordo si usa \texttt{diario}. L'ambito può essere omesso solo se la modifica riguarda l'intera \emph{repository}. \ph{Ambiti per il codice da definire insieme alla struttura del PoC.}
 
 \paragraph{Descrizione}
 \begin{itemize}
@@ -486,7 +489,7 @@ Esempi:
 \tightlist
 \item \texttt{docs(ndp): aggiunta sezione sulla verifica};
 \item \texttt{fix(ndp): corretti refusi nel registro delle versioni};
-\item \texttt{docs(verbali): aggiunto verbale interno del 2026-11-04};
+\item \texttt{docs(vi): aggiunto verbale interno del 2026-11-04};
 \item \texttt{chore: aggiornato il file .gitignore}.
 \end{itemize}
 
