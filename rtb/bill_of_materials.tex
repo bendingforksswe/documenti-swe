@@ -1,0 +1,340 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+% Segnaposto ancora da compilare (in rosso)
+\newcommand{\ph}[1]{\textcolor{red}{[#1]}}
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}\raggedright}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}\raggedright}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\raggedright}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice: numeri con punto, trattini fino al numero di pagina
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Bill of Materials}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+\usepackage{needspace}
+\pretocmd{\section}{\needspace{12\baselineskip}}{}{}
+\graphicspath{{./}{../assets/}{../../assets/}{../../../assets/}{assets/}}
+
+% Tabelle lunghe della distinta
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcommand{\thc}[1]{\textcolor{white}{\textbf{#1}}}
+\newcommand{\rl}{\\ \arrayrulecolor{bfline}\hline}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{48mm}
+{\fontsize{27}{32}\selectfont\bfseries Bill of Materials\par}
+\vspace{3mm}
+{\large Distinta dei componenti del dispositivo \emph{Fossdot}\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 0.2.0 \\
+\textbf{Stato} & Bozza \\
+\textbf{Uso} & Esterno \\
+\textbf{Destinatari} & \emph{Uranion EMEA LTD} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Elenco motivato dei componenti da acquistare per il prototipo del dispositivo \emph{Fossdot}, con fornitori, costi, tempi di consegna e rischi, come richiesto dall'azienda \emph{Uranion} nella riunione del 13 novembre 2026.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Contenuto ----------
+\section{Registro delle versioni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.65\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.90\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{Versione} & \thc{Data} & \thc{Autore} & \thc{Verificatore} & \thc{Descrizione} \\
+0.2.0 & 2026-11-18 & Marco Beltrame & Nicholas Salmaso & Scelta della scheda senza \emph{case} e della scocca stampata dal gruppo; prezzi e tempi aggiornati al 18/11; correzioni di forma \rl
+0.1.0 & 2026-11-13 & Marco Beltrame, Aldo Toffoli & Nicholas Salmaso & Prima stesura del documento \rl
+\end{tabularx}
+\end{center}
+
+\section{Introduzione}
+
+\subsection{Scopo del documento}
+
+Il presente documento elenca i componenti da acquistare per realizzare il prototipo del dispositivo \emph{Fossdot} e motiva la scelta di ciascuno. Nella riunione del 13 novembre 2026 l'azienda \emph{Uranion} ha chiesto di definire la \emph{Bill of Materials} tra le prime attività del progetto, perché ordinare e ricevere i componenti richiede tempo e senza il dispositivo lo sviluppo del \emph{firmware} diventa difficile.
+
+\subsection{Riferimenti}
+
+\subsubsection{Riferimenti normativi}
+\begin{itemize}
+\tightlist
+\item Norme di progetto, versione 0.1.0
+\item Capitolato d'appalto C3 \emph{Fossdot}, \emph{Uranion}: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C3-Fossdot.pdf}
+\end{itemize}
+
+\subsubsection{Riferimenti informativi}
+\begin{itemize}
+\tightlist
+\item Verbali interni ed esterni
+\item Documentazione dei produttori e pagine dei fornitori elencate nella sezione \ref{sec:fonti}
+\end{itemize}
+
+\subsection{Glossario}
+
+I termini tecnici usati nel documento (per esempio \emph{AEC}, \emph{beamforming}, \emph{DSP}, \emph{I2S}, \emph{I2C}, \emph{wake word}) sono definiti nel Glossario del gruppo.
+
+\section{Vincoli e criteri di scelta}
+
+La scelta dei componenti tiene conto dei requisiti del capitolato e di quanto concordato con l'azienda nei due incontri già svolti. I criteri principali sono i seguenti:
+
+\begin{itemize}
+\tightlist
+\item \textbf{\emph{Wake word} sul dispositivo}: la parola di attivazione deve essere riconosciuta in locale (verbale del 21/10/2026);
+\item \textbf{Numero di microfoni}: due microfoni sono sufficienti per il prodotto, mentre quattro aiutano nella riduzione del rumore e nell'evitare che il dispositivo registri la propria voce, a fronte di un consumo maggiore (DEC-001, verbale del 13/11/2026);
+\item \textbf{Costo del dispositivo accettabile}, come richiesto dal capitolato;
+\item \textbf{Documentazione completa e reperibile}  (verbale del 13/11/2026);
+\item \textbf{Compatibilità verificata} tra processore, microfoni e LED;
+\item \textbf{Tempi di consegna brevi}, tenendo conto del rallentamento delle spedizioni nel periodo natalizio;
+\item \textbf{\emph{firmware} preferibilmente in \emph{Rust}}, indicato dal capitolato come valore aggiunto.
+\end{itemize}
+
+\subsection{4 microfoni vs 2 microfoni}
+\begin{itemize}
+\tightlist
+\item 4 microfoni (disposizione circolare): Copertura reale a 360\textdegree. Permette di calcolare con precisione l'angolo di arrivo della voce (DoA - Direction of Arrival) su tutto il piano orizzontale, ideale se il dispositivo è al centro della stanza (es. su un tavolo o un'isola). Maggiore guadagno di direttività (array gain).
+\item 2 microfoni (disposizione lineare): Copertura ottimale a 180\textdegree{} frontali. Soffre di ambiguità fronte-retro ed è ideale solo se appoggiato vicino a un muro o su una mensola. Flusso dati dimezzato, minor consumo energetico e gestione molto più semplice.
+\end{itemize}
+
+\subsection{C/C++ vs Rust}
+Consideriamo valore aggiunto la possibilità di decidere se sviluppare il firmware in C/C++ oppure Rust dato che ad oggi non siamo ancora riusciti a capire quale delle due opzioni sia migliore.
+
+
+\subsection{DSP vs no DSP}
+Il DSP è il responsabile per l'acquisizione dei segnali grezzi dai microfoni, calcola il ritardo di fase (beamforming), abbatte i rumori stazionari (ventole, condizionatore) e esegue l'AEC (Acoustic Echo Cancellation).
+In caso di mancanza di DSP la CPU deve campionare N canali in tempo reale, filtrare, allineare le fasi e sottrarre l'eco, aumentando ulteriormente il carico computazionale oltre che complicare la programmazione di essa.
+D'altra parte l'assenza di un DSP lascerebbe totale flessibilità nella gestione dell'input audio e un minor consumo complessivo.
+Conclusione: riteniamo la presenza del DSP un valore aggiunto poiché semplifica il firmware. In mancanza di un DSP si rischia di rimanere a lungo sulla programmazione del dispositivo a scapito della progressione di altri punti chiave.
+
+\section{Hardware valutato}
+
+Il gruppo ha confrontato le cinque combinazioni proposte nel capitolato e una sesta scheda dello stesso produttore dell'opzione A. La tabella riassume l'esito; il confronto completo è disponibile come documento di supporto.
+
+\begin{center}
+\begin{tabularx}{\linewidth}{L{5.2cm}L{2.6cm}X}
+\rowcolor{bfblue}\thc{Opzione} & \thc{Esito} & \thc{Motivazione} \\
+\emph{reSpeaker XVF3800} + \emph{XIAO ESP32-S3} & Scelta principale & Stesso processore dell'opzione A, elaborazione audio più avanzata e anello di 12 LED e 4 microfoni \rl
+A. \emph{reSpeaker Lite} + \emph{XIAO ESP32-S3} & Confronto & Due microfoni come da DEC-001 e costo dimezzato, ma un solo LED e audio meno robusto in ambienti rumorosi \rl
+B. \emph{Raspberry Pi 5} + \emph{ReSpeaker USB 4-Mic Array} & Scartata & Costo e consumi elevati, prezzo del \emph{Raspberry Pi 5} in alto; la potenza di un sistema \emph{Linux} non è necessaria sul dispositivo \rl
+C. \emph{ESP32-S3-Korvo-2} & Scartata & Scheda di sviluppo di grandi dimensioni, cancellazione dell'eco solo in software tramite librerie in C a carico della CPU\rl
+D. \emph{Raspberry Pi Pico 2 W} + 4 microfoni MEMS & Scartata & Memoria insufficiente (520 KB) e nessuna elaborazione audio dedicata \rl
+E. \emph{nRF5340 Audio DK} + \emph{nRF7002} & Scartata & Costo elevato, \emph{Wi-Fi} su scheda separata \rl
+\end{tabularx}
+\end{center}
+
+\section{Configurazione proposta}
+
+\subsection{Architettura del dispositivo}
+
+Il dispositivo è composto da una scheda audio con un processore dedicato \emph{XMOS} e da un microcontrollore \emph{ESP32-S3} montato sopra di essa. Il chip \emph{XMOS} riceve il segnale dei microfoni e lo ripulisce da eco, rumore e riverbero; il microcontrollore riceve l'audio già pulito tramite \emph{I2S}, riconosce la \emph{wake word}, invia l'audio al \emph{server} tramite \emph{Wi-Fi} e riproduce la risposta sullo \emph{speaker}. LED e volume sono gestiti dal chip \emph{XMOS}, che il microcontrollore comanda tramite \emph{I2C}.
+
+
+
+\subsection{Motivazione della scelta}
+
+Il gruppo propone come scheda principale la \emph{reSpeaker XVF3800} con \emph{XIAO ESP32-S3}. L'azienda ha confermato che due microfoni sono sufficienti, ma si è anche osservato che quattro aiutano a non registrare la voce del dispositivo stesso. Inoltre questa opzione è disponibile in un comodo kit che comprende tutto il materiale necessario per l'assemblaggio del dispositivo, risolvendo così anche la problematica della compatibilità.
+
+Il microcontrollore è lo stesso dell'opzione A: la \emph{wake word} e quasi tutto il \emph{firmware} sono quindi identici per le due schede. Cambiano i seguenti aspetti:
+\begin{itemize}
+\tightlist
+\item un array di microfoni circolare contro una disposizione lineare
+\item presenza di XMOS XVF3800 contro un modello precedente e meno performante
+\item DoA, de-reverberation, multi-beamforming in aggiunta alla standard AEC, noise suppression, VNR e AGC.
+\item 12 LED invece che 1
+\end{itemize}
+
+
+\subsection{Caratteristiche della scheda principale}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{L{5cm}X}
+\rowcolor{bfblue}\thc{Caratteristica} & \thc{Valore} \\
+Processore audio & \emph{XMOS XVF3800}: cancellazione dell'eco, \emph{beamforming}, riduzione del rumore, de-riverberazione, controllo automatico del guadagno \rl
+Microfoni & 4 microfoni digitali, sensibilità $-26$ dBFS, SNR 64 dBA, \emph{acoustic overload point} 120 dBL \rl
+Frequenza di campionamento & 16 kHz massimo, adatta al riconoscimento vocale \rl
+Microcontrollore & \emph{XIAO ESP32-S3}: due core a 240 MHz, 8 MB di PSRAM, 8 MB di \emph{flash}, \emph{Wi-Fi} e \emph{Bluetooth} \rl
+Uscita audio & connettore per \emph{speaker} fino a 5 W e jack da 3,5 mm \rl
+LED & anello di 12 LED RGB indirizzabili \rl
+Pulsanti & \emph{mute} dei microfoni in hardware e \emph{reset} \rl
+Alimentazione & 5 V da USB o esterna \rl
+Dimensioni & 102 $\times$ 102 $\times$ 10 mm \rl
+\end{tabularx}
+\end{center}
+
+\section{Distinta dei componenti}
+I prezzi sono quelli rilevati il 18/11/2026 sul sito \emph{Seeed Studio} (IVA esclusa) e vanno confermati al momento dell'ordine.
+
+\subsection{Gruppo A: dispositivo principale}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{L{1.95cm}X L{0.8cm}L{2.5cm}R{1.8cm}R{1.8cm}}
+\rowcolor{bfblue}\thc{Codice} & \thc{Componente e modello} & \thc{Q.tà} & \thc{Fornitore} & \thc{Prezzo unit.} & \thc{Totale} \\
+BOM-A01 & \emph{reSpeaker XMOS XVF3800} con \emph{XIAO ESP32-S3} (SKU 114993700), senza \emph{case} & 2 & \emph{Seeed Studio} & 60,90 \$ & 121,80 \$ \rl
+BOM-A02 & \emph{Speaker} \emph{Seeed Mono Enclosed} 4 $\Omega$ 5 W (SKU 114993346) & 2 & \emph{Seeed Studio} & 2,00 \$ & 4,00 \$ \rl
+BOM-A03 & Alimentatore USB-C 5 V 3 A & 2 & {da scegliere} & 10,00 € & 20,00 € \rl
+BOM-A04 & Cavo USB-C dati e alimentazione, 1 m & 2 & {da scegliere} & 5,00 € & 10,00 € \rl
+BOM-A05 & Scocca progettata dal gruppo e stampata in 3D (circa 100 g di PLA) & 2 & Stampa del gruppo & 2,00 € & 4,00 € \rl
+BOM-A06 & Pulsante tattile 6 $\times$ 6 mm con cavetti (opzionale) & 2 & {da scegliere} & 0,50 € & 1,00 € \rl
+\end{tabularx}
+\end{center}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{L{1.95cm}X X}
+\rowcolor{bfblue}\thc{Codice} & \thc{Motivazione} & \thc{Alternativa} \\
+BOM-A01 & Elaborazione audio dedicata, 4 microfoni con portata fino a 5 m, anello di 12 LED, microcontrollore con memoria sufficiente per la \emph{wake word} locale & \emph{reSpeaker Lite}; versione con \emph{case} dello stesso kit, scartata perché la scocca del gruppo mostra l'anello di LED e contiene lo \emph{speaker} \rl
+BOM-A02 & La scheda supporta \emph{speaker} fino a 5 W; stesso produttore della scheda, si ordina insieme alla scheda & \emph{Speaker} generico 4 $\Omega$ 3--5 W, oppure \emph{OpenELAB} (4,19 €) \rl
+BOM-A03 & La scheda si alimenta a 5 V; 3 A lasciano margine per \emph{speaker} e LED & Alimentatori USB-C già in possesso del gruppo \rl
+BOM-A04 & Programmazione del microcontrollore dalla sua porta USB-C & Cavi già in possesso del gruppo \rl
+BOM-A05 & Il capitolato chiede un dispositivo racchiudibile in un contenitore; la scocca del gruppo lascia vedere l'anello di LED e contiene lo \emph{speaker} & Versione con \emph{case} del produttore \rl
+BOM-A06 & La scheda non ha pulsanti liberi: serve per ``stop'' o \emph{push-to-talk} & Gestione esclusivamente vocale \rl
+\end{tabularx}
+\end{center}
+
+\subsection{Gruppo B: dispositivo di confronto}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{L{1.95cm}X L{0.8cm}L{2.5cm}R{1.8cm}R{1.8cm}}
+\rowcolor{bfblue}\thc{Codice} & \thc{Componente e modello} & \thc{Q.tà} & \thc{Fornitore} & \thc{Prezzo unit.} & \thc{Totale} \\
+BOM-B01 & \emph{reSpeaker Lite Voice Assistant Kit} con \emph{XIAO ESP32-S3} saldata (SKU 110061601) & 1 & \emph{Seeed Studio} & 29,90 \$ & 29,90 \$ \rl
+BOM-B02 & \emph{Speaker} \emph{Seeed Mono Enclosed} 4 $\Omega$ 5 W & 1 & \emph{Seeed Studio} & 2,00 \$ & 2,00 \$ \rl
+BOM-B03 & Alimentatore USB-C 5 V 3 A e cavo dati & 1 & {da scegliere} & 15,00 € & 15,00 € \rl
+\end{tabularx}
+\end{center}
+
+La \emph{reSpeaker Lite} corrisponde all'opzione A del capitolato: ha due microfoni, come previsto da DEC-001, e costa circa la metà della scheda principale. Serve a verificare con misure concrete se la differenza di qualità audio giustifica il costo.
+
+\section{Riepilogo dei costi}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{X R{3.6cm}}
+\rowcolor{bfblue}\thc{Voce} & \thc{Solo gruppo A} \\
+Schede da \emph{Seeed Studio} & 121,80 \$  \rl
+\emph{Speaker} da \emph{Seeed Studio} & 4,00 \$  \rl
+Alimentatori, cavi e pulsanti & 31,00 €  \rl
+Scocca stampata dal gruppo & 4,00 €  \rl
+\textbf{Totale indicativo} & \textbf{125,80 \$ + 35,00 €} \rl
+\end{tabularx}
+\end{center}
+
+Spedizione, dazi e IVA dell'ordine \emph{Seeed Studio} sono calcolati al momento del pagamento. Il costo di un singolo dispositivo con la scheda principale è di circa 63 \$ (scheda e \emph{speaker}) più 17,50 € di accessori e scocca.
+
+\section{Fornitori e tempi di consegna}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{L{2.8cm}L{3.2cm}X L{2cm}}
+\rowcolor{bfblue}\thc{Fornitore} & \thc{Componenti} & \thc{Spedizione e tempi} & \thc{Verificato il} \\
+\emph{Seeed Studio} & BOM-A01, BOM-A02, BOM-B01, BOM-B02 & Magazzino in Germania per la \emph{XVF3800} (solo UE): al 18/11 su ordinazione, arrivo in magazzino previsto il 20/11/2026, poi spedizione in 1--2 giorni lavorativi. Dal magazzino in Cina 1--3 settimane & 18/11/2026 \rl
+\emph{OpenELAB} (Monaco di Baviera) & Alternativa per BOM-A02 e BOM-B02 & Pre-ordine: 10--20 giorni più 3--5 giorni di spedizione & 13/11/2026 \rl
+\end{tabularx}
+\end{center}
+
+Le schede \emph{reSpeaker} risultano esaurite o in pre-ordine presso diversi rivenditori europei; conviene quindi ordinarle direttamente da \emph{Seeed Studio} appena la distinta è approvata, controllando al momento del pagamento il magazzino di partenza.
+
+\section{Rischi e verifiche all'arrivo}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{L{4.2cm}L{3.4cm}X}
+\rowcolor{bfblue}\thc{Rischio} & \thc{Effetto} & \thc{Contromisura} \\
+Scheda esaurita al momento dell'ordine & Ritardo del \emph{Proof of Concept} & Ordinare appena la distinta è approvata; ripiego sulla \emph{reSpeaker Lite} \rl
+Ritardi di spedizione nel periodo natalizio & Ritardo del \emph{Proof of Concept} & Preferire il magazzino in Germania; nel frattempo sviluppo in simulazione \rl
+Il \emph{driver} I2S in \emph{Rust} non supporta la ricezione del \emph{clock} dal chip \emph{XMOS} & \emph{Firmware} da adattare & Prova con \emph{esp-hal} all'arrivo della scheda; ripiego su \emph{esp-idf-svc} \rl
+Segnale \emph{Wi-Fi} debole con la scocca chiusa & Connessione instabile & Provare la scocca prima della scelta definitiva \rl
+\end{tabularx}
+\end{center}
+
+All'arrivo dei componenti il gruppo caricherà gli esempi ufficiali del produttore per verificare il funzionamento di microfoni, \emph{speaker}, LED e pulsanti, prima di installare il proprio \emph{firmware}.
+
+\section{Richieste all'azienda}
+
+\begin{enumerate}
+\tightlist
+\item Approvazione della scheda principale e dell'acquisto della \emph{reSpeaker Lite} per il confronto.
+\item Conferma del numero di dispositivi (la proposta è di due più uno).
+\item Indicazione di chi effettua l'ordine e dell'indirizzo di consegna dei componenti.
+\item Approvazione della scocca progettata dal gruppo al posto della versione con \emph{case} del produttore.
+\end{enumerate}
+
+\section{Fonti}\label{sec:fonti}
+
+Pagine consultate il 13, il 15 e il 18 novembre 2026.
+
+\begin{itemize}
+\tightlist
+\item \emph{Seeed Studio}, \emph{reSpeaker XVF3800} con \emph{XIAO ESP32-S3}: \url{https://www.seeedstudio.com/ReSpeaker-XVF3800-4-Mic-Array-With-XIAO-ESP32S3-p-6489.html}
+\item \emph{Seeed Studio}, versione con \emph{case}: \url{https://www.seeedstudio.com/ReSpeaker-XVF3800-With-Case-XIAO-ESP32S3-p-6628.html}
+\item \emph{Seeed Studio}, \emph{reSpeaker Lite Voice Assistant Kit}: \url{https://www.seeedstudio.com/ReSpeaker-Lite-Voice-Assistant-Kit-p-5929.html}
+\item \emph{Seeed Studio Wiki}, \emph{reSpeaker XVF3800} con \emph{XIAO ESP32-S3}: \url{https://wiki.seeedstudio.com/respeaker_xvf3800_xiao_getting_started/}
+\item \emph{Seeed Studio Wiki}, \emph{reSpeaker Lite}: \url{https://wiki.seeedstudio.com/reSpeaker_usb_v3/}
+\item \emph{Seeed Studio}, \emph{Mono Enclosed Speaker} 4R 5W: \url{https://www.seeedstudio.com/Mono-Enclosed-Speaker-4R-5W-p-5931.html}
+\item \emph{OpenELAB}, \emph{Seeed Studio Mono Enclosed Speaker}: \url{https://openelab.io/products/seeed-studio-mono-enclosed-speaker}
+\item \emph{Espressif}, annuncio di \emph{esp-hal} 1.0: \url{https://developer.espressif.com/blog/2025/10/esp-hal-1/}
+\end{itemize}
+
+\end{document}
