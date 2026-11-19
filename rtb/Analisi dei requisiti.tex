@@ -1,0 +1,1506 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\graphicspath{{../../assets/}{../../Assets/}{assets/}{Assets/}}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,longtable,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{etoolbox}
+
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+\definecolor{bfph}{HTML}{C62828}
+
+% Comando per segnaposto da completare (norma 4.1.8)
+\newcommand{\ph}[1]{\textcolor{bfph}{\textbf{[#1]}}}
+
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Formattazione titoli sezioni (layout Bending Forks)
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice cliccabile con puntini/trattini e font regolare (senza grassetto per i sottocasi)
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\normalfont\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}\normalfont}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}\normalfont}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{figure}[0pt]{\addvspace{2pt}\normalfont}{\figurename\ \thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+% Intestazioni e piè di pagina (layout Bending Forks)
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Analisi dei requisiti (AdR)}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+% Colorazione alternata per le tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\AtBeginEnvironment{tabularx}{\bftable}
+\AtBeginEnvironment{longtable}{\bftable}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{2mm}
+\includegraphics[width=95mm]{logo-bending-forks-trasparente.png}\\[3mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{16mm}
+{\fontsize{22}{26}\selectfont\bfseries Analisi dei requisiti (AdR)\par}
+\vspace{3mm}
+{\large\bfseries\color{bfblue} Dispositivo assistente vocale con IA configurabile e web app di gestione\par}
+
+\vspace{10mm}
+\begin{tabular}{r|l}
+\textbf{Versione} & 0.1.0 \\
+\textbf{Tipo} & Documento esterno \\
+\textbf{Destinatari} & \emph{Uranion EMEA LTD} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{10mm}
+{\normalsize\emph{\textbf{Abstract dei contenuti:}}}\\[1.5mm]
+\begin{minipage}{145mm}\centering Attori, casi d'uso e requisiti del prodotto \emph{Fossdot}, ricavati dal capitolato e dagli incontri con l'azienda \emph{Uranion}, con le modalità operative del sistema, il tracciamento dei requisiti verso le fonti e le questioni ancora aperte.\end{minipage}
+\vspace*{2mm}
+\end{titlepage}
+
+% ---------- Cronologia delle revisioni ----------
+\hypertarget{cronologia-delle-revisioni}{%
+\section*{Cronologia delle revisioni}}
+\addcontentsline{toc}{section}{Cronologia delle revisioni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{
+  >{\hsize=0.50\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.70\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.90\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=2.05\hsize\raggedright\arraybackslash}X
+}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & 
+\textcolor{white}{\textbf{Data}} & 
+\textcolor{white}{\textbf{Autori}} & 
+\textcolor{white}{\textbf{Verificatore}} & 
+\textcolor{white}{\textbf{Descrizione}} \\
+0.1.0 & 2026-11-18 & Matteo Wu, Luca Stangherlin & Nicholas Salmaso & Prima bozza per revisione degli stakeholder. \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+\newpage
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Indice delle figure ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice delle figure\par}
+\vspace{6mm}
+\makeatletter\@starttoc{lof}\makeatother
+\newpage
+
+% ---------- 1. Introduzione ----------
+\section{Introduzione}
+
+\subsection{Scopo del documento}
+
+Il presente documento raccoglie tutto ciò che il capitolato C3 \emph{Fossdot} e gli incontri con l'azienda \emph{Uranion} chiedono al prodotto, e lo organizza in attori, casi d'uso e requisiti collegati a uno schema del sistema. Serve al gruppo come base per la progettazione e alla proponente per confermare che i bisogni sono stati compresi correttamente.
+
+L'Analisi dei requisiti è un documento \textbf{incrementale}: le parti ancora da confermare con la proponente hanno fonte Interna e sono raccolte nella sezione \ref{sec:aperte}, e verranno aggiornate dopo ogni incontro.
+
+\textbf{Destinatari:} team di progetto (hardware, firmware, software), responsabili di verifica e collaudo, referente del progetto, consulente di conformità normativa.
+
+\subsection{Ambito del prodotto}
+Il \textit{Sistema} è un assistente vocale per uso domestico, concettualmente affine agli \textit{smart speaker} commerciali, composto da:
+\begin{itemize}
+\tightlist
+\item \textbf{\textit{Dispositivo}:} unità fisica con microfoni, altoparlante, indicatore luminoso e pulsanti;
+\item \textbf{\textit{Firmware}:} software residente nel \textit{Dispositivo} che ne governa il funzionamento;
+\item \textbf{Software applicativo:} \textit{web app} di configurazione e meccanismo di estensione tramite \textit{skill};
+\item \textbf{Integrazione IA:} meccanismo che permette di collegare al \textit{Sistema} più di un \textit{provider} di intelligenza artificiale conforme a un'interfaccia documentata.
+\end{itemize}
+
+\subsubsection{Obiettivi di business}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.35\hsize\raggedright\arraybackslash}X >{\hsize=1.65\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Obiettivo}} \\
+\texttt{OB-01} & Realizzare un assistente vocale domestico indipendente da uno specifico fornitore di IA. \\ \arrayrulecolor{bfline}\hline
+\texttt{OB-02} & Offrire una piattaforma estendibile da terzi tramite \textit{skill}. \\ \arrayrulecolor{bfline}\hline
+\texttt{OB-03} & Garantire all'utente controllo effettivo su privacy, dati e sicurezza. \\ \arrayrulecolor{bfline}\hline
+\texttt{OB-04} & Contenere i costi: prototipo realizzabile con componenti commerciali e budget moderato. \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\subsubsection{Fuori ambito}
+Le seguenti funzionalità sono escluse con priorità \textit{Won't} in questo ciclo:
+\begin{itemize}
+\tightlist
+\item Display, fotocamere e sensori diversi da quello di luce ambientale;
+\item Funzioni di sicurezza e di emergenza (allarmi antincendio, chiamate di emergenza, assistenza sanitaria);
+\item Riproduzione musicale ad alta fedeltà e audio multi-stanza;
+\item Chiamate telefoniche e vivavoce;
+\item Applicazione mobile nativa (la configurazione avviene tramite \textit{web app});
+\item Alimentazione a batteria e uso all'aperto.
+\end{itemize}
+
+\subsection{Riferimenti}
+
+\subsubsection{Riferimenti normativi}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.25\hsize\raggedright\arraybackslash}X >{\hsize=1.30\hsize\raggedright\arraybackslash}X >{\hsize=0.45\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Rif.}} & \textcolor{white}{\textbf{Documento}} & \textcolor{white}{\textbf{Versione / Data}} \\
+\texttt{[N1]} & \textit{Norme di progetto} -- Gruppo Bending Forks & Versione 0.1.0 \\ \arrayrulecolor{bfline}\hline
+\texttt{[N2]} & Capitolato d'appalto & Ultimo accesso: 2026-11-18 \\ \arrayrulecolor{bfline}\hline
+\texttt{[N3]} & Regolamento del progetto didattico -- Ingegneria del Software (UniPD) & Ultimo accesso: 2026-11-18 \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\subsubsection{Riferimenti informativi}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.25\hsize\raggedright\arraybackslash}X >{\hsize=1.30\hsize\raggedright\arraybackslash}X >{\hsize=0.45\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Rif.}} & \textcolor{white}{\textbf{Documento}} & \textcolor{white}{\textbf{Versione / Data}} \\
+\texttt{[I1]} & \textit{Glossario} -- Gruppo Bending Forks & Versione 0.2.0\\ \arrayrulecolor{bfline}\hline
+\texttt{[I2]} & Verbali esterni con la proponente & 2026-11-13 \\ \arrayrulecolor{bfline}\hline
+\texttt{[I3]} & Verbali interni del gruppo Bending Forks & 2026-11-13 \\ \arrayrulecolor{bfline}\hline
+\texttt{[I4]} & Dispensa T05: \textit{Analisi dei requisiti} & Ultimo accesso: 2026-11-18 \\ \arrayrulecolor{bfline}\hline
+\texttt{[I4]} & Diagrammi Use Case & Ultimo accesso: 2026-11-18 \\ \arrayrulecolor{bfline}\hline
+
+
+\end{tabularx}
+\end{center}
+
+\subsection{Glossario}
+I termini tecnici usati nel documento sono definiti nel Glossario del gruppo.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.26\linewidth} >{\raggedright\arraybackslash}p{0.68\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Termine}} & \textcolor{white}{\textbf{Definizione}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{Termine}} & \textcolor{white}{\textbf{Definizione}} \\ \endhead
+\textbf{\textit{Sistema}} & Insieme di \textit{Dispositivo}, \textit{Firmware}, \textit{web app}, meccanismo di \textit{skill} e integrazione IA oggetto del documento. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Dispositivo}} & Unità hardware posta nell'ambiente domestico. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Firmware}} & Software residente nel \textit{Dispositivo} (audio, stati, rete, esecuzione delle \textit{skill}, aggiornamenti). \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Web app}} & Applicazione web, usata tramite browser, per amministrare il \textit{Sistema}. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Assistente}} & Funzione di dialogo vocale offerta dal \textit{Sistema}. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Parola di attivazione}} & Parola o breve frase pronunciata dall'Utente per rivolgersi all'\textit{Assistente}. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Richiesta}} & Enunciato vocale dell'Utente compreso tra l'attivazione e il silenzio di fine richiesta (\texttt{PAR-04}). \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Capacità IA}} & Una delle tre funzioni di intelligenza artificiale usate dal \textit{Sistema}: trascrizione del parlato, elaborazione del linguaggio, sintesi vocale. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Provider IA}} & Servizio o motore di intelligenza artificiale, esterno o locale, che fornisce una o più \textit{Capacità IA} tramite l'interfaccia di integrazione. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Provider di riferimento}} & \textit{Provider IA} simulato, con comportamento e latenza controllati, usato nelle verifiche. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Skill}} & Modulo installabile che aggiunge funzioni al \textit{Sistema}. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Manifesto}} & Descrizione strutturata di una \textit{Skill} (nome, versione, autore, descrizione, intenti, permessi, parametri). \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Permesso}} & Autorizzazione dichiarata da una \textit{Skill} e approvata dall'Amministratore per accedere a una risorsa. \\ \arrayrulecolor{bfline}\hline
+\textbf{Utente} & Persona che interagisce a voce con il \textit{Dispositivo}. \\ \arrayrulecolor{bfline}\hline
+\textbf{Amministratore} & Utente con accesso completo alla configurazione tramite \textit{Web app}. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Cronologia}} & Elenco delle interazioni memorizzate dal \textit{Sistema}. \\ \arrayrulecolor{bfline}\hline
+\textbf{\textit{Ripristino di fabbrica}} & Operazione che riporta il \textit{Dispositivo} allo stato \textit{Non configurato} cancellando i dati dell'utente. \\ \arrayrulecolor{bfline}\hline
+\textbf{COTS} & Componenti commerciali già disponibili sul mercato (\textit{Commercial Off-The-Shelf}). \\ \arrayrulecolor{bfline}\hline
+\textbf{BOM} & Distinta dei materiali (\textit{Bill of Materials}). \\ \arrayrulecolor{bfline}\hline
+\textbf{SBOM} & Elenco dei componenti software, con relative versioni e licenze, inclusi nel prodotto (\textit{Software Bill of Materials}). \\ \arrayrulecolor{bfline}\hline
+\textbf{WCAG} & \textit{Web Content Accessibility Guidelines}. \\ \arrayrulecolor{bfline}\hline
+\textbf{GDPR} & Regolamento generale sulla protezione dei dati. \\ \arrayrulecolor{bfline}\hline
+\textbf{RED} & Direttiva sulle apparecchiature radio. \\ \arrayrulecolor{bfline}\hline
+\textbf{VOC} & Interazione vocale: \textit{Parola di attivazione}, \textit{Richiesta}, risposta, latenza, interruzione, lingue e volume (sezione 5.1). \\ \arrayrulecolor{bfline}\hline
+\textbf{AIP} & \textit{Provider IA}: scelta e cambio del motore di IA per le tre \textit{Capacità IA} (trascrizione del parlato, elaborazione del linguaggio, sintesi vocale), test e provider alternativo (sezione 5.2). \\ \arrayrulecolor{bfline}\hline
+\textbf{SKL} & \textit{Skill}: installazione, \textit{Manifesto}, \textit{Permessi}, firma, isolamento, invocazione e kit di sviluppo (sezione 5.3). \\ \arrayrulecolor{bfline}\hline
+\textbf{FNZ} & Funzioni integrate: timer, sveglie, promemoria, data e ora, funzioni senza Internet (sezione 5.4). \\ \arrayrulecolor{bfline}\hline
+\textbf{USR} & Utenti e personalizzazione: ruoli, profili, scelta della \textit{Parola di attivazione} e della voce, modalità «non disturbare» (sezione 5.5). \\ \arrayrulecolor{bfline}\hline
+\textbf{HW} & Hardware: microfoni, altoparlante, pulsanti, indicatore luminoso, memoria, alimentazione, dimensioni e costo dei materiali (sezione 6). \\ \arrayrulecolor{bfline}\hline
+\textbf{FW} & \textit{Firmware}: stati, audio, esecuzione delle \textit{skill}, rete, aggiornamenti, registri e \textit{Ripristino di fabbrica} (sezione 7). \\ \arrayrulecolor{bfline}\hline
+\textbf{WEB} & \textit{Web app}: accesso, configurazione iniziale, gestione di \textit{Provider IA} e \textit{skill}, \textit{Cronologia}, aggiornamenti e backup (sezione 8). \\ \arrayrulecolor{bfline}\hline
+\textbf{PRF} & Prestazioni: tempi di risposta sotto carico, installazione di una \textit{skill} e aggiornamento del \textit{Firmware} (sezione 9.1). \\ \arrayrulecolor{bfline}\hline
+\textbf{AFF} & Affidabilità: prove di durata, interruzioni di alimentazione e vita utile (sezione 9.2). \\ \arrayrulecolor{bfline}\hline
+\textbf{SIC} & Sicurezza: cifratura, servizi esposti, credenziali, test di sicurezza e isolamento delle \textit{skill} (sezione 9.3). \\ \arrayrulecolor{bfline}\hline
+\textbf{PRV} & Privacy: audio, dati inviati ai \textit{Provider IA}, informativa e consensi (sezione 9.4). \\ \arrayrulecolor{bfline}\hline
+\textbf{USA} & Usabilità e accessibilità: riconoscibilità dei segnali, WCAG e guida rapida (sezione 9.5). \\ \arrayrulecolor{bfline}\hline
+\textbf{MAN} & Manutenibilità e ciclo di vita: aggiornamenti di sicurezza, interfacce versionate, documentazione e SBOM (sezione 9.6). \\ \arrayrulecolor{bfline}\hline
+\textbf{NRM} & Requisiti normativi: RED, GDPR, cibersicurezza, RoHS/RAEE e AI Act (sezione 9.7). \\ \arrayrulecolor{bfline}\hline
+\textbf{INT} & Interfacce esterne: \textit{Provider IA}, \textit{skill}, fonte degli aggiornamenti e rete domestica (sezione 10). \\ \arrayrulecolor{bfline}\hline
+\textbf{OB} & Obiettivi di business del prodotto. Identificativi \texttt{OB-01}--\texttt{OB-04} (sezione 2.2). \\ \arrayrulecolor{bfline}\hline
+\textbf{ST} & Stati operativi del \textit{Dispositivo} e relative transizioni. Identificativi \texttt{ST-01}--\texttt{ST-09} (sezione 3.5). \\ \arrayrulecolor{bfline}\hline
+\textbf{PAR} & Parametri di sistema: valori numerici condivisi da più requisiti e definiti una sola volta. Identificativi \texttt{PAR-01}--\texttt{PAR-12} (sezione 3.8). \\ \arrayrulecolor{bfline}\hline
+\textbf{AT} & Attori dei casi d'uso. Identificativi \texttt{AT-01}--\texttt{AT-07} (sezione 4.1). \\ \arrayrulecolor{bfline}\hline
+\textbf{RSK} & Rischi principali del progetto. Identificativi \texttt{RSK-01}--\texttt{RSK-07} (sezione 14.2). \\ \arrayrulecolor{bfline}\hline
+\textbf{OI} & Questioni aperte: valori e decisioni da confermare. Identificativi \texttt{OI-01}--\texttt{OI-08} (appendice A). \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Convenzioni}
+In conformità con quanto stabilito nel documento \textit{Norme di progetto} (0.1.0):
+\begin{itemize}
+\tightlist
+\item \textbf{Glossario:} i termini tecnici e di dominio definiti nel documento dedicato \textit{Glossario} (1.4.0) sono evidenziati in \textit{corsivo};
+\item \textbf{Forma del requisito:} ogni requisito è una frase singola nella forma «Il \textit{Sistema} deve <funzione> <condizione o criterio misurabile>» e compare una sola volta nel documento; le altre sezioni lo richiamano per ID;
+\item \textbf{Identificativi dei casi d'uso:} \texttt{UC[Numero].[Sottocaso] -- [Titolo]}, dove \texttt{[Numero]} identifica il caso d'uso principale e \texttt{[Sottocaso]} (facoltativo, anche su più livelli) identifica un caso d'uso derivato o specializzato;
+\item \textbf{Identificativi dei requisiti:} \texttt{R[Tipo]-[Numero]-[Priorità]}, dove \texttt{[Tipo]} assume valore \texttt{F} (funzionale), \texttt{Q} (di qualità) o \texttt{V} (di vincolo), \texttt{[Numero]} è un progressivo univoco all'interno del tipo (accompagnato dal codice di sottosistema/area \texttt{VOC}, \texttt{AIP}, \texttt{SKL}, \texttt{FNZ}, \texttt{USR}, \texttt{HW}, \texttt{FW}, \texttt{WEB}, \texttt{AFF}, \texttt{SIC}, \texttt{PRV}, \texttt{USA}, \texttt{MAN}, \texttt{NRM}, \texttt{INT}) e \texttt{[Priorità]} assume valore \texttt{Obb} (obbligatorio / \textit{Must}), \texttt{Des} (desiderabile / \textit{Should}) o \texttt{Opz} (opzionale / \textit{Could}).
+\item \textbf{Metodi di verifica:} $T=$ test (misura in condizioni controllate); $I=$ ispezione (esame di documenti, schemi, prodotto); $A=$ analisi (calcolo, simulazione, stima); $D=$ dimostrazione (esecuzione osservata di una funzione);
+\end{itemize}
+
+\textbf{Priorità e rilascio associato:}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.35\hsize\centering\arraybackslash}X >{\hsize=0.90\hsize\raggedright\arraybackslash}X >{\hsize=0.75\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Codice}} & \textcolor{white}{\textbf{Significato}} \\
+\textbf{\texttt{Obb} (M)} & Obbligatorio (\textit{Must}): indispensabile; senza di esso il \textit{Sistema} non è accettabile.  \\ \arrayrulecolor{bfline}\hline
+\textbf{\texttt{Des} (S)} & Desiderabile (\textit{Should}): importante; ha un'alternativa temporanea se escluso.  \\ \arrayrulecolor{bfline}\hline
+\textbf{\texttt{Opz} (C)} & Opzionale (\textit{Could}): auspicabile, se le risorse lo consentono.  \\ \arrayrulecolor{bfline}\hline
+\textbf{\texttt{Won't} (W)} & Escluso dal ciclo corrente.  \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- 2. Descrizione generale del Sistema ----------
+\section{Descrizione generale del \textit{Sistema}}
+
+\subsection{Contesto}
+Il \textit{Sistema} opera in un ambiente domestico. Interagiscono con esso, ai suoi confini:
+\begin{itemize}
+\tightlist
+\item L'Utente, a voce, tramite il \textit{Dispositivo};
+\item L'Amministratore, tramite browser e \textit{Web app};
+\item Lo Sviluppatore di \textit{skill}, che produce \textit{skill} secondo l'interfaccia documentata;
+\item I \textit{Provider IA}, locali o raggiungibili via Internet;
+\item I servizi esterni e i dispositivi domestici a cui le \textit{skill} si collegano;
+\item La fonte degli aggiornamenti del \textit{Firmware}.
+\end{itemize}
+
+\subsection{Funzioni principali}
+\begin{enumerate}
+\tightlist
+\item Dialogo vocale a mani libere attivato da \textit{parola di attivazione};
+\item Uso di qualsiasi \textit{Provider IA}, scelto separatamente per ciascuna \textit{Capacità IA};
+\item Estensione delle funzioni tramite \textit{skill} installabili e rimovibili;
+\item Funzioni integrate (timer, sveglie, data e ora);
+\item Configurazione e gestione tramite \textit{Web app} (rete, IA, \textit{skill}, privacy, aggiornamenti, diagnostica);
+\item Tutela della privacy: controllo dei dati, esclusione fisica del microfono, nessuna telemetria non richiesta;
+\item Aggiornamento sicuro e recuperabile del \textit{Firmware}.
+\end{enumerate}
+
+\subsection{\textit{Stakeholder} e classi di utenti}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.30\hsize\raggedright\arraybackslash}X >{\hsize=0.65\hsize\raggedright\arraybackslash}X >{\hsize=1.05\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{\textit{Stakeholder}}} & \textcolor{white}{\textbf{Ruolo e interessi}} \\
+\texttt{SH-01} & Utente & Usa l'\textit{Assistente} a voce; interessi: naturalezza, qualità audio, privacy. \\ \arrayrulecolor{bfline}\hline
+\texttt{SH-02} & Amministratore & Installa e configura; interessi: semplicità, controllo, sicurezza. \\ \arrayrulecolor{bfline}\hline
+\texttt{SH-03} & Sviluppatore di \textit{skill} & Crea \textit{skill}; interessi: documentazione, interfacce stabili, strumenti di prova. \\ \arrayrulecolor{bfline}\hline
+\texttt{SH-04} & Team di progetto / produttore & Progetta, realizza, collauda e supporta; interessi: realizzabilità, costi, manutenibilità, conformità. \\ \arrayrulecolor{bfline}\hline
+\texttt{SH-05} & \textit{Provider IA} e fornitori di servizi (esterni) & Forniscono capacità e servizi; interessi: uso conforme alle loro interfacce e condizioni. \\ \arrayrulecolor{bfline}\hline
+\texttt{SH-06} & Persone presenti nell'ambiente (impattate) & Non sono utenti ma possono essere captate dai microfoni; interessi: trasparenza e possibilità di esclusione del microfono. \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Bisogni degli \textit{stakeholder}}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.13\linewidth} >{\raggedright\arraybackslash}p{0.51\linewidth} >{\raggedright\arraybackslash}p{0.18\linewidth} >{\centering\arraybackslash}p{0.08\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Bisogno}} & \textcolor{white}{\textbf{\textit{Stakeholder}}} & \textcolor{white}{\textbf{Pri.}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Bisogno}} & \textcolor{white}{\textbf{\textit{Stakeholder}}} & \textcolor{white}{\textbf{Pri.}} \\ \endhead
+\texttt{BN-01} & Interagire a voce, in modo naturale, da una distanza domestica tipica, in italiano (e inglese). & \texttt{SH-01} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-02} & Scegliere e cambiare il motore di IA senza cambiare dispositivo. & \texttt{SH-02} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-03} & Estendere le funzioni con \textit{skill} installabili e rimovibili. & \texttt{SH-02}, \texttt{SH-03} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-04} & Configurare il \textit{Sistema} in modo semplice, senza competenze tecniche. & \texttt{SH-02} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-05} & Mantenere il controllo su privacy e dati (audio, testo, cronologia). & \texttt{SH-01}, \texttt{SH-02}, \texttt{SH-06} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-06} & Proteggere dispositivo, credenziali e rete domestica da accessi non autorizzati. & \texttt{SH-02} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-07} & Costo contenuto, con componenti commerciali e senza costi ricorrenti obbligatori. & \texttt{SH-02}, \texttt{SH-04} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-08} & Funzionamento continuo e affidabile (sempre acceso). & \texttt{SH-01}, \texttt{SH-02} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-09} & Funzioni quotidiane utili: timer, sveglie, promemoria, data e ora, controllo di dispositivi domestici. & \texttt{SH-01} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-10} & Aggiornare nel tempo il \textit{Sistema} in modo sicuro. & \texttt{SH-02}, \texttt{SH-04} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-11} & Sapere in ogni momento cosa sta facendo il \textit{Dispositivo} (luci e suoni). & \texttt{SH-01}, \texttt{SH-06} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-12} & Conformità normativa per l'immissione sul mercato UE. & \texttt{SH-04} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-13} & Sviluppo di \textit{skill}, diagnosi e manutenzione agevoli. & \texttt{SH-03}, \texttt{SH-04} & M \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-14} & Uso condiviso da più persone con profili distinti. & \texttt{SH-01} & C \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-15} & Funzioni di base utili anche senza Internet. & \texttt{SH-01} & S \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Modalità e stati operativi}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.10\linewidth} >{\raggedright\arraybackslash}p{0.15\linewidth} >{\raggedright\arraybackslash}p{0.28\linewidth} >{\raggedright\arraybackslash}p{0.17\linewidth} >{\raggedright\arraybackslash}p{0.18\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Stato}} & \textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Ingresso}} & \textcolor{white}{\textbf{Uscita}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Stato}} & \textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Ingresso}} & \textcolor{white}{\textbf{Uscita}} \\ \endhead
+\texttt{ST-01} & Non configurato & Primo avvio o dopo \textit{Ripristino di fabbrica}; canale di configurazione locale attivo; rilevamento della \textit{Parola di attivazione} disattivato. & Primo avvio; \textit{Ripristino di fabbrica} & Configurazione completata $\rightarrow$ \texttt{ST-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{ST-02} & \textit{Standby} & Ascolto locale della \textit{Parola di attivazione}; nessun audio lascia il \textit{Dispositivo}. & Fine di altri stati & Attivazione $\rightarrow$ \texttt{ST-03}; esclusione microfono $\rightarrow$ \texttt{ST-06}; avvio aggiornamento $\rightarrow$ \texttt{ST-07}; perdita di Internet $\rightarrow$ \texttt{ST-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{ST-03} & Ascolto & Acquisizione della \textit{Richiesta}; l'audio può essere inviato al \textit{provider} di trascrizione. & Attivazione da parola o pulsante & Fine \textit{Richiesta} $\rightarrow$ \texttt{ST-04}; annullamento $\rightarrow$ \texttt{ST-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{ST-04} & Elaborazione & \textit{Richiesta} in corso presso \textit{provider} e \textit{skill}. & Fine \textit{Richiesta} & Risposta pronta $\rightarrow$ \texttt{ST-05}; errore o superamento del TMR $\rightarrow$ \texttt{ST-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{ST-05} & Risposta & Riproduzione della risposta. & Risposta pronta & Fine riproduzione $\rightarrow$ \texttt{ST-02} (o \texttt{ST-03} se attiva conversazione a più turni); interruzione $\rightarrow$ \texttt{ST-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{ST-06} & Microfono escluso & Esclusione hardware attiva: nessun audio acquisito; timer, sveglie, riproduzione e \textit{Web app} restano disponibili. & Azionamento del pulsante di esclusione & Riattivazione $\rightarrow$ stato precedente \\ \arrayrulecolor{bfline}\hline
+\texttt{ST-07} & Aggiornamento & Installazione di un nuovo \textit{Firmware}; \textit{Assistente} non disponibile. & Comando dell'Amministratore & Esito positivo $\rightarrow$ riavvio $\rightarrow$ \texttt{ST-02}; esito negativo $\rightarrow$ versione precedente $\rightarrow$ \texttt{ST-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{ST-08} & Degradato & Internet non raggiungibile: restano disponibili le sole funzioni locali. & Perdita di Internet & Ripristino $\rightarrow$ \texttt{ST-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{ST-09} & Errore & Condizione di errore comunicata all'Utente. & Errore o superamento del TMR & Fine comunicazione $\rightarrow$ \texttt{ST-02} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+
+
+% ---------- 3. Modello dei casi d'uso ----------
+\section{Modello dei casi d'uso}
+Il modello descrive le interazioni degli attori con il \textit{Sistema}. In conformità alle \textit{Norme di progetto} (0.1.0), ogni caso d'uso è identificato nel formato \texttt{UC[Numero].[Sottocaso] - [Titolo]} e riporta attori primari e secondari, precondizioni, postcondizioni, scenario principale, eventuali inclusioni ed estensioni (inclusi gli scenari di errore) e il relativo diagramma UML dei casi d'uso.
+
+\subsection{Attori}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.25\hsize\raggedright\arraybackslash}X >{\hsize=0.50\hsize\raggedright\arraybackslash}X >{\hsize=0.45\hsize\raggedright\arraybackslash}X >{\hsize=0.80\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Attore}} & \textcolor{white}{\textbf{Tipo}} & \textcolor{white}{\textbf{Descrizione}} \\
+\texttt{AT-01} & Utente & Primario & Persona che parla con l'\textit{Assistente} (\texttt{SH-01}). \\ \arrayrulecolor{bfline}\hline
+\texttt{AT-02} & Amministratore & Primario & Configura e gestisce il \textit{Sistema} tramite \textit{Web app}; può coincidere con l'Utente (\texttt{SH-02}). \\ \arrayrulecolor{bfline}\hline
+\texttt{AT-03} & Sviluppatore & Primario & Crea \textit{skill} e integrazioni di \textit{provider IA} (\texttt{SH-03}). \\ \arrayrulecolor{bfline}\hline
+\texttt{AT-04} & Produttore & Primario & Rilascia aggiornamenti e analizza i pacchetti di diagnostica (\texttt{SH-04}). \\ \arrayrulecolor{bfline}\hline
+\texttt{AT-05} & \textit{Provider IA} & Secondario (sistema esterno) & Fornisce le \textit{Capacità IA} (\texttt{SH-05}). \\ \arrayrulecolor{bfline}\hline
+\texttt{AT-06} & Servizi esterni e dispositivi domestici & Secondario (sistema esterno) & Sono raggiunti dalle \textit{skill} (\texttt{SH-05}). \\ \arrayrulecolor{bfline}\hline
+\texttt{AT-07} & Fonte degli aggiornamenti & Secondario (sistema esterno) & Rende disponibili i pacchetti di aggiornamento del \textit{Firmware}. \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\subsection{Elenco riepilogativo dei casi d'uso}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.13\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth} >{\raggedright\arraybackslash}p{0.18\linewidth} >{\raggedright\arraybackslash}p{0.18\linewidth} >{\centering\arraybackslash}p{0.07\linewidth} >{\raggedright\arraybackslash}p{0.12\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Codice}} & \textcolor{white}{\textbf{Titolo}} & \textcolor{white}{\textbf{Attore principale}} & \textcolor{white}{\textbf{Relazioni}} & \textcolor{white}{\textbf{Pri.}} & \textcolor{white}{\textbf{Diagramma}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{Codice}} & \textcolor{white}{\textbf{Titolo}} & \textcolor{white}{\textbf{Attore principale}} & \textcolor{white}{\textbf{Relazioni}} & \textcolor{white}{\textbf{Pri.}} & \textcolor{white}{\textbf{Diagramma}} \\ \endhead
+\texttt{UC[1]} & Attivare l'\textit{Assistente} & Utente & incluso in \texttt{UC[2]} & Obb & Fig. 1 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[2]} & Porre una \textit{Richiesta} & Utente & include \texttt{UC[1]}; esteso da \texttt{UC[2.1]}, \texttt{UC[7]} & Obb & Fig. 1 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[2.1]} & Gestire errore \textit{provider IA} non raggiungibile & \textit{Sistema} & estende \texttt{UC[2]} & Obb & Fig. 1 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[3]} & Interrompere la risposta & Utente & -- & Obb & Fig. 1 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[4]} & Escludere e riattivare il microfono & Utente & -- & Obb & Fig. 1 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[5]} & Gestire timer e sveglie & Utente & -- & Obb & Fig. 1 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[6]} & Regolare il volume & Utente & -- & Obb & Fig. 1 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[7]} & Eseguire una \textit{skill} & Utente & estende \texttt{UC[2]}; & Obb & Fig. 1 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[8]} & Eseguire la configurazione iniziale & Amministratore & include \texttt{UC[10]}, \texttt{UC[11]}; esteso da \texttt{UC[8.1]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[8.1]} & Gestire errore di configurazione iniziale & \textit{Sistema} & estende \texttt{UC[8]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[9]} & Autenticarsi nella \textit{Web app} & Amministratore & incluso da \texttt{UC[10]...UC[19]}; esteso da \texttt{UC[9.1]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[9.1]} & Gestire errore credenziali non valide & \textit{Sistema} & estende \texttt{UC[9]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[10]} & Configurare la rete & Amministratore & incluso in \texttt{UC[8]}, include \texttt{UC[9]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[11]} & Gestire i \textit{provider IA} & Amministratore & incluso in \texttt{UC[8]}, include \texttt{UC[9]}; esteso da \texttt{UC[11.1]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[11.1]} & Gestire errore test \textit{provider IA} & \textit{Sistema} & estende \texttt{UC[11]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[12]} & Gestire le \textit{skill} & Amministratore & include \texttt{UC[9]}; dettagliato da \texttt{UC[22]...UC[25]} & Obb & Fig. 2, 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[13]} & Personalizzare l'\textit{Assistente} & Amministratore & include \texttt{UC[9]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[14]} & Gestire privacy e \textit{Cronologia} & Amministratore & include \texttt{UC[9]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[15]} & Aggiornare il \textit{Firmware} & Amministratore & include \texttt{UC[9]}, \texttt{UC[28]}; esteso da \texttt{UC[15.1]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[15.1]} & Ripristinare versione precedente del \textit{Firmware} & \textit{Sistema} & estende \texttt{UC[15]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[16]} & Vedere stato e diagnostica & Amministratore & include \texttt{UC[9]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[17]} & Esportare e importare backup & Amministratore & include \texttt{UC[9]} & Des & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[18]} & Ripristinare le impostazioni di fabbrica & Amministratore & include \texttt{UC[9]} & Obb & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[19]} & Gestire i profili utente & Amministratore & include \texttt{UC[9]} & Opz & Fig. 2 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[20]} & Sviluppare e provare una \textit{skill} & Sviluppatore & -- & Des & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[21]} & Firmare e distribuire una \textit{skill} & Sviluppatore & -- & Obb & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[22]} & Installare una \textit{skill} & Amministratore & include \texttt{UC[23]}, \texttt{UC[28]}; esteso da \texttt{UC[22.1]} & Obb & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[22.1]} & Gestire pacchetto \textit{skill} non valido o non firmato & \textit{Sistema} & estende \texttt{UC[22]} & Obb & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[23]} & Approvare i permessi di una \textit{skill} & Amministratore & incluso in \texttt{UC[22]} & Obb & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[24]} & Configurare e abilitare una \textit{skill} & Amministratore & -- & Obb & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[25]} & Aggiornare o rimuovere una \textit{skill} & Amministratore & -- & Des & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[26]} & Integrare un \textit{provider IA} & Sviluppatore & -- & Obb & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[27]} & Rilasciare un aggiornamento & Produttore & -- & Obb & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[28]} & Verificare firma e integrità & \textit{Sistema} & incluso in \texttt{UC[15]}, \texttt{UC[22]} & Obb & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[29]} & Analizzare la diagnostica & Produttore & -- & Des & Fig. 3 \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Diagrammi dei casi d'uso}
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{uc_diagramma_a.png}{%
+  \includegraphics[width=0.95\textwidth]{uc_diagramma_a.png}%
+}{%
+  \framebox{\parbox{0.85\textwidth}{\centering\vspace{12mm}\textbf{Diagramma A -- Interazione vocale (\texttt{UC[1]}--\texttt{UC[8]})}\\[4pt]\small File locale \texttt{uc\_diagramma\_a.png} non presente nell'ambiente di compilazione.\vspace{12mm}}}%
+}
+\caption{Diagramma A -- Interazione vocale (\texttt{UC[1]}--\texttt{UC[8]}).}
+\label{fig:uc-vocale}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{uc_diagramma_b.png}{%
+  \includegraphics[width=0.95\textwidth]{uc_diagramma_b.png}%
+}{%
+  \framebox{\parbox{0.85\textwidth}{\centering\vspace{12mm}\textbf{Diagramma B -- Configurazione e gestione tramite \textit{Web app} (\texttt{UC[10]}--\texttt{UC[21]})}\\[4pt]\small File locale \texttt{uc\_diagramma\_b.png} non presente nell'ambiente di compilazione.\vspace{12mm}}}%
+}
+\caption{Diagramma B -- Configurazione e gestione tramite \textit{Web app} (\texttt{UC[10]}--\texttt{UC[21]}).}
+\label{fig:uc-webapp}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{uc_diagramma_c.png}{%
+  \includegraphics[width=0.95\textwidth]{uc_diagramma_c.png}%
+}{%
+  \framebox{\parbox{0.85\textwidth}{\centering\vspace{12mm}\textbf{Diagramma C -- \textit{Skill}, integrazioni e manutenzione (\texttt{UC[30]}--\texttt{UC[39]})}\\[4pt]\small File locale \texttt{uc\_diagramma\_c.png} non presente nell'ambiente di compilazione.\vspace{12mm}}}%
+}
+\caption{Diagramma C -- \textit{Skill}, integrazioni e manutenzione (\texttt{UC[30]}--\texttt{UC[39]}).}
+\label{fig:uc-skill}
+\end{figure}
+
+\subsection{Schede dei casi d'uso}
+Di seguito sono riportate le schede strutturate per tutti i casi d'uso del \textit{Sistema} e i relativi sottocasi di estensione/errore.
+
+\subsubsection{\textbf{UC[1]} -- Attivare l'\textit{Assistente}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Utente;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{Sistema} in \texttt{ST-02} (\textit{Standby}); microfono non escluso;
+\item \textbf{Postcondizioni:} \textit{Sistema} in \texttt{ST-03} (\textit{Ascolto}) con feedback luminoso e sonoro (se abilitato) attivo;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Utente pronuncia la \textit{Parola di attivazione} (oppure preme il pulsante di azione);
+  \item Il \textit{Dispositivo} rileva localmente l'attivazione e passa allo stato \texttt{ST-03};
+  \item Il \textit{Dispositivo} attiva la segnalazione luminosa e sonora di ascolto;
+  \end{enumerate}
+\item \textbf{Inclusioni ed estensioni:} incluso in \texttt{UC[2]}.
+\end{itemize}
+
+\subsubsection{\textbf{UC[2]} -- Porre una \textit{Richiesta}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Utente;
+\item \textbf{Attori secondari:} \textit{Provider IA};
+\item \textbf{Precondizioni:} \textit{Sistema} in \texttt{ST-02}; almeno un \textit{Provider IA} configurato per ciascuna \textit{Capacità IA}; microfono non escluso;
+\item \textbf{Postcondizioni:} risposta riprodotta all'Utente; \textit{Cronologia} aggiornata secondo il periodo di conservazione; nessun audio conservato oltre l'elaborazione;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Utente attiva l'\textit{Assistente} (\texttt{UC[1]});
+  \item L'Utente pronuncia la \textit{Richiesta};
+  \item Il \textit{Sistema} rileva la fine della \textit{Richiesta} (\texttt{PAR-04} o \texttt{PAR-05}) e passa a \texttt{ST-04};
+  \item Il \textit{Sistema} invia l'audio al \textit{provider} di trascrizione e il testo al \textit{provider} di elaborazione del linguaggio;
+  \item Il \textit{Sistema} sintetizza tramite il \textit{provider} di sintesi vocale e riproduce la risposta (\texttt{ST-05});
+  \item Il \textit{Sistema} torna a \texttt{ST-02};
+  \end{enumerate}
+\item \textbf{Inclusioni ed estensioni:}
+  \begin{itemize}
+  \tightlist
+  \item Include \texttt{UC[1]} (\textit{Attivare l'Assistente});
+  \item Esteso da \texttt{UC[7]} (\textit{Eseguire una skill}) se la \textit{Richiesta} attiva una \textit{skill};
+  \item Esteso da \texttt{UC[2.1]} (\textit{Gestire errore provider IA non raggiungibile}) in caso di mancata risposta o errore del \textit{provider};
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{\textbf{UC[2.1]} -- Gestire errore \textit{provider IA} non raggiungibile}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} \textit{Sistema};
+\item \textbf{Attori secondari:} \textit{Provider IA};
+\item \textbf{Precondizioni:} \textit{Sistema} in \texttt{ST-04}; il \textit{provider} predefinito non risponde entro \texttt{PAR-02} o restituisce errore;
+\item \textbf{Postcondizioni:} risposta ottenuta dal \textit{provider} alternativo oppure errore comunicato vocalmente all'Utente (\texttt{ST-09});
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Il \textit{Firmware} ritenta al più una volta l'invocazione del \textit{provider} predefinito in caso di errore di connessione;
+  \item Se è configurato un \textit{provider} alternativo, il \textit{Sistema} inoltra la chiamata a quest'ultimo;
+  \item Se nessun \textit{provider} risponde, il \textit{Sistema} passa a \texttt{ST-09}, comunica la causa dell'errore e torna a \texttt{ST-02}.
+  \end{enumerate}
+\end{itemize}
+
+
+
+\subsubsection{\textbf{UC[3]} -- Interrompere la risposta}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Utente;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{Sistema} in \texttt{ST-05} (\textit{Risposta}) con riproduzione audio in corso;
+\item \textbf{Postcondizioni:} riproduzione audio cessata entro $500\text{ ms}$ e \textit{Sistema} riportato a \texttt{ST-02};
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Utente preme il pulsante di azione oppure pronuncia la \textit{Parola di attivazione};
+  \item Il \textit{Sistema} interrompe immediatamente la riproduzione vocale;
+  \item Il \textit{Sistema} torna a \texttt{ST-02}.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[4]} -- Escludere e riattivare il microfono}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Utente;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{Dispositivo} alimentato;
+\item \textbf{Postcondizioni:} in \texttt{ST-06} nessun segnale audio è acquisito a livello hardware; alla riattivazione il \textit{Dispositivo} torna allo stato precedente;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Utente aziona il pulsante fisico di esclusione del microfono;
+  \item Il circuito hardware scollega i microfoni e il \textit{Dispositivo} entra in \texttt{ST-06} segnalandolo visivamente;
+  \item L'Utente riaziona il pulsante fisico;
+  \item I microfoni vengono riattivati e il \textit{Dispositivo} torna allo stato precedente.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[5]} -- Gestire timer e sveglie}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Utente;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{Dispositivo} operativo;
+\item \textbf{Postcondizioni:} timer, sveglia o promemoria impostato, consultato o annullato e persistito in memoria non volatile;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Utente chiede vocalmente di impostare, consultare o annullare un timer, una sveglia o un promemoria;
+  \item Il \textit{Sistema} registra o aggiorna l'evento localmente e conferma vocalmente;
+  \item Alla scadenza, il \textit{Dispositivo} emette il segnale acustico e luminoso fino all'interruzione dell'Utente.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[6]} -- Regolare il volume}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Utente;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{Dispositivo} alimentato;
+\item \textbf{Postcondizioni:} livello di volume aggiornato su uno degli almeno 10 livelli distinti e salvato in memoria non volatile;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Utente agisce sui pulsanti fisici di volume, pronuncia un comando vocale di regolazione o modifica il cursore nella \textit{Web app};
+  \item Il \textit{Firmware} aggiorna il livello di uscita audio e lo memorizza per i successivi riavvii.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[7]} -- Eseguire una \textit{skill}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Utente;
+\item \textbf{Attori secondari:} Servizi esterni e dispositivi domestici;
+\item \textbf{Precondizioni:} almeno una \textit{skill} installata e abilitata;
+\item \textbf{Postcondizioni:} esecuzione della \textit{skill} completata entro \texttt{PAR-03} nel rispetto dei \textit{Permessi} approvati e risposta comunicata all'Utente;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Il \textit{Sistema} riconosce l'invocazione esplicita o l'intento associato a una \textit{skill};
+  \item Il \textit{Firmware} esegue la \textit{skill} entro i limiti di tempo (\texttt{PAR-03}) e risorse;
+  \item La \textit{skill} restituisce il testo della risposta (o pone fino a 3 domande di chiarimento);
+  \item Il \textit{Sistema} sintetizza e riproduce la risposta all'Utente;
+  \end{enumerate}
+\item \textbf{Inclusioni ed estensioni:} estende \texttt{UC[2]}.
+\end{itemize}
+
+\end{itemize}
+
+\subsubsection{\textbf{UC[8]} -- Eseguire la configurazione iniziale}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} \textit{Provider IA};
+\item \textbf{Precondizioni:} \textit{Dispositivo} in \texttt{ST-01} (\textit{Non configurato}); Amministratore munito di browser e credenziali;
+\item \textbf{Postcondizioni:} account Amministratore creato, rete e \textit{provider IA} configurati, \textit{Sistema} in \texttt{ST-02} e canale di configurazione locale chiuso;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore alimenta il \textit{Dispositivo} e si collega al canale di configurazione locale inserendo il codice di associazione riportato sull'etichetta;
+  \item Crea l'account Amministratore con password di almeno 12 caratteri;
+  \item Configura la connessione alla rete locale (\texttt{UC[10]});
+  \item Configura e verifica almeno un \textit{Provider IA} per ciascuna delle tre \textit{Capacità IA} (\texttt{UC[11]});
+  \item Imposta lingua e fuso orario ed esegue la prova vocale guidata;
+  \item Il \textit{Dispositivo} chiude il canale locale e passa a \texttt{ST-02};
+  \end{enumerate}
+\item \textbf{Inclusioni ed estensioni:} include \texttt{UC[10]} e \texttt{UC[11]}; esteso da \texttt{UC[8.1]}.
+\end{itemize}
+
+\subsubsection{\textbf{UC[8.1]} -- Gestire errore di configurazione iniziale}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} \textit{Sistema};
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} fallimento della connessione di rete, del test di un \textit{provider IA} o della prova vocale durante \texttt{UC[8]};
+\item \textbf{Postcondizioni:} causa probabile mostrata all'Amministratore e possibilità di ripetere il passo senza perdere i passi già completati;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item La \textit{Web app} rileva l'esito negativo della verifica di rete, del \textit{provider} o della prova vocale;
+  \item Mostra il motivo dell'errore e blocca il completamento della procedura finché i requisiti minimi non sono soddisfatti.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[9]} -- Autenticarsi nella \textit{Web app}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{Sistema} già configurato (\textit{stato} $\ne$ \texttt{ST-01});
+\item \textbf{Postcondizioni:} sessione autenticata avviata con scadenza per inattività pari a \texttt{PAR-09};
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore accede all'indirizzo locale della \textit{Web app} tramite browser;
+  \item Inserisce le proprie credenziali di accesso;
+  \item Il \textit{Sistema} verifica le credenziali e consente l'accesso alle funzioni amministrative;
+  \end{enumerate}
+\item \textbf{Inclusioni ed estensioni:} incluso da \texttt{UC[10]}--\texttt{UC[19]}; esteso da \texttt{UC[9.1]}.
+\end{itemize}
+
+\subsubsection{\textbf{UC[9.1]} -- Gestire errore credenziali non valide}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} \textit{Sistema};
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} inserimento di password errata in \texttt{UC[9]};
+\item \textbf{Postcondizioni:} errore notificato e, al raggiungimento della soglia \texttt{PAR-10}, blocco temporaneo degli accessi;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Il \textit{Sistema} rileva credenziali non valide e incrementa il contatore dei tentativi falliti;
+  \item Mostra un messaggio di errore all'Amministratore;
+  \item Al raggiungimento dei tentativi consecutivi di \texttt{PAR-10}, blocca ulteriori tentativi per la durata prevista da \texttt{PAR-10}.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[10]} -- Configurare la rete}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} Amministratore in configurazione iniziale (\texttt{UC[8]}) o autenticato (\texttt{UC[9]});
+\item \textbf{Postcondizioni:} parametri di rete salvati in forma cifrata e connessione verificata;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item La \textit{Web app} mostra l'elenco delle reti senza fili disponibili;
+  \item L'Amministratore seleziona la rete, inserisce le credenziali e avvia la verifica;
+  \item Il \textit{Dispositivo} si connette e la \textit{Web app} mostra l'esito positivo.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[11]} -- Gestire i \textit{provider IA}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} \textit{Provider IA};
+\item \textbf{Precondizioni:} Amministratore in configurazione iniziale (\texttt{UC[8]}) o autenticato (\texttt{UC[9]});
+\item \textbf{Postcondizioni:} \textit{provider IA} salvato con credenziali cifrate e assegnato alla \textit{Capacità IA} dalla \textit{Richiesta} successiva;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore seleziona una delle tre \textit{Capacità IA} e compila il modulo guidato del \textit{provider};
+  \item La \textit{Web app} mostra l'informativa sulle categorie di dati inviati al \textit{provider};
+  \item L'Amministratore esegue il test di raggiungibilità e validità credenziali;
+  \item A esito positivo, salva e designa il \textit{provider} come predefinito o alternativo;
+  \end{enumerate}
+\item \textbf{Inclusioni ed estensioni:} esteso da \texttt{UC[11.1]}.
+\end{itemize}
+
+\subsubsection{\textbf{UC[11.1]} -- Gestire errore test \textit{provider IA}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} \textit{Sistema};
+\item \textbf{Attori secondari:} \textit{Provider IA};
+\item \textbf{Precondizioni:} esito negativo del test di raggiungibilità o autenticazione in \texttt{UC[11]};
+\item \textbf{Postcondizioni:} motivo dell'errore visualizzato e assegnazione bloccata finché il test non ha esito positivo;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Il \textit{Sistema} rileva timeout (\texttt{PAR-02}) o errore di autenticazione/rete;
+  \item La \textit{Web app} mostra il dettaglio dell'errore e impedisce l'assegnazione attiva del \textit{provider}.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[12]} -- Gestire le \textit{skill}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} Amministratore autenticato (\texttt{UC[9]});
+\item \textbf{Postcondizioni:} elenco delle \textit{skill} visualizzato con stato, versione, autore, permessi e registro esecuzioni;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore apre la sezione \textit{Skill} della \textit{Web app};
+  \item Consulta le \textit{skill} installate, il relativo stato, la validità della firma e gli ultimi 100 log di esecuzione;
+  \item Avvia una delle operazioni di dettaglio (\texttt{UC[22]}--\texttt{UC[25]}).
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[13]} -- Personalizzare l'\textit{Assistente}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} Amministratore autenticato (\texttt{UC[9]});
+\item \textbf{Postcondizioni:} preferenze di lingua, fuso orario, \textit{Parola di attivazione}, voce, luminosità e fascia «non disturbare» salvate;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore accede alle impostazioni di personalizzazione nella \textit{Web app};
+  \item Modifica i parametri desiderati e conferma il salvataggio;
+  \item Il \textit{Dispositivo} applica le nuove impostazioni entro $5\text{ s}$.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[14]} -- Gestire privacy e \textit{Cronologia}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} Amministratore autenticato (\texttt{UC[9]});
+\item \textbf{Postcondizioni:} interazioni consultate, esportate o eliminate entro $10\text{ s}$ e politica di conservazione aggiornata;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore apre la sezione Privacy;
+  \item Consulta o filtra la \textit{Cronologia} per testo o intervallo di date;
+  \item Cancella singole voci o l'intera \textit{Cronologia}, esporta i dati oppure modifica il periodo di conservazione.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[15]} -- Aggiornare il \textit{Firmware}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} Fonte degli aggiornamenti;
+\item \textbf{Precondizioni:} Amministratore autenticato (\texttt{UC[9]}); pacchetto disponibile dalla fonte o caricato manualmente;
+\item \textbf{Postcondizioni:} nuova versione del \textit{Firmware} installata e operativa in \texttt{ST-02} con configurazione e dati conservati;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item La \textit{Web app} segnala una nuova versione o l'Amministratore carica un file di aggiornamento;
+  \item L'Amministratore avvia l'aggiornamento;
+  \item Il \textit{Sistema} verifica firma e integrità del pacchetto (\texttt{UC[28]});
+  \item Il \textit{Dispositivo} entra in \texttt{ST-07}, installa il \textit{Firmware} e si riavvia in \texttt{ST-02};
+  \end{enumerate}
+\item \textbf{Inclusioni ed estensioni:} include \texttt{UC[9]} e \texttt{UC[28]}; esteso da \texttt{UC[15.1]}.
+\end{itemize}
+
+\subsubsection{\textbf{UC[15.1]} -- Ripristinare versione precedente del \textit{Firmware}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} \textit{Sistema};
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} firma del pacchetto non valida, interruzione di alimentazione durante l'aggiornamento oppure mancato raggiungimento di \texttt{ST-02} per 3 avvii consecutivi;
+\item \textbf{Postcondizioni:} \textit{Dispositivo} operativo con la versione precedente funzionante entro $5\text{ min}$;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Il \textit{Firmware} rileva il fallimento della verifica o dell'avvio della nuova immagine;
+  \item Ripristina automaticamente la partizione con la versione precedente;
+  \item Riporta il \textit{Dispositivo} in \texttt{ST-02} mantenendo intatti configurazione e dati.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[16]} -- Vedere stato e diagnostica}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} Amministratore autenticato (\texttt{UC[9]});
+\item \textbf{Postcondizioni:} parametri diagnostici visualizzati, test audio eseguiti o pacchetto diagnostico scaricato entro $60\text{ s}$;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore consulta la schermata di stato (aggiornata ogni $5\text{ s}$);
+  \item Avvia opzionalmente il test di microfoni e altoparlante o scarica il pacchetto di diagnostica privo di credenziali.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[17]} -- Esportare e importare backup}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} Amministratore autenticato (\texttt{UC[9]});
+\item \textbf{Postcondizioni:} file di configurazione esportato (con credenziali cifrate tramite passphrase di almeno 12 caratteri) oppure importato entro $60\text{ s}$;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore sceglie di esportare la configurazione definendo una passphrase di cifratura;
+  \item Oppure carica un file di backup esistente e inserisce la passphrase per ripristinare le impostazioni sul \textit{Dispositivo}.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[18]} -- Ripristinare le impostazioni di fabbrica}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{Dispositivo} alimentato;
+\item \textbf{Postcondizioni:} tutti i dati utente, credenziali, \textit{skill} di terze parti e registri cancellati in modo irreversibile; \textit{Dispositivo} riportato in \texttt{ST-01} entro $120\text{ s}$;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore aziona il controllo fisico dedicato per almeno $10\text{ s}$ oppure conferma l'operazione nella \textit{Web app} reinserendo la propria password;
+  \item Il \textit{Firmware} esegue la cancellazione sicura e riavvia il \textit{Dispositivo} in \texttt{ST-01}.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[19]} -- Gestire i profili utente}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} Amministratore autenticato (\texttt{UC[9]});
+\item \textbf{Postcondizioni:} fino a 6 profili con ruolo Utente creati, modificati o eliminati con eventuale consenso vocale esplicito;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore accede alla gestione profili;
+  \item Crea, modifica o elimina un profilo Utente e gestisce i relativi dati vocali.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[20]} -- Sviluppare e provare una \textit{skill}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Sviluppatore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} disponibilità della documentazione tecnica e del kit di sviluppo (SDK);
+\item \textbf{Postcondizioni:} pacchetto della \textit{skill} completo di \textit{Manifesto} e verificato nell'ambiente di prova;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Lo Sviluppatore implementa la logica della \textit{skill} e compila il \textit{Manifesto} secondo l'interfaccia versionata;
+  \item Esegue i test funzionali tramite l'ambiente di prova senza necessità del \textit{Dispositivo} fisico.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[21]} -- Firmare e distribuire una \textit{skill}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Sviluppatore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} pacchetto della \textit{skill} completato;
+\item \textbf{Postcondizioni:} pacchetto firmato digitalmente pronto per l'installazione;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Lo Sviluppatore genera l'archivio del pacchetto della \textit{skill};
+  \item Appone la firma digitale per garantirne integrità e autenticità.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[22]} -- Installare una \textit{skill}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} Amministratore autenticato (\texttt{UC[9]}); pacchetto della \textit{skill} disponibile;
+\item \textbf{Postcondizioni:} \textit{skill} installata senza riavvio del \textit{Dispositivo} con i soli \textit{Permessi} approvati;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore carica il pacchetto della \textit{skill} (o lo seleziona dal catalogo);
+  \item Il \textit{Sistema} verifica integrità e firma (\texttt{UC[28]});
+  \item La \textit{Web app} mostra metadati e \textit{Permessi} richiesti;
+  \item L'Amministratore approva i \textit{Permessi} (\texttt{UC[23]});
+  \item Il \textit{Sistema} completa l'installazione entro $30\text{ s}$ senza riavvio;
+  \end{enumerate}
+\item \textbf{Inclusioni ed estensioni:} include \texttt{UC[23]} e \texttt{UC[28]}; esteso da \texttt{UC[22.1]}.
+\end{itemize}
+
+\subsubsection{\textbf{UC[22.1]} -- Gestire pacchetto \textit{skill} non valido o non firmato}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} \textit{Sistema};
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} pacchetto corrotto oppure integro ma privo di firma riconosciuta durante \texttt{UC[22]};
+\item \textbf{Postcondizioni:} pacchetto corrotto rifiutato; pacchetto non firmato installato solo previa conferma esplicita del rischio;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Se l'integrità non è verificabile, il \textit{Sistema} rifiuta l'installazione;
+  \item Se il pacchetto è integro ma non firmato o di autore non riconosciuto, mostra un avviso di rischio e attende conferma esplicita.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[23]} -- Approvare i permessi di una \textit{skill}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{Manifesto} della \textit{skill} letto dal \textit{Sistema};
+\item \textbf{Postcondizioni:} \textit{Permessi} approvati registrati oppure installazione annullata in caso di rifiuto;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item La \textit{Web app} elenca ogni risorsa richiesta dalla \textit{skill};
+  \item L'Amministratore accetta o rifiuta esplicitamente i \textit{Permessi}.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[24]} -- Configurare e abilitare una \textit{skill}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{skill} installata con \textit{Permessi} approvati;
+\item \textbf{Postcondizioni:} parametri validati salvati e \textit{skill} abilitata;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item La \textit{Web app} genera il modulo dai parametri dichiarati nel \textit{Manifesto};
+  \item L'Amministratore compila i campi e abilita la \textit{skill} senza interrompere le altre \textit{skill} attive.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[25]} -- Aggiornare o rimuovere una \textit{skill}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Amministratore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} \textit{skill} già installata;
+\item \textbf{Postcondizioni:} \textit{skill} aggiornata (con nuova approvazione se i \textit{Permessi} aumentano) oppure rimossa completamente;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item L'Amministratore avvia l'aggiornamento o la rimozione della \textit{skill} dalla \textit{Web app};
+  \item In caso di aggiornamento, il \textit{Sistema} mantiene la configurazione precedente e richiede conferma solo se i \textit{Permessi} sono estesi.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[26]} -- Integrare un \textit{provider IA}}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Sviluppatore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} specifica dell'interfaccia di integrazione \textit{provider IA} disponibile;
+\item \textbf{Postcondizioni:} adattatore o \textit{provider} conforme collegabile al \textit{Sistema} senza modifiche al nucleo;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Lo Sviluppatore realizza un connettore conforme alle firme di ingresso/uscita per una o più \textit{Capacità IA};
+  \item Verifica l'interoperabilità con il \textit{Sistema}.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[27]} -- Rilasciare un aggiornamento}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Produttore;
+\item \textbf{Attori secondari:} Fonte degli aggiornamenti;
+\item \textbf{Precondizioni:} nuova versione del \textit{Firmware} verificata e priva di vulnerabilità critiche o alte;
+\item \textbf{Postcondizioni:} pacchetto firmato pubblicato sulla fonte degli aggiornamenti;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Il Produttore genera il pacchetto di aggiornamento del \textit{Firmware} con relativa SBOM;
+  \item Firma digitalmente il pacchetto e lo pubblica sulla fonte autenticata.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[28]} -- Verificare firma e integrità}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} \textit{Sistema};
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} ricezione di un pacchetto di aggiornamento \textit{Firmware} (\texttt{UC[15]}) o di una \textit{skill} (\texttt{UC[22]});
+\item \textbf{Postcondizioni:} esito della verifica crittografica restituito al processo chiamante;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Il \textit{Sistema} calcola l'impronta del pacchetto e ne verifica la firma digitale;
+  \item Autorizza o blocca la fase successiva in base all'esito.
+  \end{enumerate}
+\end{itemize}
+
+\subsubsection{\textbf{UC[29]} -- Analizzare la diagnostica}
+\begin{itemize}
+\tightlist
+\item \textbf{Attori primari:} Produttore;
+\item \textbf{Attori secondari:} nessuno;
+\item \textbf{Precondizioni:} pacchetto di diagnostica esportato dall'Amministratore (\texttt{UC[16]});
+\item \textbf{Postcondizioni:} anomalia diagnosticata nel rispetto della riservatezza delle credenziali e dei dati dell'Utente;
+\item \textbf{Scenario principale:}
+  \begin{enumerate}
+  \tightlist
+  \item Il Produttore esamina i registri di sistema e la configurazione contenuti nel pacchetto diagnostico (privo di credenziali e contenuti vocali).
+  \end{enumerate}
+\end{itemize}
+
+% ---------- 4. Requisiti funzionali di sistema ----------
+\section{Requisiti funzionali di sistema}
+I requisiti di questo capitolo descrivono il comportamento funzionale del \textit{Sistema} nel suo insieme, adottando la codifica \texttt{RF-[Numero]-[Priorità]} prevista dalle \textit{Norme di progetto} (0.1.0). Colonne: \textbf{ID} = identificativo univoco; \textbf{Area} = codice sottosistema; \textbf{Ver.} = metodo di verifica; \textbf{Fonti} = origine del requisito (Capitolato, Casi d'Uso, Verbali, Bisogni \texttt{BN}, Norme \texttt{NRM}).
+
+\subsection{Interazione vocale (\texttt{VOC})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RF-001-Obb} & \texttt{VOC-001} & Il \textit{Sistema} deve rilevare la \textit{Parola di attivazione} pronunciata a distanza \texttt{PAR-06} dal \textit{Dispositivo}, con rumore di fondo \texttt{PAR-07}, con un tasso di rilevamento $\ge 90\%$ su un insieme di prova di almeno 200 pronunce di almeno 5 parlanti diversi. & T & \texttt{UC[1]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-002-Obb} & \texttt{VOC-002} & Il \textit{Sistema} deve limitare le attivazioni involontarie a non più di 1 in una registrazione di prova di $10\text{ ore}$ contenente conversazioni e audio televisivo in italiano. & T & \texttt{UC[1]}, \texttt{BN-01}, \texttt{BN-05} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-003-Obb} & \texttt{VOC-003} & Il \textit{Sistema} deve segnalare il rilevamento della \textit{Parola di attivazione} con un segnale luminoso, e con un segnale sonoro se abilitato, entro $1\text{ s}$ dalla fine della parola pronunciata nel $95\%$ dei casi. & T & \texttt{UC[1]}, \texttt{BN-11} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-004-Obb} & \texttt{VOC-004} & Dopo l'attivazione il \textit{Sistema} deve acquisire la \textit{Richiesta} e considerarla conclusa dopo un silenzio continuo \texttt{PAR-04} o al raggiungimento della durata \texttt{PAR-05}; se non rileva parlato entro $8\text{ s}$ dall'attivazione deve tornare in \texttt{ST-02} senza elaborare alcuna \textit{Richiesta}. & T & \texttt{UC[2]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-005-Obb} & \texttt{VOC-005} & Il \textit{Sistema} deve elaborare la \textit{Richiesta} tramite i \textit{provider IA} configurati e riprodurre la risposta in forma vocale. & D & Capitolato, \texttt{UC[2]}, \texttt{BN-01}, \texttt{BN-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-006-Obb} & \texttt{VOC-007} & Il \textit{Sistema} deve consentire di interrompere la risposta in corso azionando il pulsante di azione; la riproduzione deve cessare entro $500\text{ ms}$ dal comando. & T & \texttt{UC[3]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-007-Des} & \texttt{VOC-008} & Il \textit{Sistema} deve consentire di interrompere la risposta in corso pronunciando la \textit{Parola di attivazione}; la riproduzione deve cessare entro $500\text{ ms}$ dalla fine della parola. & T & \texttt{UC[3]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-008-Des} & \texttt{VOC-009} & Il \textit{Sistema} deve consentire conversazioni a più turni: entro $8\text{ s}$ dalla fine di una risposta, una nuova \textit{Richiesta} può essere pronunciata senza ripetere la \textit{Parola di attivazione}, mantenendo il contesto dei 5 turni precedenti. & D & \texttt{UC[2]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-009-Obb} & \texttt{VOC-010} & Il \textit{Sistema} deve supportare l'interazione vocale in lingua italiana. & T & Capitolato, \texttt{UC[2]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-010-Des} & \texttt{VOC-011} & Il \textit{Sistema} deve supportare l'interazione vocale anche in lingua inglese, con lingua di interazione selezionabile dall'Amministratore. & D & \texttt{UC[2]}, \texttt{UC[13]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-011-Obb} & \texttt{VOC-012} & Il \textit{Sistema} deve concludere ogni \textit{Richiesta}, con la risposta o con un messaggio vocale di errore che indichi almeno se la causa è un \textit{provider} non raggiungibile, una \textit{Richiesta} non compresa o una \textit{skill} in errore, entro il TMR (\texttt{PAR-01}) dalla fine della \textit{Richiesta}. & T & \texttt{UC[2.1]}, \texttt{UC[2.2]}, \texttt{BN-01}, \texttt{BN-11} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-012-Obb} & \texttt{VOC-013} & Il \textit{Sistema} deve consentire di regolare il volume su almeno 10 livelli distinti tramite comando vocale, pulsanti e \textit{Web app}. & D & \texttt{UC[6]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Gestione dei \textit{provider IA} (\texttt{AIP})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RF-013-Obb} & \texttt{AIP-001} & Il \textit{Sistema} deve consentire all'Amministratore di assegnare un \textit{provider IA} a ciascuna delle tre \textit{Capacità IA} in modo indipendente dalle altre. & D & Capitolato, \texttt{UC[11]}, \texttt{BN-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-014-Obb} & \texttt{AIP-002} & Il \textit{Sistema} deve consentire di cambiare il \textit{provider} di una \textit{Capacità IA} senza sostituire o riprogrammare il \textit{Dispositivo} e senza perdere le altre impostazioni; la modifica deve avere effetto dalla \textit{Richiesta} successiva al salvataggio. & T & Capitolato, \texttt{UC[11]}, \texttt{BN-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-015-Obb} & \texttt{AIP-003} & Il \textit{Sistema} deve supportare \textit{provider IA} raggiungibili tramite Internet. & T & \texttt{UC[11]}, \texttt{BN-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-016-Des} & \texttt{AIP-004} & Il \textit{Sistema} deve supportare \textit{provider IA} raggiungibili solo tramite la rete locale dell'utente. & T & \texttt{UC[11]}, \texttt{BN-02}, \texttt{BN-05}, \texttt{BN-15} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-017-Obb} & \texttt{AIP-005} & Il \textit{Sistema} deve definire un'interfaccia di integrazione dei \textit{provider IA} documentata e indipendente dal fornitore, in modo che l'aggiunta di un nuovo \textit{provider} conforme non richieda alcuna modifica al nucleo del \textit{Sistema}, verificato dall'integrazione di un \textit{provider} di prova non considerato in fase di progetto. & T & Capitolato, \texttt{UC[26]}, \texttt{BN-02}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-018-Des} & \texttt{AIP-006} & Il \textit{Sistema} deve consentire di registrare più \textit{provider} per la stessa \textit{Capacità IA} e di designarne uno come predefinito. & D & \texttt{UC[11]}, \texttt{BN-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-019-Des} & \texttt{AIP-007} & Il \textit{Sistema} deve consentire di designare, per ciascuna \textit{Capacità IA}, un \textit{provider} alternativo che viene usato automaticamente quando quello predefinito non risponde entro \texttt{PAR-02} o restituisce un errore. & T & \texttt{UC[2.1]}, \texttt{UC[11]}, \texttt{BN-02}, \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-020-Obb} & \texttt{AIP-008} & Il \textit{Sistema} deve consentire all'Amministratore di verificare la raggiungibilità di un \textit{provider} e la validità delle credenziali, riportando entro $15\text{ s}$ l'esito positivo o negativo e, se negativo, il motivo. & T & \texttt{UC[11]}, \texttt{UC[11.1]}, \texttt{BN-02}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-021-Des} & \texttt{AIP-009} & Il \textit{Sistema} deve consentire di definire, per la \textit{Capacità IA} di elaborazione del linguaggio, un'istruzione di sistema (testo libero fino a 4000 caratteri) che stabilisce comportamento e tono dell'\textit{Assistente}. & D & \texttt{UC[11]}, \texttt{BN-02}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-022-Obb} & \texttt{AIP-010} & Il \textit{Sistema} deve indicare all'Amministratore, prima del salvataggio di un \textit{provider}, le categorie di dati (audio, testo, identificativi) che saranno inviate a quel \textit{provider}. & I & \texttt{UC[11]}, \texttt{BN-05} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{\textit{Skill} (\texttt{SKL})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RF-023-Obb} & \texttt{SKL-001} & Il \textit{Sistema} deve consentire di estendere le funzioni dell'\textit{Assistente} tramite \textit{skill}, ossia moduli indipendenti installabili e rimovibili dall'Amministratore. & D & Capitolato, \texttt{UC[12]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-024-Obb} & \texttt{SKL-002} & Ogni \textit{skill} deve essere descritta da un \textit{Manifesto} contenente almeno: nome, versione, autore, descrizione, frasi o intenti di attivazione, permessi richiesti, parametri di configurazione. & I & \texttt{UC[20]}, \texttt{BN-03}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-025-Obb} & \texttt{SKL-003} & Il \textit{Sistema} deve consentire di installare, abilitare, disabilitare, configurare e rimuovere una \textit{skill} senza riavviare il \textit{Dispositivo} e senza interrompere le altre \textit{skill}. & T & \texttt{UC[22]}, \texttt{UC[24]}, \texttt{UC[25]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-026-Obb} & \texttt{SKL-004} & Il \textit{Sistema} deve consentire di installare una \textit{skill} da un file di pacchetto caricato dall'Amministratore. & D & \texttt{UC[22]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-027-Opz} & \texttt{SKL-005} & Il \textit{Sistema} deve consentire di installare \textit{skill} da un catalogo consultabile dalla \textit{Web app}. & D & \texttt{UC[22]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-028-Obb} & \texttt{SKL-006} & Il \textit{Sistema} deve invocare una \textit{skill} quando l'Utente ne pronuncia il nome seguito da una richiesta. & D & \texttt{UC[7]}, \texttt{BN-01}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-029-Des} & \texttt{SKL-007} & Il \textit{Sistema} deve invocare una \textit{skill} selezionandola in base all'intento riconosciuto, senza che l'Utente ne pronunci il nome; se più \textit{skill} sono candidate, deve chiedere all'Utente quale usare. & D & \texttt{UC[7]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-030-Obb} & \texttt{SKL-008} & Il \textit{Sistema} deve richiedere all'Amministratore l'approvazione esplicita dei \textit{Permessi} dichiarati da una \textit{skill} prima della sua abilitazione; una \textit{skill} non deve poter accedere a risorse per cui non ha un \textit{Permesso} approvato. & T & \texttt{UC[23]}, \texttt{BN-03}, \texttt{BN-05}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-031-Obb} & \texttt{SKL-009} & Il \textit{Sistema} deve interrompere una \textit{skill} che termina in modo anomalo o supera il tempo \texttt{PAR-03} o i limiti di risorse di \texttt{RF-056-Obb}, senza compromettere le altre \textit{skill} e il resto del \textit{Sistema}, e deve informare l'Utente con un messaggio vocale. & T & \texttt{UC[7]}, \texttt{BN-03}, \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-032-Des} & \texttt{SKL-010} & Il \textit{Sistema} deve consentire di mantenere installate almeno 20 \textit{skill}, di cui almeno 5 abilitate contemporaneamente. & T & \texttt{UC[12]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-033-Obb} & \texttt{SKL-011} & Il \textit{Sistema} deve supportare \textit{skill} che si avvalgono di servizi accessibili tramite Internet. & T & \texttt{UC[7]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-034-Des} & \texttt{SKL-012} & Il \textit{Sistema} deve supportare \textit{skill} la cui logica è eseguita sul \textit{Dispositivo} e che operano senza connettività a Internet. & T & \texttt{UC[7]}, \texttt{BN-03}, \texttt{BN-15} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-035-Des} & \texttt{SKL-013} & Il \textit{Sistema} deve consentire a una \textit{skill} di chiedere all'Utente, tramite dialogo, le informazioni mancanti, fino a 3 domande consecutive per \textit{Richiesta}. & D & \texttt{UC[7]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-036-Des} & \texttt{SKL-014} & Il \textit{Sistema} deve consentire a una \textit{skill} di controllare dispositivi domestici raggiungibili tramite la rete locale o servizi esterni, nel rispetto dei \textit{Permessi} approvati. & D & \texttt{UC[7.1]}, \texttt{BN-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-037-Obb} & \texttt{SKL-015} & Il \textit{Sistema} deve verificare, prima dell'installazione, integrità e identità dell'autore di una \textit{skill} tramite firma digitale; deve rifiutare un pacchetto la cui integrità non è verificabile e, per un pacchetto integro ma non firmato o con firma di autore non riconosciuto, deve mostrare un avviso di rischio e procedere solo dopo conferma esplicita dell'Amministratore. & T & \texttt{UC[21]}, \texttt{UC[22]}, \texttt{UC[22.1]}, \texttt{UC[28]}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-038-Des} & \texttt{SKL-017} & Il \textit{Sistema} deve consentire di aggiornare una \textit{skill} installata a una nuova versione mantenendone la configurazione, e deve richiedere una nuova approvazione se i \textit{Permessi} richiesti aumentano. & T & \texttt{UC[25]}, \texttt{BN-03}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Funzioni integrate (\texttt{FNZ})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RF-039-Obb} & \texttt{FNZ-001} & Il \textit{Sistema} deve consentire di impostare, consultare e annullare a voce almeno 5 timer contemporanei; allo scadere deve emettere un segnale acustico fino all'interruzione da parte dell'Utente (comando vocale o pulsante) o per un massimo di 5 minuti. & T & \texttt{UC[5]}, \texttt{BN-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-040-Des} & \texttt{FNZ-002} & Il \textit{Sistema} deve consentire di impostare a voce almeno 10 sveglie, singole o ricorrenti (giornaliere o settimanali). & T & \texttt{UC[5]}, \texttt{BN-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-041-Opz} & \texttt{FNZ-003} & Il \textit{Sistema} deve consentire di impostare a voce promemoria associati a un orario e di comunicarli vocalmente all'orario previsto. & D & \texttt{UC[5]}, \texttt{BN-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-042-Des} & \texttt{FNZ-004} & Timer, sveglie e promemoria devono restare memorizzati dopo un riavvio del \textit{Dispositivo} e scattare con uno scarto $\le 2\text{ s}$ rispetto all'orario previsto. & T & \texttt{UC[5]}, \texttt{BN-08}, \texttt{BN-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-043-Obb} & \texttt{FNZ-005} & Il \textit{Sistema} deve rispondere a richieste di data e ora correnti secondo il fuso orario configurato. & D & \texttt{UC[2]}, \texttt{BN-09}, \texttt{BN-15} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-044-Des} & \texttt{FNZ-006} & In assenza di connettività a Internet il \textit{Sistema} deve continuare a fornire timer, sveglie, data e ora, regolazione del volume, esclusione del microfono e le funzioni dei \textit{provider IA} e delle \textit{skill} raggiungibili sulla rete locale o eseguite sul \textit{Dispositivo}. & T & \texttt{UC[4]}, \texttt{UC[5]}, \texttt{UC[6]}, \texttt{BN-15} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-045-Opz} & \texttt{FNZ-007} & Il \textit{Sistema} deve includere una \textit{skill} di esempio per il comando di un dispositivo domestico, dimostrabile con un dispositivo di prova. & D & \texttt{UC[7.1]}, \texttt{BN-09}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Utenti e personalizzazione (\texttt{USR})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RF-046-Obb} & \texttt{USR-001} & Il \textit{Sistema} deve riservare l'accesso alla configurazione e alla \textit{Cronologia} agli account con ruolo Amministratore. & T & \texttt{UC[9]}, \texttt{BN-04}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-047-Opz} & \texttt{USR-002} & Il \textit{Sistema} deve consentire di creare fino a 6 profili utente con ruolo Utente, che possono consultare lo stato del \textit{Sistema} e la propria \textit{Cronologia} senza modificare la configurazione. & T & \texttt{UC[19]}, \texttt{BN-14} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-048-Opz} & \texttt{USR-003} & Il \textit{Sistema} deve attribuire le \textit{Richieste} al profilo di chi parla con una corretta attribuzione $\ge 85\%$ su 3 profili, in un insieme di prova di almeno 100 \textit{Richieste}. & T & \texttt{UC[19]}, \texttt{BN-14} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-049-Des} & \texttt{USR-004} & Il \textit{Sistema} deve consentire di scegliere la \textit{Parola di attivazione} tra almeno 3 parole predefinite. & D & \texttt{UC[13]}, \texttt{BN-01}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-050-Des} & \texttt{USR-005} & Il \textit{Sistema} deve consentire di scegliere la voce di risposta tra quelle messe a disposizione dal \textit{provider} di sintesi vocale configurato. & D & \texttt{UC[13]}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-051-Opz} & \texttt{USR-006} & Il \textit{Sistema} deve consentire di definire una fascia oraria giornaliera «non disturbare» durante la quale il \textit{Dispositivo} non emette segnali sonori di sistema (restano attivi timer e sveglie) e usa la luminosità minima dell'indicatore luminoso. & D & \texttt{UC[13]}, \texttt{BN-17} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Funzioni firmware (\texttt{FW})}
+Il \textit{Firmware} realizza le funzioni del \textit{Sistema} che risiedono sul \textit{Dispositivo}. I requisiti non indicano linguaggi, sistemi operativi o architetture.
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RF-052-Obb} & \texttt{FW-002} & Il \textit{Firmware} deve gestire gli stati \texttt{ST-01...ST-09} e le transizioni definite al 2.5. & T & \texttt{UC[4]}, \texttt{BN-11} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-053-Obb} & \texttt{FW-003} & Il \textit{Firmware} deve segnalare ciascuno degli stati \texttt{ST-01...ST-09} con una condizione distinta dell'indicatore luminoso (\texttt{RV-010-Obb}) e deve segnalare con un segnale sonoro l'ingresso in \texttt{ST-09} e il completamento di un aggiornamento. & D & \texttt{BN-11} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-054-Obb} & \texttt{FW-005} & Il \textit{Firmware} deve eseguire sul \textit{Dispositivo} il rilevamento della \textit{Parola di attivazione}, senza ricorrere a servizi esterni. & T & \texttt{UC[1]}, \texttt{BN-05}, \texttt{BN-15} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-055-Des} & \texttt{FW-006} & Il \textit{Firmware} deve attenuare l'eco della riproduzione del \textit{Dispositivo} durante l'acquisizione, in modo da soddisfare \texttt{RP-003-Des}. & T & \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-056-Des} & \texttt{FW-007} & Il \textit{Firmware} deve gestire la riproduzione simultanea di allarmi (timer e sveglie), segnali di sistema e risposte, con priorità decrescente in questo ordine; l'avvio di un allarme non deve essere ritardato di più di $1\text{ s}$. & T & \texttt{BN-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-057-Des} & \texttt{FW-008} & Il \textit{Firmware} deve avviare la riproduzione di una risposta prima che sia interamente disponibile, quando il \textit{provider} la fornisce in modo progressivo. & D & \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-058-Obb} & \texttt{FW-009} & Il \textit{Firmware} deve conservare dopo un riavvio il livello di volume impostato. & T & \texttt{UC[6]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-059-Obb} & \texttt{FW-010} & Il \textit{Firmware} deve invocare i \textit{provider IA} assegnati a ciascuna \textit{Capacità IA}, attendendo la risposta di ciascuna invocazione per non più di \texttt{PAR-02}. & T & \texttt{UC[2]}, \texttt{BN-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-060-Obb} & \texttt{FW-011} & Il \textit{Firmware} deve interrompere l'elaborazione di una \textit{Richiesta} al raggiungimento del TMR (\texttt{PAR-01}), passando a \texttt{ST-09}, e deve ritentare al più 1 volta l'invocazione di un \textit{provider} che fallisce con un errore di connessione. & T & \texttt{UC[2.1]}, \texttt{UC[2.2]}, \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-061-Obb} & \texttt{FW-012} & Il \textit{Firmware} deve eseguire ciascuna \textit{skill} nel rispetto dei \textit{Permessi} approvati, entro il tempo \texttt{PAR-03} e con limiti di risorse per \textit{skill} pari al $25\%$ al massimo della capacità di calcolo e a $128\text{ MB}$ di memoria. & T & \texttt{UC[7]}, \texttt{BN-03}, \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-062-Obb} & \texttt{FW-013} & Il \textit{Firmware} deve conservare in memoria non volatile configurazione, credenziali, \textit{skill} installate, timer, sveglie e promemoria. & T & \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-063-Obb} & \texttt{FW-014} & Il \textit{Firmware} deve conservare le credenziali (rete, \textit{provider IA}, account) in forma cifrata e non deve mai riprodurle in chiaro nella \textit{Web app}, nei registri o nei pacchetti di diagnostica. & I, T & \texttt{UC[11]}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-064-Obb} & \texttt{FW-015} & In \texttt{ST-01} il \textit{Firmware} deve rendere disponibile un canale di configurazione locale, accessibile solo con il codice di associazione riportato sul \textit{Dispositivo} (\texttt{RV-020-Obb}), che si chiude al completamento della configurazione o dopo l'inattività \texttt{PAR-09}. & T & \texttt{UC[8]}, \texttt{BN-04}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-065-Obb} & \texttt{FW-016} & Il \textit{Firmware} deve connettere automaticamente il \textit{Dispositivo} alla rete configurata all'avvio e ripristinare la connessione entro $30\text{ s}$ dal ritorno della rete dopo un'interruzione. & T & \texttt{UC[10]}, \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-066-Obb} & \texttt{FW-017} & Il \textit{Firmware} deve rendere il \textit{Dispositivo} individuabile dalla \textit{Web app} sulla rete locale con un nome leggibile e univoco, senza che l'Amministratore debba conoscerne l'indirizzo di rete. & D & \texttt{UC[10]}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-067-Obb} & \texttt{FW-018} & Il \textit{Firmware} deve sincronizzare data e ora con una fonte esterna almeno ogni $24\text{ h}$, mantenendo uno scarto $\le 2\text{ s}$ e applicando il fuso orario configurato. & T & \texttt{BN-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-068-Obb} & \texttt{FW-019} & Il \textit{Firmware} deve rendere disponibili alla \textit{Web app}, con aggiornamento ogni $5\text{ s}$: versione, tempo di attività, qualità del segnale di rete, esito dell'ultima invocazione di ciascun \textit{provider}, \textit{skill} abilitate con il relativo stato, utilizzo di calcolo, memoria e archiviazione. & T & \texttt{UC[16]}, \texttt{UC[29]}, \texttt{BN-04}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-069-Obb} & \texttt{FW-020} & Il \textit{Firmware} deve poter ricevere e installare un aggiornamento del \textit{Firmware} su comando dell'Amministratore. & D & \texttt{UC[15]}, \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-070-Obb} & \texttt{FW-021} & Il \textit{Firmware} deve verificare, prima dell'installazione, integrità e autenticità di un pacchetto di aggiornamento e rifiutare i pacchetti non verificabili senza modificare il \textit{Firmware} in uso. & T & \texttt{UC[15]}, \texttt{UC[27]}, \texttt{UC[28]}, \texttt{BN-06}, \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-071-Obb} & \texttt{FW-022} & Un'interruzione di alimentazione o di rete durante un aggiornamento non deve rendere il \textit{Dispositivo} inutilizzabile: entro $5\text{ min}$ dal riavvio il \textit{Dispositivo} deve eseguire una versione funzionante, in 50 prove con interruzioni a istanti diversi. & T & \texttt{UC[15.1]}, \texttt{BN-08}, \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-072-Obb} & \texttt{FW-023} & Il \textit{Firmware} deve ripristinare automaticamente la versione precedente quando la nuova versione non raggiunge \texttt{ST-02} in 3 avvii consecutivi. & T & \texttt{UC[15.1]}, \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-073-Obb} & \texttt{FW-024} & Il \textit{Firmware} deve conservare durante un aggiornamento configurazione, credenziali, \textit{skill}, \textit{Cronologia} e promemoria. & T & \texttt{UC[15]}, \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-074-Des} & \texttt{FW-025} & Il \textit{Firmware} deve eseguire l'aggiornamento automatico, se abilitato dall'Amministratore, in una fascia oraria da lui definita. & D & \texttt{UC[15]}, \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-075-Obb} & \texttt{FW-026} & Il \textit{Firmware} deve riavviare un proprio componente software che non risponde da più di $10\text{ s}$ e il \textit{Dispositivo} se l'intero \textit{Sistema} non risponde da più di $60\text{ s}$. & T & \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-076-Obb} & \texttt{FW-027} & Il \textit{Firmware} deve registrare eventi ed errori con livello di gravità e data e ora, entro un massimo di $50\text{ MB}$ con sostituzione dei più vecchi, senza registrare per impostazione predefinita il contenuto audio né il testo delle \textit{Richieste}. & I, T & \texttt{UC[29]}, \texttt{BN-05}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-077-Obb} & \texttt{FW-028} & Il \textit{Firmware} deve eseguire il \textit{Ripristino di fabbrica}, avviato dal controllo fisico (\texttt{RV-007-Obb}) o dalla \textit{Web app}, cancellando configurazione, credenziali, \textit{Cronologia}, \textit{skill} di terze parti e registri in modo da non consentirne il recupero con strumenti standard, e riportando il \textit{Dispositivo} a \texttt{ST-01} entro $120\text{ s}$. & T & \texttt{UC[18]}, \texttt{BN-05}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-078-Des} & \texttt{FW-029} & Il \textit{Firmware} deve rilevare la perdita di connettività a Internet entro $30\text{ s}$ passando a \texttt{ST-08}, e tornare a \texttt{ST-02} entro $30\text{ s}$ dal suo ripristino. & T & \texttt{BN-15} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Software applicativo (\texttt{WEB})}
+Questo paragrafo specifica le funzionalità che la \textit{Web app} deve rendere disponibili all'Amministratore.
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RF-079-Obb} & \texttt{WEB-001} & La \textit{Web app} deve essere accessibile da un browser di un dispositivo connesso alla stessa rete locale del \textit{Dispositivo}, senza installazione di software aggiuntivo e senza richiedere un account presso servizi del produttore. & D & Capitolato, \texttt{BN-04}, \texttt{BN-07}, \texttt{CON-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-080-Obb} & \texttt{WEB-003} & La \textit{Web app} deve richiedere l'autenticazione per ogni funzione, a eccezione della procedura di configurazione iniziale (\texttt{UC[8]}). & T & \texttt{UC[9]}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-081-Obb} & \texttt{WEB-004} & Al primo accesso la \textit{Web app} deve far creare all'Amministratore un account con password di almeno 12 caratteri. & T & \texttt{UC[8]}, \texttt{BN-04}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-082-Obb} & \texttt{WEB-005} & La \textit{Web app} deve bloccare l'accesso per la durata e dopo il numero di tentativi falliti consecutivi di \texttt{PAR-10} e terminare la sessione dopo l'inattività \texttt{PAR-09}. & T & \texttt{UC[9]}, \texttt{UC[9.1]}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-083-Obb} & \texttt{WEB-006} & Il \textit{Sistema} deve consentire di recuperare l'accesso come Amministratore in caso di password dimenticata esclusivamente tramite un'azione fisica sul \textit{Dispositivo} che non cancelli la configurazione né i dati. & D & \texttt{UC[9]}, \texttt{BN-04}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-084-Obb} & \texttt{WEB-007} & La \textit{Web app} deve guidare l'Amministratore, con una procedura a passi, nella configurazione iniziale: account, rete, almeno un \textit{provider} per ciascuna \textit{Capacità IA}, lingua, fuso orario e prova vocale. & D & \texttt{UC[8]}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-085-Obb} & \texttt{WEB-009} & La \textit{Web app} deve mostrare in una schermata iniziale: stato del \textit{Dispositivo} (in linea o fuori linea e stato corrente), versione del \textit{Firmware}, \textit{provider} assegnati per ciascuna \textit{Capacità IA}, \textit{skill} abilitate e data dell'ultimo aggiornamento, con dati aggiornati entro $5\text{ s}$. & D & \texttt{UC[16]}, \texttt{BN-04}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-086-Obb} & \texttt{WEB-010} & La \textit{Web app} deve mostrare i dati diagnostici di \texttt{RF-068-Obb}. & D & \texttt{UC[16]}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-087-Des} & \texttt{WEB-011} & La \textit{Web app} deve consentire di scaricare un pacchetto di diagnostica (registri e configurazione, senza credenziali) generato entro $60\text{ s}$. & T & \texttt{UC[16]}, \texttt{UC[29]}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-088-Des} & \texttt{WEB-012} & La \textit{Web app} deve consentire di avviare sul \textit{Dispositivo} un test di riproduzione audio e un test di acquisizione dei microfoni con indicatore di livello. & D & \texttt{UC[16]}, \texttt{BN-04}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-089-Obb} & \texttt{WEB-013} & La \textit{Web app} deve consentire di elencare le reti disponibili, sceglierne una, inserirne le credenziali e verificare la connessione, mostrando l'esito. & D & \texttt{UC[10]}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-090-Obb} & \texttt{WEB-014} & La \textit{Web app} deve rendere eseguibili da interfaccia grafica le operazioni sui \textit{provider IA} di \texttt{RF-013-Obb}, \texttt{RF-014-Obb}, \texttt{RF-018-Des}, \texttt{RF-019-Des}, \texttt{RF-020-Obb} e \texttt{RF-021-Des}, tramite un modulo guidato per i parametri richiesti. & D & \texttt{UC[11]}, \texttt{BN-02}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-091-Obb} & \texttt{WEB-015} & La \textit{Web app} deve consentire di sostituire una credenziale salvata senza mai mostrarne il valore. & T & \texttt{UC[11]}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-092-Obb} & \texttt{WEB-016} & La \textit{Web app} deve rendere eseguibili da interfaccia grafica le operazioni sulle \textit{skill} di \texttt{RF-025-Obb} e \texttt{RF-026-Obb} e, ove il \textit{Sistema} le preveda, di \texttt{RF-027-Opz} e \texttt{RF-038-Des}; deve mostrare per ciascuna \textit{skill} nome, versione, autore, descrizione, \textit{Permessi}, stato, validità della firma e ultimo errore, e raccogliere l'approvazione dei \textit{Permessi} di \texttt{RF-030-Obb}. & D & \texttt{UC[12]}, \texttt{BN-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-093-Des} & \texttt{WEB-017} & La \textit{Web app} deve generare automaticamente, per ogni \textit{skill} con parametri di configurazione dichiarati nel \textit{Manifesto}, il modulo di configurazione, con validazione dei valori inseriti. & T & \texttt{UC[24]}, \texttt{BN-03}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-094-Des} & \texttt{WEB-018} & La \textit{Web app} deve mostrare per ciascuna \textit{skill} il registro delle ultime 100 esecuzioni (data e ora, esito, durata). & D & \texttt{UC[12]}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-095-Obb} & \texttt{WEB-019} & La \textit{Web app} deve consentire di impostare lingua di interazione, fuso orario, volume predefinito e abilitazione dei segnali sonori. & D & \texttt{UC[13]}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-096-Des} & \texttt{WEB-020} & La \textit{Web app} deve consentire di impostare la \textit{Parola di attivazione} (\texttt{RF-049-Des}), la voce di risposta (\texttt{RF-050-Des}), la luminosità dell'indicatore luminoso su almeno 3 livelli e, ove prevista, la fascia «non disturbare» (\texttt{RF-051-Opz}). & D & \texttt{UC[13]}, \texttt{BN-04}, \texttt{BN-17} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-097-Obb} & \texttt{WEB-021} & La \textit{Web app} deve mostrare la \textit{Cronologia} con data e ora, testo della \textit{Richiesta}, testo della risposta, \textit{skill} e \textit{provider} coinvolti. & D & \texttt{UC[14]}, \texttt{BN-05} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-098-Des} & \texttt{WEB-022} & La \textit{Web app} deve consentire di cercare nella \textit{Cronologia} per testo e per intervallo di date. & D & \texttt{UC[14]}, \texttt{BN-05} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-099-Obb} & \texttt{WEB-023} & La \textit{Web app} deve consentire di cancellare singole interazioni o l'intera \textit{Cronologia}; la cancellazione deve essere effettiva sul \textit{Dispositivo} entro $10\text{ s}$. & T & \texttt{UC[14]}, \texttt{BN-05} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-100-Obb} & \texttt{WEB-024} & La \textit{Web app} deve consentire di impostare il periodo di conservazione della \textit{Cronologia} tra: non conservare, 1, 7, 30 e 90 giorni, con valore predefinito \texttt{PAR-11}; allo scadere i dati devono essere eliminati entro $24\text{ h}$. & T & \texttt{UC[14]}, \texttt{BN-05}, \texttt{NRM-003} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-101-Des} & \texttt{WEB-025} & La \textit{Web app} deve consentire di esportare la \textit{Cronologia} e la configurazione personale in un formato leggibile da persone e da programmi. & D & \texttt{UC[14]}, \texttt{BN-05}, \texttt{NRM-003} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-102-Obb} & \texttt{WEB-026} & La \textit{Web app} deve mostrare la versione corrente del \textit{Firmware}, segnalare la disponibilità di una versione più recente con verifica almeno ogni $24\text{ h}$, avviare l'aggiornamento (\texttt{RF-069-Obb}) mostrandone avanzamento in percentuale ed esito, e conservare lo storico delle ultime 10 operazioni di aggiornamento. & D & \texttt{UC[15]}, \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-103-Des} & \texttt{WEB-027} & La \textit{Web app} deve consentire di abilitare e configurare l'aggiornamento automatico di \texttt{RF-074-Des}. & D & \texttt{UC[15]}, \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-104-Des} & \texttt{WEB-028} & La \textit{Web app} deve consentire di esportare la configurazione in un file, con le credenziali incluse solo se protette da una passphrase di almeno 12 caratteri, e di importarla su un \textit{Dispositivo} ripristinando la configurazione in non più di $60\text{ s}$. & T & \texttt{UC[17]}, \texttt{BN-04}, \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-105-Obb} & \texttt{WEB-029} & La \textit{Web app} deve consentire di eseguire il \textit{Ripristino di fabbrica} (\texttt{RF-077-Obb}) previa conferma con reinserimento della password dell'Amministratore. & D & \texttt{UC[18]}, \texttt{BN-05}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-106-Des} & \texttt{WEB-030} & La \textit{Web app} deve mostrare un registro di audit delle azioni amministrative (accessi, modifiche alla configurazione, installazione e rimozione di \textit{skill}, aggiornamenti) con data, ora e account, conservato per almeno 90 giorni. & T & \texttt{BN-06}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-107-Opz} & \texttt{WEB-031} & La \textit{Web app} deve consentire di creare, modificare ed eliminare i profili utente di \texttt{RF-047-Opz}. & D & \texttt{UC[19]}, \texttt{BN-14} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-108-Obb} & \texttt{WEB-032} & La \textit{Web app} deve essere disponibile in lingua italiana. & I & \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RF-109-Des} & \texttt{WEB-033} & La \textit{Web app} deve essere disponibile anche in lingua inglese, con lingua selezionabile dall'utente. & I & \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+% ---------- 5. Requisiti di qualità ----------
+\section{Requisiti di qualità}
+I requisiti di questo capitolo coprono affidabilità, sicurezza, privacy, usabilità, accessibilità e manutenibilità dell'intero \textit{Sistema} (\texttt{RQ-[Numero]-[Priorità]}).
+
+\subsection{Affidabilità (\texttt{AFF})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RQ-001-Obb} & \texttt{AFF-001} & Il \textit{Sistema} deve funzionare per $72\text{ ore}$ consecutive, con 1 \textit{Richiesta} ogni 5 minuti, senza arresti anomali e continuando a soddisfare \texttt{RF-001-Obb}. & T & \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-002-Obb} & \texttt{AFF-002} & Dopo 100 interruzioni improvvise dell'alimentazione, a istanti casuali, il \textit{Dispositivo} deve raggiungere \texttt{ST-02} con configurazione integra in 100 casi su 100. & T & \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-003-Des} & \texttt{AFF-003} & Il \textit{Dispositivo} deve avere una vita utile di progetto $> 3\text{ anni}$ di funzionamento continuo, dimostrata con un'analisi di affidabilità dei componenti. & A & \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-004-Des} & \texttt{HW-014} & La memoria non volatile deve sopportare le scritture del carico tipico (registri, \textit{Cronologia}, configurazione) per almeno 3 anni di funzionamento continuo, con un'usura stimata $< 50\%$ della vita nominale. & A & \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Sicurezza (\texttt{SIC})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RQ-005-Obb} & \texttt{SIC-001} & Tutte le comunicazioni tra \textit{Web app} e \textit{Dispositivo}, e tra \textit{Dispositivo} e \textit{provider} o servizi esterni, devono essere cifrate e autenticare il destinatario. & T & \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-006-Obb} & \texttt{SIC-002} & Il \textit{Dispositivo} deve esporre sulla rete solo i servizi elencati nella documentazione, verificati con una scansione dei servizi in ascolto. & T & \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-007-Obb} & \texttt{SIC-003} & Il \textit{Sistema} non deve prevedere credenziali predefinite né credenziali comuni a più \textit{Dispositivi}. & I, T & \texttt{BN-06}, \texttt{NRM-002} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-008-Des} & \texttt{SIC-004} & Il \textit{Dispositivo} deve eseguire solo \textit{Firmware} con firma valida del produttore. & T & \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-009-Obb} & \texttt{SIC-005} & Prima di ogni rilascio il \textit{Sistema} deve essere sottoposto a test di sicurezza (test di penetrazione su \textit{Dispositivo} e \textit{Web app} e verifica delle classi di vulnerabilità web della OWASP Top 10 in vigore) senza vulnerabilità di gravità alta o critica ancora aperte. & T & \texttt{BN-06}, \texttt{NRM-002} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-010-Obb} & \texttt{SIC-006} & Una \textit{skill} non deve poter accedere ai dati, alle credenziali o ai file di un'altra \textit{skill} né alle credenziali di sistema. & T & \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-011-Des} & \texttt{SIC-007} & Il produttore deve rendere disponibile una correzione per ogni vulnerabilità di gravità critica entro 30 giorni dalla sua conferma e mettere a disposizione un canale pubblico di segnalazione delle vulnerabilità. & I & \texttt{BN-06}, \texttt{NRM-002} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Privacy (\texttt{PRV})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RQ-012-Obb} & \texttt{PRV-001} & Il \textit{Sistema} non deve trasmettere audio all'esterno del \textit{Dispositivo} prima del rilevamento della \textit{Parola di attivazione} o dell'azionamento del pulsante di azione, né quando il microfono è escluso. & T & Capitolato, \texttt{UC[4]}, \texttt{BN-05} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-013-Obb} & \texttt{PRV-002} & Il \textit{Sistema} non deve conservare l'audio delle \textit{Richieste} oltre il completamento dell'elaborazione, e comunque per non più di $60\text{ s}$. & T, I & \texttt{UC[2]}, \texttt{UC[14]}, \texttt{BN-05} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-014-Opz} & \texttt{PRV-003} & Il \textit{Sistema} deve consentire di abilitare, con consenso esplicito dell'Amministratore e in modo revocabile, la conservazione dell'audio delle \textit{Richieste}. & D & \texttt{UC[14]}, \texttt{BN-05} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-015-Obb} & \texttt{PRV-004} & Il \textit{Sistema} non deve inviare al produttore o a terzi non configurati dall'utente dati di utilizzo, diagnostici o identificativi, salvo consenso esplicito (opt-in) revocabile in ogni momento. & T & \texttt{UC[14]}, \texttt{BN-05}, \texttt{NRM-003} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-016-Obb} & \texttt{PRV-005} & Il produttore deve fornire con il prodotto un'informativa che descriva categorie di dati trattati, finalità, luoghi e tempi di conservazione e destinatari, inclusi i \textit{provider} configurati. & I & \texttt{BN-05}, \texttt{NRM-003} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-017-Obb} & \texttt{PRV-006} & Il \textit{Sistema} deve inviare a ciascun \textit{provider} solo i dati necessari alla sua \textit{Capacità IA}: l'audio al \textit{provider} di trascrizione, il testo della \textit{Richiesta} e il contesto conversazionale al \textit{provider} di elaborazione del linguaggio, il testo della risposta al \textit{provider} di sintesi vocale. & T & \texttt{BN-05}, \texttt{NRM-003} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-018-Opz} & \texttt{PRV-007} & Se il \textit{Sistema} attribuisce le \textit{Richieste} ai profili in base alla voce (\texttt{RF-048-Opz}), deve richiedere un consenso esplicito per ciascun profilo e consentire la cancellazione dei dati vocali del profilo. & T & \texttt{UC[19]}, \texttt{BN-14}, \texttt{NRM-003} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Usabilità e accessibilità (\texttt{USA})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RQ-019-Obb} & \texttt{WEB-008} & Almeno 8 utenti su 10 senza competenze tecniche devono completare la configurazione iniziale in non più di $10\text{ min}$, senza assistenza. & T & \texttt{UC[8]}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-020-Obb} & \texttt{USA-001} & In una prova con 10 utenti, almeno il $90\%$ deve riconoscere correttamente, dopo una dimostrazione di 2 minuti, le condizioni \texttt{ST-02}, \texttt{ST-03}, \texttt{ST-04} e \texttt{ST-06} segnalate dal \textit{Dispositivo}. & T & \texttt{BN-11} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-021-Des} & \texttt{USA-002} & La \textit{Web app} deve rispettare le WCAG 2.1 di livello AA, senza non conformità di livello A o AA rilevate da una verifica automatica e manuale delle pagine principali. & I, T & \texttt{BN-16} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-022-Des} & \texttt{USA-003} & Ogni evento che richiede l'attenzione dell'Utente (timer scaduto, errore, aggiornamento completato) deve essere segnalato sia con un segnale luminoso sia con un segnale sonoro, salvo disabilitazione dei segnali sonori. & D & \texttt{BN-16} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-023-Obb} & \texttt{USA-004} & Il prodotto deve essere accompagnato da una guida rapida in lingua italiana, di non più di 2 pagine, che descriva il primo avvio e la configurazione iniziale. & I & \texttt{UC[8]}, \texttt{BN-04}, \texttt{NRM-006} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Manutenibilità e ciclo di vita (\texttt{MAN})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RQ-024-Des} & \texttt{SKL-016} & Il produttore deve fornire documentazione e un kit di sviluppo per le \textit{skill}, con almeno 3 esempi funzionanti e un ambiente di prova eseguibile senza il \textit{Dispositivo} fisico. & I & \texttt{UC[20]}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-025-Des} & \texttt{MAN-001} & Il produttore deve fornire aggiornamenti di sicurezza per almeno 24 mesi dalla data di rilascio di ciascuna versione. & I & \texttt{UC[27]}, \texttt{BN-10}, \texttt{NRM-002} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-026-Des} & \texttt{MAN-002} & Le interfacce di integrazione dei \textit{provider IA} e delle \textit{skill} (\texttt{RV-031-Obb}, \texttt{RV-032-Obb}) devono essere versionate e ogni versione principale deve restare supportata per almeno 12 mesi dopo il rilascio della successiva. & I & \texttt{UC[20]}, \texttt{UC[26]}, \texttt{BN-03}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-027-Des} & \texttt{MAN-003} & Il produttore deve fornire la documentazione tecnica: manuale dell'Amministratore, guida allo sviluppo di \textit{skill} e integrazioni, manuale di diagnosi. & I & \texttt{UC[20]}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RQ-028-Des} & \texttt{MAN-004} & Il produttore deve fornire per ogni versione l'elenco dei componenti software (SBOM) con versioni e licenze, e tali licenze devono essere compatibili con la distribuzione del prodotto. & I & \texttt{BN-12}, \texttt{CON-06} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+% ---------- 7. Requisiti di vincolo (hardware, normativi e interfacce) ----------
+\section{Requisiti di vincolo (hardware, normativi e interfacce)}
+I requisiti di questo capitolo fissano i vincoli tecnici dell'architettura fisica (\textit{Dispositivo}), di compatibilità web, di interfaccia esterna e di conformità normativa (\texttt{RV-[Numero]-[Priorità]}).
+
+\subsection{Vincoli hardware (\texttt{HW})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RV-001-Obb} & \texttt{HW-001} & Il \textit{Dispositivo} deve includere almeno 2 microfoni disposti in modo da acquisire il parlato proveniente da qualunque direzione nel piano orizzontale. & I & \texttt{UC[1]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-002-Obb} & \texttt{HW-003} & Il \textit{Dispositivo} deve includere un pulsante fisico di esclusione del microfono e indicare lo stato (microfono escluso o attivo) in modo visibile da $5\text{ m}$. & D & Capitolato, \texttt{UC[4]}, \texttt{BN-05}, \texttt{BN-11} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-003-Obb} & \texttt{HW-004} & Quando il microfono è escluso, l'esclusione deve essere effettiva a livello hardware, indipendentemente dal software in esecuzione: nessun dato audio deve poter essere acquisito, nemmeno con un \textit{Firmware} modificato per ignorare l'esclusione. & I, T & Capitolato, \texttt{UC[4]}, \texttt{BN-05}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-004-Opz} & \texttt{HW-007} & Il \textit{Dispositivo} deve includere un'uscita audio ausiliaria per il collegamento di un diffusore esterno. & I & \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-005-Obb} & \texttt{HW-008} & Il \textit{Dispositivo} deve includere almeno un indicatore luminoso in grado di rappresentare almeno 9 condizioni distinte (una per ciascuno degli stati \texttt{ST-01...ST-09}), riconoscibili da $5\text{ m}$ con illuminazione ambiente di $300\text{ lux}$. & T & \texttt{BN-11} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-006-Obb} & \texttt{HW-009} & Il \textit{Dispositivo} deve includere tre pulsanti: azione, aumento del volume e diminuzione del volume. & I & \texttt{UC[6]}, \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-007-Obb} & \texttt{HW-010} & Il \textit{Dispositivo} deve includere un controllo fisico per il \textit{Ripristino di fabbrica} che richieda un'azione continuativa di almeno $10\text{ s}$ e non possa essere attivato da un singolo azionamento breve dei pulsanti. & T & \texttt{UC[18]}, \texttt{BN-05}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-008-Opz} & \texttt{HW-011} & Il \textit{Dispositivo} deve includere un sensore di luce ambientale che regola la luminosità dell'indicatore luminoso. & D & \texttt{BN-17} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-009-Obb} & \texttt{HW-013} & Il \textit{Dispositivo} deve disporre di memoria non volatile con capacità utile $\ge 8\text{ GB}$, sufficiente a conservare la versione di \textit{Firmware} in uso, quella ricevuta in aggiornamento, la configurazione, le \textit{skill}, la \textit{Cronologia} e i registri. & I & \texttt{BN-10} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-010-Opz} & \texttt{HW-015} & Il \textit{Dispositivo} deve mantenere data e ora per almeno 7 giorni senza alimentazione. & T & \texttt{BN-09} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-011-Obb} & \texttt{HW-016} & Il \textit{Dispositivo} deve includere connettività di rete locale senza fili per accedere alla rete domestica e a Internet. & D & \texttt{BN-02}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-012-Opz} & \texttt{HW-017} & Il \textit{Dispositivo} deve includere connettività di rete locale cablata. & I & \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-013-Obb} & \texttt{HW-018} & Il \textit{Dispositivo} deve essere alimentato tramite un alimentatore esterno a bassa tensione, fornito con il prodotto, collegato alla rete elettrica a $230\text{ V} \sim 50\text{ Hz}$. & I & \texttt{BN-07}, \texttt{BN-12} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-014-Obb} & \texttt{HW-020} & Il \textit{Dispositivo} deve avere un ingombro massimo di $130\text{ mm}$ di diametro e $200\text{ mm}$ di altezza e una massa $\le 1,0\text{ kg}$. & I & \texttt{BN-17} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-015-Obb} & \texttt{HW-022} & Il \textit{Dispositivo} deve funzionare, senza degrado dei requisiti prestazionali, a temperature ambiente da $5^\circ\text{C}$ a $35^\circ\text{C}$ e umidità relativa dal $20\%$ all'$80\%$ senza condensa. & T & \texttt{BN-08} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-016-Obb} & \texttt{HW-023} & Le superfici accessibili al contatto devono avere temperatura $\le 45^\circ\text{C}$ in funzionamento continuo con ambiente a $35^\circ\text{C}$. & T & \texttt{BN-12}, \texttt{BN-17} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-017-Des} & \texttt{HW-024} & Il \textit{Dispositivo} imballato deve sopportare stoccaggio e trasporto tra $-10^\circ\text{C}$ e $+50^\circ\text{C}$ e la caduta da $1\text{ m}$ senza danni funzionali. & T & \texttt{BN-17} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-018-Obb} & \texttt{HW-025} & Il \textit{Dispositivo} deve essere progettato per l'uso in ambienti interni, senza requisito di protezione da polvere e liquidi oltre IP20. & I & \texttt{BN-07} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-019-Des} & \texttt{HW-026} & Il \textit{Dispositivo} non deve ribaltarsi su una superficie d'appoggio inclinata di $10^\circ$. & T & \texttt{BN-12}, \texttt{BN-17} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-020-Obb} & \texttt{HW-027} & Il \textit{Dispositivo} deve riportare, in modo permanente e leggibile su un'etichetta fisica, un numero di serie univoco e il codice di associazione usato per la configurazione iniziale (\texttt{RF-064-Obb}). & I & \texttt{UC[8]}, \texttt{BN-04}, \texttt{BN-06} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-021-Des} & \texttt{HW-028} & L'accesso alle interfacce di diagnosi e debug del \textit{Dispositivo} deve richiedere l'apertura del contenitore e deve poter essere disabilitato nella configurazione di vendita. & I & \texttt{BN-06}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-022-Obb} & \texttt{HW-029} & Il costo complessivo dei materiali (BOM) di un prototipo acquistato in singolo esemplare deve essere $\le 150\text{ EUR}$, IVA esclusa. & A & Capitolato, Verbale esterno 2026-11-13, \texttt{BN-07}, \texttt{CON-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-023-Obb} & \texttt{FW-004} & Il \textit{Firmware} deve acquisire l'audio dei microfoni con frequenza di campionamento $\ge 16\text{ kHz}$ e risoluzione $\ge 16\text{ bit}$. & I & \texttt{BN-01} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-024-Obb} & \texttt{WEB-002} & La \textit{Web app} deve funzionare con le due ultime versioni principali dei browser Chrome, Firefox, Safari ed Edge, su schermi con larghezza da $360\text{ px}$ a $1920\text{ px}$, senza scorrimento orizzontale della pagina. & T & Capitolato, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Vincoli normativi (\texttt{NRM})}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RV-025-Obb} & \texttt{NRM-001} & Il prodotto deve soddisfare i requisiti della Direttiva 2014/53/UE (RED) per le apparecchiature radio, comprese sicurezza, compatibilità elettromagnetica e uso efficiente dello spettro, ed essere accompagnato dalla dichiarazione di conformità UE e dalla marcatura CE. & I, A & \texttt{BN-12} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-026-Obb} & \texttt{NRM-002} & Il prodotto deve soddisfare i requisiti di cibersicurezza applicabili alle apparecchiature radio e ai prodotti con elementi digitali alla data di immissione sul mercato, incluso il Regolamento (UE) 2024/2847. & A & \texttt{BN-12} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-027-Obb} & \texttt{NRM-003} & Il trattamento dei dati personali deve essere conforme al Regolamento (UE) 2016/679, compresa la protezione dei dati fin dalla progettazione e per impostazione predefinita. & A & \texttt{BN-05}, \texttt{BN-12} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-028-Obb} & \texttt{NRM-004} & Il prodotto deve rispettare le restrizioni sulle sostanze pericolose (Direttiva 2011/65/UE) e le disposizioni sui rifiuti di apparecchiature elettriche ed elettroniche (Direttiva 2012/19/UE) con le relative marcature e istruzioni di smaltimento. & I & \texttt{BN-12} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-029-Obb} & \texttt{NRM-005} & Il \textit{Sistema} deve rendere noto che l'Utente interagisce con un sistema di intelligenza artificiale, nella documentazione e durante la configurazione iniziale (\texttt{UC[8]}), e rispettare gli obblighi di trasparenza applicabili del Regolamento (UE) 2024/1689. & A, I & \texttt{UC[8]}, \texttt{BN-05}, \texttt{BN-12} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-030-Obb} & \texttt{NRM-006} & Il prodotto deve essere accompagnato da istruzioni d'uso e informazioni di sicurezza in lingua italiana. & I & \texttt{BN-12} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Vincoli di interfaccia esterna (\texttt{INT})}
+Le interfacce fisiche (pulsanti, indicatore luminoso, microfoni, altoparlante, alimentazione) sono definite al 6.1 e l'interfaccia web al 4.7. Questo paragrafo definisce i vincoli delle interfacce verso sistemi esterni.
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.15\linewidth} >{\centering\arraybackslash}p{0.09\linewidth} >{\raggedright\arraybackslash}p{0.47\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisito}} & \textcolor{white}{\textbf{Ver.}} & \textcolor{white}{\textbf{Fonti}} \\ \endhead
+\texttt{RV-031-Obb} & \texttt{INT-001} & L'interfaccia di integrazione dei \textit{provider IA} deve prevedere, per ciascuna \textit{Capacità IA}: trascrizione del parlato (ingresso: audio della \textit{Richiesta}; uscita: testo); elaborazione del linguaggio (ingresso: testo, contesto conversazionale e istruzione di sistema; uscita: testo della risposta oppure richiesta di invocare una \textit{skill}); sintesi vocale (ingresso: testo; uscita: audio); in tutti i casi con autenticazione tramite le credenziali configurate. & I & Capitolato, \texttt{UC[2]}, \texttt{UC[26]}, \texttt{BN-02} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-032-Obb} & \texttt{INT-002} & L'interfaccia verso le \textit{skill} deve prevedere: il \textit{Manifesto}; la \textit{Richiesta}, con testo e parametri, inviata alla \textit{skill}; la risposta della \textit{skill}, con il testo da pronunciare e l'eventuale richiesta di ulteriori informazioni; l'accesso alle sole risorse per cui è stato approvato un \textit{Permesso}. Deve essere documentata e versionata. & I & Capitolato, \texttt{UC[7]}, \texttt{UC[20]}, \texttt{BN-03}, \texttt{BN-13} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-033-Obb} & \texttt{INT-003} & Il \textit{Sistema} deve acquisire i pacchetti di aggiornamento del \textit{Firmware} da una fonte autenticata indicata dal produttore oppure da un file caricato dall'Amministratore. & D & \texttt{UC[15]}, \texttt{UC[27]}, \texttt{BN-10}, \texttt{CON-03} \\ \arrayrulecolor{bfline}\hline
+\texttt{RV-034-Obb} & \texttt{INT-004} & Il \textit{Dispositivo} deve operare in una rete domestica con assegnazione automatica degli indirizzi, senza richiedere all'utente configurazioni del router come l'apertura o l'inoltro di porte. & T & \texttt{UC[10]}, \texttt{BN-04} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+% ---------- 8. Verifica e convalida ----------
+\section{Verifica e convalida}
+
+\subsection{Approccio}
+Ogni requisito ha almeno un metodo di verifica (colonna \textbf{Ver.}) e almeno un caso di prova identificato come \texttt{TC-<ID requisito>-<n>} nel \textit{Piano di qualifica}, documento separato che deriva da questo. La verifica procede per livelli: componente (hardware, firmware, \textit{Web app}), integrazione, sistema e accettazione. I criteri di superamento sono contenuti nel testo di ciascun requisito.
+
+\subsection{Ambienti e mezzi di prova}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.35\linewidth} >{\raggedright\arraybackslash}p{0.27\linewidth} >{\raggedright\arraybackslash}p{0.31\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Ambiente o mezzo}} & \textcolor{white}{\textbf{Uso}} & \textcolor{white}{\textbf{Requisiti principali}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{Ambiente o mezzo}} & \textcolor{white}{\textbf{Uso}} & \textcolor{white}{\textbf{Requisiti principali}} \\ \endhead
+Ambiente con rumore di fondo \texttt{PAR-07} o inferiore & Misure acustiche & \texttt{RF-001-Obb} \\ \arrayrulecolor{bfline}\hline
+Ambiente domestico di prova & Prove d'uso e di attivazioni involontarie & \texttt{RF-002-Obb}, \texttt{RQ-020-Obb} \\ \arrayrulecolor{bfline}\hline
+Rete di prova con condizioni emulate (\texttt{PAR-08}) e interruzioni controllate & Prestazioni e resilienza di rete & \texttt{RF-065-Obb}, \texttt{RF-071-Obb}, \texttt{RF-078-Des} \\ \arrayrulecolor{bfline}\hline
+\textit{Provider di riferimento} simulato & Latenze ed errori controllati & \texttt{RF-011-Obb}, \texttt{RF-019-Des}, \texttt{RF-059-Obb}, \texttt{RF-060-Obb} \\ \arrayrulecolor{bfline}\hline
+Banco di prova per interruzioni di alimentazione & Affidabilità e aggiornamenti & \texttt{RQ-002-Obb}, \texttt{RF-071-Obb}, \texttt{RF-072-Obb} \\ \arrayrulecolor{bfline}\hline
+Camera climatica & Condizioni ambientali e temperatura & \texttt{RV-015-Obb}, \texttt{RV-016-Obb}, \texttt{RV-017-Des} \\ \arrayrulecolor{bfline}\hline
+Analisi del traffico di rete e scansione dei servizi & Privacy e sicurezza & \texttt{RQ-012-Obb}, \texttt{RQ-015-Obb}, \texttt{RQ-005-Obb}, \texttt{RQ-006-Obb} \\ \arrayrulecolor{bfline}\hline
+Prove con utenti rappresentativi & Qualità della \textit{Web app} & \texttt{RQ-019-Obb}, \texttt{RQ-020-Obb} \\ \arrayrulecolor{bfline}\hline
+Strumenti di verifica di accessibilità e sicurezza web & Usabilità & \texttt{RQ-021-Des}, \texttt{RQ-009-Obb} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Criteri di accettazione dei rilasci}
+\begin{itemize}
+\tightlist
+\item \textbf{R1 (RTB / PoC):} tutti i requisiti obbligatori (\texttt{Obb} / M) verificati con esito positivo; nessun difetto aperto di gravità critica o alta;
+\item \textbf{R2 (PB / MVP):} tutti i requisiti \texttt{Obb} e almeno il $90\%$ dei requisiti desiderabili (\texttt{Des} / S) verificati con esito positivo; nessun difetto aperto di gravità critica o alta;
+\item \textbf{R3 (Evoluzioni):} requisiti opzionali (\texttt{Opz} / C) selezionati nel piano del rilascio, verificati con esito positivo.
+\end{itemize}
+
+\subsection{Convalida dei requisiti}
+La convalida accerta che i requisiti rispecchino i bisogni reali. Si svolge con: revisione del documento con gli \textit{stakeholder} \texttt{SH-01...SH-04}; verifica dei casi d'uso del 3 su una simulazione dell'interfaccia della \textit{Web app} e su un prototipo del \textit{Dispositivo}; conferma dei valori numerici proposti con prove sul prototipo (\texttt{OI-04}).
+
+% ---------- 8. Tracciabilità e riepilogo ----------
+\section{Tracciabilità e riepilogo}
+In conformità alle \textit{Norme di progetto} (3.2.1.3), la tracciabilità è garantita da identificativi persistenti e dalle tabelle bidirezionali \textbf{Fonte $\rightarrow$ requisiti} (8.1, 8.2, 8.3) e \textbf{Requisito $\rightarrow$ fonti} (colonna \textbf{Fonti} dei capitoli 4--6). Ogni requisito ha almeno una fonte e ogni caso d'uso è coperto da almeno un requisito. In vista della PB il tracciamento verrà esteso ai casi di test nel \textit{Piano di qualifica}.
+
+\subsection{Fonte (Casi d'Uso e Documenti) \texorpdfstring{$\rightarrow$}{->} requisiti}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.24\linewidth} >{\raggedright\arraybackslash}p{0.69\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Fonte}} & \textcolor{white}{\textbf{Requisiti derivati}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{Fonte}} & \textcolor{white}{\textbf{Requisiti derivati}} \\ \endhead
+\texttt{UC[1]} & \texttt{RF-001-Obb}, \texttt{RF-002-Obb}, \texttt{RF-003-Obb}, \texttt{RF-054-Obb}, \texttt{RV-001-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[2]} & \texttt{RF-004-Obb}, \texttt{RF-005-Obb}, \texttt{RF-008-Des}, \texttt{RF-009-Obb}, \texttt{RF-010-Des}, \texttt{RF-043-Obb}, \texttt{RF-059-Obb}, \texttt{RV-031-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[2.1]} & \texttt{RF-011-Obb}, \texttt{RF-019-Des}, \texttt{RF-060-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[2.2]} & \texttt{RF-011-Obb}, \texttt{RF-060-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[3]} & \texttt{RF-006-Obb}, \texttt{RF-007-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[4]} & \texttt{RF-044-Des}, \texttt{RF-052-Obb}, \texttt{RQ-012-Obb}, \texttt{RV-002-Obb}, \texttt{RV-003-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[5]} & \texttt{RF-039-Obb}, \texttt{RF-040-Des}, \texttt{RF-041-Opz}, \texttt{RF-042-Des}, \texttt{RF-044-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[6]} & \texttt{RF-012-Obb}, \texttt{RF-044-Des}, \texttt{RF-058-Obb}, \texttt{RV-006-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[7]} & \texttt{RF-028-Obb}, \texttt{RF-029-Des}, \texttt{RF-031-Obb}, \texttt{RF-033-Obb}, \texttt{RF-034-Des}, \texttt{RF-035-Des}, \texttt{RF-061-Obb}, \texttt{RV-032-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[7.1]} & \texttt{RF-036-Des}, \texttt{RF-045-Opz} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[8]} & \texttt{RF-064-Obb}, \texttt{RF-081-Obb}, \texttt{RF-084-Obb}, \texttt{RQ-019-Obb}, \texttt{RQ-023-Obb}, \texttt{RV-020-Obb}, \texttt{RV-029-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[8.1]} & \texttt{RF-084-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[9]} & \texttt{RF-046-Obb}, \texttt{RF-080-Obb}, \texttt{RF-082-Obb}, \texttt{RF-083-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[9.1]} & \texttt{RF-082-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[10]} & \texttt{RF-065-Obb}, \texttt{RF-066-Obb}, \texttt{RF-089-Obb}, \texttt{RV-034-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[11]} & \texttt{RF-013-Obb}, \texttt{RF-014-Obb}, \texttt{RF-015-Obb}, \texttt{RF-016-Des}, \texttt{RF-018-Des}, \texttt{RF-019-Des}, \texttt{RF-020-Obb}, \texttt{RF-021-Des}, \texttt{RF-022-Obb}, \texttt{RF-063-Obb}, \texttt{RF-090-Obb}, \texttt{RF-091-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[11.1]} & \texttt{RF-020-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[12]} & \texttt{RF-023-Obb}, \texttt{RF-032-Des}, \texttt{RF-092-Obb}, \texttt{RF-094-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[13]} & \texttt{RF-010-Des}, \texttt{RF-049-Des}, \texttt{RF-050-Des}, \texttt{RF-051-Opz}, \texttt{RF-095-Obb}, \texttt{RF-096-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[14]} & \texttt{RF-097-Obb}, \texttt{RF-098-Des}, \texttt{RF-099-Obb}, \texttt{RF-100-Obb}, \texttt{RF-101-Des}, \texttt{RQ-013-Obb}, \texttt{RQ-014-Opz}, \texttt{RQ-015-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[15]} & \texttt{RF-069-Obb}, \texttt{RF-070-Obb}, \texttt{RF-073-Obb}, \texttt{RF-074-Des}, \texttt{RF-102-Obb}, \texttt{RF-103-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[15.1]} & \texttt{RF-071-Obb}, \texttt{RF-072-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[16]} & \texttt{RF-068-Obb}, \texttt{RF-085-Obb}, \texttt{RF-086-Obb}, \texttt{RF-087-Des}, \texttt{RF-088-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[17]} & \texttt{RF-104-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[18]} & \texttt{RF-077-Obb}, \texttt{RF-105-Obb}, \texttt{RV-007-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[19]} & \texttt{RF-047-Opz}, \texttt{RF-048-Opz}, \texttt{RF-107-Opz}, \texttt{RQ-018-Opz} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[20]} & \texttt{RF-024-Obb}, \texttt{RQ-024-Des}, \texttt{RQ-026-Des}, \texttt{RQ-027-Des}, \texttt{RV-032-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[21]} & \texttt{RF-037-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[22]} & \texttt{RF-025-Obb}, \texttt{RF-026-Obb}, \texttt{RF-027-Opz}, \texttt{RF-037-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[22.1]} & \texttt{RF-037-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[23]} & \texttt{RF-030-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[24]} & \texttt{RF-025-Obb}, \texttt{RF-093-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[25]} & \texttt{RF-025-Obb}, \texttt{RF-038-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[26]} & \texttt{RF-017-Obb}, \texttt{RQ-026-Des}, \texttt{RV-031-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[27]} & \texttt{RF-070-Obb}, \texttt{RQ-025-Des}, \texttt{RV-033-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[28]} & \texttt{RF-037-Obb}, \texttt{RF-070-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{UC[29]} & \texttt{RF-068-Obb}, \texttt{RF-076-Obb}, \texttt{RF-087-Des} \\ \arrayrulecolor{bfline}\hline
+Capitolato & \texttt{RF-001-Obb}, \texttt{RF-005-Obb}, \texttt{RF-009-Obb}, \texttt{RF-013-Obb}, \texttt{RF-014-Obb}, \texttt{RF-017-Obb}, \texttt{RF-023-Obb}, \texttt{RF-079-Obb}, \texttt{RQ-012-Obb}, \texttt{RV-002-Obb}, \texttt{RV-003-Obb}, \texttt{RV-022-Obb}, \texttt{RV-024-Obb}, \texttt{RV-031-Obb}, \texttt{RV-032-Obb} \\ \arrayrulecolor{bfline}\hline
+Verbale esterno \texttt{2026-11-13} & \texttt{RV-022-Obb} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Bisogni degli \textit{stakeholder} \texorpdfstring{$\rightarrow$}{->} requisiti}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.11\linewidth} >{\raggedright\arraybackslash}p{0.27\linewidth} >{\raggedright\arraybackslash}p{0.55\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Bisogno}} & \textcolor{white}{\textbf{Sintesi}} & \textcolor{white}{\textbf{Requisiti che lo realizzano}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{Bisogno}} & \textcolor{white}{\textbf{Sintesi}} & \textcolor{white}{\textbf{Requisiti che lo realizzano}} \\ \endhead
+\texttt{BN-01} & Dialogo vocale naturale & \texttt{RF-001-Obb}, \texttt{RF-002-Obb}, \texttt{RF-004-Obb}...\texttt{RF-012-Obb}, \texttt{RF-028-Obb}, \texttt{RF-049-Des}, \texttt{RF-055-Des}, \texttt{RF-057-Des}, \texttt{RF-058-Obb}, \texttt{RV-001-Obb}, \texttt{RV-004-Opz}, \texttt{RV-006-Obb}, \texttt{RV-023-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-02} & Scelta del motore di IA & \texttt{RF-005-Obb}, \texttt{RF-013-Obb}...\texttt{RF-021-Des}, \texttt{RF-059-Obb}, \texttt{RF-090-Obb}, \texttt{RV-011-Obb}, \texttt{RV-031-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-03} & Estensione con \textit{skill} & \texttt{RF-023-Obb}...\texttt{RF-035-Des}, \texttt{RF-038-Des}, \texttt{RF-061-Obb}, \texttt{RF-092-Obb}, \texttt{RF-093-Des}, \texttt{RQ-026-Des}, \texttt{RV-032-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-04} & Configurazione semplice & \texttt{RF-020-Obb}, \texttt{RF-021-Des}, \texttt{RF-046-Obb}, \texttt{RF-049-Des}, \texttt{RF-050-Des}, \texttt{RF-064-Obb}, \texttt{RF-066-Obb}, \texttt{RF-068-Obb}, \texttt{RF-079-Obb}, \texttt{RF-081-Obb}, \texttt{RF-083-Obb}...\texttt{RF-085-Obb}, \texttt{RF-088-Des}...\texttt{RF-090-Obb}, \texttt{RF-093-Des}, \texttt{RF-095-Obb}, \texttt{RF-096-Des}, \texttt{RF-104-Des}, \texttt{RF-108-Obb}, \texttt{RF-109-Des}, \texttt{RQ-019-Obb}, \texttt{RQ-023-Obb}, \texttt{RV-011-Obb}, \texttt{RV-020-Obb}, \texttt{RV-024-Obb}, \texttt{RV-034-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-05} & Privacy e controllo dei dati & \texttt{RF-002-Obb}, \texttt{RF-016-Des}, \texttt{RF-022-Obb}, \texttt{RF-030-Obb}, \texttt{RF-054-Obb}, \texttt{RF-076-Obb}, \texttt{RF-077-Obb}, \texttt{RF-097-Obb}...\texttt{RF-101-Des}, \texttt{RF-105-Obb}, \texttt{RQ-012-Obb}...\texttt{RQ-017-Obb}, \texttt{RV-002-Obb}, \texttt{RV-003-Obb}, \texttt{RV-007-Obb}, \texttt{RV-027-Obb}, \texttt{RV-029-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-06} & Sicurezza & \texttt{RF-030-Obb}, \texttt{RF-037-Obb}, \texttt{RF-038-Des}, \texttt{RF-046-Obb}, \texttt{RF-063-Obb}, \texttt{RF-064-Obb}, \texttt{RF-070-Obb}, \texttt{RF-077-Obb}, \texttt{RF-080-Obb}...\texttt{RF-083-Obb}, \texttt{RF-091-Obb}, \texttt{RF-105-Obb}, \texttt{RF-106-Des}, \texttt{RQ-005-Obb}...\texttt{RQ-011-Des}, \texttt{RV-003-Obb}, \texttt{RV-007-Obb}, \texttt{RV-020-Obb}, \texttt{RV-021-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-07} & Costo contenuto & \texttt{RF-079-Obb}, \texttt{RV-013-Obb}, \texttt{RV-018-Obb}, \texttt{RV-022-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-08} & Funzionamento continuo e affidabile & \texttt{RF-019-Des}, \texttt{RF-031-Obb}, \texttt{RF-042-Des}, \texttt{RF-060-Obb}...\texttt{RF-062-Obb}, \texttt{RF-065-Obb}, \texttt{RF-071-Obb}, \texttt{RF-075-Obb}, \texttt{RF-104-Des}, \texttt{RQ-001-Obb}...\texttt{RQ-004-Des}, \texttt{RV-012-Opz}, \texttt{RV-015-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-09} & Funzioni quotidiane & \texttt{RF-036-Des}, \texttt{RF-039-Obb}...\texttt{RF-043-Obb}, \texttt{RF-045-Opz}, \texttt{RF-056-Des}, \texttt{RF-067-Obb}, \texttt{RV-010-Opz} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-10} & Aggiornamenti sicuri & \texttt{RF-069-Obb}...\texttt{RF-074-Des}, \texttt{RF-102-Obb}, \texttt{RF-103-Des}, \texttt{RQ-025-Des}, \texttt{RV-009-Obb}, \texttt{RV-033-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-11} & Feedback di stato & \texttt{RF-003-Obb}, \texttt{RF-011-Obb}, \texttt{RF-052-Obb}, \texttt{RF-053-Obb}, \texttt{RQ-020-Obb}, \texttt{RV-002-Obb}, \texttt{RV-005-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-12} & Conformità normativa & \texttt{RQ-028-Des}, \texttt{RV-013-Obb}, \texttt{RV-016-Obb}, \texttt{RV-019-Des}, \texttt{RV-025-Obb}...\texttt{RV-030-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-13} & Sviluppo di \textit{skill}, diagnosi, manutenzione & \texttt{RF-017-Obb}, \texttt{RF-024-Obb}, \texttt{RF-045-Opz}, \texttt{RF-068-Obb}, \texttt{RF-076-Obb}, \texttt{RF-085-Obb}...\texttt{RF-088-Des}, \texttt{RF-094-Des}, \texttt{RF-106-Des}, \texttt{RQ-024-Des}, \texttt{RQ-026-Des}, \texttt{RQ-027-Des}, \texttt{RV-021-Des}, \texttt{RV-032-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-14} & Uso condiviso con profili & \texttt{RF-047-Opz}, \texttt{RF-048-Opz}, \texttt{RF-107-Opz}, \texttt{RQ-018-Opz} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-15} & Funzioni senza Internet & \texttt{RF-016-Des}, \texttt{RF-034-Des}, \texttt{RF-043-Obb}, \texttt{RF-044-Des}, \texttt{RF-054-Obb}, \texttt{RF-078-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-16} & Accessibilità & \texttt{RQ-021-Des}, \texttt{RQ-022-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{BN-17} & Integrazione nell'ambiente domestico & \texttt{RF-051-Opz}, \texttt{RF-096-Des}, \texttt{RV-008-Opz}, \texttt{RV-014-Obb}, \texttt{RV-016-Obb}, \texttt{RV-017-Des}, \texttt{RV-019-Des} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Vincoli e normative \texorpdfstring{$\rightarrow$}{->} requisiti}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.16\linewidth} >{\raggedright\arraybackslash}p{0.78\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Origine}} & \textcolor{white}{\textbf{Requisiti derivati}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{Origine}} & \textcolor{white}{\textbf{Requisiti derivati}} \\ \endhead
+\texttt{CON-01} & \texttt{RV-022-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{CON-02} & Applicato in progettazione; verificato con la distinta materiali (\texttt{RV-022-Obb}) \\ \arrayrulecolor{bfline}\hline
+\texttt{CON-03} & \texttt{RF-079-Obb}, \texttt{RV-033-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{CON-04} & \texttt{RF-009-Obb}, \texttt{RV-013-Obb}, \texttt{RV-030-Obb} \\ \arrayrulecolor{bfline}\hline
+\texttt{CON-05} & Piano dei rilasci (9) \\ \arrayrulecolor{bfline}\hline
+\texttt{CON-06} & \texttt{RQ-028-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{NRM-002} & \texttt{RQ-007-Obb}, \texttt{RQ-009-Obb}, \texttt{RQ-011-Des}, \texttt{RQ-025-Des} \\ \arrayrulecolor{bfline}\hline
+\texttt{NRM-003} & \texttt{RF-100-Obb}, \texttt{RF-101-Des}, \texttt{RQ-015-Obb}, \texttt{RQ-016-Obb}, \texttt{RQ-017-Obb}, \texttt{RQ-018-Opz} \\ \arrayrulecolor{bfline}\hline
+\texttt{NRM-006} & \texttt{RQ-023-Obb} \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Riepilogo quantitativo dei requisiti}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{2.0cm}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Tipologia}} & \textcolor{white}{\textbf{Obbligatori (\texttt{Obb})}} & \textcolor{white}{\textbf{Desiderabili (\texttt{Des})}} & \textcolor{white}{\textbf{Opzionali (\texttt{Opz})}} & \textcolor{white}{\textbf{Totale}} \\
+Funzionali (\texttt{RF}) & 64 & 35 & 10 & 109 \\ \arrayrulecolor{bfline}\hline
+Di qualità (\texttt{RQ}) & 14 & 12 & 2 & 28 \\ \arrayrulecolor{bfline}\hline
+Di vincolo (\texttt{RV}) & 24 & 5 & 5 & 34 \\ \arrayrulecolor{bfline}\hline
+\textbf{Totale} & \textbf{102} & \textbf{52} & \textbf{17} & \textbf{171} \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+% ---------- 9. Priorità e rilasci ----------
+\section{Priorità e rilasci}
+
+\subsection{Criteri di assegnazione}
+\begin{itemize}
+\tightlist
+\item \textbf{Obbligatori (\texttt{Obb} / \textit{Must}):} necessari per il ciclo completo voce $\rightarrow$ IA $\rightarrow$ risposta, per la configurazione, per la sicurezza e la privacy essenziali, per la conformità normativa e per i vincoli di costo;
+\item \textbf{Desiderabili (\texttt{Des} / \textit{Should}):} aumentano in modo sensibile il valore o la robustezza del prodotto e possono essere rinviati senza compromettere l'uso base;
+\item \textbf{Opzionali (\texttt{Opz} / \textit{Could}):} auspicabili; inclusi solo se risorse e budget lo consentono.
+\end{itemize}
+
+\subsection{Contenuto dei rilasci}
+\begin{itemize}
+\tightlist
+\item \textbf{R1 -- Prototipo funzionante (requisiti \texttt{Obb}):} dialogo vocale completo con \textit{parola di attivazione}, \textit{provider IA} intercambiabili per le tre \textit{Capacità IA}, \textit{skill} installabili con permessi, firma e isolamento, timer, ora e data, configurazione iniziale guidata e \textit{Web app} di gestione, esclusione hardware del microfono, aggiornamento firmware sicuro con ripristino, privacy e sicurezza essenziali, conformità normativa e vincolo di costo;
+\item \textbf{R2 -- Prodotto completo (requisiti \texttt{Des}):} interruzione con la voce e conversazione a più turni, instradamento delle \textit{skill} per intento, \textit{provider} locali e alternativi con \textit{failover}, sveglie e persistenza, funzionamento senza Internet, inglese, ricerca ed esportazione dei dati, backup, registro di \textit{audit}, SDK per sviluppatori, accessibilità WCAG, manutenzione e supporto di sicurezza;
+\item \textbf{R3 -- Evoluzioni (requisiti \texttt{Opz}):} catalogo di \textit{skill}, profili utente e riconoscimento del parlante, promemoria, uscita audio ausiliaria, sensore di luce, rete cablata, modalità «non disturbare», conservazione facoltativa dell'audio, orologio persistente.
+\end{itemize}
+
+% ---------- 11. Analisi di fattibilità e rischi ----------
+% ---------- 10. Analisi di fattibilità e rischi ----------
+\section{Analisi di fattibilità e rischi}
+
+\subsection{Fattibilità per area}
+La valutazione è informativa: non introduce requisiti e non prescrive soluzioni. Tiene conto di \texttt{CON-01} e \texttt{CON-02} (budget moderato, componenti commerciali).
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.21\linewidth} >{\raggedright\arraybackslash}p{0.18\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth} >{\raggedright\arraybackslash}p{0.37\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisiti chiave}} & \textcolor{white}{\textbf{Valutazione}} & \textcolor{white}{\textbf{Motivazione}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{Area}} & \textcolor{white}{\textbf{Requisiti chiave}} & \textcolor{white}{\textbf{Valutazione}} & \textcolor{white}{\textbf{Motivazione}} \\ \endhead
+Rilevamento locale della \textit{Parola di attivazione} & \texttt{RF-001-Obb}, \texttt{RF-002-Obb}, \texttt{RF-054-Obb} & Fattibile & Funzione matura, eseguibile su risorse di calcolo di uso generale; le soglie vanno tarate con prove (\texttt{RSK-01}). \\ \arrayrulecolor{bfline}\hline
+Acquisizione a $3\text{ m}$ con 2 microfoni & \texttt{RF-001-Obb}, \texttt{RV-001-Obb} & Fattibile con rischio medio & Con 2 microfoni la reiezione del rumore è inferiore a quella di configurazioni con più microfoni; da misurare presto sul prototipo (\texttt{RSK-02}). \\ \arrayrulecolor{bfline}\hline
+Indipendenza dal \textit{provider IA} & \texttt{RF-017-Obb}, \texttt{RV-031-Obb} & Fattibile & Tre \textit{Capacità IA} separate e un'interfaccia minima comune; rischio di differenze fra \textit{provider} (\texttt{RSK-03}). \\ \arrayrulecolor{bfline}\hline
+\textit{Skill} con isolamento e permessi & \texttt{RF-030-Obb}, \texttt{RF-031-Obb}, \texttt{RQ-010-Obb}, \texttt{RF-061-Obb} & Fattibile con rischio medio-alto & L'isolamento di codice di terzi su risorse limitate è la parte più onerosa; in R1 la logica locale è solo \texttt{Des} (\texttt{RF-034-Des}) e le \textit{skill} \texttt{Obb} si avvalgono di servizi esterni (\texttt{RSK-04}). \\ \arrayrulecolor{bfline}\hline
+Esclusione hardware del microfono & \texttt{RV-003-Obb} & Fattibile & Funzione elettrica semplice e a basso costo. \\ \arrayrulecolor{bfline}\hline
+Aggiornamento sicuro con ripristino & \texttt{RF-070-Obb}...\texttt{RF-073-Obb} & Fattibile con rischio medio & Richiede due versioni conservate (\texttt{RV-009-Obb}) e verifica di firma; onere soprattutto di progettazione e prova. \\ \arrayrulecolor{bfline}\hline
+Costo dei materiali & \texttt{RV-022-Obb} & Fattibile con rischio medio & Componenti commerciali di uso generale; il margine si riduce se servono più microfoni (\texttt{RSK-05}); da validare con preventivi (\texttt{OI-01}). \\ \arrayrulecolor{bfline}\hline
+Conformità normativa & \texttt{RV-025-Obb}...\texttt{RV-030-Obb} & Fattibile, onere significativo & Attenuabile con alimentatore esterno e moduli radio già certificati; costi di prova e documentazione da stimare (\texttt{RSK-06}). \\ \arrayrulecolor{bfline}\hline
+Funzioni senza Internet & \texttt{RF-044-Des}, \texttt{RF-078-Des} & Fattibile & Timer, sveglie e ora sono locali; il parlato senza Internet dipende da un \textit{provider} locale (\texttt{RF-016-Des}). \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\subsection{Rischi principali}
+Probabilità e impatto: $B=$ basso, $M=$ medio, $A=$ alto.
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.11\linewidth} >{\raggedright\arraybackslash}p{0.26\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\centering\arraybackslash}p{0.06\linewidth} >{\raggedright\arraybackslash}p{0.42\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Rischio}} & \textcolor{white}{\textbf{Prob.}} & \textcolor{white}{\textbf{Imp.}} & \textcolor{white}{\textbf{Mitigazione}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Rischio}} & \textcolor{white}{\textbf{Prob.}} & \textcolor{white}{\textbf{Imp.}} & \textcolor{white}{\textbf{Mitigazione}} \\ \endhead
+\texttt{RSK-01} & Falsi positivi o falsi negativi della \textit{Parola di attivazione} oltre le soglie & M & A & Prove su insiemi di dati reali sul prototipo; soglie regolabili; scelta di una \textit{parola di attivazione} lunga e distintiva. \\ \arrayrulecolor{bfline}\hline
+\texttt{RSK-02} & Due microfoni insufficienti per \texttt{RF-001-Obb} & M & A & Misura precoce; opzione con più microfoni valutata rispetto a \texttt{RV-022-Obb}. \\ \arrayrulecolor{bfline}\hline
+\texttt{RSK-03} & Differenze di formato o comportamento fra \textit{provider IA} & A & M & Interfaccia minima comune con adattatori; prove con almeno 3 \textit{provider} diversi. \\ \arrayrulecolor{bfline}\hline
+\texttt{RSK-04} & Complessità dell'isolamento delle \textit{skill} & M & A & Limitare R1 alle \textit{skill} con servizi esterni; revisione di sicurezza dedicata. \\ \arrayrulecolor{bfline}\hline
+\texttt{RSK-05} & Superamento del costo dei materiali & M & M & Controllo del costo a ogni scelta di componente; requisiti \texttt{Des} e \texttt{Opz} rinviabili. \\ \arrayrulecolor{bfline}\hline
+\texttt{RSK-06} & Oneri di conformità sottostimati & M & A & Coinvolgere un esperto di conformità nella fase di progetto (\texttt{OI-06}); componenti già certificati. \\ \arrayrulecolor{bfline}\hline
+\texttt{RSK-07} & Variazioni di interfacce, condizioni o costi dei \textit{provider} di terzi & A & M & Adattatori sostituibili; \textit{provider} alternativo (\texttt{RF-019-Des}). \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\newpage
+% ---------- Appendici ----------
+\appendix
+
+\section{Questioni aperte}
+\label{sec:aperte}
+
+I valori elencati sono proposte tecniche del documento, non fatti accertati: vanno confermati prima della \textit{baseline} dei requisiti.
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.11\linewidth} >{\raggedright\arraybackslash}p{0.45\linewidth} >{\raggedright\arraybackslash}p{0.26\linewidth} >{\centering\arraybackslash}p{0.10\linewidth}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Questione}} & \textcolor{white}{\textbf{Requisiti coinvolti}} & \textcolor{white}{\textbf{Stato}} \\ \endfirsthead
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Questione}} & \textcolor{white}{\textbf{Requisiti coinvolti}} & \textcolor{white}{\textbf{Stato}} \\ \endhead
+\texttt{OI-01} & Conferma del limite di $150\text{ EUR}$ per il costo dei materiali del prototipo. & \texttt{RV-022-Obb}, \texttt{CON-01} & Aperta \\ \arrayrulecolor{bfline}\hline
+\texttt{OI-02} & Conferma dei mercati e delle lingue: R1 con sola lingua italiana, inglese in R2. & \texttt{RF-009-Obb}, \texttt{RF-010-Des}, \texttt{RF-108-Obb}, \texttt{RF-109-Des} & Aperta \\ \arrayrulecolor{bfline}\hline
+\texttt{OI-03} & Date obiettivo dei rilasci R1, R2, R3 e dimensione del team. & \texttt{CON-05}, 9 & Aperta \\ \arrayrulecolor{bfline}\hline
+\texttt{OI-04} & Conferma dei valori prestazionali (distanze, tassi, tempi, livelli sonori) con prove sul prototipo e con gli utenti. & \texttt{RF-001-Obb}, \texttt{RF-002-Obb} & Aperta \\ \arrayrulecolor{bfline}\hline
+\texttt{OI-05} & Conferma del periodo di conservazione predefinito della \textit{Cronologia} e della durata del supporto di sicurezza. & \texttt{PAR-11}, \texttt{RQ-025-Des} & Aperta \\ \arrayrulecolor{bfline}\hline
+\texttt{OI-06} & Validazione con un esperto di conformità dell'applicabilità e delle scadenze delle norme del 1.3, tenendo conto che, se il \textit{Sistema} resta un prototipo ad uso privato e non viene immesso sul mercato, parte dei requisiti normativi potrebbe non applicarsi. & \texttt{RV-025-Obb}...\texttt{RV-030-Obb} & Aperta \\ \arrayrulecolor{bfline}\hline
+\texttt{OI-07} & Scelta dei \textit{provider IA} reali da usare nelle prove e del \textit{provider di riferimento} simulato. & \texttt{RF-017-Obb}, \texttt{RSK-03} & Aperta \\ \arrayrulecolor{bfline}\hline
+\texttt{OI-08} & Nome del prodotto, autori e approvatori del documento. & Intestazione & Chiusa (v0.1.0) \\ \arrayrulecolor{bfline}\hline
+\end{longtable}
+
+\end{document}
