@@ -97,7 +97,7 @@
 \end{tabular}
 \hspace{14mm}
 \begin{tabular}[t]{r|l}
-\textbf{Versione} & 1.0 \\
+\textbf{Versione} & 0.1.1 \\
 \textbf{Tipo} & Verbale interno \\
 \textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
  & \emph{Prof. Tullio Vardanega} \\
@@ -132,7 +132,8 @@
   >{\hsize=2.00\hsize\raggedright\arraybackslash}X
 }
 \rowcolor{bfblue}\thc{Versione} & \thc{Data} & \thc{Autore} & \thc{Verificatore} & \thc{Descrizione} \\
-1.0 & 2026-11-20 & Lorenzo Milanese & Nicholas Salmaso & Redazione del verbale \\ \rl
+0.1.1 & 2026-11-23 & Lorenzo Milanese & Nicholas Salmaso & Correzioni della verifica: segnati i termini del Glossario e aggiunte le firme \\ \rl
+0.1.0 & 2026-11-20 & Lorenzo Milanese & Nicholas Salmaso & Redazione del verbale \\ \rl
 \end{tabularx}
 \end{center}
 
@@ -196,14 +197,14 @@ Matteo Wu & Analista & \presente \\ \rl
 \hypertarget{odg-1}{%
 \subsection{Revisione dei requisiti funzionali dell'Analisi dei requisiti}}
 \textbf{Discussione:}\\
-Il gruppo rilegge la bozza dell'Analisi dei requisiti di Beltrame e Toffoli, giudicata una buona base; vanno controllati alcuni salti nella numerazione dei requisiti. Principali osservazioni:
+Il gruppo rilegge la bozza dell'\gl{Analisi dei requisiti} di Beltrame e Toffoli, giudicata una buona base; vanno controllati alcuni salti nella numerazione dei requisiti. Principali osservazioni:
 \begin{itemize}
 \tightlist
 \item \textbf{Chiamate tra dispositivi}: i requisiti da RF62 a RF66 sono ritenuti poco utili; la rimozione va confermata con la proponente;
 \item \textbf{Account}: l'autenticazione è necessaria anche con server locale, perché la web app è esposta in rete;
 \item \textbf{\emph{Provider} AI}: il supporto a un modello locale va chiarito con la proponente;
 \item \textbf{Lingua}: va verificato il supporto multilingua di Whisper e Piper;
-\item \textbf{Server MCP}: la dashboard della web app verifica lo stato dei server solo quando viene aperta.
+\item \textbf{Server \gl{MCP}}: la dashboard della web app verifica lo stato dei server solo quando viene aperta.
 \end{itemize}
 
 \textbf{Decisioni prese:}
@@ -212,9 +213,9 @@ Il gruppo rilegge la bozza dell'Analisi dei requisiti di Beltrame e Toffoli, giu
 \item[$\checkmark$] \textbf{[VI-\vnum-01]} Rimozione del requisito RF142 sull'integrazione con dispositivi di altri ecosistemi;
 \item[$\checkmark$] \textbf{[VI-\vnum-02]} Requisito RF61 classificato come desiderabile;
 \item[$\checkmark$] \textbf{[VI-\vnum-03]} Ogni utente, al momento della registrazione, riceve automaticamente una casa. Può condividerla con altri utenti assegnando a ciascuno il ruolo di amministratore oppure di membro, che può solo visualizzare. Non si introducono famiglie o gruppi;
-\item[$\checkmark$] \textbf{[VI-\vnum-04]} Il \emph{provider} AI è configurabile per singolo dispositivo; per l'MVP è sufficiente un \emph{provider} remoto tramite chiave API;
+\item[$\checkmark$] \textbf{[VI-\vnum-04]} Il \emph{provider} AI è configurabile per singolo dispositivo; per l'\gl{MVP} è sufficiente un \emph{provider} remoto tramite chiave \gl{API};
 \item[$\checkmark$] \textbf{[VI-\vnum-05]} Il dispositivo supporterà con certezza la lingua inglese; il supporto all'italiano è ancora da verificare, perché dipende dagli strumenti di riconoscimento e sintesi vocale che verranno scelti;
-\item[$\checkmark$] \textbf{[VI-\vnum-06]} \emph{Wake word} personalizzata classificata come desiderabile;
+\item[$\checkmark$] \textbf{[VI-\vnum-06]} \gl{Wake word} personalizzata classificata come desiderabile;
 \item[$\checkmark$] \textbf{[VI-\vnum-07]} Riscontro vocale dopo ogni azione e conferma a voce prima delle azioni con effetti esterni sono obbligatori;
 \item[$\checkmark$] \textbf{[VI-\vnum-08]} Gli errori dei server MCP sono segnalati al momento della richiesta, senza \emph{polling};
 \item[$\checkmark$] \textbf{[VI-\vnum-09]} RF167: visualizzazione e modifica del contesto del dispositivo riservate all'amministratore.
@@ -289,7 +290,7 @@ Alla riunione si porta una lista delle funzionalità da classificare insieme all
 \textbf{Decisioni prese:}
 \begin{itemize}
 \tightlist
-\item[$\checkmark$] \textbf{[VI-\vnum-19]} Alla riunione con la proponente si porta una lista delle funzionalità da classificare per priorità e per consegna (RTB, PoC, MVP);
+\item[$\checkmark$] \textbf{[VI-\vnum-19]} Alla riunione con la proponente si porta una lista delle funzionalità da classificare per priorità e per consegna (\gl{RTB}, \gl{PoC}, MVP);
 \item[$\checkmark$] \textbf{[VI-\vnum-20]} Rimozione delle questioni aperte già risolte e riformulazione di quella sulle aspettative per le consegne.
 \end{itemize}
 
@@ -309,7 +310,7 @@ Milanese, in qualità di Amministratore, richiama alcune regole sull'uso di GitH
 \item il Verificatore raccoglie le correzioni in un unico commento.
 \end{itemize}
 
-La verifica della \emph{pull request} del Glossario v0.2 passa a Wu, poiché Salmaso ne è redattore. Il termine \emph{linter} e gli altri termini dell'Analisi dei requisiti vanno aggiunti al Glossario.
+La verifica della \emph{pull request} del Glossario v0.2 passa a Wu, poiché Salmaso ne è redattore. Il termine \gl{linter} e gli altri termini dell'Analisi dei requisiti vanno aggiunti al Glossario.
 
 \textbf{Decisioni prese:}
 \begin{itemize}
@@ -365,14 +366,14 @@ Aggiungere al Glossario \emph{linter} e i termini dell'Analisi dei requisiti & M
 \noindent
 \begin{minipage}[t]{0.45\textwidth}
 \textbf{Firma Segretario:}\\[18pt]
-\rule{55mm}{0.5pt}\\[2pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_lorenzo.png}}}\rule{55mm}{0.5pt}\\[2pt]
 \small Lorenzo Milanese
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.45\textwidth}
 \begin{flushright}
 \textbf{Firma Verificatore:}\\[18pt]
-\rule{55mm}{0.5pt}\\[2pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_nicholas.png}}}\rule{55mm}{0.5pt}\\[2pt]
 \small Nicholas Salmaso
 \end{flushright}
 \end{minipage}
