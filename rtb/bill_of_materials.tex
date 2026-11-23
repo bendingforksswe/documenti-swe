@@ -21,6 +21,7 @@
 \definecolor{bfhead}{HTML}{2E6BE6}
 % Segnaposto ancora da compilare (in rosso)
 \newcommand{\ph}[1]{\textcolor{red}{[#1]}}
+\newcommand{\gl}[1]{\emph{#1}\textsubscript{\scriptsize G}}
 \newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
 \setlist{topsep=2pt}
 \setlist[itemize]{leftmargin=1.3em,label=\textbullet}
@@ -79,11 +80,11 @@
 \vspace{48mm}
 {\fontsize{27}{32}\selectfont\bfseries Bill of Materials\par}
 \vspace{3mm}
-{\large Distinta dei componenti del dispositivo \emph{Fossdot}\par}
+{\large Distinta dei componenti del dispositivo \emph{FossDot}\par}
 
 \vfill
 \begin{tabular}[t]{r|l}
-\textbf{Versione} & 0.2.0 \\
+\textbf{Versione} & 0.2.1 \\
 \textbf{Uso} & Esterno \\
 \textbf{Destinatari} & \emph{Uranion EMEA LTD} \\
  & \emph{Prof. Tullio Vardanega} \\
@@ -92,7 +93,7 @@
 
 \vspace{12mm}
 {\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
-\begin{minipage}{150mm}\centering Elenco motivato dei componenti da acquistare per il prototipo del dispositivo \emph{Fossdot}, con fornitori, costi, tempi di consegna e rischi, come richiesto dall'azienda \emph{Uranion} nella riunione del 13 novembre 2026.\end{minipage}
+\begin{minipage}{150mm}\centering Elenco motivato dei componenti da acquistare per il prototipo del dispositivo \emph{FossDot}, con fornitori, costi, tempi di consegna e rischi, come richiesto dall'azienda \emph{Uranion} nella riunione del 13 novembre 2026.\end{minipage}
 \vspace*{6mm}
 \end{titlepage}
 
@@ -109,6 +110,7 @@
 \begin{center}
 \begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.65\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.90\hsize\raggedright\arraybackslash}X}
 \rowcolor{bfblue}\thc{Versione} & \thc{Data} & \thc{Autore} & \thc{Verificatore} & \thc{Descrizione} \\
+0.2.1 & 2026-11-23 & Marco Beltrame & Nicholas Salmaso & Correzioni dalla verifica: verbali con versione nei riferimenti, termini del Glossario segnati nel testo al posto della sezione Glossario, refusi \rl
 0.2.0 & 2026-11-18 & Marco Beltrame & Nicholas Salmaso & Scelta della scheda senza \emph{case} e della scocca stampata dal gruppo; prezzi e tempi aggiornati al 18/11; correzioni di forma \rl
 0.1.0 & 2026-11-13 & Marco Beltrame, Aldo Toffoli & Nicholas Salmaso & Prima stesura del documento \rl
 \end{tabularx}
@@ -118,27 +120,27 @@
 
 \subsection{Scopo del documento}
 
-Il presente documento elenca i componenti da acquistare per realizzare il prototipo del dispositivo \emph{Fossdot} e motiva la scelta di ciascuno. Nella riunione del 13 novembre 2026 l'azienda \emph{Uranion} ha chiesto di definire la \emph{Bill of Materials} tra le prime attività del progetto, perché ordinare e ricevere i componenti richiede tempo e senza il dispositivo lo sviluppo del \emph{firmware} diventa difficile.
+Il presente documento elenca i componenti da acquistare per realizzare il prototipo del dispositivo \emph{FossDot} e motiva la scelta di ciascuno. Nella riunione del 13 novembre 2026 l'azienda \emph{Uranion} ha chiesto di definire la \emph{Bill of Materials} tra le prime attività del progetto, perché ordinare e ricevere i componenti richiede tempo e senza il dispositivo lo sviluppo del \emph{firmware} diventa difficile.
 
 \subsection{Riferimenti}
 
 \subsubsection{Riferimenti normativi}
 \begin{itemize}
 \tightlist
-\item Norme di progetto, versione 0.1.0
-\item Capitolato d'appalto C3 \emph{Fossdot}, \emph{Uranion}: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C3-Fossdot.pdf}
+\item Norme di progetto v0.1.0;
+\item Capitolato d'appalto C3 \emph{FossDot}, \emph{Uranion}: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C3-Fossdot.pdf}.
 \end{itemize}
 
 \subsubsection{Riferimenti informativi}
 \begin{itemize}
 \tightlist
-\item Verbali interni ed esterni
-\item Documentazione dei produttori e pagine dei fornitori elencate nella sezione \ref{sec:fonti}
+\item Verbale esterno del 2026-10-21 con \emph{Uranion}, v1.1 (\emph{wake word} sul dispositivo e linguaggio del \emph{firmware});
+\item Verbale interno n.\ 7 del 2026-11-12, v1.0 (requisiti lato \emph{hardware});
+\item Verbale interno n.\ 8 del 2026-11-12, v1.0 (incarico di redazione della \emph{Bill of Materials}, VI-8-01);
+\item Verbale esterno del 2026-11-13 con \emph{Uranion}, v0.1.0 (richiesta della \emph{Bill of Materials} e numero di microfoni);
+\item Glossario v0.2.0;
+\item Documentazione dei produttori e pagine dei fornitori elencate nella sezione \ref{sec:fonti}.
 \end{itemize}
-
-\subsection{Glossario}
-
-I termini tecnici usati nel documento (per esempio \emph{AEC}, \emph{beamforming}, \emph{DSP}, \emph{I2S}, \emph{I2C}, \emph{wake word}) sono definiti nel Glossario del gruppo.
 
 \section{Vincoli e criteri di scelta}
 
@@ -146,20 +148,20 @@ La scelta dei componenti tiene conto dei requisiti del capitolato e di quanto co
 
 \begin{itemize}
 \tightlist
-\item \textbf{\emph{Wake word} sul dispositivo}: la parola di attivazione deve essere riconosciuta in locale (verbale del 21/10/2026);
+\item \textbf{\gl{Wake word} sul dispositivo}: la parola di attivazione deve essere riconosciuta in locale (verbale del 21/10/2026);
 \item \textbf{Numero di microfoni}: due microfoni sono sufficienti per il prodotto, mentre quattro aiutano nella riduzione del rumore e nell'evitare che il dispositivo registri la propria voce, a fronte di un consumo maggiore (DEC-001, verbale del 13/11/2026);
 \item \textbf{Costo del dispositivo accettabile}, come richiesto dal capitolato;
 \item \textbf{Documentazione completa e reperibile}  (verbale del 13/11/2026);
 \item \textbf{Compatibilità verificata} tra processore, microfoni e LED;
 \item \textbf{Tempi di consegna brevi}, tenendo conto del rallentamento delle spedizioni nel periodo natalizio;
-\item \textbf{\emph{firmware} preferibilmente in \emph{Rust}}, indicato dal capitolato come valore aggiunto.
+\item \textbf{\emph{Firmware} preferibilmente in \emph{Rust}}, indicato dal capitolato come valore aggiunto.
 \end{itemize}
 
 \subsection{4 microfoni vs 2 microfoni}
 \begin{itemize}
 \tightlist
-\item 4 microfoni (disposizione circolare): Copertura reale a 360\textdegree. Permette di calcolare con precisione l'angolo di arrivo della voce (DoA - Direction of Arrival) su tutto il piano orizzontale, ideale se il dispositivo è al centro della stanza (es. su un tavolo o un'isola). Maggiore guadagno di direttività (array gain).
-\item 2 microfoni (disposizione lineare): Copertura ottimale a 180\textdegree{} frontali. Soffre di ambiguità fronte-retro ed è ideale solo se appoggiato vicino a un muro o su una mensola. Flusso dati dimezzato, minor consumo energetico e gestione molto più semplice.
+\item 4 microfoni (disposizione circolare): copertura reale a 360\textdegree. Permette di calcolare con precisione l'angolo di arrivo della voce (DoA - Direction of Arrival) su tutto il piano orizzontale, ideale se il dispositivo è al centro della stanza (es. su un tavolo o un'isola). Maggiore guadagno di direttività (array gain).
+\item 2 microfoni (disposizione lineare): copertura ottimale a 180\textdegree{} frontali. Soffre di ambiguità fronte-retro ed è ideale solo se appoggiato vicino a un muro o su una mensola. Flusso dati dimezzato, minor consumo energetico e gestione molto più semplice.
 \end{itemize}
 
 \subsection{C/C++ vs Rust}
@@ -181,7 +183,7 @@ Il gruppo ha confrontato le cinque combinazioni proposte nel capitolato e una se
 \rowcolor{bfblue}\thc{Opzione} & \thc{Esito} & \thc{Motivazione} \\
 \emph{reSpeaker XVF3800} + \emph{XIAO ESP32-S3} & Scelta principale & Stesso processore dell'opzione A, elaborazione audio più avanzata e anello di 12 LED e 4 microfoni \rl
 A. \emph{reSpeaker Lite} + \emph{XIAO ESP32-S3} & Confronto & Due microfoni come da DEC-001 e costo dimezzato, ma un solo LED e audio meno robusto in ambienti rumorosi \rl
-B. \emph{Raspberry Pi 5} + \emph{ReSpeaker USB 4-Mic Array} & Scartata & Costo e consumi elevati, prezzo del \emph{Raspberry Pi 5} in alto; la potenza di un sistema \emph{Linux} non è necessaria sul dispositivo \rl
+B. \emph{Raspberry Pi 5} + \emph{ReSpeaker USB 4-Mic Array} & Scartata & Costo e consumi elevati, prezzo del \emph{Raspberry Pi 5} alto; la potenza di un sistema \emph{Linux} non è necessaria sul dispositivo \rl
 C. \emph{ESP32-S3-Korvo-2} & Scartata & Scheda di sviluppo di grandi dimensioni, cancellazione dell'eco solo in software tramite librerie in C a carico della CPU\rl
 D. \emph{Raspberry Pi Pico 2 W} + 4 microfoni MEMS & Scartata & Memoria insufficiente (520 KB) e nessuna elaborazione audio dedicata \rl
 E. \emph{nRF5340 Audio DK} + \emph{nRF7002} & Scartata & Costo elevato, \emph{Wi-Fi} su scheda separata \rl
@@ -203,10 +205,10 @@ Il gruppo propone come scheda principale la \emph{reSpeaker XVF3800} con \emph{X
 Il microcontrollore è lo stesso dell'opzione A: la \emph{wake word} e quasi tutto il \emph{firmware} sono quindi identici per le due schede. Cambiano i seguenti aspetti:
 \begin{itemize}
 \tightlist
-\item un array di microfoni circolare contro una disposizione lineare
-\item presenza di XMOS XVF3800 contro un modello precedente e meno performante
-\item DoA, de-reverberation, multi-beamforming in aggiunta alla standard AEC, noise suppression, VNR e AGC.
-\item 12 LED invece che 1
+\item Un array di microfoni circolare contro una disposizione lineare;
+\item Presenza di XMOS XVF3800 contro un modello precedente e meno performante;
+\item DoA, de-reverberation, multi-beamforming in aggiunta alla standard AEC, noise suppression, VNR e AGC;
+\item 12 LED invece che 1.
 \end{itemize}
 
 
@@ -289,7 +291,7 @@ Spedizione, dazi e IVA dell'ordine \emph{Seeed Studio} sono calcolati al momento
 \begin{center}
 \begin{tabularx}{\linewidth}{L{2.8cm}L{3.2cm}X L{2cm}}
 \rowcolor{bfblue}\thc{Fornitore} & \thc{Componenti} & \thc{Spedizione e tempi} & \thc{Verificato il} \\
-\emph{Seeed Studio} & BOM-A01, BOM-A02, BOM-B01, BOM-B02 & Magazzino in Germania per la \emph{XVF3800} (solo UE): al 18/11 su ordinazione, arrivo in magazzino previsto il 20/11/2026, poi spedizione in 1--2 giorni lavorativi. Dal magazzino in Cina 1--3 settimane & 18/11/2026 \rl
+\emph{Seeed Studio} & BOM-A01, BOM-A02, BOM-B01, BOM-B02 & Magazzino in Germania per la \emph{XVF3800} (solo UE): al 18/11/2026 su ordinazione, arrivo in magazzino previsto il 20/11/2026, poi spedizione in 1--2 giorni lavorativi. Dal magazzino in Cina 1--3 settimane & 18/11/2026 \rl
 \emph{OpenELAB} (Monaco di Baviera) & Alternativa per BOM-A02 e BOM-B02 & Pre-ordine: 10--20 giorni più 3--5 giorni di spedizione & 13/11/2026 \rl
 \end{tabularx}
 \end{center}
@@ -301,7 +303,7 @@ Le schede \emph{reSpeaker} risultano esaurite o in pre-ordine presso diversi riv
 \begin{center}
 \begin{tabularx}{\linewidth}{L{4.2cm}L{3.4cm}X}
 \rowcolor{bfblue}\thc{Rischio} & \thc{Effetto} & \thc{Contromisura} \\
-Scheda esaurita al momento dell'ordine & Ritardo del \emph{Proof of Concept} & Ordinare appena la distinta è approvata; ripiego sulla \emph{reSpeaker Lite} \rl
+Scheda esaurita al momento dell'ordine & Ritardo del \gl{Proof of Concept} & Ordinare appena la distinta è approvata; ripiego sulla \emph{reSpeaker Lite} \rl
 Ritardi di spedizione nel periodo natalizio & Ritardo del \emph{Proof of Concept} & Preferire il magazzino in Germania; nel frattempo sviluppo in simulazione \rl
 Il \emph{driver} I2S in \emph{Rust} non supporta la ricezione del \emph{clock} dal chip \emph{XMOS} & \emph{Firmware} da adattare & Prova con \emph{esp-hal} all'arrivo della scheda; ripiego su \emph{esp-idf-svc} \rl
 Segnale \emph{Wi-Fi} debole con la scocca chiusa & Connessione instabile & Provare la scocca prima della scelta definitiva \rl
