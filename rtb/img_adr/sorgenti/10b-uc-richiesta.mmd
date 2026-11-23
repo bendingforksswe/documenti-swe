@@ -1,0 +1,21 @@
+flowchart RL
+  subgraph SYS["Sistema Fossdot: estensioni di UC2"]
+    direction RL
+    UC2(["<b>UC2 Richiesta vocale con risposta</b>"])
+    UC1(["UC1 Attivazione dell'ascolto"])
+    UC3(["UC3 Nessun parlato"])
+    UC4(["UC4 Richiesta non compresa"])
+    UC7(["UC7 Servizio non disponibile"])
+    UC10(["UC10 Invocazione di una skill"])
+    UC11(["UC11 Attività multi-step"])
+    UC12(["UC12 Uso di uno strumento MCP"])
+    UC13(["UC13 Aggiornamento del contesto"])
+  end
+  UC2 -. "«include»" .-> UC1
+  UC3 -. "«extend»" .-> UC2
+  UC4 -. "«extend»" .-> UC2
+  UC7 -. "«extend»" .-> UC2
+  UC10 -. "«extend»" .-> UC2
+  UC11 -. "«extend»" .-> UC2
+  UC12 -. "«extend»" .-> UC2
+  UC13 -. "«extend»" .-> UC10

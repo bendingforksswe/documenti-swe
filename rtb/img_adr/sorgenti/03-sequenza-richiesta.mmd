@@ -1,0 +1,39 @@
+sequenceDiagram
+  autonumber
+  actor U as Utente
+  participant D as Dispositivo
+  participant G as Gateway e sessioni
+  participant V as VAD
+  participant S as STT
+  participant O as Orchestratore
+  participant P as Provider LLM
+  participant T as TTS
+  Note over D: Stato Inattivo: audio solo in locale
+  U->>D: "wake word"
+  D->>D: rileva la wake word (locale)
+  D-->>U: LED "in ascolto" + suono breve
+  D->>G: apre la sessione (id dispositivo, id richiesta)
+  U->>D: "che tempo fa domani a Padova?"
+  loop ogni 20-40 ms
+    D->>G: frame audio binario PCM 16 bit 16 kHz
+    G->>V: frame
+  end
+  V-->>G: fine richiesta (silenzio di circa 1 s)
+  G-->>D: fine ascolto
+  D-->>U: LED "elaborazione"
+  G->>S: audio della richiesta
+  S-->>G: trascrizione
+  G->>O: trascrizione + contesto dispositivo
+  O->>P: messaggi + strumenti disponibili
+  P-->>O: risposta in streaming (testo o tool call)
+  opt richiesta di uno strumento
+    O->>O: esegue skill o strumento MCP
+    O->>P: risultato dello strumento
+    P-->>O: risposta finale in streaming
+  end
+  O->>T: testo per frasi
+  T-->>G: audio sintetizzato a blocchi
+  G-->>D: frame audio della risposta
+  D-->>U: riproduce la risposta, LED "risposta"
+  G-->>D: fine risposta
+  D-->>U: LED spento, torna Inattivo

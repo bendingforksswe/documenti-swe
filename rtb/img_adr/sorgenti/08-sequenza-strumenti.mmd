@@ -1,0 +1,25 @@
+sequenceDiagram
+  autonumber
+  participant O as Orchestratore
+  participant C as Contesto e skill abilitate
+  participant P as Provider LLM
+  participant K as Runtime skill
+  participant M as Client MCP
+  participant X as Server MCP esterno
+  O->>C: carica contesto del dispositivo e skill abilitate
+  O->>P: prompt di sistema + contesto + elenco strumenti + richiesta
+  loop finché il modello chiede strumenti (massimo N passi)
+    P-->>O: tool call (nome, argomenti)
+    alt strumento di una skill
+      O->>K: esegue con argomenti validati
+      K-->>O: risultato
+    else strumento MCP
+      O->>M: call_tool
+      M->>X: richiesta MCP
+      X-->>M: risultato
+      M-->>O: risultato
+    end
+    O->>P: risultato dello strumento
+  end
+  P-->>O: risposta testuale finale in streaming
+  Note over O: superato il limite di passi o tempo: risposta di errore parlata

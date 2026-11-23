@@ -1,0 +1,14 @@
+flowchart TD
+  A["Wake word rilevata<br/>apertura sessione"] --> B{"Parlato iniziato<br/>entro 4-5 s?"}
+  B -- "no" --> X["Annulla la richiesta<br/>LED spento, nessun invio al provider"]
+  B -- "sì" --> C["Acquisizione in corso<br/>frame da 20-40 ms al server"]
+  C --> D{"Silenzio continuo<br/>di circa 1 s?"}
+  D -- "sì" --> F["Fine richiesta<br/>chiusura ascolto"]
+  D -- "no" --> E{"Durata totale<br/>oltre 15 s?"}
+  E -- "no" --> C
+  E -- "sì" --> F
+  F --> G{"Trascrizione<br/>vuota o non valida?"}
+  G -- "sì" --> H["Messaggio 'non ho capito'<br/>(UC4)"]
+  G -- "no" --> I["Invio all'orchestratore"]
+  classDef ipo fill:#fff4d6,stroke:#c89b2c
+  class B,D,E ipo
