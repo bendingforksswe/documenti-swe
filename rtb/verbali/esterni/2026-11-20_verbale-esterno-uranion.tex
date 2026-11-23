@@ -1,0 +1,271 @@
+%! con: Uranion
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+% Segnaposto ancora da compilare (in rosso)
+\newcommand{\ph}[1]{\textcolor{red}{[#1]}}
+% Termine presente nel Glossario: corsivo con G a pedice
+\newcommand{\gl}[1]{\emph{#1}\textsubscript{\scriptsize G}}
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}\raggedright}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}\raggedright}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\raggedright}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice: numeri con punto, trattini fino al numero di pagina
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Riunione con Uranion}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+\graphicspath{{../../../assets/}{../../assets/}{assets/}}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{48mm}
+{\fontsize{27}{32}\selectfont\bfseries Riunione con Uranion\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Filippo Rampazzo\\
+\textbf{Segretario} & Marco Beltrame\\
+\textbf{Verificatore} & Nicholas Salmaso\\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 0.1.0 \\
+\textbf{Tipo} & Verbale esterno \\
+\textbf{Destinatari} & \emph{Uranion EMEA LTD} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Resoconto della riunione esterna tra il gruppo Bending Forks e l'azienda Uranion del 20 novembre 2026, dedicata all'ordine dell'\emph{hardware}, alla pianificazione delle \emph{milestone} e allo strumento di \emph{project management} dell'azienda.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Contenuto ----------
+\section{Registro delle versioni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.55\hsize\raggedright\arraybackslash}X>{\hsize=0.65\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=0.95\hsize\raggedright\arraybackslash}X>{\hsize=1.90\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Versione}} & \textcolor{white}{\textbf{Data}} & \textcolor{white}{\textbf{Autore}} & \textcolor{white}{\textbf{Verificatore}} & \textcolor{white}{\textbf{Descrizione}} \\
+0.1.0 & 2026-11-20 & Marco Beltrame & Nicholas Salmaso & Prima stesura del documento \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\section{Informazioni generali}
+
+\subsection{Durata e luogo}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data:} 2026-11-20
+\item \textbf{Inizio:} 16:00
+\item \textbf{Fine:} 16:45
+\item \textbf{Modalità:} virtuale, tramite Google Meet
+\end{itemize}
+
+Il seguente documento contiene il resoconto della riunione esterna del gruppo \emph{Bending Forks} con l'azienda \emph{Uranion}. L'incontro è stato anticipato rispetto alla cadenza prevista per l'urgenza dell'ordine dei componenti: il gruppo ha presentato quanto richiesto nella riunione del 13 novembre (fasce di date per \gl{RTB} e \gl{PB}, documento sulle tecnologie e \emph{Bill of Materials}) e l'azienda ha presentato il proprio strumento di \emph{project management}.
+
+\subsection{Partecipanti}
+
+\subsubsection{Interni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4cm}>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{2cm}}
+\rowcolor{bfblue}\textcolor{white}{\textbf{Nome e Cognome}} & \textcolor{white}{\textbf{Ruolo}} & \textcolor{white}{\textbf{Presente}} & \textcolor{white}{\textbf{Assente}} \\
+Marco Beltrame & Progettista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Lorenzo Milanese & Amministratore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Filippo Rampazzo & Responsabile & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Nicholas Salmaso & Verificatore & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Luca Stangherlin & Analista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Aldo Toffoli & Progettista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+Matteo Wu & Analista & $\blacksquare$ & $\square$ \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\subsubsection{Esterni}
+
+\begin{itemize}
+\tightlist
+\item Andrea Dorigo, tutor del progetto (\emph{Uranion})
+\item Niccolò Campana, rappresentante (\emph{Uranion})
+\end{itemize}
+
+\break
+\section{Contenuto della riunione}
+
+\subsection{Ordine del giorno}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item Scelta dell'\emph{hardware} e ordine dei componenti
+\item Ambiente di sviluppo in attesa dei componenti
+\item Pianificazione delle \emph{milestone}
+\item Strumento di \emph{project management} dell'azienda
+\item Scocca del dispositivo
+\item Qualità dell'audio in uscita
+\item Varie ed eventuali
+\end{enumerate}
+
+\subsection{\texorpdfstring{Scelta dell'\emph{hardware} e ordine dei componenti}{Scelta dell'hardware e ordine dei componenti}}
+
+L'azienda ha confermato la scelta della scheda basata su \emph{ESP32-S3} con \emph{XVF3800} proposta nella \emph{Bill of Materials}. Far girare il sistema su un \emph{ESP32} è più sfidante che su un \emph{Raspberry Pi}, perché non è disponibile un sistema operativo \emph{Linux} completo, ma è anche più interessante dal punto di vista del progetto e dell'efficienza nell'uso delle risorse e delle librerie; l'\emph{ESP32} è inoltre molto diffuso, ad esempio nei \emph{controller} dei cancelli. Il \emph{Raspberry Pi} andrebbe considerato solo se si volessero eseguire più funzionalità direttamente sul dispositivo: l'\emph{ESP32} soddisfa pienamente le caratteristiche richieste.
+
+Il gruppo ha proposto di valutare, se avanzerà tempo o dopo la consegna, il passaggio del sistema alla scheda più economica del modello precedente (circa 30 € invece di 60 €, anch'essa dotata di \emph{DSP}). L'azienda ritiene che il tempo avanzerà sicuramente, ma che ci saranno probabilmente funzionalità \emph{software} più interessanti da sviluppare rispetto al cambio di dispositivo.
+
+Date queste conferme, l'azienda procederà con l'ordine dei componenti il prima possibile, presumibilmente il giorno stesso della riunione, e terrà aggiornato il gruppo.
+
+\subsection{Ambiente di sviluppo in attesa dei componenti}
+
+\textbf{Domanda dell'azienda:} Avete trovato degli emulatori con cui iniziare a provare?
+
+Il gruppo ne ha provati un paio, ma sono stati utili solo per provare la configurazione dei \emph{LED} del dispositivo. L'azienda consiglia di creare un ambiente il più possibile simile a quello in cui verrà sviluppato il codice effettivo: anche limitandosi a sapere con quali strumenti si gestisce il dispositivo e a scrivere un piccolo applicativo (ad esempio in \emph{C++}), tenendo conto che non si possono importare molte librerie per i limiti di memoria.
+
+\subsection{\texorpdfstring{Pianificazione delle \emph{milestone}}{Pianificazione delle milestone}}
+
+Il gruppo ha presentato le date previste, ricordando di poter decidere in autonomia quando candidarsi alle revisioni con i docenti:
+\begin{itemize}
+\tightlist
+\item \textbf{11 dicembre 2026:} \gl{Analisi dei requisiti} conclusa e approvata dall'azienda, con i casi d'uso approvati e una divisione già concordata delle funzionalità tra \gl{Proof of Concept} e \gl{MVP};
+\item \textbf{15 o 22 gennaio 2027:} consegna del \emph{Proof of Concept}, in base ai casi d'uso confermati e alle funzionalità scelte per il \emph{PoC};
+\item \textbf{26 marzo 2027:} consegna dell'\emph{MVP}, che coincide con la fine del progetto.
+\end{itemize}
+
+Il gruppo ha anticipato di aver preparato, oltre all'Analisi dei requisiti, un documento con i soli casi d'uso, che invierà all'azienda dopo la riunione per verificare che sia stato incluso tutto e se la divisione tra \emph{PoC} e \emph{MVP} è condivisa o va spostato qualcosa. I due documenti vengono redatti in parallelo e saranno poi riuniti in un unico documento. L'azienda ha ricordato che il prof.\ Cardin richiede ancora i diagrammi dei casi d'uso e ha chiesto di ricevere i documenti in \emph{PDF} via \emph{email}, così da revisionare una versione fissa.
+
+\textbf{Domanda dell'azienda:} Con che data di arrivo del dispositivo avete fatto queste date?
+
+Il gruppo ha ipotizzato l'arrivo dei componenti entro il 5 dicembre: in questo caso il \emph{PoC} potrebbe essere consegnato il 15 o il 22 gennaio.
+
+\textbf{Domanda dell'azienda:} Come data più probabile immagino il 22. Avete esami da fare in mezzo?
+
+Non in mezzo: la sessione d'esami inizia appena dopo, tra fine gennaio e inizio febbraio. L'azienda ha approvato le date e ritiene che, tra l'approvazione del \emph{PoC} e l'\emph{MVP}, un mese sia più che sufficiente per la comprensione e la verifica delle tecnologie.
+
+\subsection{\texorpdfstring{Strumento di \emph{project management} dell'azienda}{Strumento di project management dell'azienda}}
+
+\textbf{Domanda dell'azienda:} Per lo strumento di \emph{project management} vi siete informati su qualcosa? Cosa state usando adesso per gestire il progetto?
+
+Il gruppo ha continuato ad aggiornarsi tramite la \emph{repository}, in attesa dell'accesso allo strumento dell'azienda. Durante la riunione l'azienda ha invitato tutti i componenti, come amministratori, in uno spazio di lavoro dedicato al gruppo sulla propria istanza dello strumento, e ne ha illustrato il funzionamento:
+\begin{itemize}
+\tightlist
+\item lo spazio di lavoro può contenere più progetti; l'azienda consiglia di dividerli almeno in amministrazione e sviluppo, e ha creato il primo progetto di amministrazione. I progetti sono di tre tipi: \emph{delivery} (con un inizio e una fine), \emph{roadmap} (prodotti in sviluppo continuo) e \emph{operational} (attività amministrative). Il \emph{coordinator} di un progetto corrisponde al Responsabile;
+\item ogni \emph{task} ha un codice e può avere un assegnatario, una data prevista di svolgimento distinta dalla \emph{deadline}, ricorrenze, allegati, \emph{subtask} e \emph{checklist}; è possibile registrare le ore e l'impegno di ciascuno, utile anche per il consuntivo da presentare ai docenti;
+\item lo strumento è pensato per essere usato prima di tutto tramite \gl{MCP}, con circa 50 \emph{tool} che permettono tutte le operazioni disponibili dall'interfaccia. Le \emph{agent instructions} definiscono come l'assistente deve scrivere \emph{task}, commenti e \emph{review}, ad esempio una riga di sintesi seguita da contesto, decisioni e cose da fare;
+\item è disponibile, in versione \emph{beta}, un processo di \emph{review}: per ogni progetto si può indicare un verificatore e gli ambienti di prova (ad esempio \emph{staging}); il verdetto (superato, non superato o necessità di sentire il cliente) viene registrato e, in caso di esito negativo, il \emph{task} torna all'assegnatario con il motivo;
+\item esiste un'integrazione con \emph{Git} e \emph{GitLab}: alla chiusura di una \emph{merge request} lo stato del \emph{task} viene aggiornato con un commento.
+\end{itemize}
+L'uso dello strumento non è obbligatorio: il gruppo può usarlo anche solo dall'interfaccia, oppure continuare con gli strumenti che preferisce. Eventuali problemi o richieste di funzionalità si possono segnalare creando un progetto chiamato ``PM'' nello strumento.
+
+\textbf{Domanda:} Lavoriamo principalmente su \emph{GitHub}: quando creiamo una \emph{issue} possiamo assegnarla direttamente al progetto dalla schermata della \emph{issue}. Con questo strumento di \emph{project management} c'è un modo per automatizzare il processo, dalla creazione della \emph{issue} all'assegnazione al progetto? Quando creiamo una \emph{issue} su \emph{GitHub} questa va direttamente nel \emph{backlog} del nostro progetto su \emph{GitHub} e, quando facciamo i nostri cambiamenti, avanza automaticamente di stato. Usando questo strumento, invece, dovremmo creare prima la \emph{issue} su \emph{GitHub} e poi crearla a mano anche nel progetto?
+
+L'azienda lavora nel modo opposto: usa un'istanza \emph{self-hosted} di \emph{GitLab} che apre raramente, perché tramite \emph{MCP} si prende in carico il \emph{task} e si crea il \emph{branch} con un nome specifico; la \emph{issue} non viene creata finché qualcuno non prende in carico il \emph{task}. Preferisce inserire meno automazioni possibili: cambiare assegnatario o stato tramite \emph{MCP} è molto semplice, mentre le automazioni possono far uscire un \emph{task} dalla vista di chi lo sta seguendo. L'unico collegamento ritenuto davvero utile è quello che, alla chiusura di una \emph{merge request}, passa il \emph{task} in \emph{review}.
+
+Il gruppo ha spiegato che il collegamento con \emph{GitHub} serve perché il prof.\ Vardanega vuole seguire l'andamento del progetto. L'azienda ha riconosciuto il motivo come valido e valuterà a breve un'integrazione in scrittura, che crei automaticamente il collegamento tra \emph{task} e \emph{issue} su \emph{GitHub} in entrambe le direzioni.
+
+\subsection{Scocca del dispositivo}
+
+\textbf{Domanda:} Per quanto riguarda i pezzi, abbiamo scelto un'opzione senza scocca, principalmente perché il dispositivo necessita di uno \emph{speaker} esterno e sarebbe stato poco elegante averlo fuori dal contenitore principale. Di conseguenza abbiamo fatto un primo \emph{design} di una scocca, perché alla prima riunione ci era stato detto che sareste stati disposti eventualmente a stampare la scocca. Volevo chiedere se è ancora possibile.
+
+I presenti per l'azienda non hanno potuto rispondere direttamente: la persona più esperta sulla scocca, che potrebbe disporre di una stampante 3D o sapere dove ordinare la stampa, verrà consultata. Il gruppo invierà il materiale via \emph{email}. L'azienda ha precisato che la scocca non è essenziale, ma aiuta a definire il prodotto.
+
+\subsection{Qualità dell'audio in uscita}
+
+\textbf{Domanda:} Riguardo all'altoparlante, per ora ci siamo concentrati su una connessione \emph{WebSocket} che trasporta pacchetti audio a 16 bit e 16 kHz. Se però sul dispositivo dovessimo implementare una funzione come lo \emph{streaming} di musica, a 16 kHz con lo \emph{speaker} che abbiamo scelto la qualità sarebbe la più bassa con cui si possa ascoltare musica. Potrebbe essere interessante usare uno \emph{speaker} un po' più costruito e dedicare allo \emph{streaming} un flusso a sé stante, magari sempre a 16 bit ma a 48 kHz?
+
+L'azienda la considera una possibilità per dopo il \emph{PoC} o l'\emph{MVP}, non necessaria: è sufficiente che il gruppo individui e documenti che con un altro dispositivo si otterrebbe una qualità migliore. Dal punto di vista informatico sono più interessanti altre funzionalità, come la comunicazione tra due dispositivi \emph{Fossdot}.
+
+\subsection{Varie ed eventuali}
+
+Le riunioni con l'azienda si tengono di solito ogni due settimane; questa è stata anticipata per l'urgenza dell'ordine. La prossima riunione è quindi prevista tra due settimane, indicativamente venerdì 04/12/2026. Per eventuali urgenze il gruppo è stato aggiunto al canale di messaggistica dell'azienda (\emph{Mattermost}, \emph{self-hosted}), dove può porre qualsiasi domanda.
+
+\section{Decisioni e azioni}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.511\hsize\raggedright\arraybackslash}X>{\hsize=1.675\hsize\raggedright\arraybackslash}X>{\hsize=0.814\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Descrizione}} & \textcolor{white}{\textbf{Assegnatario}} \\
+VE-5-01 & Inviare all'azienda via \emph{email}, in \emph{PDF}, il documento dei casi d'uso con la divisione tra \emph{PoC} e \emph{MVP} & Filippo Rampazzo \\ \arrayrulecolor{bfline}\hline
+VE-5-02 & Completare l'Analisi dei requisiti, con i diagrammi dei casi d'uso, e farla approvare dall'azienda entro l'11/12/2026 & Luca Stangherlin, Matteo Wu \\ \arrayrulecolor{bfline}\hline
+VE-5-03 & Inviare all'azienda via \emph{email} il \emph{design} della scocca per valutarne la stampa 3D & Aldo Toffoli \\ \arrayrulecolor{bfline}\hline
+VE-5-04 & Esplorare lo strumento di \emph{project management} dell'azienda e segnalare problemi o richieste nel progetto ``PM'' & Lorenzo Milanese \\ \arrayrulecolor{bfline}\hline
+VE-5-05 & Inviare il presente verbale all'azienda via \emph{email} per la firma & Marco Beltrame \\ \arrayrulecolor{bfline}\hline
+\end{tabularx}
+\end{center}
+
+\break
+\section{Conclusioni}
+
+L'incontro ha sbloccato l'ordine dell'\emph{hardware}: l'azienda ha confermato la scheda basata su \emph{ESP32-S3} e le date proposte dal gruppo per l'Analisi dei requisiti, il \emph{Proof of Concept} e l'\emph{MVP}. Il gruppo ha inoltre ottenuto l'accesso allo strumento di \emph{project management} dell'azienda, che valuterà un'integrazione con \emph{GitHub} per permettere ai docenti di seguire l'andamento del progetto.
+
+La priorità per le prossime due settimane è l'arrivo dei componenti e il completamento dei casi d'uso, da far approvare all'azienda insieme alla divisione tra \emph{PoC} e \emph{MVP}.
+
+I componenti del gruppo \emph{Bending Forks} ringraziano \emph{Uranion} per la disponibilità e per i consigli ricevuti.
+
+\vspace{30pt}
+\begin{flushright}
+\textbf{Firma dell'azienda}\\[22pt]
+\rule{60mm}{0.5pt}
+\end{flushright}
+
+\end{document}
+
