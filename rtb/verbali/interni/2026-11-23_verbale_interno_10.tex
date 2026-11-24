@@ -1,0 +1,356 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amssymb}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\graphicspath{{../../../assets/}{../../assets/}{../assets/}{assets/}}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- Dati del verbale (da impostare una sola volta) ----------
+\newcommand{\vnum}{10}                     % numero progressivo del verbale interno
+\newcommand{\vdata}{2026-11-23}           % data della riunione, formato ISO
+\newcommand{\vdataestesa}{23 novembre 2026}   % data della riunione per esteso (es. 19 novembre 2026)
+
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+
+% Macro di formattazione interna Bending Forks
+\newcommand{\ph}[1]{\textcolor{red}{[#1]}}                        % segnaposto da completare
+\newcommand{\gl}[1]{\emph{#1}\textsubscript{\scriptsize G}}       % termine del Glossario
+\newcommand{\thc}[1]{\textcolor{white}{\textbf{#1}}}              % cella di intestazione delle tabelle
+\newcommand{\rl}{\arrayrulecolor{bfline}\hline}                   % riga di separazione delle tabelle
+\newcommand{\presente}{$\blacksquare$ & $\square$}                % colonne Presente / Assente
+\newcommand{\assente}{$\square$ & $\blacksquare$}
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+% Formattazione titoli sezioni
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}\raggedright}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}\raggedright}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\raggedright}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+% Indice cliccabile con trattini fino al numero di pagina
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+
+% Intestazione e piè di pagina
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Verbale interno n. \vnum}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+
+% Colorazione alternata delle righe delle tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\usepackage{etoolbox}
+\AtBeginEnvironment{tabularx}{\bftable}
+
+\begin{document}
+
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\includegraphics[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+
+\vspace{42mm}
+{\fontsize{24}{28}\selectfont\bfseries Verbale interno n. \vnum\par}
+\vspace{4mm}
+{\Large\color{bfblue} Riunione del \vdataestesa\par}
+
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Responsabile} & Filippo Rampazzo \\
+\textbf{Segretario} & Lorenzo Milanese \\
+\textbf{Verificatore} & Nicholas Salmaso \\
+\end{tabular}
+\hspace{14mm}
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 0.1.0 \\
+\textbf{Tipo} & Verbale interno \\
+\textbf{Destinatari} & \emph{Gruppo Bending Forks} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Sintesi e decisioni emerse durante la riunione interna del gruppo del \vdataestesa, riguardante le comunicazioni emerse dal diario di bordo, l'invio dei casi d'uso e della scocca alla proponente, l'aggiornamento del Glossario, l'avanzamento dell'Analisi dei requisiti e la simulazione virtuale dell'\emph{hardware}.\end{minipage}
+\vspace*{6mm}
+\end{titlepage}
+
+% ---------- Indice ----------
+\vspace*{2mm}
+{\fontsize{22}{26}\selectfont\bfseries Indice\par}
+\vspace{6mm}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Registro delle versioni ----------
+% Una riga per versione, dalla più recente alla più vecchia.
+% Versione nel formato X.Y.Z (Norme di progetto, Versionamento dei documenti): la prima stesura
+% è 0.1.0, le correzioni aumentano Z (es. 0.1.1), l'approvazione del Responsabile porta a 1.0.0.
+% La versione in copertina coincide con quella dell'ultima riga del registro.
+% Il Verificatore inserisce il proprio nome nella riga della versione che ha verificato.
+\hypertarget{registro-delle-versioni}{%
+\section{Registro delle versioni}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{
+  >{\hsize=0.55\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.75\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=0.85\hsize\raggedright\arraybackslash}X
+  >{\hsize=2.00\hsize\raggedright\arraybackslash}X
+}
+\rowcolor{bfblue}\thc{Versione} & \thc{Data} & \thc{Autore} & \thc{Verificatore} & \thc{Descrizione} \\
+0.1.0 & 2026-11-24 & Lorenzo Milanese & Nicholas Salmaso & Redazione del verbale \\ \rl
+\end{tabularx}
+\end{center}
+
+% ---------- Informazioni generali ----------
+\hypertarget{informazioni-generali}{%
+\section{Informazioni generali}}
+
+\hypertarget{durata-e-luogo}{%
+\subsection{Durata e luogo}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data:} \vdata;
+\item \textbf{Inizio:} 15:12;
+\item \textbf{Fine:} 17:01;
+\item \textbf{Luogo / modalità:} in remoto, tramite Discord.
+\end{itemize}
+
+\hypertarget{partecipanti}{%
+\subsection{Partecipanti}}
+
+% Per ogni componente: ruolo in carica nel periodo e \presente oppure \assente.
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}p{2.2cm}>{\centering\arraybackslash}p{2.2cm}}
+\rowcolor{bfblue}\thc{Nome e cognome} & \thc{Ruolo} & \thc{Presente} & \thc{Assente} \\
+Marco Beltrame & Progettista & \presente \\ \rl
+Lorenzo Milanese & Amministratore & \presente \\ \rl
+Filippo Rampazzo & Responsabile & \presente \\ \rl
+Nicholas Salmaso & Verificatore & \presente \\ \rl
+Luca Stangherlin & Analista & \presente \\ \rl
+Aldo Toffoli & Progettista & \presente \\ \rl
+Matteo Wu & Analista & \presente \\ \rl
+\end{tabularx}
+\end{center}
+
+% ---------- Ordine del giorno ----------
+\hypertarget{ordine-del-giorno}{%
+\section{Ordine del giorno}}
+
+\begin{enumerate}
+\tightlist
+\item \hyperlink{odg-1}{Comunicazioni dal diario di bordo};
+\item \hyperlink{odg-2}{Invio dei casi d'uso e della scocca alla proponente};
+\item \hyperlink{odg-3}{Aggiornamento del Glossario};
+\item \hyperlink{odg-4}{Avanzamento dell'Analisi dei requisiti};
+\item \hyperlink{odg-5}{Simulazione virtuale dell'hardware};
+\item \hyperlink{varie-ed-eventuali}{Varie ed eventuali}.
+\end{enumerate}
+\newpage
+
+% ---------- Discussione e decisioni ----------
+% Una sottosezione per ogni punto dell'ordine del giorno, con lo stesso titolo usato nell'elenco.
+% Ogni decisione ha il codice [VI-<n>-<nn>]: <n> è il numero del verbale (\vnum),
+% <nn> il numero progressivo della decisione nel verbale, a due cifre (01, 02, ...).
+% Motivazione, incaricati e scadenza si scrivono solo se il punto contiene decisioni;
+% un punto senza decisioni ha solo la discussione.
+\hypertarget{discussione-e-decisioni}{%
+\section{Discussione e decisioni}}
+
+\hypertarget{odg-1}{%
+\subsection{Comunicazioni dal diario di bordo}}
+
+\textbf{Discussione:}\\
+Rampazzo riporta quanto detto dal Prof.\ Vardanega durante il diario di bordo del 23 novembre 2026:
+\begin{itemize}
+\tightlist
+\item il \gl{PoC} non richiede una progettazione architetturale: serve a verificare che le tecnologie scelte (\emph{hardware}, Axum, Tokio, \gl{STT}, \gl{TTS} e un modello \gl{LLM} di riferimento) facciano ciò che serve. Rampazzo ritiene comunque utile almeno un'idea di architettura;
+\item una persona può ricoprire più ruoli contemporaneamente: i ruoli meno impegnativi (Verificatore, Amministratore, Responsabile) possono affiancare quelli di Progettista e Analista;
+\item prima di candidarsi alla \gl{RTB} il gruppo può chiedere al Prof.\ Cardin un parere informale sul lavoro svolto.
+\end{itemize}
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-\vnum-01]} Il PoC si concentra sulla verifica delle tecnologie; le altre funzionalità sono assegnate all'\gl{MVP};
+\item[$\checkmark$] \textbf{[VI-\vnum-02]} Dalla prossima rotazione dei ruoli si assegnano anche ruoli secondari in concomitanza con quelli principali;
+\item[$\checkmark$] \textbf{[VI-\vnum-03]} Prima della candidatura alla RTB si chiede al Prof.\ Cardin un parere informale.
+\end{itemize}
+
+\textbf{Motivazione:}\\
+Ricevere un riscontro prima della revisione ufficiale permette di correggere in anticipo gli errori; i ruoli secondari aumentano la collaborazione.
+
+\hypertarget{odg-2}{%
+\subsection{Invio dei casi d'uso e della scocca alla proponente}}
+
+\textbf{Discussione:}\\
+Il gruppo rilegge il documento di riepilogo dei casi d'uso preparato da Beltrame e lo giudica pronto dopo aver tolto alcune frasi poco chiare. Si sceglie di inviare i documenti via \emph{email} e di avvisare la proponente anche su Mattermost. Dopo l'invio la proponente restituisce il verbale firmato.
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-\vnum-04]} Invio alla proponente del verbale esterno del 20 novembre 2026 da firmare, del riepilogo dei casi d'uso da revisionare e del modello 3D della scocca per la stampa;
+\item[$\checkmark$] \textbf{[VI-\vnum-05]} I documenti ufficiali si inviano via \emph{email}; Mattermost si usa per le comunicazioni rapide;
+\item[$\checkmark$] \textbf{[VI-\vnum-06]} La scocca attuale è usata per il PoC e potrà essere rivista per l'MVP.
+\end{itemize}
+
+\textbf{Incaricati:} Rampazzo, Beltrame\\
+\textbf{Scadenza:} 2026-11-23
+
+\hypertarget{odg-3}{%
+\subsection{Aggiornamento del Glossario}}
+
+\textbf{Discussione:}\\
+Wu ha caricato lo script che genera il Glossario in \LaTeX\ a partire da un file JSON. Il Glossario (v0.2.0) non contiene ancora molti termini tecnici dell'Analisi dei requisiti, delle Norme di progetto e della \textit{Bill of Materials}. Rampazzo chiarisce che vanno inseriti i termini tecnici del dominio e i nomi di tecnologie e componenti che un lettore esterno potrebbe non conoscere.
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-\vnum-07]} I nuovi termini si segnalano nel canale Discord ``glossario'';
+\item[$\checkmark$] \textbf{[VI-\vnum-08]} Una volta a settimana i termini segnalati vengono aggiunti al file JSON in un'unica nuova versione del Glossario;
+\item[$\checkmark$] \textbf{[VI-\vnum-09]} L'aggiornamento con i termini dell'Analisi dei requisiti avviene quando il documento sarà più stabile.
+\end{itemize}
+
+\textbf{Motivazione:}\\
+Raccogliere i termini in un solo posto evita di cercarli in tutti i documenti e di creare molte versioni del Glossario.
+
+\textbf{Incaricati:} Milanese
+
+\hypertarget{odg-4}{%
+\subsection{Avanzamento dell'Analisi dei requisiti}}
+
+\textbf{Discussione:}\\
+Le due bozze dell'\gl{Analisi dei requisiti} sono ancora su \emph{branch} diversi; Beltrame ha caricato la versione aggiornata sul \emph{branch} dell'\emph{issue} \#49. Stangherlin propone di distinguere un'analisi dei requisiti di sistema, visibile all'utente, da un'analisi dei requisiti \emph{software}, con le tecnologie e i relativi vincoli: il tema verrà discusso nella prossima riunione interna.
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-\vnum-10]} Le due bozze vengono unite in un unico documento, partendo dalla versione di Beltrame;
+\item[$\checkmark$] \textbf{[VI-\vnum-11]} La distinzione tra requisiti di sistema e requisiti \emph{software} si discute nella riunione interna del 27 novembre 2026.
+\end{itemize}
+
+\textbf{Incaricati:} Stangherlin, Wu\\
+\textbf{Scadenza:} 2026-11-27
+
+\hypertarget{odg-5}{%
+\subsection{Simulazione virtuale dell'hardware}}
+
+\textbf{Discussione:}\\
+Toffoli mostra una prima simulazione del microcontrollore con anello di LED e un pulsante che sostituisce il rilevamento della \gl{wake word}, non simulabile perché manca l'ingresso audio; la gestione degli stati e la connessione WebSocket girano su due \emph{core} separati. Beltrame mostra una seconda simulazione con stati e volume. Toffoli riferisce inoltre che, per il server, si valutano microWakeWord e faster-whisper, più veloce e leggero di Whisper.
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-\vnum-12]} I Progettisti proseguono con la simulazione virtuale dell'\emph{hardware} e con l'analisi delle tecnologie lato server, a partire dal collegamento con il modello LLM.
+\end{itemize}
+
+\textbf{Incaricati:} Beltrame, Toffoli\\
+\textbf{Scadenza:} 2026-11-27
+
+\hypertarget{varie-ed-eventuali}{%
+\subsection{Varie ed eventuali}}
+
+\textbf{Discussione:}\\
+Milanese segnala che i verbali interni usano versioni come 1.0 e 1.1, non il formato \texttt{X.Y.Z} delle Norme di progetto. Si ricordano inoltre alcune regole su GitHub: dopo il \emph{merge} il \emph{branch} va eliminato e una \emph{pull request} non va unita dal suo stesso autore. Chi redige il diario di bordo lo comunica sul gruppo, per evitare che venga scritto due volte.
+
+\textbf{Decisioni prese:}
+\begin{itemize}
+\tightlist
+\item[$\checkmark$] \textbf{[VI-\vnum-13]} I verbali seguono il versionamento \texttt{X.Y.Z}; il \emph{template} dei verbali interni è già stato corretto e una sola \emph{issue} correggerà le versioni dei verbali precedenti;
+\item[$\checkmark$] \textbf{[VI-\vnum-14]} Nei verbali interni la tabella delle azioni da intraprendere riporta anche il numero dell'\emph{issue} collegata, se presente;
+\item[$\checkmark$] \textbf{[VI-\vnum-15]} La \emph{milestone} si indica solo nelle \emph{issue}, non nelle \emph{pull request}.
+\end{itemize}
+
+\textbf{Incaricati:} Milanese\\
+\textbf{Scadenza:} 2026-11-27
+
+\newpage
+
+% ---------- Azioni da intraprendere ----------
+% Una riga per ogni attività assegnata durante la riunione. Priorità: Alta, Media o Bassa.
+\hypertarget{azioni-da-intraprendere}{%
+\section{Azioni da intraprendere}}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=2.0\hsize\raggedright\arraybackslash}X >{\hsize=1.0\hsize\raggedright\arraybackslash}X >{\hsize=0.5\hsize\centering\arraybackslash}X >{\hsize=0.5\hsize\centering\arraybackslash}X}
+\rowcolor{bfblue}\thc{Descrizione} & \thc{Incaricati} & \thc{Scadenza} & \thc{Priorità} \\
+Unire le due bozze dell'Analisi dei requisiti & Stangherlin, Wu & 2026-11-27 & Alta \\ \rl
+Proseguire la simulazione virtuale dell'\emph{hardware} & Beltrame, Toffoli & 2026-11-27 & Media \\ \rl
+Approfondire le tecnologie lato server e il collegamento con il modello LLM & Toffoli & 2026-11-27 & Media \\ \rl
+Aggiungere al Glossario i termini segnalati nel canale ``glossario'' & Milanese & 2026-11-27 & Media \\ \rl
+Correggere le versioni dei verbali precedenti nel formato \texttt{X.Y.Z} & Milanese & 2026-11-27 & Bassa \\ \rl
+\end{tabularx}
+\end{center}
+
+% ---------- Prossima riunione ----------
+\hypertarget{prossima-riunione}{%
+\section{Pianificazione della prossima riunione}}
+
+\begin{itemize}
+\tightlist
+\item \textbf{Data proposta:} 2026-11-27;
+\item \textbf{Ora prevista:} da definire;
+\item \textbf{Luogo / modalità:} in remoto, tramite Discord;
+\item \textbf{Ordine del giorno preliminare:} unione delle bozze dell'Analisi dei requisiti, distinzione tra requisiti di sistema e requisiti \emph{software}, avanzamento della simulazione dell'\emph{hardware}.
+\end{itemize}
+
+% ---------- Firme ----------
+% Le firme si aggiungono dopo la verifica: per ciascun firmatario, subito prima di \rule,
+% inserire la sua immagine della firma presa da assets/ (file firma_<nome>), racchiusa in
+% un makebox largo 0pt, come nei verbali precedenti. Finché le immagini mancano,
+% il sito considera il verbale non firmato.
+\vspace{35pt}
+\noindent
+\begin{minipage}[t]{0.45\textwidth}
+\textbf{Firma Segretario:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_lorenzo.png}}}\rule{55mm}{0.5pt}\\[2pt]
+\small Lorenzo Milanese
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\begin{flushright}
+\textbf{Firma Verificatore:}\\[18pt]
+\makebox[0pt][l]{\raisebox{0mm}{\includegraphics[width=40mm]{firma_nicholas.png}}}\rule{55mm}{0.5pt}\\[2pt]
+\small Nicholas Salmaso
+\end{flushright}
+\end{minipage}
+
+\end{document}
