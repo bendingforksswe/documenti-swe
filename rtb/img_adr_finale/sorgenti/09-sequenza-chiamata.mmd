@@ -1,0 +1,31 @@
+sequenceDiagram
+  autonumber
+  actor U1 as Utente in cucina
+  participant D1 as Dispositivo cucina
+  participant S as Server
+  participant D2 as Dispositivo camera
+  actor U2 as Utente in camera
+  U1->>D1: wake word + "chiama la camera"
+  D1->>S: richiesta vocale
+  S->>S: interpreta il comando e trova il dispositivo
+  S->>D2: notifica chiamata in arrivo
+  D2-->>U2: suono + LED "chiamata"
+  alt chiamata in tempo reale (drop-in)
+    S->>D1: canale audio aperto
+    S->>D2: canale audio aperto
+    par audio bidirezionale
+      D1->>S: frame audio
+      S->>D2: frame audio
+    and
+      D2->>S: frame audio
+      S->>D1: frame audio
+    end
+    U1->>D1: wake word o pulsante
+    D1->>S: chiudi chiamata
+    S->>D2: chiamata terminata
+  else ripiego: messaggio registrato
+    D1-->>U1: "registra il messaggio"
+    U1->>D1: messaggio
+    D1->>S: audio del messaggio
+    S->>D2: riproduce il messaggio
+  end

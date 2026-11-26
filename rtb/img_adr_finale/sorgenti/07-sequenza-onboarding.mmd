@@ -1,0 +1,23 @@
+sequenceDiagram
+  autonumber
+  actor A as Amministratore
+  participant D as Dispositivo nuovo
+  participant S as Server
+  participant W as Web app
+  A->>D: accende il dispositivo
+  D->>D: nessuna rete salvata: modalità configurazione
+  D-->>A: LED "da configurare" + rete Wi-Fi temporanea del dispositivo
+  A->>D: si collega alla rete del dispositivo dal telefono o dal PC
+  D-->>A: si apre da sola la pagina di configurazione (captive portal)
+  A->>D: inserisce rete e password del Wi-Fi di casa e indirizzo del server
+  D->>D: chiude la rete temporanea e si collega alla rete di casa
+  D->>S: apre la connessione e si presenta con il proprio identificativo
+  S-->>W: nuovo dispositivo in attesa
+  A->>W: aggiunge il dispositivo a una casa, sceglie nome e stanza
+  S->>S: crea la credenziale del dispositivo
+  S-->>D: credenziale del dispositivo
+  D->>D: salva la credenziale in memoria non volatile
+  D-->>A: LED di conferma + messaggio vocale "pronto"
+  alt rete o password errate
+    D-->>A: LED di errore, torna in modalità configurazione
+  end
