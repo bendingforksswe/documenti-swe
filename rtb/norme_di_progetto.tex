@@ -427,7 +427,7 @@ Ogni attività da svolgere viene aperta come \textbf{\emph{issue}} su GitHub nel
 \item Il ruolo con cui si svolge l'attività \ph{tramite label o campo del Project};
 \item La scadenza e, se utile, una descrizione.
 \end{itemize}
-Le sigle dei documenti da usare nel titolo sono: \texttt{NdP} (Norme di progetto), \texttt{AdR} (Analisi dei requisiti), \texttt{PdP} (Piano di progetto), \texttt{PdQ} (Piano di qualifica), \texttt{Gls} (Glossario), \texttt{ST} (Specifica tecnica), \texttt{MU} (Manuale utente), \texttt{VI} (verbali interni) e \texttt{VE} (verbali esterni).
+Le sigle dei documenti da usare nel titolo sono: \texttt{NdP} (Norme di progetto), \texttt{AdR} (Analisi dei requisiti), \texttt{PdP} (Piano di progetto), \texttt{PdQ} (Piano di qualifica), \texttt{Gls} (Glossario), \texttt{ST} (Specifica tecnica), \texttt{MU} (Manuale utente), \texttt{VI} (verbali interni), \texttt{VE} (verbali esterni) e \texttt{DdB} (diari di bordo).
 
 \paragraph{\emph{Label} e \emph{milestone}}
 \ph{Proposta da approvare in riunione:}
@@ -626,7 +626,7 @@ Verificatore & Verifica documenti e codice secondo queste norme & Tutto il proge
 \end{itemize}
 
 \subsubsection{Ciclo di vita delle attività}\label{sec:attivita}
-Il Responsabile suddivide il lavoro del periodo in attività piccole, assegnabili a una sola persona e completabili entro il periodo. Ogni attività è una \emph{issue} (§\ref{sec:issue}) e attraversa i seguenti stati \ph{sulla \emph{board} del GitHub Project}:
+Il Responsabile suddivide il lavoro del periodo in attività piccole, assegnabili a una sola persona e completabili entro il periodo. Ogni attività è una \emph{issue} (§\ref{sec:issue}) e attraversa i seguenti stati sulla \emph{board} del GitHub Project:
 \begin{enumerate}
 \tightlist
 \item \textbf{\emph{Backlog}}: l'attività è stata individuata ma non ancora pianificata;
@@ -635,6 +635,7 @@ Il Responsabile suddivide il lavoro del periodo in attività piccole, assegnabil
 \item \textbf{In verifica}: l'assegnatario ha aperto la \emph{pull request} e indicato il Verificatore;
 \item \textbf{Completata}: la \emph{pull request} è stata approvata e unita, e l'assegnatario ha registrato le ore effettive.
 \end{enumerate}
+Sul Project si inseriscono solo le \emph{issue}: le \emph{pull request} non hanno una propria scheda, ma compaiono nella scheda dell'\emph{issue} a cui sono collegate tramite \texttt{Closes \#<numero>}.
 
 \paragraph{\emph{Definition of Done}}
 Un'attività è \textbf{completata} solo quando:
