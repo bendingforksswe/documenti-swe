@@ -1,0 +1,24 @@
+flowchart LR
+  U{{"<b>Utente</b>"}}
+  D2{{"<b>Dispositivo remoto</b>"}}
+  subgraph SYS["Sistema Fossdot: interazione vocale"]
+    direction TB
+    UC1(["UC1 Attivazione dell'ascolto"])
+    UC2(["UC2 Richiesta vocale con risposta"])
+    UC5(["UC5 Interruzione con 'Ehi Fossdot'"])
+    UC6(["UC6 Sostituzione della richiesta"])
+    UC8(["UC8 Mute dei microfoni"])
+    UC9(["UC9 Regolazione del volume"])
+    UC14(["UC14 Chiamata tra dispositivi"])
+    UC15(["UC15 Messaggio vocale"])
+  end
+  U --- UC1
+  U --- UC2
+  U --- UC5
+  U --- UC6
+  U --- UC8
+  U --- UC9
+  U --- UC14
+  U --- UC15
+  UC14 --- D2
+  UC15 --- D2

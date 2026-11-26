@@ -1,0 +1,3280 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage{libertinus}
+\usepackage{amsmath}
+\usepackage[a4paper,top=25mm,bottom=25mm,left=22mm,right=22mm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\graphicspath{{./}{../assets/}{../../assets/}{../../Assets/}{assets/}{Assets/}}
+\usepackage[table]{xcolor}
+\usepackage{tabularx,longtable,array}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{float}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+\def\UrlBreaks{\do\/\do\_\do\-\do\.}
+ 
+% Palette colori del gruppo Bending Forks
+\definecolor{bfblue}{HTML}{1B3F9E}
+\definecolor{bfrow}{HTML}{F2F5FC}
+\definecolor{bfline}{HTML}{C9D1E6}
+\definecolor{bfhead}{HTML}{2E6BE6}
+\definecolor{bfph}{HTML}{C62828}
+ 
+% Macro di formattazione interna Bending Forks
+\newcommand{\ph}[1]{\textcolor{bfph}{\textbf{[#1]}}}
+\newcommand{\gl}[1]{\emph{#1}\textsubscript{\scriptsize G}}
+\newcommand{\tightlist}{\setlength{\itemsep}{1pt}\setlength{\parskip}{0pt}}
+\newcommand{\thc}[1]{\textcolor{white}{\textbf{#1}}}
+\newcommand{\rl}{\\ \arrayrulecolor{bfline}\hline}
+ 
+% Inserimento sicuro delle immagini: carica il file se presente, altrimenti mostra un riquadro segnaposto senza bloccare Overleaf
+\newcommand{\safeimg}[2][width=\linewidth,height=0.62\textheight,keepaspectratio]{%
+  \IfFileExists{#2}{\includegraphics[#1]{#2}}{%
+  \IfFileExists{assets/#2}{\includegraphics[#1]{assets/#2}}{%
+  \IfFileExists{Assets/#2}{\includegraphics[#1]{Assets/#2}}{%
+  \IfFileExists{../assets/#2}{\includegraphics[#1]{../assets/#2}}{%
+  \IfFileExists{../../assets/#2}{\includegraphics[#1]{../../assets/#2}}{%
+  \IfFileExists{../../Assets/#2}{\includegraphics[#1]{../../Assets/#2}}{%
+    \fbox{\parbox{0.85\linewidth}{\centering\vspace{8mm}\textbf{Immagine non trovata su Overleaf:}\\[4pt]\texttt{\detokenize{#2}}\vspace{8mm}}}%
+  }}}}}}%
+}
+ 
+\setlist{topsep=2pt}
+\setlist[itemize]{leftmargin=1.3em,label=\textbullet}
+\setlist[enumerate]{leftmargin=1.6em}
+\setlength{\parindent}{0pt}
+\sloppy
+\setlength{\emergencystretch}{2em}
+\setlength{\parskip}{5pt}
+\renewcommand{\arraystretch}{1.45}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+ 
+% Formattazione titoli sezioni (layout Bending Forks)
+\titleformat{\section}{\LARGE\bfseries\color{bfblue}\raggedright}{\thesection.}{0.3em}{}[{\color{bfblue}\vspace{-2pt}\titlerule[0.9pt]}]
+\titleformat{\subsection}{\Large\bfseries\color{bfblue}\raggedright}{\thesubsection.}{0.3em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\raggedright}{\thesubsubsection.}{0.3em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+ 
+% Indice cliccabile con puntini/trattini
+\contentsmargin{2.2em}
+\newcommand{\bfleader}{\titlerule*[0.32em]{\textendash}}
+\titlecontents{section}[0pt]{\addvspace{5pt}\normalfont\large\bfseries}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsection}[1.2em]{\addvspace{0pt}\normalfont}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{subsubsection}[2.4em]{\addvspace{0pt}\normalfont}{\thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+\titlecontents{figure}[0pt]{\addvspace{2pt}\normalfont}{\figurename\ \thecontentslabel.\ }{}{\hspace{0.4em}\bfleader\contentspage}
+ 
+% Intestazioni e piè di pagina (layout Bending Forks)
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily\bfseries\color{bfhead}\textls[120]{BENDING FORKS}}
+\fancyhead[R]{\footnotesize\sffamily Analisi dei requisiti}
+\fancyfoot[C]{\small Pagina \thepage}
+\renewcommand{\headrulewidth}{0.9pt}
+ 
+% Colorazione alternata per le tabelle
+\newcommand{\bftable}{\rowcolors{2}{bfrow}{white}}
+\AtBeginEnvironment{tabularx}{\bftable}
+\AtBeginEnvironment{longtable}{\bftable}
+\setlength{\LTpre}{6pt}
+\setlength{\LTpost}{6pt}
+\pretocmd{\section}{\Needspace*{12\baselineskip}}{}{}
+\pretocmd{\subsubsection}{\Needspace*{6\baselineskip}}{}{}
+ 
+\begin{document}
+% ---------- Copertina ----------
+\begin{titlepage}
+\centering
+\vspace*{4mm}
+\safeimg[width=105mm]{logo-bending-forks-trasparente.png}\\[4mm]
+\underline{bending.forks.swe@gmail.com}
+ 
+\vspace{32mm}
+{\fontsize{24}{28}\selectfont\bfseries Analisi dei requisiti\par}
+\vspace{4mm}
+{\large\color{bfblue}\textbf{Capitolato C3: Fossdot -- Smart Speaker Open Source}\par}
+ 
+\vfill
+\begin{tabular}[t]{r|l}
+\textbf{Versione} & 0.3.0 \\
+\textbf{Tipo} & Documento esterno \\
+\textbf{Destinatari} & \emph{Uranion EMEA LTD} \\
+ & \emph{Prof. Tullio Vardanega} \\
+ & \emph{Prof. Riccardo Cardin} \\
+\end{tabular}
+ 
+\vspace{12mm}
+{\large\emph{\textbf{Abstract dei contenuti:}}}\\[1mm]
+\begin{minipage}{150mm}\centering Analisi dei requisiti del prodotto \emph{Fossdot}: scopo e perimetro del sistema, descrizione generale, attori, casi d'uso, requisiti funzionali, di qualità, di vincolo e prestazionali, con relativo tracciamento verso le fonti.\end{minipage}
+ 
+\vspace*{6mm}
+\end{titlepage}
+ 
+% ---------- Indice ----------
+% ---------- Indice ----------
+\section*{Indice}
+\makeatletter\@starttoc{toc}\makeatother
+\newpage
+
+% ---------- Elenco delle figure ----------
+\section*{Elenco delle figure}
+\makeatletter\@starttoc{lof}\makeatother
+\newpage
+
+% ---------- Registro delle versioni ----------
+\phantomsection
+\section*{Registro delle versioni}
+\addcontentsline{toc}{section}{Registro delle versioni}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*130/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*150/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*170/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*170/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*380/1000\relax}}
+\rowcolor{bfblue}\thc{Versione} & \thc{Data} & \thc{Autore} & \thc{Verificatore} & \thc{Descrizione} \\
+\endfirsthead
+\rowcolor{bfblue}\thc{Versione} & \thc{Data} & \thc{Autore} & \thc{Verificatore} & \thc{Descrizione} \\
+\endhead
+0.3.0 & 2026-11-26 & Matteo Wu, Luca Stangherlin & Nicholas Salmaso & Unificazione delle bozze di analisi, allineamento strutturale alle Norme di progetto e al verbale esterno del 2026-11-20; integrazione del perimetro concordato con la proponente. Definizione dei requisiti. \rl
+0.2.0 & 2026-11-19 & Marco Beltrame, Aldo Toffoli & Nicholas Salmaso & Stesura iniziale su casi d'uso. \rl
+0.1.0 & 2026-11-18 & Matteo Wu, Luca Stangherlin & Nicholas Salmaso & Prima stesura del documento. \rl
+\end{longtable}
+\newpage
+
+ 
+% =====================================================================
+\section{Introduzione}
+ 
+\subsection{Scopo del documento}
+Il presente documento definisce in modo strutturato i requisiti funzionali, di qualità, di vincolo e prestazionali del prodotto \emph{Fossdot}, ricavati dal capitolato d'appalto C3 e dagli incontri con la proponente \emph{Uranion EMEA LTD}. Organizza tali richieste in attori, casi d'uso e requisiti tracciati verso le rispettive fonti.
+ 
+L'Analisi dei requisiti è un documento \textbf{incrementale}: le scelte ancora da confermare con la proponente hanno fonte ``Interna'', sono raccolte nella sezione~\ref{sec:aperte} e vengono aggiornate dopo ogni incontro fino all'approvazione per la RTB.
+ 
+Il documento è destinato a:
+\begin{itemize}
+\tightlist
+\item La proponente (\emph{Uranion EMEA LTD}) e i committenti (Prof.\ Tullio Vardanega e Prof.\ Riccardo Cardin), per verificare la corretta comprensione delle aspettative;
+\item I Progettisti e i Programmatori del gruppo, come base per la progettazione architetturale, il PoC e l'MVP;
+\item I Verificatori, per la definizione dei test di sistema e di accettazione nel Piano di qualifica;
+\item Il Responsabile e l'Amministratore, per il monitoraggio del perimetro e della qualità del progetto.
+\end{itemize}
+ 
+\subsection{Prospettiva del prodotto}
+ 
+\emph{Fossdot} è uno \emph{smart speaker} \emph{open source} pensato per offrire un assistente vocale domestico rispettoso della \emph{privacy}, controllabile in ogni sua parte e privo di \emph{vendor lock-in}. A differenza dei dispositivi proprietari vincolati al \emph{cloud} di un unico produttore, \emph{Fossdot} lascia al proprietario la scelta del \emph{provider} AI (remoto o in rete locale), consente di estenderne le capacità tramite \emph{skill} e protocollo standard MCP e permette a più dispositivi di cooperare nella stessa casa.
+ 
+Il sistema si compone di quattro parti principali:
+\begin{enumerate}
+\tightlist
+\item \textbf{\emph{Hardware}}: scheda audio reSpeaker XVF3800 (4 microfoni, processore audio XMOS, anello di 12 LED), microcontrollore XIAO ESP32-S3, altoparlante da 5~W, alimentatore, cavo USB-C e scocca (dettagliati nella \emph{Bill of Materials});
+\item \textbf{\emph{Firmware} del dispositivo}: riconosce localmente la \emph{wake word}, gestisce pulsanti, LED e connessione WebSocket con il server, invia l'audio della richiesta in \emph{streaming} e riproduce la risposta;
+\item \textbf{Server di \emph{bridging}}: installabile in autonomia (\emph{self-hosted}), esegue la \emph{pipeline} STT $\rightarrow$ LLM $\rightarrow$ TTS con il \emph{provider} AI configurato e gestisce \emph{skill}, \emph{agent}, \emph{client} MCP e comunicazione tra dispositivi;
+\item \textbf{Web app di gestione}: interfaccia web \emph{responsive} per la gestione di account, case, stanze, dispositivi, \emph{provider} AI, \emph{skill}, server MCP, contesto e aggiornamenti.
+\end{enumerate}
+ 
+\subsection{Funzioni del prodotto}
+Le funzionalità principali offerte dal sistema sono:
+\begin{enumerate}
+\tightlist
+\item Dialogo vocale attivato localmente tramite \emph{wake word} (o pulsante \emph{push-to-talk}), con interruzione della risposta (\emph{barge-in});
+\item Configurazione flessibile di uno o più \emph{provider} AI compatibili (in \emph{cloud} o in locale) e scelta del modello, senza riprogrammare il dispositivo;
+\item Estensione delle capacità dell'assistente tramite \emph{skill} installabili, attività \emph{multi-step} (\emph{agent}) e strumenti esposti da server MCP, con conferma vocale delle azioni con effetti esterni;
+\item Cooperazione tra più dispositivi della stessa casa, incluse chiamate audio (\emph{drop in}) e messaggi vocali;
+\item Procedura guidata di \emph{onboarding} tramite \emph{captive portal} e gestione completa di case, membri, stanze, dispositivi e contesto dalla web app;
+\item Tutela della \emph{privacy}: rilevamento locale della \emph{wake word}, disattivazione fisica dei microfoni (\emph{mute}), nessuna telemetria non richiesta e controllo sulla conservazione delle trascrizioni;
+\item Aggiornamento \emph{Over The Air} (OTA) firmato del \emph{firmware}, con ripristino automatico in caso di errore.
+\end{enumerate}
+ 
+\subsection{Caratteristiche dell'utente}
+Il sistema si rivolge a utilizzatori domestici con diversi livelli di interazione:
+\begin{itemize}
+\tightlist
+\item \textbf{Utente}: qualsiasi persona presente nell'ambiente domestico che interagisce a voce o tramite i comandi fisici del dispositivo; non richiede autenticazione né competenze tecniche;
+\item \textbf{Utente non autenticato}: persona che accede alla web app prima di effettuare registrazione o accesso;
+\item \textbf{Membro}: utente autenticato associato a una casa; consulta i dispositivi e gestisce il proprio profilo e i propri dati, senza modificare la configurazione del sistema;
+\item \textbf{Amministratore}: membro con privilegi di gestione; esegue l'\emph{onboarding} del dispositivo e configura case, membri, stanze, \emph{provider} AI, \emph{skill}, server MCP, contesto e aggiornamenti dalla web app.
+\end{itemize}
+La modellazione formale degli attori primari e secondari è riportata nella sezione dedicata ai casi d'uso.
+ 
+\subsection{Convenzioni}
+In conformità con le Norme di progetto, il documento adotta le seguenti convenzioni:
+\begin{itemize}
+\tightlist
+\item \textbf{Casi d'uso}: \texttt{UC[Numero].[Sottocaso] -- [Titolo]} (es.\ \texttt{UC2 -- Richiesta vocale con risposta}, \texttt{UC2.1 -- Acquisizione della richiesta e rilevamento della fine});
+\item \textbf{Requisiti}: \texttt{R[Tipo]-[Numero]-[Priorità]} (es.\ \texttt{RF-1-Obb}), dove \texttt{[Tipo]} vale \texttt{F} (funzionale), \texttt{Q} (di qualità), \texttt{V} (di vincolo) o \texttt{P} (prestazionale), \texttt{[Numero]} è un progressivo univoco all'interno del tipo e \texttt{[Priorità]} vale \texttt{Obb} (obbligatorio), \texttt{Des} (desiderabile) o \texttt{Opz} (opzionale);
+\item \textbf{Priorità}: \textbf{Obb} indica un requisito indispensabile per l'MVP o richiesto dalla proponente; \textbf{Des} indica una funzionalità prevista per la versione completa o gradita dalla proponente; \textbf{Opz} indica un'estensione auspicabile o predisposizione architetturale;
+\item \textbf{Segnaposto}: le parti ancora in attesa di decisione o allineamento sono evidenziate con \ph{testo in rosso tra parentesi quadre} e verranno rimosse prima dell'approvazione RTB.
+\end{itemize}
+ 
+\subsubsection{Metodi di verifica}
+Ogni requisito specifica il metodo previsto per accertarne il soddisfacimento (i casi di test puntuali sono definiti nel Piano di qualifica):
+ 
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\centering\arraybackslash}p{1.6cm}X}
+\rowcolor{bfblue}\thc{Sigla} & \thc{Metodo} \\
+\texttt{T} & \textbf{Test}: prova ripetibile, automatica o manuale, con esito misurabile \rl
+\texttt{D} & \textbf{Dimostrazione}: esecuzione osservata della funzione sul prodotto (es.\ durante le revisioni con la proponente) \rl
+\texttt{I} & \textbf{Ispezione}: esame di codice, documentazione, configurazione o \emph{hardware} \rl
+\texttt{A} & \textbf{Analisi}: calcolo, misura aggregata o stima da dati raccolti (es.\ \emph{report} di copertura in CI) \rl
+\end{tabularx}
+\end{center}
+ 
+\subsubsection{Fonti dei requisiti}
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{3.6cm}X}
+\rowcolor{bfblue}\thc{Fonte} & \thc{Significato} \\
+Capitolato & Capitolato d'appalto C3 \emph{Fossdot} \rl
+VE \texttt{GG-MM} & Verbale esterno dell'incontro con \emph{Uranion EMEA LTD} nella data indicata \rl
+Norme di progetto & Regole e vincoli stabiliti dal gruppo nelle Norme di progetto \rl
+Interna & Proposta del gruppo, in attesa di conferma con la proponente \rl
+\texttt{UCn} & Requisito derivato dal caso d'uso indicato \rl
+\end{tabularx}
+\end{center}
+ 
+\subsection{Glossario}
+I termini tecnici, gli acronimi e le espressioni di dominio usati nel presente documento sono definiti nel documento separato \textbf{Glossario}.
+ 
+\subsection{Riferimenti}
+ 
+\subsubsection{Riferimenti normativi}
+\begin{itemize}
+\tightlist
+\item Norme di progetto, gruppo Bending Forks, versione 0.1.0;
+\item Capitolato d'appalto C3 -- Fossdot, \emph{Uranion EMEA LTD}, Rev.\ 0.1 del 2026-09-10: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Progetto/C3-Fossdot.pdf} (consultato il 2026-11-18);
+\item Regolamento del progetto didattico, Ingegneria del Software 2026/27: \url{https://www.math.unipd.it/~tullio/IS-1/2026/Dispense/PD1.pdf} (consultato il 2026-11-18).
+\item T.\ Vardanega, Dispensa T05 -- \emph{Analisi dei requisiti}: \url{https://www.math.unipd.it/~tullio/IS-1/2025/Dispense/T05.pdf};
+\item R.\ Cardin, \emph{Diagrammi dei casi d'uso}: \url{https://www.math.unipd.it/~rcardin/swea/2022/Diagrammi%20Use%20Case.pdf} (consultato il 2026-11-18);
+\end{itemize}
+ 
+\subsubsection{Riferimenti informativi}
+\begin{itemize}
+\tightlist
+\item Verbale esterno dell'incontro con \emph{Uranion} del 2026-10-21, versione 1.1;
+\item Verbale esterno dell'incontro con \emph{Uranion} del 2026-11-13, versione 0.1.0;
+\item Verbale esterno dell'incontro con \emph{Uranion} del 2026-11-20, versione 0.1.0;
+\item Glossario, gruppo Bending Forks, versione 0.2.0.
+\end{itemize}
+ 
+% =====================================================================
+\section{Descrizione generale del sistema}
+ 
+\subsection{Contesto e architettura logica}
+Il sistema opera in ambiente domestico e si interfaccia ai propri confini con gli utenti (a voce sul dispositivo e tramite browser nella web app), con i \emph{provider} AI (remoti o in rete locale), con i server MCP e i servizi esterni interrogati dalle \emph{skill}, e con il servizio di distribuzione degli aggiornamenti del \emph{firmware}.
+ 
+Vengono distinte tre componenti principali: il \textbf{dispositivo} (\emph{hardware} e \emph{firmware}), il \textbf{server di \emph{bridging}} (\emph{self-hosted}) e la \textbf{web app}. Il dispositivo mantiene un \emph{firmware} leggero dedicato a rilevamento locale della \emph{wake word}, acquisizione audio, riproduzione vocale e segnalazione sui LED; la logica applicativa, la \emph{pipeline} STT $\rightarrow$ LLM $\rightarrow$ TTS, il contesto e l'esecuzione degli strumenti risiedono sul server di \emph{bridging}.
+ 
+\begin{figure}[H]
+\centering
+\safeimg[width=\linewidth,height=0.58\textheight,keepaspectratio]{img_adr/15-mappa.png}
+\caption{Mappa delle aree dell'analisi.}
+\end{figure}
+
+ 
+\begin{figure}[H]
+\centering
+\safeimg[width=\linewidth,height=0.55\textheight,keepaspectratio]{img_adr/05-fine-richiesta.png}
+\caption{Rilevamento della fine della richiesta lato server.}
+\end{figure}
+ 
+\subsection{Stati operativi del dispositivo}
+Il dispositivo si trova sempre in uno degli stati riportati in tabella~\ref{tab:stati}, ciascuno distinguibile tramite l'anello di LED. Gli stati \texttt{ST-4}--\texttt{ST-10} compongono lo stato macro \emph{Operativo} mostrato nel diagramma.
+ 
+\begin{figure}[H]
+\centering
+\safeimg[width=\linewidth,height=0.58\textheight,keepaspectratio]{img_adr/04-stati-dispositivo.png}
+\caption{Diagramma degli stati del dispositivo.}
+\end{figure}
+ 
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*90/1000\relax}>{\raggedright\arraybackslash\hspace{0pt}}p{\dimexpr(\linewidth-10\tabcolsep)*195/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*315/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*200/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*200/1000\relax}}
+\caption{Stati operativi del dispositivo.}\label{tab:stati}\\
+\rowcolor{bfblue}\thc{ID} & \thc{Stato} & \thc{Descrizione} & \thc{Ingresso} & \thc{Uscita} \\
+\endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Stato} & \thc{Descrizione} & \thc{Ingresso} & \thc{Uscita} \\
+\endhead
+\texttt{ST-1} & Avvio & Il dispositivo si accende e verifica la presenza di una rete Wi-Fi salvata. & Accensione o riavvio & Rete salvata $\rightarrow$ \texttt{ST-3}; nessuna rete $\rightarrow$ \texttt{ST-2} \rl
+\texttt{ST-2} & \emph{Onboarding} & Crea una rete Wi-Fi temporanea con \emph{captive portal} per la configurazione; \emph{wake word} disattiva. & Primo avvio, ripristino o cambio rete & Configurazione salvata $\rightarrow$ \texttt{ST-3} \rl
+\texttt{ST-3} & Connessione & Apre la connessione WebSocket con il server e si autentica (o attende associazione a una casa). & Da \texttt{ST-1}, \texttt{ST-2} o \texttt{ST-11} & Autenticato $\rightarrow$ \texttt{ST-4}; errore $\rightarrow$ \texttt{ST-11} \rl
+\texttt{ST-4} & Inattivo & Ascolto locale della \emph{wake word}; nessun audio lascia il dispositivo. & Fine altri stati operativi o connessione riuscita & Attivazione $\rightarrow$ \texttt{ST-5}; \emph{mute} $\rightarrow$ \texttt{ST-8}; chiamata $\rightarrow$ \texttt{ST-9}; OTA $\rightarrow$ \texttt{ST-12}; disconnessione $\rightarrow$ \texttt{ST-11} \rl
+\texttt{ST-5} & In ascolto & Acquisizione della richiesta vocale e invio dell'audio al server in \emph{streaming}. & \emph{Wake word}, pulsante azione o riapertura automatica da \texttt{ST-7}. In caso di nuova attivazione tramite \emph{wake word} da \texttt{ST-6}  & Fine richiesta $\rightarrow$ \texttt{ST-6}; nessun parlato $\rightarrow$ \texttt{ST-4} \rl
+\texttt{ST-6} & Elaborazione & Il server trascrive l'audio, interroga il \emph{provider} AI ed eventuali \emph{skill} o strumenti MCP. & Fine ascolto da \texttt{ST-5} & Primo audio risposta $\rightarrow$ \texttt{ST-7}; errore o \emph{timeout} $\rightarrow$ \texttt{ST-10};  In caso di nuova attivazione tramite \emph{wake word} a \texttt{ST-5} \rl
+\texttt{ST-7} & Risposta & Riproduzione audio della risposta ricevuta in \emph{streaming}. & Primo audio da \texttt{ST-6} & Fine risposta $\rightarrow$ \texttt{ST-4}; fine risposta con domanda all'Utente $\rightarrow$ \texttt{ST-5}; \emph{wake word} o pulsante $\rightarrow$ \texttt{ST-5} \rl
+\texttt{ST-8} & Muto & Microfoni disattivati: nessun audio acquisito, \emph{wake word} compresa. & Comando fisico di \emph{mute} da \texttt{ST-4}, \texttt{ST-5}, \texttt{ST-6}, \texttt{ST-7}, \texttt{ST-9} o \texttt{ST-10} & Nuovo comando di \emph{mute} $\rightarrow$ \texttt{ST-4} \rl
+\texttt{ST-9} & Chiamata & Scambio audio bidirezionale in tempo reale con un altro dispositivo della casa. & Avvio o ricezione chiamata & Fine chiamata $\rightarrow$ \texttt{ST-4} \rl
+\texttt{ST-10} & Errore & Segnalazione visiva e sonora di un errore all'utente. & Errore in elaborazione o servizio non disponibile & Fine segnalazione $\rightarrow$ \texttt{ST-4} \rl
+\texttt{ST-11} & Non connesso & Server non raggiungibile; il dispositivo ritenta la connessione con attese crescenti. & Perdita di connessione o errore in \texttt{ST-3} & Nuovo tentativo $\rightarrow$ \texttt{ST-3} \rl
+\texttt{ST-12} & Aggiornamento & \emph{Download}, verifica firma e installazione di un nuovo \emph{firmware} OTA. & Comando Amministratore o aggiornamento automatico & Riavvio (o \emph{rollback}) $\rightarrow$ \texttt{ST-1} \rl
+\end{longtable}
+ 
+\subsection{Parametri di sistema}\label{sec:parametri}
+La tabella seguente centralizza i valori numerici di riferimento richiamati dai requisiti prestazionali e funzionali. Trattandosi di soglie proposte dal gruppo, i valori sono provvisori e saranno tarati sul prototipo fisico e concordati con \emph{Uranion} (vedi questione \texttt{Q4} in sezione~\ref{sec:aperte}).
+ 
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\hsize=0.36\hsize\raggedright\arraybackslash}X >{\hsize=2.04\hsize\raggedright\arraybackslash}X >{\hsize=0.60\hsize\raggedright\arraybackslash}X}
+\rowcolor{bfblue}\thc{ID} & \thc{Parametro} & \thc{Valore provvisorio} \\
+\texttt{PAR-01} & Tempo massimo di risposta del \emph{provider} AI prima dell'errore & 15~s \rl
+\texttt{PAR-02} & Tempo massimo tra fine richiesta e inizio risposta audio con \emph{provider} \emph{cloud} (90\% dei casi) & 3~s \rl
+\texttt{PAR-03} & Riscontro di attivazione e arresto audio su interruzione (\emph{barge-in}) & $\le$ 300~ms \rl
+\texttt{PAR-04} & Silenzio continuo per rilevare la fine della richiesta (configurabile) & $\approx$ 1~s \rl
+\texttt{PAR-05} & Tempo di attesa massimo senza parlato dopo l'attivazione & 4--5~s \rl
+\texttt{PAR-06} & Durata massima di una singola richiesta vocale & 15~s \rl
+\texttt{PAR-07} & Durata dei \emph{frame} audio / banda massima per dispositivo & 20--40~ms / $\le$ 32~KB/s \rl
+\texttt{PAR-08} & Distanza operativa di riferimento utente--dispositivo con rumore moderato & $\approx$ 3~m \rl
+\texttt{PAR-09} & Tempo massimo di riconnessione al ritorno della rete / pronto all'avvio & 30~s / 15~s \rl
+\texttt{PAR-10} & Ritardo massimo audio nelle chiamate tra dispositivi & $<$ 500~ms \rl
+\texttt{PAR-11} & Attesa massima della risposta dell'Utente a una domanda del dispositivo (dato mancante o conferma) & 8~s \rl
+\texttt{PAR-12} & Numero massimo di passi / tempo massimo di un'attività \emph{agent} & 5 passi / 30~s \rl
+\texttt{PAR-13} & Conservazione massima di un messaggio vocale non consegnato & 24~h \rl
+\texttt{PAR-14} & Soglie di sicurezza degli accessi: lunghezza minima della password / insuccessi consecutivi prima del rallentamento / validità del collegamento di recupero & 8 caratteri / 5 / 1~h \rl
+\texttt{PAR-15} & Durata massima della rete Wi-Fi temporanea di \emph{onboarding} & 15~min \rl
+\texttt{PAR-16} & Numero minimo di dispositivi connessi contemporaneamente allo stesso server & 5 \rl
+\texttt{PAR-17} & Scadenza di una sessione della web app & 7 giorni \rl
+\end{tabularx}
+\end{center}
+ 
+\section{Modello dei casi d'uso}
+
+Il modello descrive le interazioni degli attori con il \textit{Sistema}. In conformità alle \textit{Norme di progetto} (0.1.0), ogni caso d'uso è identificato nel formato \texttt{UC[Numero].[Sottocaso] - [Titolo]} e riporta attori primari e secondari, precondizioni, postcondizioni, scenario principale, eventuali inclusioni ed estensioni (inclusi gli scenari di errore) e il relativo diagramma UML dei casi d'uso.
+
+
+
+Ogni caso d'uso riporta attore primario, eventuali attori secondari, precondizioni e postcondizioni (espresse come stato del sistema), scenario principale, scenari alternativi, inclusioni, estensioni con il punto in cui si innestano, e la fonte. Gli stati del dispositivo citati sono quelli della tabella~\ref{tab:stati}. Un'estensione ha lo stesso attore primario del caso che estende. I servizi esterni usati dal sistema (\emph{provider} AI, server MCP, servizio di aggiornamento del \emph{firmware}) non sono attori: compaiono alla voce ``Servizi coinvolti''. L'autenticazione nella web app è una precondizione dei casi d'uso dell'Amministratore e del Membro, non un caso incluso. I requisiti che derivano da ogni caso d'uso sono nelle sezioni~4--7 e nelle tabelle di tracciamento della sezione~\ref{sec:tracciamento}.
+
+
+
+\subsection{Attori}
+
+\begin{center}
+
+\begin{tabularx}{\linewidth}{>{\hsize=0.40\hsize\raggedright\arraybackslash}X >{\hsize=0.80\hsize\raggedright\arraybackslash}X >{\hsize=0.80\hsize\raggedright\arraybackslash}X >{\hsize=2.00\hsize\raggedright\arraybackslash}X}
+
+\rowcolor{bfblue}\thc{ID} & \thc{Attore} & \thc{Tipo} & \thc{Descrizione} \\
+
+\texttt{AT-01} & Utente & Primario & Qualsiasi persona che parla con l'\textit{Assistente}. Non deve essere autenticata: il sistema la riconosce come ``chi sta parlando a questo dispositivo''. \rl
+
+\texttt{AT-02} & Utente non autenticato & Primario & Persona che apre la web app senza aver effettuato l'accesso. \rl
+
+\texttt{AT-03} & Membro & Primario & Utente autenticato che appartiene a una casa. Vede i dispositivi e gestisce il proprio profilo e i propri dati; non vede né modifica il contesto dei dispositivi. \rl
+
+\texttt{AT-04} & Amministratore & Primario & Membro della casa con permessi di gestione: associa e configura i dispositivi, i \textit{provider}, le \textit{skill}, i server MCP e gli altri membri tramite \textit{Web app}. Può coincidere con l'Utente. \rl
+
+\end{tabularx}
+
+\end{center}
+
+
+
+\subsection{Interazione vocale}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/10a-uc-richiesta-vocale.png}
+
+\caption{Casi d'uso della richiesta vocale (UC1--UC7)}
+
+\end{figure}
+
+
+
+\subsubsection{UC1 -- Attivazione dell'ascolto}
+
+
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è nello stato \emph{Inattivo} (ST-4), connesso al server, con i microfoni attivi.
+
+\item \textbf{Postcondizioni:} il dispositivo è nello stato \emph{In ascolto} (ST-5) e sul server è aperta una sessione vocale per quel dispositivo.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente pronuncia la \emph{wake word} oppure preme il pulsante azione.
+
+\item Il dispositivo riconosce l'attivazione in locale, senza inviare audio all'esterno.
+
+\item Il dispositivo emette un suono breve e mostra lo stato ``in ascolto'' sui LED.
+
+\item Il dispositivo apre una sessione vocale sul server.
+
+\end{enumerate}
+
+\item \textbf{Generalizzazioni:} UC1 è specializzato da UC1.1 e UC1.2, che differiscono solo per il modo di attivazione (passo 1).
+
+\item \textbf{Fonte:} Capitolato, VE 21/10.
+
+\end{itemize}
+
+
+
+\paragraph{UC1.1 -- Attivazione con wake word}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Differenza rispetto a UC1:} al passo 1 l'Utente pronuncia la \emph{wake word}; il riconoscimento avviene sempre sul dispositivo (RV-3).
+
+\item \textbf{Fonte:} Capitolato, VE 21/10.
+
+\end{itemize}
+
+
+
+\paragraph{UC1.2 -- Attivazione con pulsante (push-to-talk)}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Differenza rispetto a UC1:} al passo 1 l'Utente preme il pulsante azione.
+
+\item \textbf{Fonte:} Capitolato (``\emph{wake word} o \emph{push-to-talk}'').
+
+\end{itemize}
+
+
+
+\subsubsection{UC2 -- Richiesta vocale con risposta}
+
+
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente. \textbf{Servizi coinvolti:} \emph{provider} AI, trascrizione (STT), sintesi vocale (TTS).
+
+\item \textbf{Precondizioni:} il dispositivo è \emph{Inattivo} (ST-4) e connesso; per il dispositivo è configurato un \emph{provider} AI.
+
+\item \textbf{Postcondizioni:} la risposta è stata riprodotta; il dispositivo è \emph{Inattivo} (ST-4).
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente attiva l'ascolto (UC1).
+
+\item L'Utente pronuncia la richiesta; il dispositivo la invia al server in \emph{streaming} (UC2.1).
+
+\item Il server rileva la fine della richiesta e il dispositivo passa allo stato \emph{Elaborazione} (ST-6).
+
+\item Il server trascrive l'audio.
+
+\item Il server invia la trascrizione al \emph{provider} AI configurato per il dispositivo, con il contesto e gli strumenti disponibili.
+
+\item Il server converte la risposta in audio e la invia al dispositivo in \emph{streaming} (UC2.2).
+
+\item Il dispositivo riproduce la risposta nello stato \emph{Risposta} (ST-7), poi torna \emph{Inattivo}.
+
+\end{enumerate}
+
+\item \textbf{Inclusioni:} UC1 (passo 1), UC2.1 (passo 2), UC2.2 (passo 6).
+
+\item \textbf{Estensioni:}
+
+\begin{itemize}
+
+\tightlist
+
+\item al passo 2, nessun parlato entro il tempo di attesa: UC3;
+
+\item al passo 4, trascrizione vuota o non riconoscibile: UC4;
+
+\item ai passi 4--6, servizio non raggiungibile o in errore: UC7;
+
+\item al passo 5, il modello sceglie lo strumento di una \emph{skill}: UC10; più strumenti in sequenza: UC11; uno strumento MCP: UC12.
+
+\end{itemize}
+
+\item \textbf{Fonte:} Capitolato (MVP: dimostrazione ``\emph{wake word} $\rightarrow$ domanda $\rightarrow$ risposta vocale'').
+
+\end{itemize}
+
+
+
+\paragraph{UC2.1 -- Acquisizione della richiesta e rilevamento della fine}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è \emph{In ascolto} (ST-5).
+
+\item \textbf{Postcondizioni:} il server ha ricevuto l'audio completo della richiesta; il dispositivo è in \emph{Elaborazione} (ST-6).
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item Mentre l'Utente parla, il dispositivo invia frame audio di durata fissa (RP-7).
+
+\item Il server considera conclusa la richiesta dopo un silenzio continuo (RP-4) o al raggiungimento della durata massima (RP-6).
+
+\item Il server comunica al dispositivo la fine dell'ascolto.
+
+\end{enumerate}
+
+\item \textbf{Fonte:} Capitolato, Interna.
+
+\end{itemize}
+
+
+
+\paragraph{UC2.2 -- Ricezione della risposta vocale}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il modello sta producendo la risposta; il dispositivo è in \emph{Elaborazione} (ST-6).
+
+\item \textbf{Postcondizioni:} l'audio della risposta è stato riprodotto per intero; il server ha inviato il messaggio di fine risposta.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item Il server converte la risposta in audio per frasi, appena il modello le produce.
+
+\item Il server invia l'audio a blocchi; il dispositivo passa a \emph{Risposta} (ST-7) e inizia a riprodurlo prima che la risposta sia completa.
+
+\item Al termine il server invia un messaggio di fine risposta.
+
+\end{enumerate}
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC3 -- Nessun parlato dopo l'attivazione}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è \emph{In ascolto} (ST-5) e non ha ricevuto parlato.
+
+\item \textbf{Postcondizioni:} la sessione vocale è chiusa senza contattare il \emph{provider} AI; il dispositivo è \emph{Inattivo} (ST-4).
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item Trascorre il tempo di attesa (RP-5) senza parlato.
+
+\item Il server chiude la sessione.
+
+\item Il dispositivo dà un riscontro discreto e torna \emph{Inattivo}.
+
+\end{enumerate}
+
+\item \textbf{Estende:} UC2, al passo 2.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC4 -- Richiesta non compresa}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è in \emph{Elaborazione} (ST-6); la trascrizione della richiesta è vuota o non contiene parlato riconoscibile.
+
+\item \textbf{Postcondizioni:} il \emph{provider} AI non è stato contattato; il dispositivo è \emph{Inattivo} (ST-4).
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item Il server rileva che la trascrizione non è utilizzabile.
+
+\item Il dispositivo riproduce un messaggio come ``Scusa, non ho capito''.
+
+\item Il dispositivo torna \emph{Inattivo}.
+
+\end{enumerate}
+
+\item \textbf{Estende:} UC2, al passo 4.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC5 -- Interruzione della risposta con ``Ehi Fossdot''}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è nello stato \emph{Risposta} (ST-7).
+
+\item \textbf{Postcondizioni:} la riproduzione è ferma; la richiesta è annullata sul server; il dispositivo è \emph{In ascolto} (ST-5).
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente pronuncia la \emph{wake word} (``Ehi Fossdot'').
+
+\item Il dispositivo la riconosce in locale e ferma subito l'altoparlante (RP-3).
+
+\item Il dispositivo invia al server un messaggio di annullamento.
+
+\item Il server interrompe la generazione del modello e la sintesi e scarta l'audio residuo.
+
+\item Il dispositivo passa a \emph{In ascolto}: se l'Utente non parla, torna \emph{Inattivo} (UC3); se fa una nuova richiesta, il caso prosegue come UC6.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} al passo 1 l'Utente preme il pulsante azione; il resto non cambia.
+
+\item \textbf{Note:} non esiste una parola ``stop'' separata: l'interruzione usa lo stesso meccanismo di UC6.
+
+\item \textbf{Fonte:} VE 13/11 (soluzione proposta dal gruppo e approvata da Uranion), Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC6 -- Sostituzione della richiesta in corso}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è in \emph{Elaborazione} (ST-6) o in \emph{Risposta} (ST-7).
+
+\item \textbf{Postcondizioni:} la richiesta precedente è annullata sul server; il dispositivo è \emph{In ascolto} (ST-5) per la nuova richiesta.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente pronuncia di nuovo la \emph{wake word}.
+
+\item Il dispositivo ferma la riproduzione e invia l'annullamento al server.
+
+\item Il server annulla la richiesta in corso.
+
+\item Il dispositivo passa a \emph{In ascolto} e la nuova richiesta prosegue come in UC2 dal passo 2.
+
+\end{enumerate}
+
+\item \textbf{Fonte:} VE 13/11.
+
+\end{itemize}
+
+
+
+\subsubsection{UC7 -- Servizio non disponibile}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente. \textbf{Servizi coinvolti:} \emph{provider} AI, STT, TTS.
+
+\item \textbf{Precondizioni:} è in corso una richiesta (UC2); il server non è raggiungibile, oppure \emph{provider}, STT o TTS restituiscono un errore o superano il tempo massimo (RP-12).
+
+\item \textbf{Postcondizioni:} la richiesta è chiusa senza risposta; l'errore è registrato nei log del server; il dispositivo è \emph{Inattivo} (ST-4) o \emph{Non connesso} (ST-11).
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item Il server rileva l'errore o lo scadere del tempo massimo.
+
+\item Il server chiude la richiesta e invia al dispositivo un messaggio vocale di errore.
+
+\item Il dispositivo mostra lo stato \emph{Errore} (ST-10), riproduce il messaggio e torna \emph{Inattivo}.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} il server non è raggiungibile; il dispositivo riproduce un suono memorizzato localmente e passa a \emph{Non connesso}.
+
+\item \textbf{Estende:} UC2, ai passi 4--6.
+
+\item \textbf{Fonte:} Interna, Capitolato (affidabilità del flusso \emph{end-to-end}).
+
+\end{itemize}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/10b-uc-controlli.png}
+
+\caption{Casi d'uso dei controlli del dispositivo (UC8, UC9)}
+
+\end{figure}
+
+
+
+\subsubsection{UC8 -- Mute dei microfoni}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è \emph{Inattivo} (ST-4).
+
+\item \textbf{Postcondizioni:} il dispositivo è \emph{Muto} (ST-8): non acquisisce audio, nemmeno per la \emph{wake word}.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente aziona il comando di mute.
+
+\item Il dispositivo smette di acquisire audio e mostra un LED fisso dedicato.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} con il dispositivo \emph{Muto}, l'Utente aziona di nuovo il comando; i microfoni si riattivano e il dispositivo torna \emph{Inattivo}.
+
+\item \textbf{Fonte:} Interna, coerente con la privacy richiesta dal Capitolato.
+
+\end{itemize}
+
+
+
+\subsubsection{UC9 -- Regolazione del volume}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è acceso e connesso.
+
+\item \textbf{Postcondizioni:} il nuovo livello di volume è applicato e memorizzato sul dispositivo.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente chiede di alzare o abbassare il volume.
+
+\item Il dispositivo applica il nuovo livello e lo mostra sui LED.
+
+\end{enumerate}
+
+\item \textbf{Generalizzazioni:} UC9 è specializzato da UC9.1 e UC9.2, che differiscono solo per il modo in cui l'Utente dà il comando (passo 1).
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\paragraph{UC9.1 -- Impostazione del volume con i tasti}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Differenza rispetto a UC9:} al passo 1 l'Utente alza o abbassa il volume con i tasti del dispositivo.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\paragraph{UC9.2 -- Impostazione del volume a voce}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Differenza rispetto a UC9:} al passo 1 l'Utente chiede a voce di alzare o abbassare il volume; la richiesta segue il flusso di UC2.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/10c-uc-strumenti.png}
+
+\caption{Casi d'uso degli strumenti, delle skill e del contesto (UC10--UC13)}
+
+\end{figure}
+
+
+
+\subsubsection{UC10 -- Invocazione di una skill}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} almeno una \emph{skill} è installata e abilitata per il dispositivo; il dispositivo è in \emph{Elaborazione} (ST-6).
+
+\item \textbf{Postcondizioni:} la \emph{skill} è stata eseguita e il suo risultato è stato usato per la risposta.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente fa una richiesta che corrisponde a una \emph{skill} (ad esempio ``che tempo fa domani?'').
+
+\item Il modello sceglie lo strumento della \emph{skill} e ne indica gli argomenti.
+
+\item Il server esegue la \emph{skill} e restituisce il risultato al modello.
+
+\item Il modello formula la risposta, che prosegue come in UC2 dal passo 6.
+
+\end{enumerate}
+
+\item \textbf{Estende:} UC2, al passo 5.
+
+\item \textbf{Estensioni:} al passo 3, la \emph{skill} fallisce: UC10.1; al passo 2, mancano parametri: UC10.2; al passo 3, lo strumento è segnato come da confermare: UC10.3; la \emph{skill} è quella di sistema per il contesto: UC13.
+
+\item \textbf{Fonte:} Capitolato (versione completa), VE 21/10 (almeno una \emph{skill} dimostrativa).
+
+\end{itemize}
+
+
+
+\paragraph{UC10.1 -- Errore nell'esecuzione di una skill}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} l'esecuzione della \emph{skill} è terminata con un errore o ha superato il tempo massimo.
+
+\item \textbf{Postcondizioni:} la richiesta è chiusa; il dispositivo è \emph{Inattivo} (ST-4).
+
+\item \textbf{Scenario principale:} il server comunica l'errore al modello, che formula un messaggio comprensibile; il dispositivo lo riproduce e torna \emph{Inattivo}.
+
+\item \textbf{Estende:} UC10, al passo 3.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\paragraph{UC10.2 -- Richiesta di un dato mancante}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} la \emph{skill} richiede un parametro che la richiesta non contiene.
+
+\item \textbf{Postcondizioni:} la \emph{skill} è eseguita con il dato fornito, oppure la richiesta è chiusa se l'Utente non risponde.
+
+\item \textbf{Scenario principale:} il dispositivo chiede a voce il dato mancante; l'Utente risponde senza ripetere la \emph{wake word}; lo scenario riprende da UC10 al passo 3.
+
+\item \textbf{Estende:} UC10, al passo 2.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\paragraph{UC10.3 -- Conferma di un'azione con effetti esterni}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} lo strumento scelto dal modello è segnato come da confermare (ad esempio invio di un messaggio, modifica del calendario, cancellazione di dati).
+
+\item \textbf{Postcondizioni:} lo strumento è stato eseguito solo se l'Utente ha confermato; altrimenti l'azione è annullata e nulla è cambiato.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item Il server sospende l'esecuzione dello strumento.
+
+\item Il dispositivo descrive a voce l'azione e i suoi dati e chiede conferma (ad esempio ``Mando a Luca: arrivo tra dieci minuti. Confermi?'').
+
+\item L'Utente risponde ``sì'' senza ripetere la \emph{wake word}.
+
+\item Lo scenario riprende da UC10 al passo 3.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} al passo 3 l'Utente risponde ``no'' o non risponde entro il tempo previsto; il server annulla l'azione e il dispositivo lo comunica a voce.
+
+\item \textbf{Estende:} UC10, al passo 3 (vale anche per gli strumenti MCP di UC12).
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC11 -- Attività multi-step (agent)}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il dispositivo è in \emph{Elaborazione} (ST-6); sono disponibili più strumenti (\emph{skill} o MCP).
+
+\item \textbf{Postcondizioni:} l'attività è completata entro il numero massimo di passi e il tempo massimo, oppure è chiusa con un messaggio di errore.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente chiede un'attività che richiede più passi (ad esempio ``cerca la ricetta della carbonara e mandala alla cucina'').
+
+\item Il modello chiama uno strumento e il server gli restituisce il risultato.
+
+\item Il passo 2 si ripete finché il modello non ha la risposta.
+
+\item La risposta prosegue come in UC2 dal passo 6.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} al passo 3 si raggiunge il numero massimo di passi o il tempo massimo; il server chiude l'attività e il dispositivo riproduce un messaggio di errore.
+
+\item \textbf{Estende:} UC2, al passo 5.
+
+\item \textbf{Fonte:} Capitolato (Agents attivabili a voce).
+
+\end{itemize}
+
+
+
+\subsubsection{UC12 -- Uso di uno strumento MCP}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente. \textbf{Servizi coinvolti:} server MCP.
+
+\item \textbf{Precondizioni:} almeno un server MCP è configurato, raggiungibile e con strumenti abilitati; il dispositivo è in \emph{Elaborazione} (ST-6).
+
+\item \textbf{Postcondizioni:} lo strumento MCP è stato eseguito e il suo risultato è stato usato per la risposta.
+
+\item \textbf{Scenario principale:} come UC10, ma al passo 3 il server Fossdot, in qualità di \emph{client} MCP, invoca lo strumento sul server MCP.
+
+\item \textbf{Scenario alternativo:} il server MCP non risponde; si procede come in UC10.1.
+
+\item \textbf{Estende:} UC2, al passo 5.
+
+\item \textbf{Fonte:} Capitolato.
+
+\end{itemize}
+
+
+
+\subsubsection{UC13 -- Aggiornamento del contesto a voce}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} la \emph{skill} di sistema per il contesto è abilitata per il dispositivo.
+
+\item \textbf{Postcondizioni:} al testo di contesto del dispositivo è aggiunta una nuova informazione, usata dalle richieste successive; le parti già presenti non sono cambiate.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente dice ad esempio ``ricorda che sono un ingegnere del \emph{software}, rispondimi in modo tecnico''.
+
+\item Il modello invoca la \emph{skill} di sistema per il contesto.
+
+\item Il server aggiunge l'informazione in fondo al testo di contesto del dispositivo e il dispositivo conferma a voce.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} al passo 1 l'Utente chiede di dimenticare o cambiare un'informazione già presente; il dispositivo risponde che può farlo solo l'Amministratore dalla web app (UC36).
+
+\item \textbf{Estende:} UC10, al passo 2.
+
+\item \textbf{Fonte:} VE 13/11 (indicata da Uranion come \emph{skill} interessante).
+
+\end{itemize}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/10d-uc-comunicazione.png}
+
+\caption{Casi d'uso della comunicazione tra dispositivi (UC14, UC15)}
+
+\end{figure}
+
+
+
+\subsubsection{UC14 -- Chiamata tra dispositivi}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente. 
+
+\item \textbf{Precondizioni:} almeno due dispositivi sono associati alla stessa casa e connessi; il dispositivo chiamante è \emph{Inattivo} (ST-4).
+
+\item \textbf{Postcondizioni:} la chiamata è terminata e i due dispositivi sono \emph{Inattivi}.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente avvia la chiamata (UC14.1).
+
+\item Il dispositivo remoto riceve la chiamata (UC14.2).
+
+\item I due dispositivi scambiano audio in tempo reale nello stato \emph{Chiamata} (ST-9).
+
+\item Uno dei due Utenti termina la chiamata (UC14.3).
+
+\end{enumerate}
+
+\item \textbf{Inclusioni:} UC14.1, UC14.2, UC14.3.
+
+\item \textbf{Estensioni:} al passo 1, il dispositivo richiesto non esiste o non è connesso: UC14.4.
+
+\item \textbf{Fonte:} VE 21/10 (funzione \emph{drop in}, obiettivo del progetto), Capitolato (intercom).
+
+\end{itemize}
+
+
+
+\paragraph{UC14.1 -- Avvio di una chiamata}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Scenario principale:} l'Utente dice ad esempio ``chiama la camera''; il server individua il dispositivo dal nome o dalla stanza e apre un canale audio bidirezionale in tempo reale.
+
+\item \textbf{Fonte:} VE 21/10.
+
+\end{itemize}
+
+
+
+\paragraph{UC14.2 -- Ricezione di una chiamata}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente. 
+
+\item \textbf{Scenario principale:} il dispositivo remoto emette un suono e mostra lo stato \emph{Chiamata} sui LED; l'audio passa subito nei due sensi (\emph{drop in}).
+
+\item \textbf{Fonte:} VE 21/10.
+
+\end{itemize}
+
+
+
+\paragraph{UC14.3 -- Termine della chiamata}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Scenario principale:} uno dei due Utenti pronuncia la \emph{wake word} o preme il pulsante azione; entrambi i dispositivi chiudono il canale e tornano \emph{Inattivi}.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\paragraph{UC14.4 -- Dispositivo da chiamare non disponibile}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente.
+
+\item \textbf{Precondizioni:} il nome o la stanza indicati non corrispondono a un dispositivo connesso della casa.
+
+\item \textbf{Postcondizioni:} nessun canale audio è aperto; il dispositivo chiamante è \emph{Inattivo} (ST-4).
+
+\item \textbf{Scenario principale:} il server non trova il dispositivo; il dispositivo chiamante riproduce un messaggio vocale di errore.
+
+\item \textbf{Estende:} UC14, al passo 1.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC15 -- Messaggio vocale verso un altro dispositivo}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente. 
+
+\item \textbf{Precondizioni:} almeno due dispositivi sono associati alla stessa casa.
+
+\item \textbf{Postcondizioni:} il messaggio è stato riprodotto sul dispositivo destinatario, oppure è in attesa sul server finché il destinatario non si connette.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Utente chiede di inviare un messaggio a un altro dispositivo e lo registra.
+
+\item Il server consegna il messaggio al dispositivo destinatario.
+
+\item Il dispositivo destinatario lo riproduce appena è \emph{Inattivo}.
+
+\end{enumerate}
+
+\item \textbf{Fonte:} VE 21/10 (soluzione di ripiego se la chiamata in tempo reale è troppo complessa).
+
+\end{itemize}
+
+
+
+\subsection{Dispositivo}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/11-uc-dispositivo.png}
+
+\caption{Casi d'uso del dispositivo (UC16--UC20)}
+
+\end{figure}
+
+\subsubsection{UC16 -- Primo avvio e configurazione del Wi-Fi}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} il dispositivo non ha una rete salvata (nuovo o ripristinato) ed è nello stato \emph{Onboarding} (ST-2); l'Amministratore ha un account.
+
+\item \textbf{Postcondizioni:} il dispositivo ha una rete salvata, è connesso al server ed è associato alla casa dell'Amministratore.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Amministratore accende il dispositivo, che segnala con i LED lo stato \emph{Onboarding}.
+
+\item Il dispositivo crea una propria rete Wi-Fi temporanea.
+
+\item L'Amministratore si collega a questa rete dal telefono o dal PC; la pagina di configurazione si apre da sola (\emph{captive portal}), senza installare \emph{software}.
+
+\item L'Amministratore inserisce rete e password del Wi-Fi di casa e l'indirizzo del server.
+
+\item Il dispositivo chiude la rete temporanea, si collega alla rete di casa e al server.
+
+\item L'Amministratore aggiunge il dispositivo a una casa dalla web app (UC17).
+
+\item Il dispositivo conferma con LED e messaggio vocale e passa a \emph{Inattivo}.
+
+\end{enumerate}
+
+\item \textbf{Inclusioni:} UC17 (passo 6).
+
+\item \textbf{Estensioni:} al passo 5, rete o password errate: UC16.1.
+
+\item \textbf{Fonte:} Capitolato (registrazione del dispositivo), VE 21/10 (\emph{onboarding} molto curato).
+
+\end{itemize}
+
+
+
+\paragraph{UC16.1 -- Rete o password errate}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} il dispositivo non riesce a collegarsi alla rete indicata.
+
+\item \textbf{Postcondizioni:} il dispositivo è di nuovo in \emph{Onboarding} (ST-2), con la pagina di configurazione disponibile.
+
+\item \textbf{Scenario principale:} il dispositivo mostra l'errore con i LED e torna al passo 2 di UC16.
+
+\item \textbf{Estende:} UC16, al passo 5.
+
+\item \textbf{Fonte:} VE 21/10.
+
+\end{itemize}
+
+
+
+\subsubsection{UC17 -- Aggiunta del dispositivo alla casa}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} l'Amministratore è autenticato nella web app; il dispositivo è connesso al server (ST-3) ma non appartiene ancora a nessuna casa.
+
+\item \textbf{Postcondizioni:} il dispositivo appartiene alla casa, ha una credenziale propria e compare nell'elenco dei dispositivi.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item Il dispositivo si presenta al server con il proprio identificativo.
+
+\item La web app mostra all'Amministratore il nuovo dispositivo in attesa di essere aggiunto.
+
+\item L'Amministratore lo aggiunge a una delle sue case e ne sceglie nome e stanza.
+
+\item Il server assegna al dispositivo una credenziale propria, che il dispositivo conserva e usa a ogni connessione.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} al passo 3 l'Amministratore rifiuta il dispositivo, che resta senza casa e non può usare il server.
+
+\item \textbf{Fonte:} Capitolato (registrazione e autenticazione del dispositivo), VE 21/10.
+
+\end{itemize}
+
+
+
+\subsubsection{UC18 -- Cambio della rete Wi-Fi}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} il dispositivo è associato a una casa.
+
+\item \textbf{Postcondizioni:} il dispositivo è connesso alla nuova rete e resta associato alla stessa casa.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Amministratore riporta il dispositivo in \emph{Onboarding} con un comando fisico.
+
+\item L'Amministratore inserisce la nuova rete e la password dalla pagina di configurazione.
+
+\item Il dispositivo si collega alla nuova rete e al server senza ripetere l'associazione.
+
+\end{enumerate}
+
+\item \textbf{Estensioni:} al passo 3, rete o password errate: come UC16.1.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC19 -- Ripristino di fabbrica}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} il dispositivo è acceso.
+
+\item \textbf{Postcondizioni:} sul dispositivo non restano rete, credenziali né configurazione; il dispositivo è in \emph{Onboarding} (ST-2).
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Amministratore esegue la combinazione di comandi fisici prevista per il ripristino.
+
+\item Il dispositivo cancella rete, credenziali e configurazione e si riavvia.
+
+\item Al primo tentativo di accesso fallito il server segna il dispositivo come dissociato.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} al passo 3 l'Amministratore rimuove il dispositivo dalla web app (UC30.5).
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC20 -- Aggiornamento del firmware}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore. \textbf{Servizi coinvolti:} servizio di aggiornamento del \emph{firmware}.
+
+\item \textbf{Precondizioni:} è disponibile una versione del \emph{firmware} più recente di quella installata; il dispositivo è \emph{Inattivo} (ST-4).
+
+\item \textbf{Postcondizioni:} il dispositivo esegue la nuova versione e il server ne conosce il numero.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Amministratore avvia l'aggiornamento dalla web app (UC38).
+
+\item Il dispositivo passa ad \emph{Aggiornamento} (ST-12), scarica l'immagine e ne verifica la firma.
+
+\item Il dispositivo installa l'immagine nella partizione libera e si riavvia.
+
+\item Dopo il riavvio il dispositivo comunica al server la nuova versione.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} al passo 1 l'aggiornamento parte da solo perché l'Amministratore ha attivato gli aggiornamenti automatici.
+
+\item \textbf{Estensioni:} ai passi 2--4, verifica fallita o avvio non riuscito: UC20.1.
+
+\item \textbf{Fonte:} Capitolato (versione completa).
+
+\end{itemize}
+
+
+
+\paragraph{UC20.1 -- Ritorno alla versione precedente}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} la firma dell'immagine non è valida, oppure la nuova versione non si avvia correttamente.
+
+\item \textbf{Postcondizioni:} il dispositivo esegue la versione precedente; la web app mostra l'esito negativo dell'aggiornamento.
+
+\item \textbf{Scenario principale:} il dispositivo scarta la nuova immagine o torna alla partizione precedente, si riavvia e segnala l'errore al server.
+
+\item \textbf{Estende:} UC20, ai passi 2--4.
+
+\item \textbf{Fonte:} Capitolato.
+
+\end{itemize}
+
+
+
+\subsection{Web app}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/12a-uc-web-account.png}
+
+\caption{Casi d'uso della web app: gestione dell'account (UC21--UC26)}
+
+\end{figure}
+
+
+
+Salvo diversa indicazione, nei casi d'uso di questa sezione la precondizione comune è che l'attore sia autenticato nella web app e appartenga alla casa su cui opera.
+
+
+
+\subsubsection{UC21 -- Registrazione}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente non autenticato.
+
+\item \textbf{Precondizioni:} l'utente non ha una sessione attiva.
+
+\item \textbf{Postcondizioni:} esiste un nuovo account, con una casa predefinita di cui l'utente è Amministratore.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'utente inserisce nome, email e password.
+
+\item Il sistema verifica i dati.
+
+\item Il sistema crea l'account e la casa predefinita.
+
+\end{enumerate}
+
+\item \textbf{Estensioni:} al passo 2, dati non validi: UC21.1; email già registrata: UC21.2.
+
+\item \textbf{Fonte:} Capitolato, Interna.
+
+\end{itemize}
+
+
+
+\paragraph{UC21.1 -- Dati di registrazione non validi}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente non autenticato.
+
+\item \textbf{Precondizioni:} l'email è malformata o la password non rispetta i criteri di robustezza.
+
+\item \textbf{Postcondizioni:} nessun account è creato.
+
+\item \textbf{Scenario principale:} il sistema indica il campo errato e il motivo; l'utente può correggerlo.
+
+\item \textbf{Estende:} UC21, al passo 2.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\paragraph{UC21.2 -- Email già registrata}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente non autenticato.
+
+\item \textbf{Precondizioni:} esiste già un account con l'email indicata.
+
+\item \textbf{Postcondizioni:} nessun account è creato.
+
+\item \textbf{Scenario principale:} il sistema mostra un errore senza rivelare dati dell'account esistente.
+
+\item \textbf{Estende:} UC21, al passo 2.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC22 -- Autenticazione}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente non autenticato.
+
+\item \textbf{Precondizioni:} l'utente ha un account e non ha una sessione attiva.
+
+\item \textbf{Postcondizioni:} l'utente ha una sessione attiva e opera come Membro o Amministratore della propria casa.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'utente inserisce email e password.
+
+\item Il sistema verifica le credenziali.
+
+\item Il sistema apre la sessione e mostra la casa.
+
+\end{enumerate}
+
+\item \textbf{Estensioni:} al passo 2, credenziali errate: UC22.1.
+
+\item \textbf{Fonte:} Capitolato.
+
+\end{itemize}
+
+
+
+\paragraph{UC22.1 -- Credenziali errate}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente non autenticato.
+
+\item \textbf{Precondizioni:} email o password non corrispondono a un account.
+
+\item \textbf{Postcondizioni:} nessuna sessione è aperta; il tentativo fallito è conteggiato.
+
+\item \textbf{Scenario principale:} il sistema mostra un messaggio generico, senza indicare quale dato è sbagliato; dopo diversi tentativi falliti rallenta i successivi.
+
+\item \textbf{Estende:} UC22, al passo 2.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC23 -- Recupero della password}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Utente non autenticato.
+
+\item \textbf{Precondizioni:} l'utente ha un account ma non ricorda la password.
+
+\item \textbf{Postcondizioni:} l'account ha una nuova password; le sessioni precedenti non sono più valide.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'utente chiede il recupero indicando l'email.
+
+\item Il sistema invia un collegamento con scadenza.
+
+\item L'utente apre il collegamento e imposta una nuova password.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} il server \emph{self-hosted} non ha un servizio email; il recupero avviene da riga di comando sul server.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC24 -- Logout}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Membro.
+
+\item \textbf{Precondizioni:} il Membro ha una sessione attiva.
+
+\item \textbf{Postcondizioni:} la sessione è chiusa e il suo token non è più valido.
+
+\item \textbf{Scenario principale:} il Membro sceglie ``Esci''; il sistema instavalida la sessione e mostra la pagina di accesso.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC25 -- Gestione del profilo}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Membro.
+
+\item \textbf{Postcondizioni:} nome, email o password del Membro sono aggiornati.
+
+\item \textbf{Scenario principale:} il Membro modifica nome, email o password e conferma; il sistema salva i dati.
+
+\item \textbf{Scenario alternativo:} per cambiare la password il Membro deve inserire quella attuale; se è errata la modifica è rifiutata.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC26 -- Eliminazione dell'account e dei dati}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Membro.
+
+\item \textbf{Postcondizioni:} l'account e i dati personali collegati (contesto, cronologia) non esistono più; ogni casa del Membro ha ancora almeno un Amministratore.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item Il Membro chiede l'eliminazione dell'account.
+
+\item Il sistema chiede conferma con la password.
+
+\item Il sistema elimina l'account e i dati personali collegati e chiude la sessione.
+
+\end{enumerate}
+
+\item \textbf{Scenario alternativo:} al passo 2 il Membro è l'ultimo Amministratore di una casa con altri membri; il sistema chiede prima di nominare un nuovo Amministratore.
+
+\item \textbf{Fonte:} Capitolato (GDPR), VE 13/11 (permanenza del dato).
+
+\end{itemize}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/12b-uc-web-casa.png}
+
+\caption{Casi d'uso della web app: gestione di case, membri, stanze e dispositivi (UC27--UC30)}
+
+\end{figure}
+
+
+
+\subsubsection{UC27 -- Gestione delle case}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Postcondizioni:} l'elenco delle case dell'Amministratore riflette la modifica.
+
+\item \textbf{Sottocasi:}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{UC27.1 -- Creazione:} l'Amministratore indica nome, lingua e fuso orario; il sistema crea la casa e lo nomina Amministratore.
+
+\item \textbf{UC27.2 -- Modifica:} l'Amministratore rinomina la casa o ne cambia le impostazioni.
+
+\item \textbf{UC27.3 -- Eliminazione:} possibile solo se alla casa non sono associati dispositivi, previa conferma.
+
+\end{itemize}
+
+\item \textbf{Fonte:} VE 21/10 (``se possibile di più case'').
+
+\end{itemize}
+
+
+
+\subsubsection{UC28 -- Gestione dei membri}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Postcondizioni:} l'elenco dei membri della casa e i loro ruoli riflettono la modifica; la casa ha almeno un Amministratore.
+
+\item \textbf{Sottocasi:}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{UC28.1 -- Invito:} l'Amministratore invita un utente con un collegamento o un codice; l'utente entra nella casa come Membro.
+
+\item \textbf{UC28.2 -- Cambio di ruolo:} l'Amministratore cambia il ruolo di un membro (Membro $\leftrightarrow$ Amministratore).
+
+\item \textbf{UC28.3 -- Rimozione:} il membro rimosso perde l'accesso alla casa.
+
+\end{itemize}
+
+\item \textbf{Fonte:} VE 21/10 (gestione di più utenti).
+
+\end{itemize}
+
+
+
+\subsubsection{UC29 -- Gestione delle stanze}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Postcondizioni:} l'elenco delle stanze della casa riflette la modifica.
+
+\item \textbf{Sottocasi:} \textbf{UC29.1 -- Creazione}; \textbf{UC29.2 -- Rinomina}; \textbf{UC29.3 -- Eliminazione} (i dispositivi della stanza restano senza stanza).
+
+\item \textbf{Fonte:} Capitolato (stanze nella versione completa), Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC30 -- Gestione dei dispositivi}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore (il Membro può solo consultare l'elenco e il dettaglio).
+
+\item \textbf{Postcondizioni:} la configurazione dei dispositivi della casa riflette la modifica.
+
+\item \textbf{Sottocasi:}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{UC30.1 -- Elenco:} nome, stanza, stato (in linea o no), versione del \emph{firmware}, ultimo contatto.
+
+\item \textbf{UC30.2 -- Dettaglio:} configurazione corrente (\emph{provider}, voce, \emph{skill} abilitate).
+
+\item \textbf{UC30.3 -- Rinomina.}
+
+\item \textbf{UC30.4 -- Assegnazione a una stanza:} un dispositivo appartiene al più a una stanza.
+
+\item \textbf{UC30.5 -- Dissociazione:} le credenziali del dispositivo sono revocate e il dispositivo non può più collegarsi al server.
+
+\item \textbf{UC30.6 -- Aggiunta:} avvia UC17.
+
+\end{itemize}
+
+\item \textbf{Fonte:} Capitolato, VE 21/10.
+
+\end{itemize}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/12c-uc-web-assistente.png}
+
+\caption{Casi d'uso della web app: configurazione dell'assistente (UC31--UC33)}
+
+\end{figure}
+
+
+
+\subsubsection{UC31 -- Configurazione del provider AI}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore. \textbf{Servizi coinvolti:} \emph{provider} AI.
+
+\item \textbf{Postcondizioni:} la casa (o il dispositivo) ha un \emph{provider} AI e un modello assegnati, validi dalla richiesta successiva.
+
+\item \textbf{Scenario principale:}
+
+\begin{enumerate}
+
+\tightlist
+
+\item L'Amministratore sceglie il \emph{provider} da un elenco predefinito (UC31.1) o indica un \emph{endpoint} personalizzato (UC31.2).
+
+\item L'Amministratore inserisce la chiave API (UC31.3).
+
+\item L'Amministratore sceglie il modello (UC31.4).
+
+\item Il sistema verifica la connessione (UC31.6).
+
+\item L'Amministratore assegna il \emph{provider} alla casa o a un dispositivo (UC31.5) e salva.
+
+\end{enumerate}
+
+\item \textbf{Sottocasi:}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{UC31.1 -- Scelta da elenco predefinito:} OpenAI, Anthropic, OpenRouter, DeepSeek, Ollama.
+
+\item \textbf{UC31.2 -- Endpoint personalizzato:} URL compatibile OpenAI (ad esempio un Ollama sulla rete di casa).
+
+\item \textbf{UC31.3 -- Chiave API:} inserita una volta, poi mostrata solo mascherata.
+
+\item \textbf{UC31.4 -- Scelta del modello:} dall'elenco esposto dal \emph{provider} o inserito a mano.
+
+\item \textbf{UC31.5 -- Assegnazione:} \emph{provider} predefinito della casa e, se serve, \emph{provider} specifico per un dispositivo.
+
+\item \textbf{UC31.6 -- Verifica della connessione:} il sistema prova una richiesta minima e mostra l'esito.
+
+\item \textbf{UC31.8 -- Più provider configurati:} più \emph{provider} configurati insieme, commutabili senza riavviare il server.
+
+\end{itemize}
+
+\item \textbf{Estensioni:} al passo 4, verifica non riuscita: UC31.7.
+
+\item \textbf{Fonte:} Capitolato (MVP: \emph{provider} configurabile; versione completa: più \emph{provider} commutabili), VE 21/10, VE 13/11 (modello configurabile per contenere i costi).
+
+\end{itemize}
+
+
+
+\paragraph{UC31.7 -- Verifica del provider non riuscita}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} la richiesta di prova al \emph{provider} fallisce (indirizzo non raggiungibile, chiave non valida, modello inesistente, tempo scaduto).
+
+\item \textbf{Postcondizioni:} la configurazione precedente resta in uso; la web app mostra il motivo dell'errore.
+
+\item \textbf{Scenario principale:} il sistema mostra il motivo del fallimento e chiede all'Amministratore se correggere i dati o salvare comunque la configurazione senza assegnarla.
+
+\item \textbf{Estende:} UC31, al passo 4.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC32 -- Configurazione di voce e lingua}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Postcondizioni:} lingua e voce della sintesi sono aggiornate per la casa o per il dispositivo e valgono dalla richiesta successiva.
+
+\item \textbf{Scenario principale:} l'Amministratore sceglie per la casa o per un dispositivo la lingua e la voce della sintesi vocale e salva. I motori di trascrizione e di sintesi sono quelli del server e non si scelgono dalla web app.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC33 -- Scelta della wake word}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Postcondizioni:} il dispositivo usa la nuova \emph{wake word}.
+
+\item \textbf{Scenario principale:} l'Amministratore sceglie la \emph{wake word} da un elenco di modelli disponibili; il dispositivo la riceve con la configurazione o con un aggiornamento.
+
+\item \textbf{Fonte:} Interna, da chiedere a Uranion.
+
+\end{itemize}
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr_finale/12d-uc-web-estensioni.png}
+
+\caption{Casi d'uso della web app: estensioni, dati e aggiornamenti (UC34--UC38)}
+
+\end{figure}
+
+
+
+\subsubsection{UC34 -- Gestione delle skill}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Postcondizioni:} l'insieme delle \emph{skill} installate, la loro configurazione e la loro abilitazione per dispositivo riflettono la modifica.
+
+\item \textbf{Sottocasi:}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{UC34.1 -- Elenco:} \emph{skill} installate con nome, descrizione, versione e dispositivi su cui sono attive.
+
+\item \textbf{UC34.2 -- Caricamento:} l'Amministratore carica il file della \emph{skill} nel formato standard; il sistema la valida e la installa.
+
+\item \textbf{UC34.4 -- Configurazione dei parametri:} ad esempio città predefinita per il meteo, chiave di un servizio.
+
+\item \textbf{UC34.5 -- Abilitazione per dispositivo.}
+
+\item \textbf{UC34.6 -- Rimozione.}
+
+\item \textbf{UC34.7 -- Autorizzazione esterna:} la \emph{skill} reindirizza a un sito esterno e riceve una \emph{callback} (predisposizione per l'IoT, VE 21/10).
+
+\end{itemize}
+
+\item \textbf{Estensioni:} in UC34.2, file non valido: UC34.3.
+
+\item \textbf{Fonte:} Capitolato, VE 21/10.
+
+\end{itemize}
+
+
+
+\paragraph{UC34.3 -- Formato della skill non valido}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} il file caricato non rispetta il formato standard delle \emph{skill}.
+
+\item \textbf{Postcondizioni:} la \emph{skill} non è installata.
+
+\item \textbf{Scenario principale:} il sistema rifiuta il file e indica l'errore trovato.
+
+\item \textbf{Estende:} UC34.2, alla validazione.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC35 -- Gestione dei server MCP}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore. \textbf{Servizi coinvolti:} server MCP.
+
+\item \textbf{Postcondizioni:} l'insieme dei server MCP configurati e degli strumenti offerti al modello riflette la modifica.
+
+\item \textbf{Sottocasi:}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{UC35.1 -- Aggiunta:} nome, URL o comando, eventuale autenticazione.
+
+\item \textbf{UC35.2 -- Visualizzazione e selezione degli strumenti} esposti dal server.
+
+\item \textbf{UC35.3 -- Rimozione.}
+
+\end{itemize}
+
+\item \textbf{Estensioni:} server non raggiungibile: UC35.4.
+
+\item \textbf{Fonte:} Capitolato.
+
+\end{itemize}
+
+
+
+\paragraph{UC35.4 -- Server MCP non raggiungibile}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Precondizioni:} un server MCP configurato non risponde.
+
+\item \textbf{Postcondizioni:} il server MCP è segnato in errore e i suoi strumenti non sono offerti al modello.
+
+\item \textbf{Scenario principale:} la web app mostra lo stato di errore del server MCP; l'Amministratore può correggerne i dati o rimuoverlo.
+
+\item \textbf{Estende:} UC35.1 e UC35.2.
+
+\item \textbf{Fonte:} Interna.
+
+\end{itemize}
+
+
+
+\subsubsection{UC36 -- Gestione del contesto}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Postcondizioni:} il testo di contesto del dispositivo è aggiornato o cancellato e vale dalla richiesta successiva.
+
+\item \textbf{Scenario principale:} l'Amministratore apre il contesto (testo Markdown) di un dispositivo, lo modifica o lo cancella e salva.
+
+\item \textbf{Fonte:} VE 13/11.
+
+\end{itemize}
+
+
+
+\subsubsection{UC37 -- Cronologia delle conversazioni}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Membro.
+
+\item \textbf{Precondizioni:} la conservazione delle trascrizioni è attiva per il dispositivo.
+
+\item \textbf{Postcondizioni:} le trascrizioni scelte sono state consultate o cancellate.
+
+\item \textbf{Scenario principale:} il Membro consulta le trascrizioni recenti di un dispositivo e può cancellarle singolarmente o tutte.
+
+\item \textbf{Scenario alternativo:} l'Amministratore disattiva la conservazione o ne cambia la durata massima.
+
+\item \textbf{Fonte:} VE 13/11 (indagine sulla permanenza del dato), Capitolato (GDPR). Da confermare con Uranion.
+
+\end{itemize}
+
+
+
+\subsubsection{UC38 -- Gestione degli aggiornamenti del firmware}
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{Attore primario:} Amministratore.
+
+\item \textbf{Postcondizioni:} l'aggiornamento è avviato, oppure è cambiata l'impostazione degli aggiornamenti automatici.
+
+\item \textbf{Scenario principale:} l'Amministratore vede la versione installata su ogni dispositivo e quella disponibile e avvia l'aggiornamento (UC20).
+
+\item \textbf{Scenario alternativo:} l'Amministratore attiva o disattiva gli aggiornamenti automatici.
+
+\item \textbf{Fonte:} Capitolato.
+
+\end{itemize}
+
+
+
+\subsection{Priorità e fasi dei casi d'uso}\label{sec:fasi}
+
+
+
+La tabella riporta, per ogni caso d'uso, la priorità e la fase in cui il gruppo prevede di realizzarlo: \emph{PoC} (\emph{Proof of Concept}, gennaio 2027) oppure \emph{MVP} (26/03/2027). Nessun caso d'uso è rimandato a dopo l'\emph{MVP}. 
+
+
+\begin{center}
+
+\begin{tabularx}{0.75\linewidth}{X>{\centering\arraybackslash}p{1.4cm}>{\centering\arraybackslash}p{1.4cm}>{\centering\arraybackslash}p{1.4cm}>{\centering\arraybackslash}p{1.4cm}}
+
+\rowcolor{bfblue}\thc{Fase} & \thc{Obb} & \thc{Des} & \thc{Opz} & \thc{Totale} \\
+
+PoC & 20 & 6 & 0 & \textbf{26} \rl
+
+MVP & 20 & 41 & 3 & \textbf{64} \rl
+
+\textbf{Totale} & \textbf{40} & \textbf{47} & \textbf{3} & \textbf{90} \rl
+
+\end{tabularx}
+
+\end{center}
+
+
+
+I casi d'uso sono 90: 38 principali e 52 sottocasi. Nel \emph{PoC} ci sono 14 casi d'uso principali, nell'\emph{MVP} 24.
+
+
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-8\tabcolsep)*150/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-8\tabcolsep)*580/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-8\tabcolsep)*130/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-8\tabcolsep)*140/1000\relax}}
+
+\rowcolor{bfblue}\thc{Caso d'uso} & \thc{Nome} & \thc{Priorità} & \thc{Fase} \\
+
+\endfirsthead
+
+\rowcolor{bfblue}\thc{Caso d'uso} & \thc{Nome} & \thc{Priorità} & \thc{Fase} \\
+
+\endhead
+
+\textbf{UC1} & \textbf{Attivazione dell'ascolto} & Obb & PoC \rl
+
+\hspace{1em}UC1.1 & Attivazione con wake word & Obb & PoC \rl
+
+\hspace{1em}UC1.2 & Attivazione con pulsante (push-to-talk) & Des & PoC \rl
+
+\textbf{UC2} & \textbf{Richiesta vocale con risposta} & Obb & PoC \rl
+
+\hspace{1em}UC2.1 & Acquisizione della richiesta e rilevamento della fine & Obb & PoC \rl
+
+\hspace{1em}UC2.2 & Ricezione della risposta vocale & Obb & PoC \rl
+
+\textbf{UC3} & \textbf{Nessun parlato dopo l'attivazione} & Obb & PoC \rl
+
+\textbf{UC4} & \textbf{Richiesta non compresa} & Obb & PoC \rl
+
+\textbf{UC5} & \textbf{Interruzione della risposta con ``Ehi Fossdot''} & Obb & PoC \rl
+
+\textbf{UC6} & \textbf{Sostituzione della richiesta in corso} & Des & PoC \rl
+
+\textbf{UC7} & \textbf{Servizio non disponibile} & Obb & PoC \rl
+
+\textbf{UC8} & \textbf{Mute dei microfoni} & Obb & PoC \rl
+
+\textbf{UC9} & \textbf{Regolazione del volume} & Des & MVP \rl
+
+\hspace{1em}UC9.1 & Impostazione del volume con i tasti & Des & PoC \rl
+
+\hspace{1em}UC9.2 & Impostazione del volume a voce & Des & MVP \rl
+
+\textbf{UC10} & \textbf{Invocazione di una skill} & Obb & MVP \rl
+
+\hspace{1em}UC10.1 & Errore nell'esecuzione di una skill & Des & MVP \rl
+
+\hspace{1em}UC10.2 & Richiesta di un dato mancante & Des & MVP \rl
+
+\hspace{1em}UC10.3 & Conferma di un'azione con effetti esterni & Obb & MVP \rl
+
+\textbf{UC11} & \textbf{Attività multi-step (agent)} & Des & MVP \rl
+
+\textbf{UC12} & \textbf{Uso di uno strumento MCP} & Obb & MVP \rl
+
+\textbf{UC13} & \textbf{Aggiornamento del contesto a voce} & Opz & MVP \rl
+
+\textbf{UC14} & \textbf{Chiamata tra dispositivi} & Des & MVP \rl
+
+\hspace{1em}UC14.1 & Avvio di una chiamata & Des & MVP \rl
+
+\hspace{1em}UC14.2 & Ricezione di una chiamata & Des & MVP \rl
+
+\hspace{1em}UC14.3 & Termine della chiamata & Des & MVP \rl
+
+\hspace{1em}UC14.4 & Dispositivo da chiamare non disponibile & Des & MVP \rl
+
+\textbf{UC15} & \textbf{Messaggio vocale verso un altro dispositivo} & Des & MVP \rl
+
+\textbf{UC16} & \textbf{Primo avvio e configurazione del Wi-Fi} & Obb & PoC \rl
+
+\hspace{1em}UC16.1 & Rete o password errate & Obb & PoC \rl
+
+\textbf{UC17} & \textbf{Aggiunta del dispositivo alla casa} & Obb & MVP \rl
+
+\textbf{UC18} & \textbf{Cambio della rete Wi-Fi} & Des & MVP \rl
+
+\textbf{UC19} & \textbf{Ripristino di fabbrica} & Des & PoC \rl
+
+\textbf{UC20} & \textbf{Aggiornamento del firmware} & Des & MVP \rl
+
+\hspace{1em}UC20.1 & Ritorno alla versione precedente & Des & MVP \rl
+
+\textbf{UC21} & \textbf{Registrazione} & Obb & PoC \rl
+
+\hspace{1em}UC21.1 & Dati di registrazione non validi & Obb & PoC \rl
+
+\hspace{1em}UC21.2 & Email già registrata & Obb & PoC \rl
+
+\textbf{UC22} & \textbf{Autenticazione} & Obb & PoC \rl
+
+\hspace{1em}UC22.1 & Credenziali errate & Obb & PoC \rl
+
+\textbf{UC23} & \textbf{Recupero della password} & Des & MVP \rl
+
+\textbf{UC24} & \textbf{Logout} & Obb & PoC \rl
+
+\textbf{UC25} & \textbf{Gestione del profilo} & Des & MVP \rl
+
+\textbf{UC26} & \textbf{Eliminazione dell'account e dei dati} & Obb & MVP \rl
+
+\textbf{UC27} & \textbf{Gestione delle case} & Des & MVP \rl
+
+\hspace{1em}UC27.1 & Creazione & Des & MVP \rl
+
+\hspace{1em}UC27.2 & Modifica & Des & MVP \rl
+
+\hspace{1em}UC27.3 & Eliminazione & Des & MVP \rl
+
+\textbf{UC28} & \textbf{Gestione dei membri} & Des & MVP \rl
+
+\hspace{1em}UC28.1 & Invito & Des & MVP \rl
+
+\hspace{1em}UC28.2 & Cambio di ruolo & Des & MVP \rl
+
+\hspace{1em}UC28.3 & Rimozione & Des & MVP \rl
+
+\textbf{UC29} & \textbf{Gestione delle stanze} & Des & MVP \rl
+
+\hspace{1em}UC29.1 & Creazione & Des & MVP \rl
+
+\hspace{1em}UC29.2 & Rinomina & Des & MVP \rl
+
+\hspace{1em}UC29.3 & Eliminazione & Des & MVP \rl
+
+\textbf{UC30} & \textbf{Gestione dei dispositivi} & Obb & MVP \rl
+
+\hspace{1em}UC30.1 & Elenco & Obb & MVP \rl
+
+\hspace{1em}UC30.2 & Dettaglio & Des & MVP \rl
+
+\hspace{1em}UC30.3 & Rinomina & Obb & MVP \rl
+
+\hspace{1em}UC30.4 & Assegnazione a una stanza & Des & MVP \rl
+
+\hspace{1em}UC30.5 & Dissociazione & Obb & MVP \rl
+
+\hspace{1em}UC30.6 & Aggiunta & Obb & MVP \rl
+
+\textbf{UC31} & \textbf{Configurazione del provider AI} & Obb & PoC \rl
+
+\hspace{1em}UC31.1 & Scelta da elenco predefinito & Obb & MVP \rl
+
+\hspace{1em}UC31.2 & Endpoint personalizzato & Obb & MVP \rl
+
+\hspace{1em}UC31.3 & Chiave API & Obb & PoC \rl
+
+\hspace{1em}UC31.4 & Scelta del modello & Obb & MVP \rl
+
+\hspace{1em}UC31.5 & Assegnazione & Des & MVP \rl
+
+\hspace{1em}UC31.6 & Verifica della connessione & Des & PoC \rl
+
+\hspace{1em}UC31.7 & Verifica del provider non riuscita & Des & PoC \rl
+
+\hspace{1em}UC31.8 & Più provider configurati & Des & MVP \rl
+
+\textbf{UC32} & \textbf{Configurazione di voce e lingua} & Obb & MVP \rl
+
+\textbf{UC33} & \textbf{Scelta della wake word} & Opz & MVP \rl
+
+\textbf{UC34} & \textbf{Gestione delle skill} & Des & MVP \rl
+
+\hspace{1em}UC34.1 & Elenco & Des & MVP \rl
+
+\hspace{1em}UC34.2 & Caricamento & Des & MVP \rl
+
+\hspace{1em}UC34.3 & Formato della skill non valido & Des & MVP \rl
+
+\hspace{1em}UC34.4 & Configurazione dei parametri & Des & MVP \rl
+
+\hspace{1em}UC34.5 & Abilitazione per dispositivo & Des & MVP \rl
+
+\hspace{1em}UC34.6 & Rimozione & Des & MVP \rl
+
+\hspace{1em}UC34.7 & Autorizzazione esterna & Opz & MVP \rl
+
+\textbf{UC35} & \textbf{Gestione dei server MCP} & Obb & MVP \rl
+
+\hspace{1em}UC35.1 & Aggiunta & Obb & MVP \rl
+
+\hspace{1em}UC35.2 & Visualizzazione e selezione degli strumenti & Obb & MVP \rl
+
+\hspace{1em}UC35.3 & Rimozione & Obb & MVP \rl
+
+\hspace{1em}UC35.4 & Server MCP non raggiungibile & Obb & MVP \rl
+
+\textbf{UC36} & \textbf{Gestione del contesto} & Des & MVP \rl
+
+\textbf{UC37} & \textbf{Cronologia delle conversazioni} & Obb & MVP \rl
+
+\textbf{UC38} & \textbf{Gestione degli aggiornamenti del firmware} & Des & MVP \rl
+
+\end{longtable}
+
+
+
+Note sulla divisione:
+
+\begin{itemize}
+
+\tightlist
+
+\item \textbf{UC9.} UC9.1 (volume con i tasti) è nel \emph{PoC} solo se il gruppo salda i tasti, altrimenti passa all'\emph{MVP}. Per questo UC9 principale è nell'\emph{MVP}; se i tasti vengono saldati, UC9 passa nel \emph{PoC}.
+
+\item \textbf{UC16 e UC17.} UC16 è nel \emph{PoC} ma include UC17 (aggiunta del dispositivo alla casa, passo 6), che è nell'\emph{MVP}. Nel \emph{PoC} il passo 6 si salta, oppure UC17 va anticipato insieme agli account (UC21, UC22, UC24).
+
+\item \textbf{UC31.} Nel \emph{PoC} è previsto un solo \emph{provider} fisso; la scelta da elenco, l'\emph{endpoint} personalizzato, la scelta del modello, l'assegnazione e più \emph{provider} insieme (UC31.1, UC31.2, UC31.4, UC31.5, UC31.8) sono nell'\emph{MVP}.
+
+\item \textbf{Sottocasi di UC14, UC21 e UC22.} Seguono il loro caso principale.
+
+\end{itemize}
+
+
+
+\subsection{Modello di dominio}
+
+
+
+Le entità che i casi d'uso manipolano, utili per verificare che non manchino casi di gestione.
+
+
+
+\begin{figure}[H]
+
+\centering
+
+\safeimg[width=\linewidth,height=0.62\textheight,keepaspectratio]{img_adr/14-dominio.png}
+
+\caption{Modello di dominio}
+
+\end{figure}
+
+
+
+% ---------- 4. Requisiti funzionali di sistema (parte di Luca) ----------
+
+% =====================================================================
+% Sezioni 4--9 dell'Analisi dei requisiti (ricalibrazione dei requisiti).
+% Sostituiscono, nel file principale, tutto il testo compreso tra
+% \section{Requisiti funzionali di sistema} e \end{document} (escluso).
+% Richiedono le macro del preambolo esistente: \thc, \rl, \ph, \tightlist e il colore bfblue.
+% =====================================================================
+
+\section{Requisiti funzionali di sistema}
+I requisiti di questo capitolo descrivono il comportamento funzionale del \emph{Sistema} nel suo insieme, adottando la codifica \texttt{RF-[Numero]-[Priorità]} prevista dalle \emph{Norme di progetto}. Ogni requisito esprime un solo comportamento verificabile e deriva da almeno una fonte. Colonne: \textbf{ID} = identificativo univoco; \textbf{Comp.} = componente interessato (\texttt{D} = Dispositivo/\emph{firmware}, \texttt{S} = Server di \emph{bridging}, \texttt{W} = Web app); \textbf{Ver.} = metodo di verifica (\texttt{T} = Test, \texttt{D} = Dimostrazione, \texttt{I} = Ispezione, \texttt{A} = Analisi); \textbf{Fonti} = origine del requisito, dove il simbolo  indica la sezione del Capitolato.
+
+\subsection{Attivazione, acquisizione e risposta vocale}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RF-1-Obb} & D & Il dispositivo deve rilevare in locale la \emph{wake word} predefinita (``Ehi Fossdot'') mentre si trova nello stato \emph{Inattivo} (\texttt{ST-4}). & T & Capitolato 1.2, VE 2026-10-21, \texttt{UC1.1} \rl
+
+\texttt{RF-2-Des} & D & Il dispositivo deve consentire l'attivazione manuale dell'ascolto con la pressione del pulsante azione (\emph{push-to-talk}). & D & Capitolato 1.6.1, \texttt{UC1.2} \rl
+
+\texttt{RF-3-Obb} & D & Al rilevamento di un'attivazione il dispositivo deve emettere un segnale sonoro breve e mostrare sull'anello LED lo stato \emph{In ascolto} (\texttt{ST-5}). & T & Capitolato 1.6.1, \texttt{UC1} \rl
+
+\texttt{RF-4-Obb} & D, S & Dopo l'attivazione il dispositivo deve aprire una sessione vocale sul server di \emph{bridging} e passare allo stato \emph{In ascolto} (\texttt{ST-5}). & T & \texttt{UC1} \rl
+
+\texttt{RF-5-Obb} & D & Nello stato \emph{In ascolto} il dispositivo deve inviare al server l'audio della richiesta in \emph{streaming}, in \emph{frame} di durata fissa (\texttt{PAR-07}). & T & Capitolato 1.2, \texttt{UC2.1} \rl
+
+\texttt{RF-6-Obb} & S & Il server deve considerare conclusa la richiesta dopo un silenzio continuo (\texttt{PAR-04}) o al raggiungimento della durata massima (\texttt{PAR-06}). & T & Interna, \texttt{UC2.1} \rl
+
+\texttt{RF-7-Obb} & D, S & Alla conclusione della richiesta il server deve comunicare al dispositivo la fine dell'ascolto e si passa allo stato \emph{Elaborazione} (\texttt{ST-6}). & T & \texttt{UC2.1} \rl
+
+\texttt{RF-8-Obb} & S & Se non viene rilevato parlato entro il tempo massimo di attesa (\texttt{PAR-05}) dall'attivazione, il server deve chiudere la sessione vocale senza contattare il \emph{provider} AI. & T & \texttt{UC3} \rl
+
+\texttt{RF-9-Obb} & D & Alla chiusura di una sessione senza parlato il dispositivo deve dare un riscontro discreto e tornare \emph{Inattivo} (\texttt{ST-4}). & T & \texttt{UC3} \rl
+
+\texttt{RF-10-Obb} & S & Il server deve trascrivere l'audio della richiesta con il motore STT configurato. & T & Capitolato 1.2, \texttt{UC2} \rl
+
+\texttt{RF-11-Obb} & S & Se la trascrizione è vuota o priva di parlato riconoscibile, il server non deve contattare il \emph{provider} AI. & T & \texttt{UC4} \rl
+
+\texttt{RF-12-Obb} & D & Se la richiesta non è stata compresa, il dispositivo deve riprodurre un messaggio vocale di mancata comprensione e tornare \emph{Inattivo} (\texttt{ST-4}). & T & \texttt{UC4} \rl
+
+\texttt{RF-13-Obb} & S & Il server deve inviare la trascrizione al \emph{provider} AI assegnato al dispositivo, includendo il contesto del dispositivo e gli strumenti abilitati. & T & Capitolato 1.2, \texttt{UC2} \rl
+
+\texttt{RF-14-Obb} & S & Il server deve sintetizzare in audio (TTS) la risposta del \emph{provider} AI per frasi, non appena il \emph{provider} le produce. & T & Capitolato 1.2, \texttt{UC2.2} \rl
+
+\texttt{RF-15-Obb} & D, S & Il server deve inviare l'audio della risposta al dispositivo a blocchi e inviare un messaggio di fine risposta al termine. & T & \texttt{UC2.2} \rl
+
+\texttt{RF-16-Obb} & D & Il dispositivo deve avviare la riproduzione della risposta (\texttt{ST-7}) prima che la risposta sia completa e tornare \emph{Inattivo} (\texttt{ST-4}) al termine. & T & Capitolato 1.6.1, \texttt{UC2.2} \rl
+
+\texttt{RF-17-Obb} & S & Il sistema deve supportare l'interazione vocale (trascrizione, elaborazione e sintesi) in lingua italiana. & T & Interna, \texttt{UC2} \rl
+
+\texttt{RF-18-Des} & S & Il server deve poter eseguire STT e TTS con motori locali, in alternativa a servizi remoti, così che nessun audio sia trasmesso a terzi. & D & Capitolato 1.3 e 1.6.2, \texttt{UC2} \rl
+
+\texttt{RF-19-Obb} & D, S & Quando una risposta del sistema richiede una risposta dell'Utente (dato mancante o conferma), il dispositivo deve riaprire automaticamente l'ascolto (\texttt{ST-5}) al termine della riproduzione, senza richiedere la \emph{wake word}. & T & \texttt{UC10.2}, \texttt{UC10.3} \rl
+
+\texttt{RF-20-Obb} & D, S & Se l'Utente non risponde entro il tempo di attesa (\texttt{PAR-11}), il server deve chiudere l'interazione in sospeso e il dispositivo deve tornare \emph{Inattivo} (\texttt{ST-4}). & T & \texttt{UC10.2}, \texttt{UC10.3} \rl
+
+\texttt{RF-21-Des} & D & Il dispositivo deve consentire di regolare il volume di riproduzione con i tasti fisici dedicati, mostrando il livello sui LED. & D & \texttt{UC9.1} \rl
+
+\texttt{RF-22-Des} & D & Il dispositivo deve memorizzare in memoria non volatile l'ultimo livello di volume impostato. & T & \texttt{UC9} \rl
+
+\texttt{RF-23-Des} & D, S & Il sistema deve consentire di regolare il volume del dispositivo con un comando vocale, elaborato come richiesta vocale. & D & \texttt{UC9.2} \rl
+
+\end{longtable}
+
+\subsection{Interruzione, controlli fisici e gestione degli errori}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RF-24-Obb} & D & Il dispositivo deve riconoscere in locale la \emph{wake word} anche durante la riproduzione della risposta (\texttt{ST-7}), con l'altoparlante in uso. & T & VE 2026-11-13, \texttt{UC5} \rl
+
+\texttt{RF-25-Obb} & D & Al riconoscimento della \emph{wake word}, o alla pressione del pulsante azione, durante la riproduzione il dispositivo deve arrestare subito l'altoparlante, inviare al server un messaggio di annullamento e passare allo stato \emph{In ascolto} (\texttt{ST-5}). & T & VE 2026-11-13, \texttt{UC5} \rl
+
+\texttt{RF-26-Obb} & S & Alla ricezione dell'annullamento il server deve interrompere la generazione del \emph{provider} AI e la sintesi vocale e scartare l'audio residuo. & T & VE 2026-11-13, \texttt{UC5} \rl
+
+\texttt{RF-27-Des} & D, S & Se una nuova attivazione avviene durante l'elaborazione (\texttt{ST-6}), il sistema deve annullare sul server la richiesta precedente e avviare l'acquisizione di una nuova richiesta. & T & VE 2026-11-13, \texttt{UC6} \rl
+
+\texttt{RF-28-Obb} & S & In caso di errore o di superamento del tempo massimo (\texttt{RP-1}) di STT, \emph{provider} AI o TTS, il server deve chiudere la richiesta e inviare al dispositivo un messaggio vocale di errore. & T & Interna, \texttt{UC7} \rl
+
+\texttt{RF-29-Obb} & D & Alla ricezione di un messaggio di errore il dispositivo deve mostrare lo stato \emph{Errore} (\texttt{ST-10}), riprodurre il messaggio e tornare \emph{Inattivo} (\texttt{ST-4}). & T & \texttt{UC7} \rl
+
+\texttt{RF-30-Obb} & D & Se il server non è raggiungibile, il dispositivo deve riprodurre un avviso sonoro memorizzato localmente e passare allo stato \emph{Non connesso} (\texttt{ST-11}). & T & \texttt{UC7} \rl
+
+\texttt{RF-31-Obb} & S & Il server deve registrare nei \emph{log} gli errori delle richieste vocali. & I & \texttt{UC7} \rl
+
+\texttt{RF-32-Obb} & D & Il dispositivo deve consentire di disattivare i microfoni con un comando fisico di \emph{mute}, impedendo ogni acquisizione audio, \emph{wake word} compresa, e segnalando lo stato \emph{Muto} (\texttt{ST-8}) con un LED fisso dedicato. & T & Interna, \texttt{UC8} \rl
+
+\texttt{RF-33-Obb} & D & Il comando di \emph{mute} deve essere efficace in ogni stato in cui il dispositivo acquisisce o può acquisire audio (\texttt{ST-4}, \texttt{ST-5}, \texttt{ST-6}, \texttt{ST-7}, \texttt{ST-9}, \texttt{ST-10}), annullando la richiesta o la chiamata in corso. & T & Interna, \texttt{UC8} \rl
+
+\texttt{RF-34-Obb} & D & Con il dispositivo \emph{Muto}, un nuovo comando di \emph{mute} deve riattivare i microfoni e riportare il dispositivo allo stato \emph{Inattivo} (\texttt{ST-4}). & T & \texttt{UC8} \rl
+
+\end{longtable}
+
+\subsection{Skill, agent e strumenti MCP}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RF-35-Obb} & S & Il server deve esporre al \emph{provider} AI, come strumenti, le definizioni delle \emph{skill} abilitate per il dispositivo. & D & Capitolato 1.6.2, VE 2026-10-21, \texttt{UC10} \rl
+
+\texttt{RF-36-Obb} & S & Il server deve eseguire la \emph{skill} scelta dal modello con gli argomenti indicati e restituirne il risultato al modello per la risposta vocale. & T & Capitolato 1.6.2, \texttt{UC10} \rl
+
+\texttt{RF-37-Des} & S & Se l'esecuzione di una \emph{skill} o di uno strumento MCP fallisce o supera il tempo massimo (\texttt{RP-1}), il server deve notificare l'errore al modello. & T & \texttt{UC10.1}, \texttt{UC12} \rl
+
+\texttt{RF-38-Des} & D, S & Se uno strumento richiede parametri assenti dalla richiesta, il sistema deve chiederli a voce all'Utente e proseguire con il dato fornito. & D & \texttt{UC10.2} \rl
+
+\texttt{RF-39-Obb} & D, S & Prima di eseguire uno strumento che richiede conferma, il server deve sospenderne l'esecuzione e il dispositivo deve descrivere a voce l'azione e i suoi dati e chiedere conferma esplicita. & T & \texttt{UC10.3} \rl
+
+\texttt{RF-40-Obb} & S & Il server deve eseguire lo strumento sospeso solo dopo una conferma affermativa; in caso di risposta negativa o assente deve annullare l'azione e il dispositivo deve comunicarlo a voce. & T & \texttt{UC10.3} \rl
+
+\texttt{RF-41-Obb} & S & Il sistema deve richiedere conferma vocale per ogni strumento contrassegnato come con effetti esterni; per gli strumenti MCP privi di indicazione di sola lettura la conferma è richiesta per impostazione predefinita. & T & Interna, \texttt{UC10.3} \rl
+
+\texttt{RF-42-Des} & W & L'Amministratore deve poter indicare, per ciascuno strumento di una \emph{skill} o di un server MCP, se richiede conferma vocale. & D & \texttt{UC34.4}, \texttt{UC35.2} \rl
+
+\texttt{RF-43-Des} & S & Il server deve eseguire in sequenza più chiamate a strumenti (\emph{skill} o MCP) per soddisfare una singola richiesta complessa (\emph{agent}), entro un numero massimo di passi e un tempo massimo (\texttt{PAR-12}). & T & Capitolato 1.6.2, \texttt{UC11} \rl
+
+\texttt{RF-44-Des} & D, S & Al raggiungimento del numero massimo di passi o del tempo massimo di un'attività \emph{agent}, il server deve chiuderla e il dispositivo deve riprodurre un messaggio di errore. & T & \texttt{UC11} \rl
+
+\texttt{RF-45-Obb} & S & Il server deve integrare un \emph{client} MCP (\emph{Model Context Protocol}) in grado di individuare e invocare gli strumenti abilitati dei server MCP configurati. & D & Capitolato 1.4 e 1.6.2, \texttt{UC12} \rl
+
+\texttt{RF-46-Des} & S & Il sistema deve rendere disponibili all'assistente almeno uno o due servizi esterni tramite MCP (ad esempio meteo, calendario o domotica). & D & Capitolato 1.6.2, \texttt{UC12} \rl
+
+\texttt{RF-47-Opz} & S & Il sistema deve includere una \emph{skill} di sistema che consenta all'Utente di aggiungere a voce nuove informazioni in coda al testo di contesto del dispositivo. & D & VE 2026-11-13, \texttt{UC13} \rl
+
+\end{longtable}
+
+\subsection{Comunicazione tra dispositivi}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RF-48-Des} & D, S & Il sistema deve consentire a un Utente di avviare con un comando vocale una chiamata audio bidirezionale (\emph{drop in}) verso un altro dispositivo connesso della stessa casa, identificato per nome o stanza. & D & Capitolato 1.2 e 1.6.2, VE 2026-10-21, \texttt{UC14}, \texttt{UC14.1} \rl
+
+\texttt{RF-49-Des} & S & Il server deve gestire come strumenti di sistema, esposti al \emph{provider} AI, i comandi vocali di chiamata, di invio di messaggi e di regolazione del volume. & T & Interna, \texttt{UC9.2}, \texttt{UC14.1}, \texttt{UC15} \rl
+
+\texttt{RF-50-Des} & D, S & Alla ricezione di una chiamata il dispositivo destinatario deve emettere un avviso sonoro e mostrare lo stato \emph{Chiamata} (\texttt{ST-9}) sui LED. & D & VE 2026-10-21, \texttt{UC14.2} \rl
+
+\texttt{RF-51-Des} & D, S & Dopo l'avviso il dispositivo destinatario deve aprire subito il flusso audio bidirezionale con il chiamante (\emph{drop in}). & D & VE 2026-10-21, \texttt{UC14.2} \rl
+
+\texttt{RF-52-Des} & D, S & Un dispositivo \emph{Muto} (\texttt{ST-8}) non deve aprire il canale audio di una chiamata ricevuta; il chiamante deve ricevere un messaggio vocale di dispositivo non disponibile. & T & Interna, \texttt{UC14.2}, \texttt{UC14.4} \rl
+
+\texttt{RF-53-Des} & D, S & Entrambi i dispositivi di una chiamata devono consentirne la chiusura con la \emph{wake word} o con il pulsante azione, tornando \emph{Inattivo} (\texttt{ST-4}). & T & \texttt{UC14.3} \rl
+
+\texttt{RF-54-Des} & D, S & Se il dispositivo indicato non esiste nella casa o non è connesso, il dispositivo chiamante deve riprodurre un messaggio vocale di errore senza aprire canali audio. & T & \texttt{UC14.4} \rl
+
+\texttt{RF-55-Des} & D, S & Il sistema deve consentire di registrare e inviare un messaggio vocale a un altro dispositivo della stessa casa. & D & Capitolato 1.2, VE 2026-10-21, \texttt{UC15} \rl
+
+\texttt{RF-56-Des} & D, S & Il sistema deve consentire di indirizzare un messaggio vocale a un singolo dispositivo, a una stanza o a tutti i dispositivi della casa (annuncio). & D & Capitolato 1.2 e 1.6.2, \texttt{UC15} \rl
+
+\texttt{RF-57-Des} & S & Il server deve consegnare il messaggio vocale al destinatario non appena è connesso e \emph{Inattivo} (\texttt{ST-4}), conservandolo fino ad allora per non oltre la durata massima \texttt{PAR-13}. & T & \texttt{UC15} \rl
+
+\texttt{RF-58-Opz} & D, S & Il sistema deve consentire la riproduzione sincronizzata di uno stesso audio su più dispositivi della casa. & D & Capitolato 1.2 e 1.6.2 \rl
+
+\end{longtable}
+
+\subsection{Gestione del dispositivo, connessione e firmware}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RF-59-Obb} & D & Il \emph{firmware} deve gestire gli stati operativi \texttt{ST-1}--\texttt{ST-8}, \texttt{ST-10} e \texttt{ST-11} e le relative transizioni, segnalando ciascuno con una configurazione visiva distinta dell'anello LED. & T & Capitolato 1.6.1, Interna \rl
+
+\texttt{RF-60-Des} & D & Il \emph{firmware} deve gestire gli stati \emph{Chiamata} (\texttt{ST-9}) e \emph{Aggiornamento} (\texttt{ST-12}) e le relative transizioni, segnalandoli sull'anello LED. & T & \texttt{UC14}, \texttt{UC20} \rl
+
+\texttt{RF-61-Obb} & D & Al primo avvio o in assenza di una rete salvata il dispositivo deve entrare nello stato \emph{Onboarding} (\texttt{ST-2}) e creare una rete Wi-Fi temporanea con \emph{captive portal}. & D & Capitolato 1.6.1, VE 2026-10-21, \texttt{UC16} \rl
+
+\texttt{RF-62-Obb} & D & Il \emph{captive portal} deve consentire all'Amministratore di inserire SSID e password della rete domestica e l'indirizzo del server, senza installare applicazioni. & D & VE 2026-10-21, \texttt{UC16} \rl
+
+\texttt{RF-63-Des} & D & Il dispositivo deve poter individuare il server di \emph{bridging} nella rete locale con un meccanismo di scoperta automatica; l'inserimento manuale dell'indirizzo deve restare possibile. & T & Capitolato 1.4, \texttt{UC16} \rl
+
+\texttt{RF-64-Obb} & D & Se la connessione alla rete configurata fallisce, il dispositivo deve segnalare l'errore sui LED e tornare nello stato \emph{Onboarding} (\texttt{ST-2}). & T & VE 2026-10-21, \texttt{UC16.1} \rl
+
+\texttt{RF-65-Obb} & D, S & Il dispositivo deve connettersi al server con una connessione WebSocket persistente, presentandosi con il proprio identificativo univoco. & T & Capitolato 1.4, VE 2026-10-21, \texttt{UC17} \rl
+
+\texttt{RF-66-Obb} & S, W & La web app deve mostrare all'Amministratore i dispositivi connessi al server che non sono ancora associati a una casa. & T & VE 2026-10-21, \texttt{UC17} \rl
+
+\texttt{RF-67-Obb} & S, W & L'Amministratore deve poter associare un dispositivo in attesa a una casa, scegliendone nome e stanza, oppure rifiutarlo. & T & Capitolato 1.6.1, \texttt{UC17}, \texttt{UC30.6} \rl
+
+\texttt{RF-68-Obb} & S & All'associazione il server deve rilasciare al dispositivo una credenziale dedicata, che il dispositivo conserva e usa a ogni connessione. & T & Capitolato 1.6.2, \texttt{UC17} \rl
+
+\texttt{RF-69-Obb} & D & Il dispositivo deve conservare in memoria non volatile le credenziali Wi-Fi e l'indirizzo e la credenziale del server. & T & \texttt{UC17}, \texttt{UC18} \rl
+
+\texttt{RF-70-Obb} & D & Dopo un riavvio o una caduta di rete il dispositivo deve riconnettersi automaticamente al server, ritentando con attese crescenti nello stato \emph{Non connesso} (\texttt{ST-11}). & T & Interna, \texttt{UC16} \rl
+
+\texttt{RF-71-Des} & D & L'Amministratore deve poter riportare un dispositivo già associato nello stato \emph{Onboarding} con un comando fisico per cambiare la rete Wi-Fi, mantenendo l'associazione alla casa e la credenziale del server. & T & \texttt{UC18} \rl
+
+\texttt{RF-72-Des} & D & Il ripristino di fabbrica, eseguito con una combinazione fisica di comandi, deve cancellare rete, credenziali e configurazione locale e riportare il dispositivo nello stato \emph{Onboarding} (\texttt{ST-2}). & T & \texttt{UC19} \rl
+
+\texttt{RF-73-Des} & S & Dopo un ripristino di fabbrica il server deve segnare come dissociato il dispositivo al primo tentativo di accesso con credenziali non più valide. & T & \texttt{UC19} \rl
+
+\texttt{RF-74-Des} & D, S & Il dispositivo deve supportare l'aggiornamento \emph{Over The Air} (OTA) del \emph{firmware} su una partizione dedicata, verificando la firma del pacchetto prima dell'installazione. & D & Capitolato 1.6.2, \texttt{UC20} \rl
+
+\texttt{RF-75-Des} & D, S & Dopo il riavvio il dispositivo deve comunicare al server la versione di \emph{firmware} installata. & T & \texttt{UC20} \rl
+
+\texttt{RF-76-Des} & D, S & Se la firma non è valida o la nuova versione non si avvia, il dispositivo deve annullare l'aggiornamento o tornare alla partizione precedente (\emph{rollback}) e segnalare l'esito negativo al server. & T & Capitolato 1.6.2, \texttt{UC20.1} \rl
+
+\texttt{RF-77-Des} & S & Il server deve avviare gli aggiornamenti del \emph{firmware} in modo automatico quando l'Amministratore ha attivato gli aggiornamenti automatici. & T & \texttt{UC20}, \texttt{UC38} \rl
+
+\end{longtable}
+
+\subsection{Web app: account, case, membri, stanze e dispositivi}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RF-78-Obb} & S, W & La web app deve consentire a un utente non autenticato di registrare un account con nome, email e password. & T & Capitolato 1.6.1, \texttt{UC21} \rl
+
+\texttt{RF-79-Obb} & S, W & Il sistema deve validare i dati di registrazione (email ben formata, password conforme ai criteri \texttt{PAR-14}), indicando il campo errato e il motivo, e rifiutare un'email già registrata senza rivelare dati dell'account esistente. & T & \texttt{UC21.1}, \texttt{UC21.2} \rl
+
+\texttt{RF-80-Obb} & S & Alla registrazione il sistema deve creare una casa predefinita di cui l'utente diventa Amministratore. & T & \texttt{UC21} \rl
+
+\texttt{RF-81-Des} & S, W & La registrazione su invito deve collegare l'utente alla casa che lo ha invitato come Membro, senza creare una casa predefinita. & T & Interna, \texttt{UC21}, \texttt{UC28.1} \rl
+
+\texttt{RF-82-Obb} & S, W & La web app deve consentire l'autenticazione con email e password. & T & Capitolato 1.6.1, \texttt{UC22} \rl
+
+\texttt{RF-83-Obb} & S, W & In caso di credenziali errate il sistema deve mostrare un messaggio generico, senza indicare quale dato è sbagliato, e rallentare i tentativi successivi dopo il numero di insuccessi consecutivi \texttt{PAR-14}. & T & \texttt{UC22.1} \rl
+
+\texttt{RF-84-Des} & S, W & Il sistema deve consentire il recupero della password tramite un collegamento inviato via email, valido per il tempo \texttt{PAR-14}. & T & \texttt{UC23} \rl
+
+\texttt{RF-85-Des} & S & Se il server \emph{self-hosted} non dispone di un servizio email, il recupero della password deve essere possibile da riga di comando sul server. & T & \texttt{UC23} \rl
+
+\texttt{RF-86-Des} & S & Dopo il recupero della password il sistema deve invalidare le sessioni precedenti. & T & \texttt{UC23} \rl
+
+\texttt{RF-87-Obb} & S, W & La web app deve consentire al Membro di terminare la propria sessione (\emph{logout}), invalidando il relativo \emph{token}. & T & \texttt{UC24} \rl
+
+\texttt{RF-88-Des} & S, W & La web app deve consentire al Membro di modificare nome, email e password del proprio profilo, richiedendo la password attuale per cambiare la password. & T & \texttt{UC25} \rl
+
+\texttt{RF-89-Obb} & S, W & La web app deve consentire al Membro di eliminare il proprio account, previa conferma con la password, cancellando profilo, sessioni e inviti dell'account. & T & Capitolato 1.3, VE 2026-11-13, \texttt{UC26} \rl
+
+\texttt{RF-90-Obb} & S, W & Il sistema deve impedire l'eliminazione dell'account di un Membro che è l'unico Amministratore di una casa con altri membri, richiedendo prima la nomina di un nuovo Amministratore. & T & \texttt{UC26} \rl
+
+\texttt{RF-91-Obb} & S & Se il Membro che elimina l'account è l'unico utente di una casa, il sistema deve eliminare la casa e dissociarne i dispositivi. & T & \texttt{UC26} \rl
+
+\texttt{RF-92-Des} & S, W & L'Amministratore deve poter creare una casa, indicandone nome, lingua e fuso orario, e modificarne nome e impostazioni. & T & VE 2026-10-21, \texttt{UC27}, \texttt{UC27.1}, \texttt{UC27.2} \rl
+
+\texttt{RF-93-Des} & S, W & L'Amministratore deve poter eliminare una casa, previa conferma, solo se alla casa non sono associati dispositivi. & T & \texttt{UC27.3} \rl
+
+\texttt{RF-94-Des} & S, W & L'Amministratore deve poter invitare un utente nella casa con un collegamento o un codice. & T & VE 2026-10-21, \texttt{UC28}, \texttt{UC28.1} \rl
+
+\texttt{RF-95-Des} & S, W & L'Amministratore deve poter cambiare il ruolo di un membro (Membro $\leftrightarrow$ Amministratore) e rimuoverlo dalla casa, facendogli perdere l'accesso. & T & VE 2026-10-21, \texttt{UC28.2}, \texttt{UC28.3} \rl
+
+\texttt{RF-96-Des} & S & Il sistema deve garantire che ogni casa abbia sempre almeno un Amministratore. & T & \texttt{UC28} \rl
+
+\texttt{RF-97-Des} & S, W & L'Amministratore deve poter creare, rinominare ed eliminare le stanze di una casa; i dispositivi di una stanza eliminata restano senza stanza. & T & Capitolato 1.2, \texttt{UC29}, \texttt{UC29.1}, \texttt{UC29.2}, \texttt{UC29.3} \rl
+
+\texttt{RF-98-Obb} & S, W & La web app deve mostrare ai Membri l'elenco dei dispositivi della casa con nome, stanza, stato di connessione, versione del \emph{firmware} e ultimo contatto. & T & Capitolato 1.2, VE 2026-10-21, \texttt{UC30}, \texttt{UC30.1} \rl
+
+\texttt{RF-99-Obb} & S, W & L'Amministratore deve poter rinominare un dispositivo. & T & \texttt{UC30.3} \rl
+
+\texttt{RF-100-Obb} & S, W & L'Amministratore deve poter dissociare un dispositivo da una casa, revocandone le credenziali. & T & \texttt{UC30.5} \rl
+
+\texttt{RF-101-Des} & S, W & La web app deve mostrare il dettaglio di configurazione di un dispositivo (\emph{provider}, voce, \emph{skill} abilitate). & D & \texttt{UC30.2} \rl
+
+\texttt{RF-102-Des} & S, W & L'Amministratore deve poter assegnare ogni dispositivo ad al più una stanza. & T & Capitolato 1.2, \texttt{UC30.4} \rl
+
+\end{longtable}
+
+\subsection{Web app: configurazione AI, skill, MCP e dati}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RF-103-Obb} & S, W & L'Amministratore deve poter configurare un \emph{provider} AI compatibile OpenAI scegliendolo da un elenco predefinito (OpenAI, Anthropic, OpenRouter, DeepSeek, Ollama). & D & Capitolato 1.6.1, VE 2026-10-21, \texttt{UC31}, \texttt{UC31.1} \rl
+
+\texttt{RF-104-Obb} & S, W & L'Amministratore deve poter configurare un \emph{provider} AI indicando un \emph{endpoint} personalizzato compatibile OpenAI, anche in rete locale. & D & Capitolato 1.2, VE 2026-11-13, \texttt{UC31.2} \rl
+
+\texttt{RF-105-Obb} & S, W & L'Amministratore deve poter inserire la chiave API del \emph{provider} AI. & T & \texttt{UC31.3} \rl
+
+\texttt{RF-106-Obb} & S, W & L'Amministratore deve poter scegliere il modello dall'elenco esposto dal \emph{provider} oppure inserirlo a mano, con effetto dalla richiesta successiva e senza riprogrammare il dispositivo. & D & VE 2026-11-13, \texttt{UC31.4} \rl
+
+\texttt{RF-107-Des} & S, W & Il sistema deve verificare la connessione al \emph{provider} AI con una richiesta minima e mostrare l'esito all'Amministratore. & T & \texttt{UC31.6} \rl
+
+\texttt{RF-108-Des} & S, W & Se la verifica del \emph{provider} AI non riesce, il sistema deve mostrare il motivo, mantenere in uso la configurazione precedente e consentire di correggere i dati o di salvare la configurazione senza assegnarla. & T & \texttt{UC31.7} \rl
+
+\texttt{RF-109-Des} & S, W & Il sistema deve consentire di assegnare un \emph{provider} AI come predefinito della casa e, se necessario, uno specifico a un singolo dispositivo. & T & Capitolato 1.6.2, \texttt{UC31.5} \rl
+
+\texttt{RF-110-Des} & S, W & Il sistema deve consentire di configurare più \emph{provider} AI e di commutarli senza riavviare il server. & T & Capitolato 1.6.2, \texttt{UC31.8} \rl
+
+\texttt{RF-111-Obb} & S, W & L'Amministratore deve poter configurare la lingua e la voce della sintesi vocale per la casa o per un singolo dispositivo, con effetto dalla richiesta successiva. & D & Interna, \texttt{UC32} \rl
+
+\texttt{RF-112-Opz} & D, S, W & L'Amministratore deve poter selezionare la \emph{wake word} del dispositivo tra i modelli disponibili. & D & Interna, \texttt{UC33} \rl
+
+\texttt{RF-113-Des} & S, W & La web app deve mostrare l'elenco delle \emph{skill} installate con nome, descrizione, versione e dispositivi su cui sono attive. & D & \texttt{UC34}, \texttt{UC34.1} \rl
+
+\texttt{RF-114-Des} & S, W & L'Amministratore deve poter caricare una \emph{skill} nel formato standard; il sistema deve validarla e rifiutare quelle non valide indicando l'errore trovato. & T & Capitolato 1.6.2, VE 2026-10-21, \texttt{UC34.2}, \texttt{UC34.3} \rl
+
+\texttt{RF-115-Des} & S, W & L'Amministratore deve poter configurare i parametri di una \emph{skill} (ad esempio la città predefinita o la chiave di un servizio). & D & \texttt{UC34.4} \rl
+
+\texttt{RF-116-Des} & S, W & L'Amministratore deve poter abilitare una \emph{skill} per singolo dispositivo e rimuoverla. & T & \texttt{UC34.5}, \texttt{UC34.6} \rl
+
+\texttt{RF-117-Opz} & S, W & Il sistema deve supportare i flussi di autorizzazione esterna (\emph{redirect} e \emph{callback} OAuth) per le \emph{skill} che accedono ad account o servizi esterni. & D & VE 2026-10-21, \texttt{UC34.7} \rl
+
+\texttt{RF-118-Obb} & S, W & L'Amministratore deve poter aggiungere un server MCP indicando nome, URL o comando ed eventuale autenticazione. & D & Capitolato 1.6.2, \texttt{UC35}, \texttt{UC35.1} \rl
+
+\texttt{RF-119-Obb} & S, W & L'Amministratore deve poter visualizzare gli strumenti esposti da un server MCP e selezionare quelli abilitati. & D & \texttt{UC35.2} \rl
+
+\texttt{RF-120-Obb} & S, W & L'Amministratore deve poter rimuovere un server MCP. & T & \texttt{UC35.3} \rl
+
+\texttt{RF-121-Obb} & S, W & Se un server MCP non risponde, il sistema deve segnarlo in errore, non offrirne gli strumenti al modello e mostrare lo stato nella web app. & T & \texttt{UC35.4} \rl
+
+\texttt{RF-122-Des} & S, W & L'Amministratore deve poter visualizzare, modificare in formato Markdown o cancellare il testo di contesto di un dispositivo, con effetto dalla richiesta successiva. & D & VE 2026-11-13, \texttt{UC36} \rl
+
+\texttt{RF-123-Obb} & S, W & Se la conservazione delle trascrizioni è attiva, il Membro deve poter consultare le trascrizioni recenti di un dispositivo ed eliminarle singolarmente o tutte. & T & Capitolato 1.3, VE 2026-11-13, \texttt{UC37} \rl
+
+\texttt{RF-124-Obb} & S, W & L'Amministratore deve poter disattivare la conservazione delle trascrizioni e impostarne la durata massima. & T & \texttt{UC37} \rl
+
+\texttt{RF-125-Obb} & S & La conservazione delle trascrizioni deve essere disattivata per impostazione predefinita. & T & Interna, \texttt{UC37} \rl
+
+\texttt{RF-126-Des} & S, W & La web app deve mostrare la versione del \emph{firmware} installata su ciascun dispositivo e quella disponibile e consentire all'Amministratore di avviare manualmente l'aggiornamento \emph{Over The Air}. & D & Capitolato 1.6.2, \texttt{UC38} \rl
+
+\texttt{RF-127-Des} & S, W & L'Amministratore deve poter attivare o disattivare gli aggiornamenti automatici del \emph{firmware}. & T & \texttt{UC38} \rl
+
+\end{longtable}
+
+\section{Requisiti di qualità}
+I requisiti di questo capitolo coprono sicurezza, tutela della \emph{privacy}, usabilità, manutenibilità, test e collaudo dell'intero \emph{Sistema} (\texttt{RQ-[Numero]-[Priorità]}). Le colonne hanno lo stesso significato del capitolo precedente.
+
+\subsection{Sicurezza}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RQ-1-Obb} & D, S, W & Ogni dispositivo deve autenticarsi sul server con la credenziale univoca rilasciata all'associazione; il server deve rifiutare le connessioni prive di credenziale valida o con credenziale revocata. Eccezione nel caso di homeboarding. & T & Capitolato 1.6.2, \texttt{UC17}, \texttt{UC30.5} \rl
+
+\texttt{RQ-2-Obb} & S, W & Le chiavi API dei \emph{provider} AI e le credenziali dei server MCP devono essere conservate in forma cifrata; le password degli utenti devono essere sottoposte a \emph{hash} sicuro. & I, T & Capitolato 1.6.2, \texttt{UC31.3}, \texttt{UC35.1} \rl
+
+\texttt{RQ-3-Obb} & S, W & I segreti (chiavi API, credenziali, password) non devono mai comparire in chiaro nella web app, dove le chiavi API sono mostrate mascherate, né nei \emph{log}. & I, T & Capitolato 1.6.2, \texttt{UC31.3} \rl
+
+\texttt{RQ-4-Des} & D, S & I pacchetti di aggiornamento OTA devono essere firmati crittograficamente; il dispositivo deve rifiutare ogni immagine con firma assente o non valida. & T & Capitolato 1.6.2, \texttt{UC20.1} \rl
+
+\texttt{RQ-5-Obb} & S & Le \emph{skill} devono essere eseguite in modo isolato rispetto alle credenziali di sistema e ai dati delle altre \emph{skill}, accedendo solo alle risorse e ai parametri configurati. & T & Capitolato 1.6.2, \texttt{UC10}, \texttt{UC34.2} \rl
+
+\texttt{RQ-6-Des} & S, W & Il caricamento di una \emph{skill} deve essere riservato all'Amministratore, che deve poter vedere le autorizzazioni richieste prima di installarla. & T & Interna, \texttt{UC34.2} \rl
+
+\texttt{RQ-7-Obb} & S, W & Le funzioni di amministrazione di una casa devono essere accessibili solo ai suoi Amministratori e i dati di una casa solo ai suoi membri. & T & Interna, \texttt{UC28}, \texttt{UC30} \rl
+
+\texttt{RQ-8-Obb} & S, W & Le sessioni della web app devono scadere dopo il tempo \texttt{PAR-17} e diventare non valide al \emph{logout} e al cambio o recupero della password. & T & Interna, \texttt{UC22}, \texttt{UC23}, \texttt{UC24} \rl
+
+\texttt{RQ-9-Des} & S & Il server deve poter limitare la registrazione di nuovi account, ad esempio al solo primo utente o ai soli utenti invitati. & T & Interna, \texttt{UC21} \rl
+
+\texttt{RQ-10-Des} & D, S & L'associazione di un dispositivo a una casa deve richiedere dovute misure che garantiscano la paternità del dispositivo. & T & Capitolato 1.6.2, \texttt{UC17} \rl
+
+\texttt{RQ-11-Des} & D & La rete Wi-Fi temporanea di \emph{onboarding} deve essere protetta da password e attiva solo fino al completamento della configurazione o per il tempo massimo \texttt{PAR-15}. & T & Interna, \texttt{UC16} \rl
+
+\texttt{RQ-12-Des} & D & Le credenziali Wi-Fi e la credenziale del server memorizzate sul dispositivo devono essere protette, ad esempio con la cifratura della memoria non volatile. & I & Capitolato 1.6.2, \texttt{UC16}, \texttt{UC17} \rl
+
+\texttt{RQ-13-Des} & D, S, W & Le comunicazioni tra dispositivi, server e web app devono poter essere protette con un canale cifrato (TLS). & T & Interna \rl
+
+\end{longtable}
+
+\subsection{Privacy}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RQ-14-Obb} & D & Il dispositivo non deve trasmettere alcun audio al server prima del rilevamento locale della \emph{wake word} o della pressione del pulsante azione, né quando è \emph{Muto} (\texttt{ST-8}).Eccezione prevista per RF-51 & T & Capitolato 1.1 e 1.3, \texttt{UC1}, \texttt{UC8} \rl
+
+\texttt{RQ-15-Obb} & S & Il server non deve trasmettere telemetria, dati diagnostici o identificativi alla proponente o a terzi diversi dai \emph{provider} AI e dai servizi configurati esplicitamente dall'Amministratore. & I, T & Capitolato 1.1 \rl
+
+\texttt{RQ-16-Obb} & S & Il server deve eliminare l'audio di ogni richiesta subito dopo il completamento della trascrizione, senza archiviarlo, fatti salvi i messaggi vocali tra dispositivi (\texttt{RQ-17}). & I, T & Capitolato 1.3, VE 2026-11-13 \rl
+
+\texttt{RQ-17-Des} & S & I messaggi vocali tra dispositivi possono essere conservati dal server solo fino alla consegna o alla durata massima \texttt{PAR-13} e devono poi essere cancellati. & T & \texttt{UC15} \rl
+
+\texttt{RQ-18-Obb} & S & Il sistema non deve inviare al \emph{provider} LLM profilazioni automatiche degli utenti, limitando il contesto inviato al testo configurato per la casa o il dispositivo e ai turni della sessione corrente. & I & VE 2026-11-13 \rl
+
+\texttt{RQ-19-Obb} & S & I \emph{log} del server non devono contenere audio né trascrizioni, salvo attivazione esplicita di una modalità di diagnostica da parte dell'Amministratore. & I, T & Interna, \texttt{UC7} \rl
+
+\end{longtable}
+
+\subsection{Usabilità e manutenibilità}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RQ-20-Obb} & D, W & La procedura di \emph{onboarding} con \emph{captive portal} e associazione dalla web app deve guidare un utente non tecnico al completamento della configurazione iniziale in non più di 10 minuti. & T & VE 2026-10-21, \texttt{UC16}, \texttt{UC17} \rl
+
+\texttt{RQ-21-Obb} & D & Gli stati operativi principali del dispositivo (\texttt{ST-2}, \texttt{ST-4}, \texttt{ST-5}, \texttt{ST-6}, \texttt{ST-7}, \texttt{ST-8}, \texttt{ST-10}) devono essere riconoscibili senza ambiguità dall'anello LED. & T & Capitolato 1.6.1, \texttt{UC1}, \texttt{UC8}, \texttt{UC16} \rl
+
+\texttt{RQ-22-Obb} & S, W & Il server di \emph{bridging} deve essere installabile in autonomia (\emph{self-hosted}) con containerizzazione (ad esempio Docker) e configurabile tramite web app e file di ambiente documentati. & I, D & Capitolato 1.4, VE 2026-10-21 \rl
+
+\texttt{RQ-23-Des} & S, W & La compilazione e il rilascio del server e della web app devono essere automatizzati. & I & Capitolato 1.4 \rl
+
+\texttt{RQ-24-Obb} & S & Il server deve fornire un livello di astrazione sui \emph{provider} AI che consenta di configurarli, sostituirli e aggiungerne di nuovi senza modificare il resto del sistema. & I & Capitolato 1.2 e 1.6.1, \texttt{UC31} \rl
+
+\texttt{RQ-25-Des} & S & Il formato delle \emph{skill} e le interfacce verso \emph{provider} AI e MCP devono essere documentati con esempi funzionanti, per consentire nuove estensioni senza modificare il codice del server o del \emph{firmware}. & I & Capitolato 1.2, \texttt{UC34}, \texttt{UC35} \rl
+
+\texttt{RQ-26-Obb} & D, S, W & Le scelte implementative e progettuali, con le relative motivazioni, e i problemi aperti devono essere documentati. & I & Capitolato 1.6.2 \rl
+
+\end{longtable}
+
+\subsection{Test e collaudo}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RQ-27-Obb} & D, S, W & Tutte le componenti applicative (\emph{firmware}, server, web app) devono essere corredate da test concordati con la proponente; per il \emph{firmware} il livello di copertura è concordato caso per caso. & A & Capitolato 1.6 e 1.6.2 \rl
+
+\texttt{RQ-28-Des} & S, W & Il codice del server e della web app deve avere una copertura dei test non inferiore all'80\%, dimostrata da un \emph{report}. & A & Capitolato 1.6.2 \rl
+
+\texttt{RQ-29-Des} & D, S & Il sistema deve poter essere sottoposto a test simulando l'audio con campioni registrati in sostituzione dell'array di microfoni. & T & Capitolato 1.3 \rl
+
+\texttt{RQ-30-Obb} & D, S & Il flusso completo \emph{wake word} $\rightarrow$ domanda $\rightarrow$ risposta vocale deve essere dimostrabile su un dispositivo fisico (collaudo \emph{end-to-end}). & D & Capitolato 1.6 e 1.6.1, \texttt{UC2} \rl
+
+\end{longtable}
+
+\section{Requisiti di vincolo}
+I requisiti di questo capitolo fissano i vincoli tecnici dell'\emph{hardware}, delle interfacce software, della distribuzione \emph{open source} e della consegna (\texttt{RV-[Numero]-[Priorità]}).
+
+\subsection{Vincoli hardware e firmware}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RV-1-Obb} & D & Il prototipo \emph{hardware} deve basarsi sul microcontrollore XIAO ESP32-S3, sulla scheda audio reSpeaker XVF3800 (array di 4 microfoni e anello di 12 LED) e su un altoparlante da 5~W. & I & Capitolato 1.6.1, VE 2026-11-20 \rl
+
+\texttt{RV-2-Obb} & D & Il dispositivo deve includere un controllo fisico di \emph{mute} e un pulsante azione. & I & Capitolato 1.6.1, \texttt{UC1.2}, \texttt{UC8} \rl
+
+\texttt{RV-3-Obb} & D & Il \emph{firmware} deve eseguire il rilevamento della \emph{wake word} interamente sul microcontrollore ESP32-S3, senza dipendere da servizi remoti. & I, T & Capitolato 1.1, \texttt{UC1.1} \rl
+
+\texttt{RV-4-Obb} & D & Il flusso audio acquisito e riprodotto dal dispositivo deve usare campionamento mono a 16~kHz e 16~bit PCM, dimensionato per la voce. & I, T & VE 2026-11-20, \texttt{UC2} \rl
+
+\texttt{RV-5-Obb} & D & Il costo complessivo dei materiali (BOM) del singolo prototipo \emph{hardware} deve essere non superiore a 170~EUR, IVA esclusa. & A & VE 2026-11-13 \rl
+
+\end{longtable}
+
+\subsection{Vincoli software, di interfaccia e normativi}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RV-6-Obb} & D, S & La comunicazione tra dispositivo e server deve avvenire con protocollo WebSocket su rete IP locale, senza richiedere regole di \emph{port forwarding} sul router domestico. & I, T & Capitolato 1.4, VE 2026-11-20, \texttt{UC16}, \texttt{UC17} \rl
+
+\texttt{RV-7-Obb} & S & L'integrazione con i \emph{provider} AI deve adottare le API standard compatibili.&I,T&Capitolato 1.4, VE 2026-11-13, \texttt{UC31} \rl
+
+\texttt{RV-8-Obb} & S & L'integrazione con gli strumenti esterni deve essere conforme alla specifica aperta \emph{Model Context Protocol} (MCP). & I, T & Capitolato 1.4, \texttt{UC12}, \texttt{UC35} \rl
+
+\texttt{RV-9-Obb} & W & La web app deve essere un'interfaccia web \emph{responsive}, fruibile dai principali browser moderni su dispositivi mobili (360~px) e \emph{desktop} (1920~px), senza applicazioni mobile native. & T & Capitolato 1.4, VE 2026-10-21 \rl
+
+\texttt{RV-10-Obb} & D, S, W & Il codice sorgente, gli schemi di assemblaggio e la documentazione devono essere pubblicati con licenza permissiva Apache~2.0 o MIT, senza dipendenze proprietarie che introducano \emph{vendor lock-in}. & I & Capitolato 1.4 e 1.8 \rl
+
+\end{longtable}
+
+\subsection{Vincoli di consegna e preferenze del capitolato}
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RV-11-Des} & D & Il dispositivo deve includere tasti fisici dedicati alla regolazione del volume. & I & \texttt{UC9.1} \rl
+
+\texttt{RV-12-Obb} & D & Il gruppo deve consegnare una distinta base (BOM) documentata e un prototipo funzionante su scheda di sviluppo. & I & Capitolato 1.2 e 1.6.1 \rl
+
+\texttt{RV-13-Obb} & D & I componenti \emph{hardware} scelti devono poter essere racchiusi in un contenitore adatto a un prodotto finale. & I & Capitolato 1.2 e 1.6.1 \rl
+
+\texttt{RV-14-Opz} & D & Il \emph{firmware} dovrebbe essere implementato in linguaggio Rust (scelta preferenziale, non vincolante). & I & Capitolato 1.2 e 1.4 \rl
+
+\end{longtable}
+
+\section{Requisiti prestazionali}
+I requisiti di questo capitolo definiscono i vincoli temporali, di banda e di capacità operativa del \emph{Sistema} (\texttt{RP-[Numero]-[Priorità]}), facendo riferimento ai parametri provvisori della sezione~\ref{sec:parametri}.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*160/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*100/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*445/1000\relax}>{\centering\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*60/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-10\tabcolsep)*235/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Comp.} & \thc{Requisito} & \thc{Ver.} & \thc{Fonti} \\ \endhead
+\texttt{RP-1-Obb} & S & Il server deve interrompere l'attesa di risposta da un \emph{provider} AI, da un servizio esterno o dall'esecuzione di una \emph{skill} o di uno strumento MCP al superamento del \emph{timeout} \texttt{PAR-01} (15~s), restituendo un errore controllato. & T & \texttt{UC7}, \texttt{UC10.1}, \texttt{UC12} \rl
+
+\texttt{RP-2-Des} & D, S & Con un \emph{provider} AI in \emph{cloud} e connettività nominale, il tempo tra il rilevamento della fine della richiesta e l'inizio della riproduzione audio della risposta deve essere $\le$ \texttt{PAR-02} (3~s) nel 90\% dei casi. & T & \texttt{UC2} \rl
+
+\texttt{RP-3-Obb} & D & Il riscontro all'attivazione e l'arresto dell'altoparlante su interruzione (\emph{barge-in}) devono avvenire entro \texttt{PAR-03} (300~ms) dal riconoscimento della \emph{wake word} o dalla pressione del pulsante. & T & \texttt{UC1}, \texttt{UC5} \rl
+
+\texttt{RP-4-Obb} & S & Il rilevamento automatico della fine della richiesta vocale deve attivarsi dopo un intervallo configurabile di silenzio continuo pari a \texttt{PAR-04} ($\approx$ 1~s). & T & \texttt{UC2.1} \rl
+
+\texttt{RP-5-Obb} & S & Il tempo di attesa massimo senza parlato dopo l'attivazione, prima della chiusura automatica della sessione, deve essere compreso nell'intervallo \texttt{PAR-05} (4--5~s). & T & \texttt{UC3} \rl
+
+\texttt{RP-6-Obb} & D, S & La durata massima di acquisizione continua per una singola richiesta vocale deve essere limitata a \texttt{PAR-06} (15~s). & T & \texttt{UC2.1} \rl
+
+\texttt{RP-7-Obb} & D, S & Lo \emph{streaming} audio deve usare \emph{frame} di durata compresa tra 20 e 40~ms, mantenendo l'occupazione di banda media per dispositivo $\le$ \texttt{PAR-07} (32~KB/s). & T, A & \texttt{UC2.1}, \texttt{UC2.2} \rl
+
+\texttt{RP-8-Des} & D & Il riconoscimento della \emph{wake word} e l'acquisizione vocale devono operare efficacemente fino alla distanza di riferimento \texttt{PAR-08} ($\approx$ 3~m) in ambiente domestico con rumore moderato. & T & \texttt{UC1.1}, \texttt{UC2} \rl
+
+\texttt{RP-9-Obb} & D & Il dispositivo deve essere pronto all'ascolto entro 15~s dall'accensione e riconnettersi automaticamente al server entro 30~s dal ripristino della rete (\texttt{PAR-09}). & T & \texttt{UC16} \rl
+
+\texttt{RP-10-Des} & D, S & Durante una chiamata tra due dispositivi della stessa casa (\emph{drop in}) la latenza audio \emph{end-to-end} deve essere $<$ \texttt{PAR-10} (500~ms). & T & \texttt{UC14} \rl
+
+\texttt{RP-11-Obb} & S & Il tempo di attesa della risposta dell'Utente a una domanda del dispositivo (dato mancante o conferma) deve essere pari a \texttt{PAR-11}. & T & \texttt{UC10.2}, \texttt{UC10.3} \rl
+
+\texttt{RP-12-Des} & S & Il numero massimo di passi e il tempo massimo di un'attività \emph{agent} devono essere limitati ai valori \texttt{PAR-12}. & T & \texttt{UC11} \rl
+
+\texttt{RP-13-Des} & S & Il server deve gestire contemporaneamente almeno il numero di dispositivi \texttt{PAR-16}, rispettando \texttt{PAR-02} e \texttt{PAR-07} per ciascuno. & T & Capitolato 1.2 \rl
+
+\end{longtable}
+
+% =====================================================================
+\section{Tracciamento e riepilogo}\label{sec:tracciamento}
+
+In conformità con le Norme di progetto, la tracciabilità è garantita in modo bidirezionale: ogni requisito ha almeno una fonte e ogni caso d'uso è coperto da almeno un requisito. Le tabelle seguenti derivano tutte dalla colonna Fonti delle sezioni 4--7. In vista della PB il tracciamento verrà esteso ai casi di test nel Piano di qualifica.
+
+\subsection{Riepilogo quantitativo dei requisiti}
+
+\begin{center}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}X >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{2.3cm} >{\centering\arraybackslash}p{2.0cm}}
+\rowcolor{bfblue}\thc{Tipologia} & \thc{Obbligatori (\texttt{Obb})} & \thc{Desiderabili (\texttt{Des})} & \thc{Opzionali (\texttt{Opz})} & \thc{Totale} \\
+Funzionali (\texttt{RF}) & 68 & 55 & 4 & \textbf{127} \rl
+Di qualità (\texttt{RQ}) & 18 & 12 & 0 & \textbf{30} \rl
+Di vincolo (\texttt{RV}) & 12 & 1 & 1 & \textbf{14} \rl
+Prestazionali (\texttt{RP}) & 8 & 5 & 0 & \textbf{13} \rl
+\textbf{Totale} & \textbf{106} & \textbf{73} & \textbf{5} & \textbf{184} \rl
+\end{tabularx}
+\end{center}
+
+\subsection{Fonte \texorpdfstring{$\rightarrow$}{->} requisiti}
+
+Le fonti derivate dai casi d'uso sono riportate nella tabella dei casi d'uso. Dalle Norme di progetto non deriva alcun requisito di prodotto: esse fissano soltanto le convenzioni di stesura e tracciamento di questo documento.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-4\tabcolsep)*260/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-4\tabcolsep)*740/1000\relax}}
+\rowcolor{bfblue}\thc{Fonte} & \thc{Requisiti derivati} \\
+\endfirsthead
+\rowcolor{bfblue}\thc{Fonte} & \thc{Requisiti derivati} \\
+\endhead
+Capitolato & \texttt{RF-1}--\texttt{RF-3}, \texttt{RF-5}, \texttt{RF-10}, \texttt{RF-13}, \texttt{RF-14}, \texttt{RF-16}, \texttt{RF-18}, \texttt{RF-35}, \texttt{RF-36}, \texttt{RF-43}, \texttt{RF-45}, \texttt{RF-46}, \texttt{RF-48}, \texttt{RF-55}, \texttt{RF-56}, \texttt{RF-58}, \texttt{RF-59}, \texttt{RF-61}, \texttt{RF-63}, \texttt{RF-65}, \texttt{RF-67}, \texttt{RF-68}, \texttt{RF-74}, \texttt{RF-76}, \texttt{RF-78}, \texttt{RF-82}, \texttt{RF-89}, \texttt{RF-97}, \texttt{RF-98}, \texttt{RF-102}--\texttt{RF-104}, \texttt{RF-109}, \texttt{RF-110}, \texttt{RF-114}, \texttt{RF-118}, \texttt{RF-123}, \texttt{RF-126}, \texttt{RQ-1}--\texttt{RQ-5}, \texttt{RQ-10}, \texttt{RQ-12}, \texttt{RQ-14}--\texttt{RQ-16}, \texttt{RQ-21}--\texttt{RQ-30}, \texttt{RV-1}--\texttt{RV-3}, \texttt{RV-6}--\texttt{RV-10}, \texttt{RV-12}--\texttt{RV-14}, \texttt{RP-13} \rl
+
+VE 2026-10-21 & \texttt{RF-1}, \texttt{RF-35}, \texttt{RF-48}, \texttt{RF-50}, \texttt{RF-51}, \texttt{RF-55}, \texttt{RF-61}, \texttt{RF-62}, \texttt{RF-64}--\texttt{RF-66}, \texttt{RF-92}, \texttt{RF-94}, \texttt{RF-95}, \texttt{RF-98}, \texttt{RF-103}, \texttt{RF-114}, \texttt{RF-117}, \texttt{RQ-20}, \texttt{RQ-22}, \texttt{RV-9} \rl
+
+VE 2026-11-13 & \texttt{RF-24}--\texttt{RF-27}, \texttt{RF-47}, \texttt{RF-89}, \texttt{RF-104}, \texttt{RF-106}, \texttt{RF-122}, \texttt{RF-123}, \texttt{RQ-16}, \texttt{RQ-18}, \texttt{RV-5}, \texttt{RV-7} \rl
+
+VE 2026-11-20 & \texttt{RV-1}, \texttt{RV-4}, \texttt{RV-6} \rl
+
+Interna (da confermare) & \texttt{RF-6}, \texttt{RF-17}, \texttt{RF-28}, \texttt{RF-32}, \texttt{RF-33}, \texttt{RF-41}, \texttt{RF-49}, \texttt{RF-52}, \texttt{RF-59}, \texttt{RF-70}, \texttt{RF-81}, \texttt{RF-111}, \texttt{RF-112}, \texttt{RF-125}, \texttt{RQ-6}--\texttt{RQ-9}, \texttt{RQ-11}, \texttt{RQ-13}, \texttt{RQ-19} \rl
+
+\end{longtable}
+
+\subsection{Requisito \texorpdfstring{$\rightarrow$}{->} fonti}
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-8\tabcolsep)*105/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-8\tabcolsep)*395/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-8\tabcolsep)*105/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-8\tabcolsep)*395/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Fonti} & \thc{ID} & \thc{Fonti} \\ \endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Fonti} & \thc{ID} & \thc{Fonti} \\ \endhead
+\texttt{RF-1} & Capitolato 1.2, VE 2026-10-21, \texttt{UC1.1} & \texttt{RF-93} & \texttt{UC27.3} \rl
+\texttt{RF-2} & Capitolato 1.6.1, \texttt{UC1.2} & \texttt{RF-94} & VE 2026-10-21, \texttt{UC28}, \texttt{UC28.1} \rl
+\texttt{RF-3} & Capitolato 1.6.1, \texttt{UC1} & \texttt{RF-95} & VE 2026-10-21, \texttt{UC28.2}, \texttt{UC28.3} \rl
+\texttt{RF-4} & \texttt{UC1} & \texttt{RF-96} & \texttt{UC28} \rl
+\texttt{RF-5} & Capitolato 1.2, \texttt{UC2.1} & \texttt{RF-97} & Capitolato 1.2, \texttt{UC29}, \texttt{UC29.1}, \texttt{UC29.2}, \texttt{UC29.3} \rl
+\texttt{RF-6} & Interna, \texttt{UC2.1} & \texttt{RF-98} & Capitolato 1.2, VE 2026-10-21, \texttt{UC30}, \texttt{UC30.1} \rl
+\texttt{RF-7} & \texttt{UC2.1} & \texttt{RF-99} & \texttt{UC30.3} \rl
+\texttt{RF-8} & \texttt{UC3} & \texttt{RF-100} & \texttt{UC30.5} \rl
+\texttt{RF-9} & \texttt{UC3} & \texttt{RF-101} & \texttt{UC30.2} \rl
+\texttt{RF-10} & Capitolato 1.2, \texttt{UC2} & \texttt{RF-102} & Capitolato 1.2, \texttt{UC30.4} \rl
+\texttt{RF-11} & \texttt{UC4} & \texttt{RF-103} & Capitolato 1.6.1, VE 2026-10-21, \texttt{UC31}, \texttt{UC31.1} \rl
+\texttt{RF-12} & \texttt{UC4} & \texttt{RF-104} & Capitolato 1.2, VE 2026-11-13, \texttt{UC31.2} \rl
+\texttt{RF-13} & Capitolato 1.2, \texttt{UC2} & \texttt{RF-105} & \texttt{UC31.3} \rl
+\texttt{RF-14} & Capitolato 1.2, \texttt{UC2.2} & \texttt{RF-106} & VE 2026-11-13, \texttt{UC31.4} \rl
+\texttt{RF-15} & \texttt{UC2.2} & \texttt{RF-107} & \texttt{UC31.6} \rl
+\texttt{RF-16} & Capitolato 1.6.1, \texttt{UC2.2} & \texttt{RF-108} & \texttt{UC31.7} \rl
+\texttt{RF-17} & Interna, \texttt{UC2} & \texttt{RF-109} & Capitolato 1.6.2, \texttt{UC31.5} \rl
+\texttt{RF-18} & Capitolato 1.3 e 1.6.2, \texttt{UC2} & \texttt{RF-110} & Capitolato 1.6.2, \texttt{UC31.8} \rl
+\texttt{RF-19} & \texttt{UC10.2}, \texttt{UC10.3} & \texttt{RF-111} & Interna, \texttt{UC32} \rl
+\texttt{RF-20} & \texttt{UC10.2}, \texttt{UC10.3} & \texttt{RF-112} & Interna, \texttt{UC33} \rl
+\texttt{RF-21} & \texttt{UC9.1} & \texttt{RF-113} & \texttt{UC34}, \texttt{UC34.1} \rl
+\texttt{RF-22} & \texttt{UC9} & \texttt{RF-114} & Capitolato 1.6.2, VE 2026-10-21, \texttt{UC34.2}, \texttt{UC34.3} \rl
+\texttt{RF-23} & \texttt{UC9.2} & \texttt{RF-115} & \texttt{UC34.4} \rl
+\texttt{RF-24} & VE 2026-11-13, \texttt{UC5} & \texttt{RF-116} & \texttt{UC34.5}, \texttt{UC34.6} \rl
+\texttt{RF-25} & VE 2026-11-13, \texttt{UC5} & \texttt{RF-117} & VE 2026-10-21, \texttt{UC34.7} \rl
+\texttt{RF-26} & VE 2026-11-13, \texttt{UC5} & \texttt{RF-118} & Capitolato 1.6.2, \texttt{UC35}, \texttt{UC35.1} \rl
+\texttt{RF-27} & VE 2026-11-13, \texttt{UC6} & \texttt{RF-119} & \texttt{UC35.2} \rl
+\texttt{RF-28} & Interna, \texttt{UC7} & \texttt{RF-120} & \texttt{UC35.3} \rl
+\texttt{RF-29} & \texttt{UC7} & \texttt{RF-121} & \texttt{UC35.4} \rl
+\texttt{RF-30} & \texttt{UC7} & \texttt{RF-122} & VE 2026-11-13, \texttt{UC36} \rl
+\texttt{RF-31} & \texttt{UC7} & \texttt{RF-123} & Capitolato 1.3, VE 2026-11-13, \texttt{UC37} \rl
+\texttt{RF-32} & Interna, \texttt{UC8} & \texttt{RF-124} & \texttt{UC37} \rl
+\texttt{RF-33} & Interna, \texttt{UC8} & \texttt{RF-125} & Interna, \texttt{UC37} \rl
+\texttt{RF-34} & \texttt{UC8} & \texttt{RF-126} & Capitolato 1.6.2, \texttt{UC38} \rl
+\texttt{RF-35} & Capitolato 1.6.2, VE 2026-10-21, \texttt{UC10} & \texttt{RF-127} & \texttt{UC38} \rl
+\texttt{RF-36} & Capitolato 1.6.2, \texttt{UC10} & \texttt{RQ-1} & Capitolato 1.6.2, \texttt{UC17}, \texttt{UC30.5} \rl
+\texttt{RF-37} & \texttt{UC10.1}, \texttt{UC12} & \texttt{RQ-2} & Capitolato 1.6.2, \texttt{UC31.3}, \texttt{UC35.1} \rl
+\texttt{RF-38} & \texttt{UC10.2} & \texttt{RQ-3} & Capitolato 1.6.2, \texttt{UC31.3} \rl
+\texttt{RF-39} & \texttt{UC10.3} & \texttt{RQ-4} & Capitolato 1.6.2, \texttt{UC20.1} \rl
+\texttt{RF-40} & \texttt{UC10.3} & \texttt{RQ-5} & Capitolato 1.6.2, \texttt{UC10}, \texttt{UC34.2} \rl
+\texttt{RF-41} & Interna, \texttt{UC10.3} & \texttt{RQ-6} & Interna, \texttt{UC34.2} \rl
+\texttt{RF-42} & \texttt{UC34.4}, \texttt{UC35.2} & \texttt{RQ-7} & Interna, \texttt{UC28}, \texttt{UC30} \rl
+\texttt{RF-43} & Capitolato 1.6.2, \texttt{UC11} & \texttt{RQ-8} & Interna, \texttt{UC22}, \texttt{UC23}, \texttt{UC24} \rl
+\texttt{RF-44} & \texttt{UC11} & \texttt{RQ-9} & Interna, \texttt{UC21} \rl
+\texttt{RF-45} & Capitolato 1.4 e 1.6.2, \texttt{UC12} & \texttt{RQ-10} & Capitolato 1.6.2, \texttt{UC17} \rl
+\texttt{RF-46} & Capitolato 1.6.2, \texttt{UC12} & \texttt{RQ-11} & Interna, \texttt{UC16} \rl
+\texttt{RF-47} & VE 2026-11-13, \texttt{UC13} & \texttt{RQ-12} & Capitolato 1.6.2, \texttt{UC16}, \texttt{UC17} \rl
+\texttt{RF-48} & Capitolato 1.2 e 1.6.2, VE 2026-10-21, \texttt{UC14}, \texttt{UC14.1} & \texttt{RQ-13} & Interna \rl
+\texttt{RF-49} & Interna, \texttt{UC9.2}, \texttt{UC14.1}, \texttt{UC15} & \texttt{RQ-14} & Capitolato 1.1 e 1.3, \texttt{UC1}, \texttt{UC8} \rl
+\texttt{RF-50} & VE 2026-10-21, \texttt{UC14.2} & \texttt{RQ-15} & Capitolato 1.1 \rl
+\texttt{RF-51} & VE 2026-10-21, \texttt{UC14.2} & \texttt{RQ-16} & Capitolato 1.3, VE 2026-11-13 \rl
+\texttt{RF-52} & Interna, \texttt{UC14.2}, \texttt{UC14.4} & \texttt{RQ-17} & \texttt{UC15} \rl
+\texttt{RF-53} & \texttt{UC14.3} & \texttt{RQ-18} & VE 2026-11-13 \rl
+\texttt{RF-54} & \texttt{UC14.4} & \texttt{RQ-19} & Interna, \texttt{UC7} \rl
+\texttt{RF-55} & Capitolato 1.2, VE 2026-10-21, \texttt{UC15} & \texttt{RQ-20} & VE 2026-10-21, \texttt{UC16}, \texttt{UC17} \rl
+\texttt{RF-56} & Capitolato 1.2 e 1.6.2, \texttt{UC15} & \texttt{RQ-21} & Capitolato 1.6.1, \texttt{UC1}, \texttt{UC8}, \texttt{UC16} \rl
+\texttt{RF-57} & \texttt{UC15} & \texttt{RQ-22} & Capitolato 1.4, VE 2026-10-21 \rl
+\texttt{RF-58} & Capitolato 1.2 e 1.6.2 & \texttt{RQ-23} & Capitolato 1.4 \rl
+\texttt{RF-59} & Capitolato 1.6.1, Interna & \texttt{RQ-24} & Capitolato 1.2 e 1.6.1, \texttt{UC31} \rl
+\texttt{RF-60} & \texttt{UC14}, \texttt{UC20} & \texttt{RQ-25} & Capitolato 1.2, \texttt{UC34}, \texttt{UC35} \rl
+\texttt{RF-61} & Capitolato 1.6.1, VE 2026-10-21, \texttt{UC16} & \texttt{RQ-26} & Capitolato 1.6.2 \rl
+\texttt{RF-62} & VE 2026-10-21, \texttt{UC16} & \texttt{RQ-27} & Capitolato 1.6 e 1.6.2 \rl
+\texttt{RF-63} & Capitolato 1.4, \texttt{UC16} & \texttt{RQ-28} & Capitolato 1.6.2 \rl
+\texttt{RF-64} & VE 2026-10-21, \texttt{UC16.1} & \texttt{RQ-29} & Capitolato 1.3 \rl
+\texttt{RF-65} & Capitolato 1.4, VE 2026-10-21, \texttt{UC17} & \texttt{RQ-30} & Capitolato 1.6 e 1.6.1, \texttt{UC2} \rl
+\texttt{RF-66} & VE 2026-10-21, \texttt{UC17} & \texttt{RV-1} & Capitolato 1.6.1, VE 2026-11-20 \rl
+\texttt{RF-67} & Capitolato 1.6.1, \texttt{UC17}, \texttt{UC30.6} & \texttt{RV-2} & Capitolato 1.6.1, \texttt{UC1.2}, \texttt{UC8} \rl
+\texttt{RF-68} & Capitolato 1.6.2, \texttt{UC17} & \texttt{RV-3} & Capitolato 1.1, \texttt{UC1.1} \rl
+\texttt{RF-69} & \texttt{UC17}, \texttt{UC18} & \texttt{RV-4} & VE 2026-11-20, \texttt{UC2} \rl
+\texttt{RF-70} & Interna, \texttt{UC16} & \texttt{RV-5} & VE 2026-11-13 \rl
+\texttt{RF-71} & \texttt{UC18} & \texttt{RV-6} & Capitolato 1.4, VE 2026-11-20, \texttt{UC16}, \texttt{UC17} \rl
+\texttt{RF-72} & \texttt{UC19} & \texttt{RV-7} & Capitolato 1.4, VE 2026-11-13, \texttt{UC31} \rl
+\texttt{RF-73} & \texttt{UC19} & \texttt{RV-8} & Capitolato 1.4, \texttt{UC12}, \texttt{UC35} \rl
+\texttt{RF-74} & Capitolato 1.6.2, \texttt{UC20} & \texttt{RV-9} & Capitolato 1.4, VE 2026-10-21 \rl
+\texttt{RF-75} & \texttt{UC20} & \texttt{RV-10} & Capitolato 1.4 e 1.8 \rl
+\texttt{RF-76} & Capitolato 1.6.2, \texttt{UC20.1} & \texttt{RV-11} & \texttt{UC9.1} \rl
+\texttt{RF-77} & \texttt{UC20}, \texttt{UC38} & \texttt{RV-12} & Capitolato 1.2 e 1.6.1 \rl
+\texttt{RF-78} & Capitolato 1.6.1, \texttt{UC21} & \texttt{RV-13} & Capitolato 1.2 e 1.6.1 \rl
+\texttt{RF-79} & \texttt{UC21.1}, \texttt{UC21.2} & \texttt{RV-14} & Capitolato 1.2 e 1.4 \rl
+\texttt{RF-80} & \texttt{UC21} & \texttt{RP-1} & \texttt{UC7}, \texttt{UC10.1}, \texttt{UC12} \rl
+\texttt{RF-81} & Interna, \texttt{UC21}, \texttt{UC28.1} & \texttt{RP-2} & \texttt{UC2} \rl
+\texttt{RF-82} & Capitolato 1.6.1, \texttt{UC22} & \texttt{RP-3} & \texttt{UC1}, \texttt{UC5} \rl
+\texttt{RF-83} & \texttt{UC22.1} & \texttt{RP-4} & \texttt{UC2.1} \rl
+\texttt{RF-84} & \texttt{UC23} & \texttt{RP-5} & \texttt{UC3} \rl
+\texttt{RF-85} & \texttt{UC23} & \texttt{RP-6} & \texttt{UC2.1} \rl
+\texttt{RF-86} & \texttt{UC23} & \texttt{RP-7} & \texttt{UC2.1}, \texttt{UC2.2} \rl
+\texttt{RF-87} & \texttt{UC24} & \texttt{RP-8} & \texttt{UC1.1}, \texttt{UC2} \rl
+\texttt{RF-88} & \texttt{UC25} & \texttt{RP-9} & \texttt{UC16} \rl
+\texttt{RF-89} & Capitolato 1.3, VE 2026-11-13, \texttt{UC26} & \texttt{RP-10} & \texttt{UC14} \rl
+\texttt{RF-90} & \texttt{UC26} & \texttt{RP-11} & \texttt{UC10.2}, \texttt{UC10.3} \rl
+\texttt{RF-91} & \texttt{UC26} & \texttt{RP-12} & \texttt{UC11} \rl
+\texttt{RF-92} & VE 2026-10-21, \texttt{UC27}, \texttt{UC27.1}, \texttt{UC27.2} & \texttt{RP-13} & Capitolato 1.2 \rl
+\end{longtable}
+
+\subsection{Casi d'uso \texorpdfstring{$\rightarrow$}{->} requisiti}
+
+Ogni caso d'uso principale e ogni sottocaso è coperto da almeno un requisito.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-6\tabcolsep)*130/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-6\tabcolsep)*430/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-6\tabcolsep)*440/1000\relax}}
+\rowcolor{bfblue}\thc{Caso d'uso} & \thc{Nome} & \thc{Requisiti} \\
+\endfirsthead
+\rowcolor{bfblue}\thc{Caso d'uso} & \thc{Nome} & \thc{Requisiti} \\
+\endhead
+\textbf{\texttt{UC1}} & \textbf{Attivazione dell'ascolto} & \texttt{RF-3}, \texttt{RF-4}, \texttt{RQ-14}, \texttt{RQ-21}, \texttt{RP-3} \rl
+
+\hspace{1em}\texttt{UC1.1} & Attivazione con \emph{wake word} & \texttt{RF-1}, \texttt{RV-3}, \texttt{RP-8} \rl
+
+\hspace{1em}\texttt{UC1.2} & Attivazione con pulsante (\emph{push-to-talk}) & \texttt{RF-2}, \texttt{RV-2} \rl
+
+\textbf{\texttt{UC2}} & \textbf{Richiesta vocale con risposta} & \texttt{RF-10}, \texttt{RF-13}, \texttt{RF-17}, \texttt{RF-18}, \texttt{RQ-30}, \texttt{RV-4}, \texttt{RP-2}, \texttt{RP-8} \rl
+
+\hspace{1em}\texttt{UC2.1} & Acquisizione della richiesta e rilevamento della fine & \texttt{RF-5}--\texttt{RF-7}, \texttt{RP-4}, \texttt{RP-6}, \texttt{RP-7} \rl
+
+\hspace{1em}\texttt{UC2.2} & Ricezione della risposta vocale & \texttt{RF-14}--\texttt{RF-16}, \texttt{RP-7} \rl
+
+\textbf{\texttt{UC3}} & \textbf{Nessun parlato dopo l'attivazione} & \texttt{RF-8}, \texttt{RF-9}, \texttt{RP-5} \rl
+
+\textbf{\texttt{UC4}} & \textbf{Richiesta non compresa} & \texttt{RF-11}, \texttt{RF-12} \rl
+
+\textbf{\texttt{UC5}} & \textbf{Interruzione della risposta con ``Ehi Fossdot''} & \texttt{RF-24}--\texttt{RF-26}, \texttt{RP-3} \rl
+
+\textbf{\texttt{UC6}} & \textbf{Sostituzione della richiesta in corso} & \texttt{RF-27} \rl
+
+\textbf{\texttt{UC7}} & \textbf{Servizio non disponibile} & \texttt{RF-28}--\texttt{RF-31}, \texttt{RQ-19}, \texttt{RP-1} \rl
+
+\textbf{\texttt{UC8}} & \textbf{\emph{Mute} dei microfoni} & \texttt{RF-32}--\texttt{RF-34}, \texttt{RQ-14}, \texttt{RQ-21}, \texttt{RV-2} \rl
+
+\textbf{\texttt{UC9}} & \textbf{Regolazione del volume} & \texttt{RF-22} \rl
+
+\hspace{1em}\texttt{UC9.1} & Impostazione del volume con i tasti & \texttt{RF-21}, \texttt{RV-11} \rl
+
+\hspace{1em}\texttt{UC9.2} & Impostazione del volume a voce & \texttt{RF-23}, \texttt{RF-49} \rl
+
+\textbf{\texttt{UC10}} & \textbf{Invocazione di una \emph{skill}} & \texttt{RF-35}, \texttt{RF-36}, \texttt{RQ-5} \rl
+
+\hspace{1em}\texttt{UC10.1} & Errore nell'esecuzione di una \emph{skill} & \texttt{RF-37}, \texttt{RP-1} \rl
+
+\hspace{1em}\texttt{UC10.2} & Richiesta di un dato mancante & \texttt{RF-19}, \texttt{RF-20}, \texttt{RF-38}, \texttt{RP-11} \rl
+
+\hspace{1em}\texttt{UC10.3} & Conferma di un'azione con effetti esterni & \texttt{RF-19}, \texttt{RF-20}, \texttt{RF-39}--\texttt{RF-41}, \texttt{RP-11} \rl
+
+\textbf{\texttt{UC11}} & \textbf{Attività \emph{multi-step} (\emph{agent})} & \texttt{RF-43}, \texttt{RF-44}, \texttt{RP-12} \rl
+
+\textbf{\texttt{UC12}} & \textbf{Uso di uno strumento MCP} & \texttt{RF-37}, \texttt{RF-45}, \texttt{RF-46}, \texttt{RV-8}, \texttt{RP-1} \rl
+
+\textbf{\texttt{UC13}} & \textbf{Aggiornamento del contesto a voce} & \texttt{RF-47} \rl
+
+\textbf{\texttt{UC14}} & \textbf{Chiamata tra dispositivi} & \texttt{RF-48}, \texttt{RF-60}, \texttt{RP-10} \rl
+
+\hspace{1em}\texttt{UC14.1} & Avvio di una chiamata & \texttt{RF-48}, \texttt{RF-49} \rl
+
+\hspace{1em}\texttt{UC14.2} & Ricezione di una chiamata & \texttt{RF-50}--\texttt{RF-52} \rl
+
+\hspace{1em}\texttt{UC14.3} & Termine della chiamata & \texttt{RF-53} \rl
+
+\hspace{1em}\texttt{UC14.4} & Dispositivo da chiamare non disponibile & \texttt{RF-52}, \texttt{RF-54} \rl
+
+\textbf{\texttt{UC15}} & \textbf{Messaggio vocale verso un altro dispositivo} & \texttt{RF-49}, \texttt{RF-55}--\texttt{RF-57}, \texttt{RQ-17} \rl
+
+\textbf{\texttt{UC16}} & \textbf{Primo avvio e configurazione del Wi-Fi} & \texttt{RF-61}--\texttt{RF-63}, \texttt{RF-70}, \texttt{RQ-11}, \texttt{RQ-12}, \texttt{RQ-20}, \texttt{RQ-21}, \texttt{RV-6}, \texttt{RP-9} \rl
+
+\hspace{1em}\texttt{UC16.1} & Rete o password errate & \texttt{RF-64} \rl
+
+\textbf{\texttt{UC17}} & \textbf{Aggiunta del dispositivo alla casa} & \texttt{RF-65}--\texttt{RF-69}, \texttt{RQ-1}, \texttt{RQ-10}, \texttt{RQ-12}, \texttt{RQ-20}, \texttt{RV-6} \rl
+
+\textbf{\texttt{UC18}} & \textbf{Cambio della rete Wi-Fi} & \texttt{RF-69}, \texttt{RF-71} \rl
+
+\textbf{\texttt{UC19}} & \textbf{Ripristino di fabbrica} & \texttt{RF-72}, \texttt{RF-73} \rl
+
+\textbf{\texttt{UC20}} & \textbf{Aggiornamento del \emph{firmware}} & \texttt{RF-60}, \texttt{RF-74}, \texttt{RF-75}, \texttt{RF-77} \rl
+
+\hspace{1em}\texttt{UC20.1} & Ritorno alla versione precedente & \texttt{RF-76}, \texttt{RQ-4} \rl
+
+\textbf{\texttt{UC21}} & \textbf{Registrazione} & \texttt{RF-78}, \texttt{RF-80}, \texttt{RF-81}, \texttt{RQ-9} \rl
+
+\hspace{1em}\texttt{UC21.1} & Dati di registrazione non validi & \texttt{RF-79} \rl
+
+\hspace{1em}\texttt{UC21.2} & Email già registrata & \texttt{RF-79} \rl
+
+\textbf{\texttt{UC22}} & \textbf{Autenticazione} & \texttt{RF-82}, \texttt{RQ-8} \rl
+
+\hspace{1em}\texttt{UC22.1} & Credenziali errate & \texttt{RF-83} \rl
+
+\textbf{\texttt{UC23}} & \textbf{Recupero della password} & \texttt{RF-84}--\texttt{RF-86}, \texttt{RQ-8} \rl
+
+\textbf{\texttt{UC24}} & \textbf{Logout} & \texttt{RF-87}, \texttt{RQ-8} \rl
+
+\textbf{\texttt{UC25}} & \textbf{Gestione del profilo} & \texttt{RF-88} \rl
+
+\textbf{\texttt{UC26}} & \textbf{Eliminazione dell'account e dei dati} & \texttt{RF-89}--\texttt{RF-91} \rl
+
+\textbf{\texttt{UC27}} & \textbf{Gestione delle case} & \texttt{RF-92} \rl
+
+\hspace{1em}\texttt{UC27.1} & Creazione & \texttt{RF-92} \rl
+
+\hspace{1em}\texttt{UC27.2} & Modifica & \texttt{RF-92} \rl
+
+\hspace{1em}\texttt{UC27.3} & Eliminazione & \texttt{RF-93} \rl
+
+\textbf{\texttt{UC28}} & \textbf{Gestione dei membri} & \texttt{RF-94}, \texttt{RF-96}, \texttt{RQ-7} \rl
+
+\hspace{1em}\texttt{UC28.1} & Invito & \texttt{RF-81}, \texttt{RF-94} \rl
+
+\hspace{1em}\texttt{UC28.2} & Cambio di ruolo & \texttt{RF-95} \rl
+
+\hspace{1em}\texttt{UC28.3} & Rimozione & \texttt{RF-95} \rl
+
+\textbf{\texttt{UC29}} & \textbf{Gestione delle stanze} & \texttt{RF-97} \rl
+
+\hspace{1em}\texttt{UC29.1} & Creazione & \texttt{RF-97} \rl
+
+\hspace{1em}\texttt{UC29.2} & Rinomina & \texttt{RF-97} \rl
+
+\hspace{1em}\texttt{UC29.3} & Eliminazione & \texttt{RF-97} \rl
+
+\textbf{\texttt{UC30}} & \textbf{Gestione dei dispositivi} & \texttt{RF-98}, \texttt{RQ-7} \rl
+
+\hspace{1em}\texttt{UC30.1} & Elenco & \texttt{RF-98} \rl
+
+\hspace{1em}\texttt{UC30.2} & Dettaglio & \texttt{RF-101} \rl
+
+\hspace{1em}\texttt{UC30.3} & Rinomina & \texttt{RF-99} \rl
+
+\hspace{1em}\texttt{UC30.4} & Assegnazione a una stanza & \texttt{RF-102} \rl
+
+\hspace{1em}\texttt{UC30.5} & Dissociazione & \texttt{RF-100}, \texttt{RQ-1} \rl
+
+\hspace{1em}\texttt{UC30.6} & Aggiunta & \texttt{RF-67} \rl
+
+\textbf{\texttt{UC31}} & \textbf{Configurazione del \emph{provider} AI} & \texttt{RF-103}, \texttt{RQ-24}, \texttt{RV-7} \rl
+
+\hspace{1em}\texttt{UC31.1} & Scelta da elenco predefinito & \texttt{RF-103} \rl
+
+\hspace{1em}\texttt{UC31.2} & Endpoint personalizzato & \texttt{RF-104} \rl
+
+\hspace{1em}\texttt{UC31.3} & Chiave API & \texttt{RF-105}, \texttt{RQ-2}, \texttt{RQ-3} \rl
+
+\hspace{1em}\texttt{UC31.4} & Scelta del modello & \texttt{RF-106} \rl
+
+\hspace{1em}\texttt{UC31.5} & Assegnazione & \texttt{RF-109} \rl
+
+\hspace{1em}\texttt{UC31.6} & Verifica della connessione & \texttt{RF-107} \rl
+
+\hspace{1em}\texttt{UC31.7} & Verifica del \emph{provider} non riuscita & \texttt{RF-108} \rl
+
+\hspace{1em}\texttt{UC31.8} & Più \emph{provider} configurati & \texttt{RF-110} \rl
+
+\textbf{\texttt{UC32}} & \textbf{Configurazione di voce e lingua} & \texttt{RF-111} \rl
+
+\textbf{\texttt{UC33}} & \textbf{Scelta della \emph{wake word}} & \texttt{RF-112} \rl
+
+\textbf{\texttt{UC34}} & \textbf{Gestione delle \emph{skill}} & \texttt{RF-113}, \texttt{RQ-25} \rl
+
+\hspace{1em}\texttt{UC34.1} & Elenco & \texttt{RF-113} \rl
+
+\hspace{1em}\texttt{UC34.2} & Caricamento & \texttt{RF-114}, \texttt{RQ-5}, \texttt{RQ-6} \rl
+
+\hspace{1em}\texttt{UC34.3} & Formato della \emph{skill} non valido & \texttt{RF-114} \rl
+
+\hspace{1em}\texttt{UC34.4} & Configurazione dei parametri & \texttt{RF-42}, \texttt{RF-115} \rl
+
+\hspace{1em}\texttt{UC34.5} & Abilitazione per dispositivo & \texttt{RF-116} \rl
+
+\hspace{1em}\texttt{UC34.6} & Rimozione & \texttt{RF-116} \rl
+
+\hspace{1em}\texttt{UC34.7} & Autorizzazione esterna & \texttt{RF-117} \rl
+
+\textbf{\texttt{UC35}} & \textbf{Gestione dei server MCP} & \texttt{RF-118}, \texttt{RQ-25}, \texttt{RV-8} \rl
+
+\hspace{1em}\texttt{UC35.1} & Aggiunta & \texttt{RF-118}, \texttt{RQ-2} \rl
+
+\hspace{1em}\texttt{UC35.2} & Visualizzazione e selezione degli strumenti & \texttt{RF-42}, \texttt{RF-119} \rl
+
+\hspace{1em}\texttt{UC35.3} & Rimozione & \texttt{RF-120} \rl
+
+\hspace{1em}\texttt{UC35.4} & Server MCP non raggiungibile & \texttt{RF-121} \rl
+
+\textbf{\texttt{UC36}} & \textbf{Gestione del contesto} & \texttt{RF-122} \rl
+
+\textbf{\texttt{UC37}} & \textbf{Cronologia delle conversazioni} & \texttt{RF-123}--\texttt{RF-125} \rl
+
+\textbf{\texttt{UC38}} & \textbf{Gestione degli aggiornamenti del \emph{firmware}} & \texttt{RF-77}, \texttt{RF-126}, \texttt{RF-127} \rl
+
+\end{longtable}
+
+% =====================================================================
+\section{Questioni aperte}\label{sec:aperte}
+
+La tabella raccoglie i punti ancora aperti che possono modificare la priorità o il dettaglio di alcuni requisiti, da chiudere con \emph{Uranion EMEA LTD} entro il 2026-12-11. I requisiti interessati sono indicati senza priorità.
+
+\begin{longtable}{>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-6\tabcolsep)*70/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-6\tabcolsep)*680/1000\relax}>{\raggedright\arraybackslash}p{\dimexpr(\linewidth-6\tabcolsep)*250/1000\relax}}
+\rowcolor{bfblue}\thc{ID} & \thc{Domanda per la proponente} & \thc{Requisiti interessati} \\
+\endfirsthead
+\rowcolor{bfblue}\thc{ID} & \thc{Domanda per la proponente} & \thc{Requisiti interessati} \\
+\endhead
+\texttt{Q1} & \emph{Privacy}: è consentito conservare le trascrizioni e mostrarle nella web app? Per quale durata massima e con quali modalità di cancellazione? Va bene che i messaggi vocali tra dispositivi siano conservati dal server fino alla consegna? &  \texttt{RF-57}-- \texttt{RF-89}--\texttt{RF-123}--\texttt{RF-125}, \texttt{RQ-16}--\texttt{RQ-18} \rl
+
+\texttt{Q2} & \emph{Provider} AI ``per dispositivo o per utente'' (Capitolato 1.6.2): poiché il riconoscimento del parlante è escluso, ``per utente'' si può intendere per account o per casa? &  \texttt{RF-13}--\texttt{RF-109} \rl
+
+\texttt{Q3} & \emph{Drop in}: il canale audio deve aprirsi subito sul dispositivo destinatario o serve un'accettazione? &  \texttt{RF-14}-- \texttt{RF-50}--\texttt{RF-51}, \texttt{RF-52} \rl
+
+\texttt{Q4} & Il team si riserva di modificare i requisiti in base ai limiti hardware e software che potrebbero emergere durante il loro studio e utilizzo? & \texttt{RV-3}--\texttt{RV-5}--\texttt{RF-24}--\texttt{RP-3}--\texttt{RP-8}--\texttt{RP-9}--\texttt{RQ-27} \rl
+
+\end{longtable}
+\end{document}
